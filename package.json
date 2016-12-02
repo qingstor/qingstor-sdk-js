@@ -1,0 +1,62 @@
+{
+  "name": "qingstor-sdk",
+  "version": "2.0.0-alpha.0",
+  "description": "Official QingStor SDK for JavaScript",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yunify/qingstor-sdk-js"
+  },
+  "bugs": {
+    "url": "https://github.com/yunify/qingstor-sdk-js/issues",
+    "email": "sdk@yunify.com"
+  },
+  "scripts": {
+    "test": "mocha",
+    "dist": "gulp bundle bundle-map"
+  },
+  "keywords": [
+    "qingstor",
+    "object storage",
+    "sdk"
+  ],
+  "browser": {
+    "fs": false,
+    "request": "browser-request"
+  },
+  "author": "Hao Ding <xuanwo@yunify.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cz-conventional-changelog": "^1.2.0",
+    "eslint": "^3.11.0",
+    "eslint-config-google": "^0.7.1",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "mocha": "^3.1.2",
+    "uglify-js-harmony": "^2.6.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "browser-request": "^0.3.3",
+    "crypto-js": "^3.1.8",
+    "js-yaml": "3.7.0",
+    "lodash": "^4.17.0",
+    "loglevel": "^1.4.1",
+    "request": "^2.78.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
