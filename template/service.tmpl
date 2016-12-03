@@ -1,0 +1,141 @@
+// +-------------------------------------------------------------------------
+// | Copyright (C) 2016 Yunify, Inc.
+// +-------------------------------------------------------------------------
+// | Licensed under the Apache License, Version 2.0 (the "License");
+// | you may not use this work except in compliance with the License.
+// | You may obtain a copy of the License in the LICENSE file, or at:
+// |
+// | http://www.apache.org/licenses/LICENSE-2.0
+// |
+// | Unless required by applicable law or agreed to in writing, software
+// | distributed under the License is distributed on an "AS IS" BASIS,
+// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// | See the License for the specific language governing permissions and
+// | limitations under the License.
+// +-------------------------------------------------------------------------
+
+{{$service := .Data.Service}}
+{{- $subServices := .Data.SubServices -}}
+{{- $customizedTypes := .Data.CustomizedTypes -}}
+"use strict";
+var Bucket = require('./bucket');
+var Signer = require('../sign');
+var Builder = require('../build');
+var logger = require('loglevel');
+var request = require('request');
+var _ = require('lodash/core');
+
+
+var {{$service.Name | camelCase}} = function (config) {
+    this.config = config;
+    if (_.isEmpty(config.access_key_id)) {
+        throw new Error('access key not provided');
+    }
+    if (_.isEmpty(config.secret_access_key)) {
+        throw new Error('secret access key not provided');
+    }
+    {{range $_, $operation := $service.Operations}}
+    /**
+     * {{$operation.ID | camelCase|lowerFirst}}Request: Build {{$operation.ID}}'s request
+     {{- if $operation.DocumentationURL}}
+     * @link {{$operation.DocumentationURL}} Documentation URL
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Headers.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Params.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Elements.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     *
+     * @return Signer
+     */
+    this.{{$operation.ID | camelCase|lowerFirst}}Request = function (options) {
+        if (_.isUndefined(options)) options = {};
+        var operation = {
+            'method': '{{$operation.Request.Method}}',
+            'uri': '{{$operation.Request.URI}}',
+            "params": {
+                {{range $id, $property := $operation.Request.Params.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
+                {{end -}}
+            },
+            "headers": {
+                'Host': config.host,
+                {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
+                {{end -}}
+            },
+            'elements': {
+                {{range $id, $property := $operation.Request.Elements.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}', ''),
+                {{end -}}
+            },
+            'properties': {
+
+            },
+            'body': {{if $operation.Request.Body.Type}}_.result(options,'body',''){{else}}undefined{{end}}
+        };
+        return new Signer(
+            new Builder(config, operation).parse(),
+            config.access_key_id,
+            config.secret_access_key
+        )
+    };
+
+    /**
+     * {{$operation.ID | camelCase|lowerFirst}}: {{$operation.Description}}
+     {{- if $operation.DocumentationURL}}
+     * @link {{$operation.DocumentationURL}} Documentation URL
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Headers.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Params.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Elements.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     * @param callback Callback function
+     *
+     * @return none
+     */
+    this.{{$operation.ID | camelCase|lowerFirst}} = function (options,callback) {
+        var signer = this.{{$operation.ID | camelCase|lowerFirst}}Request(options);
+        request(signer.sign(), callback);
+    };
+
+    /**
+     * {{$operation.ID | camelCase|lowerFirst}}Query: {{$operation.ID | camelCase|lowerFirst}}'s Query Sign Way
+     {{- if $operation.DocumentationURL}}
+     * @link {{$operation.DocumentationURL}} Documentation URL
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Headers.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Params.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     {{- range $id, $property := $operation.Request.Elements.Properties}}
+     * @param options['{{$property.ID}}'] {{$property.Description}}
+     {{- end}}
+     * @param callback Callback function
+     *
+     * @return none
+     */
+    this.{{$operation.ID | camelCase|lowerFirst}}Query = function (expires,options,callback) {
+        var signer = this.{{$operation.ID | camelCase|lowerFirst}}Request(options);
+        request(signer.query_sign(expires), callback);
+    };
+    {{end}}
+
+    this.Bucket = function(bucket_name, zone) {
+        var properties = {
+            'bucket-name': bucket_name,
+            'zone': zone
+        };
+        return new Bucket(config, properties)
+    };
+};
+
+module.exports = {{$service.Name | camelCase}};

@@ -17,7 +17,9 @@
   },
   "scripts": {
     "test": "mocha",
-    "dist": "gulp bundle bundle-map"
+    "dist": "gulp bundle bundle-map",
+    "cucumber": "cd scenarios; npm install; cucumber-js  features/*.feature --require tests;",
+    "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./lib/qingstor'; rm ./lib/qingstor/object.js; esformatter -i 'lib/**/*.js';"
   },
   "keywords": [
     "qingstor",
