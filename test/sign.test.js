@@ -16,6 +16,8 @@
 
 var Signer = require('../lib/sign');
 var should = require('chai').should();
+var pjson = require('../package.json');
+var process = require('process');
 
 describe('Signer test', function () {
     var operation = {
@@ -53,6 +55,7 @@ describe('Signer test', function () {
                 'X-QS-Date': 'test time',
                 'Content-Length': 11,
                 'Content-MD5': '6f8db599de986fab7a21625b7916589c',
+                'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
                 'xqsz': 'test-xqsz',
                 'x-qs-z': 'test-z',
                 'x-qs-a': 'test-a',

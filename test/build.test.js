@@ -34,7 +34,7 @@ describe('Builder test', function () {
         "properties": {
             "zone": 'pek3a'
         },
-        'body': 'test string',
+        'body': 'test string'
     };
     var test = new Builder(config, operation);
     it('parseRequestParams test', function () {
@@ -55,7 +55,7 @@ describe('Builder test', function () {
         );
     });
     it('parseRequestBody test', function () {
-        test.parseRequestBody()
+        test.parseRequestBody();
         test.parsedBody.should.eql(
             'test string'
         );
