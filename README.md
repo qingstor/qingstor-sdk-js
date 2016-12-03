@@ -1,7 +1,7 @@
 # QingStor SDK for JavaScript
 [![travis-ci](https://travis-ci.org/yunify/qingstor-sdk-js.svg?branch=master)](https://travis-ci.org/yunify/qingstor-sdk-js)
-[![api-reference](http://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor)
-[![license](http://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-js/blob/master/LICENSE)
+[![api-reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor)
+[![license](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-js/blob/master/LICENSE)
 
 [![NPM](https://nodei.co/npm/qingstor-sdk.png)](https://nodei.co/npm/qingstor-sdk/)
 
@@ -20,8 +20,8 @@ Before your start, please go to [QingCloud Console](https://console.qingcloud.co
 *API AccessKey Example:*
 
 ```
-access_key_id: 'WMAGPAJBJRKQEBRCEADPWMAGPAJBJRK'
-secret_access_key: 'Qkk89OcoIaMVZ0iOfnfivjxL7W5o7oOumMvvUiuF'
+access_key_id: 'ACCESS_KEY_ID_EXAMPLE'
+secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
 ```
 
 ### Usage
