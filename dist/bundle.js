@@ -1,4 +1,28 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"qingstor-sdk":[function(require,module,exports){
+module.exports=require('Focm2+');
+},{}],"Focm2+":[function(require,module,exports){
+// +-------------------------------------------------------------------------
+// | Copyright (C) 2016 Yunify, Inc.
+// +-------------------------------------------------------------------------
+// | Licensed under the Apache License, Version 2.0 (the "License");
+// | you may not use this work except in compliance with the License.
+// | You may obtain a copy of the License in the LICENSE file, or at:
+// |
+// | http://www.apache.org/licenses/LICENSE-2.0
+// |
+// | Unless required by applicable law or agreed to in writing, software
+// | distributed under the License is distributed on an "AS IS" BASIS,
+// | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// | See the License for the specific language governing permissions and
+// | limitations under the License.
+// +-------------------------------------------------------------------------
+
+module.exports = {
+    'QingStor': require('./lib/qingstor/qingstor'),
+    'Config': require('./lib/config')
+};
+
+},{"./lib/config":4,"./lib/qingstor/qingstor":7}],3:[function(require,module,exports){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
 // +-------------------------------------------------------------------------
@@ -112,7 +136,7 @@ var Builder = function(config, operation) {
 
 module.exports = Builder;
 
-},{"crypto":16,"lodash/core":52,"loglevel":53}],"978rZl":[function(require,module,exports){
+},{"crypto":16,"lodash/core":52,"loglevel":53}],4:[function(require,module,exports){
 (function (process){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
@@ -203,9 +227,7 @@ var Config = function() {
 module.exports = Config;
 
 }).call(this,require("g5I+bs"))
-},{"fs":12,"g5I+bs":55,"js-yaml":22,"loglevel":53,"path":54}],"Config":[function(require,module,exports){
-module.exports=require('978rZl');
-},{}],4:[function(require,module,exports){
+},{"fs":12,"g5I+bs":55,"js-yaml":22,"loglevel":53,"path":54}],5:[function(require,module,exports){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
 // +-------------------------------------------------------------------------
@@ -256,7 +278,7 @@ module.exports = {
     ParameterValueNotAllowed: ParameterValueNotAllowedError
 };
 
-},{"util":62}],5:[function(require,module,exports){
+},{"util":62}],6:[function(require,module,exports){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
 // +-------------------------------------------------------------------------
@@ -336,7 +358,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: delete');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -412,7 +434,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: deleteCORS');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -488,7 +510,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: deleteExternalMirror');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -564,7 +586,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: deletePolicy');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -649,7 +671,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: deleteMultipleObjects');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -736,7 +758,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: getACL');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -812,7 +834,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: getCORS');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -888,7 +910,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: getExternalMirror');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -964,7 +986,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: getPolicy');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1040,7 +1062,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: getStatistics');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1116,7 +1138,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: head');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1204,7 +1226,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: listObjects');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1284,7 +1306,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: put');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1363,7 +1385,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: putACL');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1480,7 +1502,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: putCORS');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1572,7 +1594,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: putExternalMirror');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1656,7 +1678,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: putPolicy');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1776,7 +1798,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: abortMultipartUpload');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1876,7 +1898,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: completeMultipartUpload');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -1968,7 +1990,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: deleteObject');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2069,7 +2091,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: getObject');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2175,7 +2197,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: headObject');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2271,7 +2293,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: initiateMultipartUpload');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2361,7 +2383,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: listMultipart');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2454,7 +2476,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: optionsObject');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2592,7 +2614,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: putObject');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2707,7 +2729,7 @@ var Bucket = function(config, properties) {
                 logger.info('Sending QingStor request: uploadMultipart');
                 request(signer.sign(), callback);
             } catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
@@ -2761,9 +2783,7 @@ module.exports = Bucket;
 
 
 
-},{"../build":1,"../error":4,"../sign":8,"lodash/core":52,"loglevel":53,"request":11}],"QingStor":[function(require,module,exports){
-module.exports=require('ijEdxo');
-},{}],"ijEdxo":[function(require,module,exports){
+},{"../build":3,"../error":5,"../sign":8,"lodash/core":52,"loglevel":53,"request":11}],7:[function(require,module,exports){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
 // +-------------------------------------------------------------------------
@@ -2876,7 +2896,7 @@ module.exports = QingStor;
 
 
 
-},{"../build":1,"../sign":8,"./bucket":5,"lodash/core":52,"loglevel":53,"request":11}],8:[function(require,module,exports){
+},{"../build":3,"../sign":8,"./bucket":6,"lodash/core":52,"loglevel":53,"request":11}],8:[function(require,module,exports){
 (function (global,Buffer){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
