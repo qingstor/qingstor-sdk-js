@@ -20,8 +20,8 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 var _ = require('lodash/core');
 var logger = require('loglevel');
 
-var Builder = function (config, operation) {
-    this.parse = function () {
+var Builder = function(config, operation) {
+    this.parse = function() {
         this.parsedOperation = {};
         this.parseRequestHeaders();
         this.parseRequestBody();
@@ -38,7 +38,7 @@ var Builder = function (config, operation) {
         }
         return this.parsedOperation;
     };
-    this.parseRequestHeaders = function () {
+    this.parseRequestHeaders = function() {
         this.parsedHeaders = {};
         for (var i in operation.headers) {
             if (!_.isEmpty(operation.headers[i])) {
@@ -47,7 +47,7 @@ var Builder = function (config, operation) {
         }
         this.parsedHeaders['X-QS-Date'] = _.result(this.parsedHeaders, 'X-QS-Date', new Date().toUTCString());
     };
-    this.parseRequestBody = function () {
+    this.parseRequestBody = function() {
         var h = require('crypto').createHash('md5');
         if (!_.isEmpty(operation.body)) {
             this.parsedBody = operation.body;
@@ -61,17 +61,17 @@ var Builder = function (config, operation) {
             this.parsedBody = undefined;
         }
     };
-    this.parseRequestParams = function () {
+    this.parseRequestParams = function() {
         this.parsedParams = {};
         for (var i in operation.params) {
             if (!_.isEmpty(operation.params[i]))
                 this.parsedParams[i] = operation.params[i];
         }
     };
-    this.parseRequestProperties = function () {
+    this.parseRequestProperties = function() {
         this.parsedProperties = operation.properties;
     };
-    this.parseRequestUri = function () {
+    this.parseRequestUri = function() {
         var key;
         var properties = this.parsedProperties;
         var zone = '';
@@ -137,46 +137,42 @@ var fs = require('fs');
 var path = require('path');
 var logger = require('loglevel');
 
-var Config = function () {
-    var defaultConfigFileContent = (function () { /*
-# QingStor Services Configuration
-
-access_key_id: ''
-secret_access_key: ''
-
-host: 'qingstor.com'
-port: 443
-protocol: 'https'
-connection_retries: 3
-
-# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.
-log_level: 'warn'
-*/} ).toString().split('\n').slice(1, -1).join('\n');
+var Config = function() {
+    var defaultConfigFileContent = "# QingStor Services Configuration\n"
+        + "\n"
+        + "access_key_id: ''\n"
+        + "secret_access_key: ''\n"
+        + "host: 'qingstor.com'\n"
+        + "port: 443\n"
+        + "protocol: 'https'\n"
+        + "connection_retries: 3\n"
+        + "\n"
+        + "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n"
+        + "log_level: 'warn'\n";
 
     var defaultConfigFile = '~/.qingstor/config.yaml';
 
-    this.getUserConfigFilePath = function () {
+    this.getUserConfigFilePath = function() {
         var home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
         return home + defaultConfigFile.replace('~', '');
     };
 
-    this.isFileExist = function (filePath) {
+    this.isFileExist = function(filePath) {
         try {
             fs.accessSync(filePath, fs.R_OK | fs.W_OK);
-        }
-        catch ($e) {
+        } catch ($e) {
             return false;
         }
         return true;
     };
 
-    this.installDefaultUserConfig = function () {
+    this.installDefaultUserConfig = function() {
         var filePath = this.getUserConfigFilePath();
         fs.mkdirSync(path.dirname(filePath));
         fs.writeFileSync(filePath, defaultConfigFileContent);
     };
 
-    this.loadConfig = function (data) {
+    this.loadConfig = function(data) {
         for (var key in data) {
             this[key] = data[key];
         }
@@ -184,13 +180,12 @@ log_level: 'warn'
         return this;
     };
 
-
-    this.loadDefaultConfig = function () {
+    this.loadDefaultConfig = function() {
         var defaultUserConfig = yaml.safeLoad(defaultConfigFileContent);
         return this.loadConfig(defaultUserConfig);
     };
 
-    this.loadUserConfig = function () {
+    this.loadUserConfig = function() {
         var filePath = this.getUserConfigFilePath();
         if (!this.isFileExist(filePath)) {
             this.installDefaultUserConfig();
@@ -199,9 +194,10 @@ log_level: 'warn'
         return this.loadConfig(config);
     };
 
-    this.loadConfigFromFilepath = function (filePath) {
+    this.loadConfigFromFilepath = function(filePath) {
         return yaml.safeLoad(fs.readFileSync(filePath));
     };
+
 };
 
 module.exports = Config;
@@ -2906,13 +2902,13 @@ var _ = require('lodash/core');
 var util = require('util');
 var process = require('process');
 
-var Signer = function (op, access_key_id, secret_access_key) {
+var Signer = function(op, access_key_id, secret_access_key) {
     this.op = op;
-    this.sign = function () {
+    this.sign = function() {
         op.headers.Authorization = 'QS '
-            + access_key_id
-            + ':'
-            + this.getAuthorization();
+        + access_key_id
+        + ':'
+        + this.getAuthorization();
         require('./version');
         op.headers['User-Agent'] = util.format(
             'QingStorSDK/%s (Node.js %s; %s)',
@@ -2922,7 +2918,7 @@ var Signer = function (op, access_key_id, secret_access_key) {
         );
         return op;
     };
-    this.query_sign = function (expires) {
+    this.query_sign = function(expires) {
         delete op.headers['X-QS-Date'];
         delete op.headers['Host'];
         var url_object = url.parse(op.uri);
@@ -2940,21 +2936,21 @@ var Signer = function (op, access_key_id, secret_access_key) {
         logger.debug('QingStor query request url: ' + op.uri);
         return op;
     };
-    this.getContentMD5 = function () {
+    this.getContentMD5 = function() {
         var parsedContentMD5 = '';
         if (op.headers.hasOwnProperty('Content-MD5')) {
             parsedContentMD5 = op.headers['Content-MD5'];
         }
         return parsedContentMD5;
     };
-    this.getContentType = function () {
+    this.getContentType = function() {
         var parsedContentType = '';
         if (op.headers.hasOwnProperty('Content-Type')) {
             parsedContentType = op.headers['Content-Type'];
         }
         return parsedContentType;
     };
-    this.getCanonicalizedHeaders = function (hasDate) {
+    this.getCanonicalizedHeaders = function(hasDate) {
         var i = undefined;
         if (_.isUndefined(hasDate))
             hasDate = true;
@@ -2980,7 +2976,7 @@ var Signer = function (op, access_key_id, secret_access_key) {
         }
         return canonicalizedHeaders;
     };
-    this.getCanonicalizedResource = function () {
+    this.getCanonicalizedResource = function() {
         var url = require('url').parse(op.uri);
         var path = url.pathname;
         var canonicalizedResource = path;
@@ -3004,13 +3000,13 @@ var Signer = function (op, access_key_id, secret_access_key) {
         }
         return canonicalizedResource;
     };
-    this.getAuthorization = function () {
+    this.getAuthorization = function() {
         var string_to_sign = op.method + '\n'
-            + this.getContentMD5() + '\n'
-            + this.getContentType() + '\n'
-            + '\n'
-            + this.getCanonicalizedHeaders()
-            + this.getCanonicalizedResource();
+        + this.getContentMD5() + '\n'
+        + this.getContentType() + '\n'
+        + '\n'
+        + this.getCanonicalizedHeaders()
+        + this.getCanonicalizedResource();
         logger.debug('QingStor request string to sign: ' + string_to_sign);
         var h = require('crypto').createHmac('sha256', secret_access_key);
         h.update(string_to_sign);
@@ -3018,13 +3014,13 @@ var Signer = function (op, access_key_id, secret_access_key) {
         logger.debug('QingStor request authorization: ' + sigb64);
         return sigb64;
     };
-    this.getQuerySignature = function (expires) {
+    this.getQuerySignature = function(expires) {
         var string_to_sign = op.method + '\n'
-            + this.getContentMD5() + '\n'
-            + this.getContentType() + '\n'
-            + expires + '\n'
-            + this.getCanonicalizedHeaders(false)
-            + this.getCanonicalizedResource();
+        + this.getContentMD5() + '\n'
+        + this.getContentType() + '\n'
+        + expires + '\n'
+        + this.getCanonicalizedHeaders(false)
+        + this.getCanonicalizedResource();
         logger.debug('QingStor query request string to sign: ' + string_to_sign);
         var h = require('crypto').createHmac('sha256', secret_access_key);
         h.update(string_to_sign);
@@ -3033,7 +3029,7 @@ var Signer = function (op, access_key_id, secret_access_key) {
         return sigb64;
     };
 
-    this.isSubResource = function (key) {
+    this.isSubResource = function(key) {
         var keysMap = [
             "acl",
             "cors",
@@ -3072,7 +3068,7 @@ module.exports = Signer;
 
 "use strict";
 
-global.version = "2.0.0-alpha.0";
+global.version = "2.0.0-alpha.1";
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],10:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
