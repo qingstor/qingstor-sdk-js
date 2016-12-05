@@ -39,7 +39,7 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 var Qingstor = require('qingstor-sdk').QingStor;
 var example_config = require('qingstor-sdk').Config.loadUserConfig();
 var example = new Qingstor(example_config).Bucket('example_bucket', 'pek3a');
-test.listObjects({}, function (err, res, data) {
+example.listObjects({}, function (err, res, data) {
     console.log(data);
     console.log(res.statusCode);
 })
@@ -47,16 +47,14 @@ test.listObjects({}, function (err, res, data) {
 
 *Used in Browser*
 ```javascript
-var Config = require('Config');
-var test_config = new Config().loadDefaultConfig();
-test_config.access_key_id = test_access_key_id;
-test_config.secret_access_key = test_secret_access_key;
-
-var QingStor = new require('QingStor');
-var test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
-test.getObject('test_key', function (err, res, data) {
+var Qingstor = require('qingstor-sdk').QingStor;
+var example_config = require('qingstor-sdk').Config.loadDefaultConfig();
+example_config.access_key_id = test_access_key_id;
+example_config.secret_access_key = test_secret_access_key;
+var example = new QingStor(example_config).Bucket('example_bucket', 'pek3a');
+example.getObject('test_key', function (err, res, data) {
      console.log(data);
-     res.statusCode.should.equal(200);
+     console.log(res.statusCode);
 });
 ```
 
