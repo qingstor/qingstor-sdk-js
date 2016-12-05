@@ -183,7 +183,7 @@
                 request(signer.sign(), callback);
             }
             catch (err) {
-                logger.log(err);
+                logger.info(err);
                 if (retries > 0) {
                     retries -= 1;
                 } else {
