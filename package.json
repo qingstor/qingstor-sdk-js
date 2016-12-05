@@ -13,12 +13,12 @@
   },
   "bugs": {
     "url": "https://github.com/yunify/qingstor-sdk-js/issues",
-    "email": "sdk@yunify.com"
+    "email": "sdk_group@yunify.com"
   },
   "scripts": {
     "test": "mocha",
     "dist": "gulp bundle bundle-map",
-    "cucumber": "cd scenarios; npm install; cucumber-js  features/*.feature --require tests;",
+    "cucumber": "cd scenarios; npm install; ./node_modules/.bin/cucumber-js  features/*.feature --require tests;",
     "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./lib/qingstor'; rm ./lib/qingstor/object.js; esformatter -i 'lib/**/*.js';"
   },
   "keywords": [
@@ -30,11 +30,10 @@
     "fs": false,
     "request": "browser-request"
   },
-  "author": "Hao Ding <xuanwo@yunify.com>",
+  "author": "Yunify SDK Group <sdk_group@yunify.com>",
   "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^3.5.0",
-    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.11.0",
     "eslint-config-google": "^0.7.1",
     "gulp": "^3.9.1",
@@ -55,10 +54,5 @@
     "lodash": "^4.17.0",
     "loglevel": "^1.4.1",
     "request": "^2.78.0"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
