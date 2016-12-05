@@ -15665,4 +15665,4 @@ function hasOwnProperty(obj, prop) {
 
 }).call(this,require("g5I+bs"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./support/isBuffer":61,"g5I+bs":55,"inherits":60}]},{},[])
-//# sourceMappingURL=bundle.js.map
+//# sourceMappingURL=qingstor-sdk.js.map

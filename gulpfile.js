@@ -36,7 +36,7 @@ gulp.task('bundle', function () {
     };
     b.require('./index.js', {expose: 'qingstor-sdk'});
     return b.bundle()
-        .pipe(source('bundle.js'))
+        .pipe(source('qingstor-sdk.js'))
         .pipe(buffer())
         .pipe(gulp.dest('./dist'))
         .pipe(uglify())
@@ -49,7 +49,7 @@ gulp.task('bundle-map', function () {
     var b = browserify();
     b.require('./index.js', {expose: 'qingstor-sdk'});
     return b.bundle()
-        .pipe(source('bundle.js'))
+        .pipe(source('qingstor-sdk.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
