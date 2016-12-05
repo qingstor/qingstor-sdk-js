@@ -34,8 +34,7 @@ gulp.task('bundle', function () {
     var options = {
         preserveComments: 'license'
     };
-    b.require('./lib/qingstor/qingstor', {expose: 'QingStor'});
-    b.require('./lib/config', {expose: 'Config'});
+    b.require('./index.js', {expose: 'qingstor-sdk'});
     return b.bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
@@ -48,11 +47,7 @@ gulp.task('bundle', function () {
 
 gulp.task('bundle-map', function () {
     var b = browserify();
-    var options = {
-        preserveComments: 'license'
-    };
-    b.require('./lib/qingstor/qingstor', {expose: 'QingStor'});
-    b.require('./lib/config', {expose: 'Config'});
+    b.require('./index.js', {expose: 'qingstor-sdk'});
     return b.bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
