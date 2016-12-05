@@ -19,7 +19,7 @@ Before your start, please go to [QingCloud Console](https://console.qingcloud.co
 
 *API AccessKey Example:*
 
-```bash
+```yaml
 access_key_id: 'ACCESS_KEY_ID_EXAMPLE'
 secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
 ```
@@ -27,8 +27,10 @@ secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
 ### Usage
 
 Now you are ready to code. You can read the detailed guides in the list below to have a clear understanding or just take the quick start code example.
-Checkout our releases and change logs for information about the latest features, bug fixes and new ideas.
+Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and [change logs](CHANGELOG.md) for information about the latest features, bug fixes and new ideas.
 
+- [Configuration Guide](docs/configuration.md)
+- [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
 
 *Quick Start Code Example:*
 ```javascript
@@ -43,6 +45,21 @@ test.listObjects({}, function (err, res, data) {
 })
 ```
 
+*Used in Browser*
+```javascript
+var Config = require('Config');
+var test_config = new Config().loadDefaultConfig();
+test_config.access_key_id = test_access_key_id;
+test_config.secret_access_key = test_secret_access_key;
+
+var QingStor = new require('QingStor');
+var test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
+test.getObject('test_key', function (err, res, data) {
+     console.log(data);
+     res.statusCode.should.equal(200);
+});
+```
+
 ## Reference Documentations
 
 - [QingStor Documentation](https://docs.qingcloud.com/qingstor/index.html)
@@ -51,7 +68,7 @@ test.listObjects({}, function (err, res, data) {
 
 ## Contributing
 
-This repository was automatically generated, please contribute to [snips](https://github.com/yunify/snips) instead.
+Please see [Contributing Guidelines](docs/contributing.md) of this project before submitting patches.
 
 ## LICENSE
 
