@@ -32,7 +32,7 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 - [Configuration Guide](docs/configuration.md)
 - [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
 
-*Quick Start Code Example:*
+*Used in node:*
 ```javascript
 "use strict";
 
@@ -45,7 +45,16 @@ example.listObjects({}, function (err, res, data) {
 })
 ```
 
-*Used in Browser*
+*Used in Browser:*
+
+Firstly, you should refer qingstor-sdk javascript files [qingstor-sdk.min.js](https://github.com/yunify/qingstor-sdk-js/blob/master/dist/qingstor-sdk.min.js)
+
+```html
+<script src='qingstor-sdk.min.js'></script>
+```
+
+After that, you can use all functions in node way.
+
 ```javascript
 var Qingstor = require('qingstor-sdk').QingStor;
 var example_config = require('qingstor-sdk').Config.loadDefaultConfig();
