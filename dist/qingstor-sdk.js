@@ -72,15 +72,12 @@ var Builder = function(config, operation) {
         this.parsedHeaders['X-QS-Date'] = _.result(this.parsedHeaders, 'X-QS-Date', new Date().toUTCString());
     };
     this.parseRequestBody = function() {
-        var h = require('crypto').createHash('md5');
         if (!_.isEmpty(operation.body)) {
             this.parsedBody = operation.body;
             this.parsedHeaders['Content-Length'] = this.parsedBody.length;
-            this.parsedHeaders['Content-MD5'] = h.update(this.parsedBody).digest('hex');
         } else if (!_.isEmpty(operation.elements)) {
             this.parsedBody = JSON.stringify(operation.elements);
             this.parsedHeaders['Content-Length'] = this.parsedBody.length;
-            this.parsedHeaders['Content-MD5'] = !_.isEmpty(operation.headers['Content-MD5']) ? operation.headers['Content-MD5'] : h.update(this.parsedBody).digest('hex');
         } else {
             this.parsedBody = undefined;
         }
@@ -136,7 +133,7 @@ var Builder = function(config, operation) {
 
 module.exports = Builder;
 
-},{"crypto":16,"lodash/core":52,"loglevel":53}],4:[function(require,module,exports){
+},{"lodash/core":52,"loglevel":53}],4:[function(require,module,exports){
 (function (process){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
@@ -3088,7 +3085,7 @@ module.exports = Signer;
 
 "use strict";
 
-global.version = "2.0.0-beta.1";
+global.version = "2.0.0-beta.2";
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],10:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
