@@ -83,7 +83,6 @@ describe('Builder test', function () {
                 'Host': 'qingstor.com',
                 'X-QS-Date': 'test time',
                 'Content-Length': 11,
-                'Content-MD5': '6f8db599de986fab7a21625b7916589c'
             }
         })
     })
