@@ -3129,7 +3129,7 @@ module.exports = Signer;
 
 'use strict';
 
-global.version = '2.0.0-beta.2';
+global.version = '2.0.0-beta.3';
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],10:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
