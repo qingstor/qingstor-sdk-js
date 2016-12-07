@@ -18,71 +18,81 @@ var Builder = require('../lib/build');
 var Config = require('../lib/config');
 var should = require('chai').should();
 var expect = require('chai').expect;
+var pjson = require('../package.json');
+var process = require('process');
+var url = require('url');
 
 describe('Builder test', function () {
     var config = new Config().loadUserConfig();
     var operation = {
-        "method": "GET",
-        "uri": "/",
+        "method": "PUT",
+        "uri": "/<bucket-name>/<object-key>?acl",
         "headers": {
             "Host": 'qingstor.com',
-            'X-QS-Date': 'test time'
+            'X-QS-Date': 'test time',
+            'empty-header': ''
         },
         "params": {
-            "upload-id": 'test_upload_id'
+            "upload_id": 'test_upload_id',
+            'empty-param': ''
         },
         "properties": {
-            "zone": 'pek3a'
+            "zone": 'pek3a',
+            "bucket-name": 'test_bucket',
+            "object-key": 'test_object.jpg',
+            "empty-property": ''
         },
         'body': 'test string'
     };
     var test = new Builder(config, operation);
     it('parseRequestParams test', function () {
-        test.parseRequestParams();
-        test.parsedParams.should.eql(
+        test.parseRequestParams(operation).should.eql(
             {
-                "upload-id": 'test_upload_id'
+                "upload_id": 'test_upload_id'
             }
         );
     });
     it('parseRequestHeaders test', function () {
-        test.parseRequestHeaders();
-        test.parsedHeaders.should.eql(
+        test.parseRequestHeaders(operation).should.eql(
             {
                 "Host": 'qingstor.com',
-                'X-QS-Date': 'test time'
+                'X-QS-Date': 'test time',
+                'Content-Type': 'image/jpeg',
+                'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
+                'Content-Length': 11
             }
         );
     });
     it('parseRequestBody test', function () {
-        test.parseRequestBody();
-        test.parsedBody.should.eql(
+        test.parseRequestBody(operation).should.eql(
             'test string'
         );
     });
     it('parseRequestProperties test', function () {
-        test.parseRequestProperties();
-        test.parsedProperties.should.eql(
+        test.parseRequestProperties(operation).should.eql(
             {
-                "zone": 'pek3a'
+                "zone": 'pek3a',
+                "bucket-name": 'test_bucket',
+                "object-key": 'test_object.jpg'
             }
         );
     });
     it('parseRequestUri test', function () {
-        test.parseRequestUri();
-        test.parsedUri.should.eql(
-            'https://pek3a.qingstor.com:443/?upload-id=test_upload_id'
+        url.format(test.parseRequestUri(operation)).should.eql(
+            'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id'
         );
     });
     it('parse test', function () {
-        test.parse().should.eql({
-            'method': 'GET',
-            'uri': 'https://pek3a.qingstor.com:443/?upload-id=test_upload_id',
+        test.parse(operation).should.eql({
+            'method': 'PUT',
+            'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
             'body': 'test string',
             'headers': {
                 'Host': 'qingstor.com',
                 'X-QS-Date': 'test time',
                 'Content-Length': 11,
+                "Content-Type": "image/jpeg",
+                'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
             }
         })
     })

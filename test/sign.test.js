@@ -21,46 +21,45 @@ var process = require('process');
 
 describe('Signer test', function () {
     var operation = {
-        'method': 'GET',
-        'uri': 'https://pek3a.qingstor.com:443/test/object?upload_id=test_upload_id&acl',
+        'method': 'PUT',
+        'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
         'body': 'test string',
         'headers': {
             'Host': 'qingstor.com',
             'X-QS-Date': 'test time',
             'Content-Length': 11,
-            'Content-MD5': '6f8db599de986fab7a21625b7916589c',
-            'xqsz': 'test-xqsz',
+            "Content-Type": "image/jpeg",
             'x-qs-z': 'test-z',
             'x-qs-a': 'test-a',
+            'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
         }
     };
     var test = new Signer(operation, 'test_key', 'test_secret');
     it('getCanonicalizedResource test', function () {
         test.getCanonicalizedResource().should.eql(
-            '/test/object?acl&upload_id=test_upload_id'
+            '/test_bucket/test_object.jpg?acl&upload_id=test_upload_id'
         )
     });
     it('getAuthorization test', function () {
         test.getAuthorization().should.eql(
-            'FNf9MDjheSzBlp0e0pAKis0dkCkXK8rJiIEhAW5kmKc='
+            'rnP7tsFg54ezfEYOAixtzC2nZD82Z4IVSQuAaH95JtM='
         )
     });
     it('sign test', function () {
         test.sign().should.eql({
-            'method': 'GET',
-            'uri': 'https://pek3a.qingstor.com:443/test/object?upload_id=test_upload_id&acl',
+            'method': 'PUT',
+            'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
             'body': 'test string',
             'headers': {
                 'Host': 'qingstor.com',
                 'X-QS-Date': 'test time',
                 'Content-Length': 11,
-                'Content-MD5': '6f8db599de986fab7a21625b7916589c',
                 'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
-                'xqsz': 'test-xqsz',
                 'x-qs-z': 'test-z',
                 'x-qs-a': 'test-a',
-                "Authorization": "QS test_key:FNf9MDjheSzBlp0e0pAKis0dkCkXK8rJiIEhAW5kmKc="
-            },
+                "Authorization": "QS test_key:rnP7tsFg54ezfEYOAixtzC2nZD82Z4IVSQuAaH95JtM=",
+                'Content-Type': 'image/jpeg'
+            }
         })
     })
 });
