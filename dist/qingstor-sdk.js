@@ -53,7 +53,8 @@ var Builder = function(config, operation) {
   this.config = config;
   this.operation = operation;
 
-  this.parse = function(operation) {
+  this.parse = function() {
+    var operation = this.operation;
     var parsedOperation = {};
     parsedOperation.method = operation.method;
     parsedOperation.uri = url.format(this.parseRequestUri(operation));
@@ -196,8 +197,9 @@ var yaml = require('js-yaml');
 var fs = require('fs');
 var path = require('path');
 var logger = require('loglevel');
+var _ = require('lodash/core');
 
-var Config = function() {
+var Config = function(access_key_id, secret_access_key) {
   var defaultConfigFileContent = "# QingStor Services Configuration\n"
     + "\n"
     + "access_key_id: ''\n"
@@ -211,6 +213,15 @@ var Config = function() {
     + "log_level: 'warn'\n";
 
   var defaultConfigFile = '~/.qingstor/config.yaml';
+
+  //Constructor
+  this.access_key_id = access_key_id === undefined ? '' : access_key_id;
+  this.secret_access_key = secret_access_key === undefined ? '' : secret_access_key;
+  this.host = 'qingstor.com';
+  this.port = 443;
+  this.protocol = 'https';
+  this.connection_retries = 3;
+  this.log_level = 'warn';
 
   this.getUserConfigFilePath = function() {
     var home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
@@ -263,7 +274,7 @@ var Config = function() {
 module.exports = Config;
 
 }).call(this,require("g5I+bs"))
-},{"fs":12,"g5I+bs":55,"js-yaml":22,"loglevel":53,"path":54}],5:[function(require,module,exports){
+},{"fs":12,"g5I+bs":55,"js-yaml":22,"lodash/core":52,"loglevel":53,"path":54}],5:[function(require,module,exports){
 // +-------------------------------------------------------------------------
 // | Copyright (C) 2016 Yunify, Inc.
 // +-------------------------------------------------------------------------
