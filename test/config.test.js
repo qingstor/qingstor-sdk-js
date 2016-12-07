@@ -27,7 +27,7 @@ describe('Config test', function () {
         test.isFileExist('/tmp/not_exist_file').should.equal(false);
     });
     it('loadDefaultConfig test', function () {
-        var test = new Config().loadDefaultConfig();
+        var test = new Config();
 
         test.access_key_id.should.equal('');
         test.secret_access_key.should.equal('');
@@ -39,9 +39,7 @@ describe('Config test', function () {
     });
 
     it('loadDefaultConfig with access key test', function () {
-        var test = new Config().loadDefaultConfig();
-        test.access_key_id = 'ACCESS_KEY_ID_EXAMPLE';
-        test.secret_access_key = 'SECRET_ACCESS_KEY_EXAMPLE';
+        var test = new Config('ACCESS_KEY_ID_EXAMPLE','SECRET_ACCESS_KEY_EXAMPLE');
 
         test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
         test.secret_access_key.should.equal('SECRET_ACCESS_KEY_EXAMPLE');
