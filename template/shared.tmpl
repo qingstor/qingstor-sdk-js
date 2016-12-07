@@ -111,11 +111,11 @@
         var operation = {
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$operation.Request.URI}}',
-            "params": {
+            'params': {
                 {{range $id, $property := $operation.Request.Params.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
             },
-            "headers": {
+            'headers': {
                 'Host': properties.zone+'.'+config.host,
                 {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
@@ -124,7 +124,7 @@
                 {{range $id, $property := $operation.Request.Elements.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}', ''),
                 {{end -}}
             },
-            "properties": properties,
+            'properties': properties,
             'body': {{if $operation.Request.Body.Type}}_.result(options,'body',''){{else}}undefined{{end}}
         };
         {{- if eq $belongs "Object"}}

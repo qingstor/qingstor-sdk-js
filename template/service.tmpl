@@ -17,7 +17,7 @@
 {{$service := .Data.Service}}
 {{- $subServices := .Data.SubServices -}}
 {{- $customizedTypes := .Data.CustomizedTypes -}}
-"use strict";
+'use strict';
 var Bucket = require('./bucket');
 var Signer = require('../sign');
 var Builder = require('../build');
@@ -57,11 +57,11 @@ var {{$service.Name | camelCase}} = function (config) {
         var operation = {
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$operation.Request.URI}}',
-            "params": {
+            'params': {
                 {{range $id, $property := $operation.Request.Params.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
             },
-            "headers": {
+            'headers': {
                 'Host': config.host,
                 {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
