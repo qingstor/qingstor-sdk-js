@@ -40,7 +40,7 @@ module.exports = {
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 
 var _ = require('lodash/core');
 var logger = require('loglevel');
@@ -191,7 +191,7 @@ module.exports = Builder;
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 
 var yaml = require('js-yaml');
 var fs = require('fs');
@@ -200,17 +200,17 @@ var logger = require('loglevel');
 var _ = require('lodash/core');
 
 var Config = function(access_key_id, secret_access_key) {
-  var defaultConfigFileContent = "# QingStor Services Configuration\n"
-    + "\n"
-    + "access_key_id: ''\n"
-    + "secret_access_key: ''\n"
-    + "host: 'qingstor.com'\n"
-    + "port: 443\n"
-    + "protocol: 'https'\n"
-    + "connection_retries: 3\n"
-    + "\n"
-    + "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n"
-    + "log_level: 'warn'\n";
+  var defaultConfigFileContent = '# QingStor Services Configuration\n'
+    + '\n'
+    + 'access_key_id: ""\n'
+    + 'secret_access_key: ""\n'
+    + 'host: "qingstor.com"\n'
+    + 'port: 443\n'
+    + 'protocol: "https"\n'
+    + 'connection_retries: 3\n'
+    + '\n'
+    + '# Valid levels are "debug", "info", "warn", "error", and "fatal".\n'
+    + 'log_level: "warn"\n';
 
   var defaultConfigFile = '~/.qingstor/config.yaml';
 
@@ -342,8 +342,8 @@ module.exports = {
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
-var Signer = require("../sign");
+'use strict';
+var Signer = require('../sign');
 var Builder = require('../build');
 var SDKError = require('../error');
 var request = require('request');
@@ -370,14 +370,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'DELETE',
       'uri': '/<bucket-name>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.deleteValidate(operation);
@@ -446,14 +446,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'DELETE',
       'uri': '/<bucket-name>?cors',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.deleteCORSValidate(operation);
@@ -522,14 +522,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'DELETE',
       'uri': '/<bucket-name>?mirror',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.deleteExternalMirrorValidate(operation);
@@ -598,14 +598,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'DELETE',
       'uri': '/<bucket-name>?policy',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.deletePolicyValidate(operation);
@@ -677,9 +677,9 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'POST',
       'uri': '/<bucket-name>?delete',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'Content-MD5': _.result(options, 'Content-MD5', ''),
       },
@@ -687,7 +687,7 @@ var Bucket = function(config, properties) {
         'objects': _.result(options, 'objects', ''),
         'quiet': _.result(options, 'quiet', ''),
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     this.deleteMultipleObjectsValidate(operation);
@@ -770,14 +770,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>?acl',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.getACLValidate(operation);
@@ -846,14 +846,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>?cors',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.getCORSValidate(operation);
@@ -922,14 +922,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>?mirror',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.getExternalMirrorValidate(operation);
@@ -998,14 +998,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>?policy',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.getPolicyValidate(operation);
@@ -1074,14 +1074,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>?stats',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.getStatisticsValidate(operation);
@@ -1150,14 +1150,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'HEAD',
       'uri': '/<bucket-name>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.headValidate(operation);
@@ -1230,18 +1230,18 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>',
-      "params": {
+      'params': {
         'delimiter': _.result(options, 'delimiter', ''),
         'limit': _.result(options, 'limit', ''),
         'marker': _.result(options, 'marker', ''),
         'prefix': _.result(options, 'prefix', ''),
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.listObjectsValidate(operation);
@@ -1318,14 +1318,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     this.putValidate(operation);
@@ -1395,15 +1395,15 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>?acl',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
         'acl': _.result(options, 'acl', ''),
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     this.putACLValidate(operation);
@@ -1512,15 +1512,15 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>?cors',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
         'cors_rules': _.result(options, 'cors_rules', ''),
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     this.putCORSValidate(operation);
@@ -1604,15 +1604,15 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>?mirror',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
         'source_site': _.result(options, 'source_site', ''),
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     this.putExternalMirrorValidate(operation);
@@ -1688,15 +1688,15 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>?policy',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
         'statement': _.result(options, 'statement', ''),
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     this.putPolicyValidate(operation);
@@ -1807,15 +1807,15 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'DELETE',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
         'upload_id': _.result(options, 'upload_id', ''),
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -1897,10 +1897,10 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'POST',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
         'upload_id': _.result(options, 'upload_id', ''),
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'ETag': _.result(options, 'ETag', ''),
         'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
@@ -1910,7 +1910,7 @@ var Bucket = function(config, properties) {
       'elements': {
         'object_parts': _.result(options, 'object_parts', ''),
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     operation.properties['object-key'] = object_key;
@@ -2001,14 +2001,14 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'DELETE',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -2086,9 +2086,9 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'If-Match': _.result(options, 'If-Match', ''),
         'If-Modified-Since': _.result(options, 'If-Modified-Since', ''),
@@ -2101,7 +2101,7 @@ var Bucket = function(config, properties) {
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -2194,9 +2194,9 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'HEAD',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'If-Match': _.result(options, 'If-Match', ''),
         'If-Modified-Since': _.result(options, 'If-Modified-Since', ''),
@@ -2208,7 +2208,7 @@ var Bucket = function(config, properties) {
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -2296,9 +2296,9 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'POST',
       'uri': '/<bucket-name>/<object-key>?uploads',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'Content-Type': _.result(options, 'Content-Type', ''),
         'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
@@ -2307,7 +2307,7 @@ var Bucket = function(config, properties) {
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -2388,17 +2388,17 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'GET',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
         'limit': _.result(options, 'limit', ''),
         'part_number_marker': _.result(options, 'part_number_marker', ''),
         'upload_id': _.result(options, 'upload_id', ''),
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -2481,9 +2481,9 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'OPTIONS',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'Access-Control-Request-Headers': _.result(options, 'Access-Control-Request-Headers', ''),
         'Access-Control-Request-Method': _.result(options, 'Access-Control-Request-Method', ''),
@@ -2491,7 +2491,7 @@ var Bucket = function(config, properties) {
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': undefined
     };
     operation.properties['object-key'] = object_key;
@@ -2591,9 +2591,9 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'Content-Length': _.result(options, 'Content-Length', ''),
         'Content-MD5': _.result(options, 'Content-MD5', ''),
@@ -2615,7 +2615,7 @@ var Bucket = function(config, properties) {
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     operation.properties['object-key'] = object_key;
@@ -2726,11 +2726,11 @@ var Bucket = function(config, properties) {
     var operation = {
       'method': 'PUT',
       'uri': '/<bucket-name>/<object-key>',
-      "params": {
+      'params': {
         'part_number': _.result(options, 'part_number', ''),
         'upload_id': _.result(options, 'upload_id', ''),
       },
-      "headers": {
+      'headers': {
         'Host': properties.zone + '.' + config.host,
         'Content-Length': _.result(options, 'Content-Length', ''),
         'Content-MD5': _.result(options, 'Content-MD5', ''),
@@ -2740,7 +2740,7 @@ var Bucket = function(config, properties) {
       },
       'elements': {
       },
-      "properties": properties,
+      'properties': properties,
       'body': _.result(options, 'body', '')
     };
     operation.properties['object-key'] = object_key;
@@ -2847,7 +2847,7 @@ module.exports = Bucket;
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 var Bucket = require('./bucket');
 var Signer = require('../sign');
 var Builder = require('../build');
@@ -2878,9 +2878,9 @@ var QingStor = function(config) {
     var operation = {
       'method': 'GET',
       'uri': '/',
-      "params": {
+      'params': {
       },
-      "headers": {
+      'headers': {
         'Host': config.host,
         'Location': _.result(options, 'Location', ''),
       },
@@ -2961,7 +2961,7 @@ module.exports = QingStor;
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 
 var logger = require('loglevel');
 var url = require('url');
@@ -3092,15 +3092,15 @@ var Signer = function(op, access_key_id, secret_access_key) {
 
   this.isSubResource = function(key) {
     var keysMap = [
-      "acl",
-      "cors",
-      "delete",
-      "mirror",
-      "part_number",
-      "policy",
-      "stats",
-      "upload_id",
-      "uploads"
+      'acl',
+      'cors',
+      'delete',
+      'mirror',
+      'part_number',
+      'policy',
+      'stats',
+      'upload_id',
+      'uploads'
     ];
     return _.indexOf(keysMap, key) !== -1;
   }
@@ -3127,9 +3127,9 @@ module.exports = Signer;
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 
-global.version = "2.0.0-beta.2";
+global.version = '2.0.0-beta.2';
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],10:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
