@@ -37,9 +37,9 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 "use strict";
 
 var Qingstor = require('qingstor-sdk').QingStor;
-var example_config = require('qingstor-sdk').Config.loadUserConfig();
-var example = new Qingstor(example_config).Bucket('example_bucket', 'pek3a');
-example.listObjects({}, function (err, res, data) {
+var config = require('qingstor-sdk').Config.loadUserConfig();
+var bucket = new Qingstor(config).Bucket('example_bucket', 'pek3a');
+bucket.listObjects({}, function (err, res, data) {
     console.log(data);
     console.log(res.statusCode);
 })
