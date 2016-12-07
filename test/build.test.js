@@ -83,7 +83,7 @@ describe('Builder test', function () {
         );
     });
     it('parse test', function () {
-        test.parse(operation).should.eql({
+        test.parse().should.eql({
             'method': 'PUT',
             'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
             'body': 'test string',
