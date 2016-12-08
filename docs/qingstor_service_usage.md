@@ -24,7 +24,7 @@ service.listBuckets({
   'location': 'pek3a'
 }, function(err, res, data) {
   console.log(res.statusCode)
-  console.log(data);
+  console.log(res.buckets);
 });
 ```
 
@@ -39,7 +39,7 @@ List objects in the bucket
 ``` javascript
 bucket.listObjects({}, function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
+  console.log(res.keys);
 });
 ```
 
@@ -62,7 +62,6 @@ bucket.putACL({
   }]
 }, function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
 });
 ```
 
@@ -73,7 +72,6 @@ bucket.putObject('object', {
   'body': fs.readFileSync("/tmp/sdk_bin")
 }, function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
 });
 ```
 
@@ -82,7 +80,6 @@ Delete object
 ``` javascript
 bucket.deleteObject('object', function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
 });
 ```
 
@@ -91,9 +88,7 @@ Initialize Multipart Upload
 ``` javascript
 bucket.initiateMultipartUpload('object_multipart', {},
   function(err, res, data) {
-    res = res;
-    console.log(data);
-    init_output = JSON.parse(data);
+    init_output = res;
   }
 );
 ```
@@ -102,30 +97,27 @@ Upload Multipart
 
 ``` javascript
 bucket.uploadMultipart('object_multipart', {
-  'upload_id': init_output['upload_id'],
+  'upload_id': init_output.upload_id,
   'part_number': '0',
   'body': fs.readFileSync('/tmp/sdk_bin_part_0')
 }, function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
 });
 
 bucket.uploadMultipart('object_multipart', {
-  'upload_id': init_output['upload_id'],
+  'upload_id': init_output.upload_id,
   'part_number': '1',
   'body': fs.readFileSync('/tmp/sdk_bin_part_1')
 }, function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
 });
 
 bucket.uploadMultipart('object_multipart', {
-  'upload_id': init_output['upload_id'],
+  'upload_id': init_output.upload_id,
   'part_number': '2',
   'body': fs.readFileSync('/tmp/sdk_bin_part_2')
 }, function(err, res, data) {
   console.log(res.statusCode);
-  console.log(data);
 });
 ```
 
@@ -135,15 +127,13 @@ Complete Multipart Upload
 bucket.listMultipart('object_multipart', {
   'upload_id': init_output['upload_id']
 }, function(err, res, data) {
-  console.log(res.statusCode);
-  console.log(data);
-  list_output = JSON.parse(data);
+  list_output = res;
 });
 
 bucket.completeMultipartUpload('object_multipart', {
-  'upload_id': init_output['upload_id'],
+  'upload_id': init_output.upload_id,
   'etag': '"4072783b8efb99a9e5817067d68f61c6"',
-  'object_parts': list_output['object_parts']
+  'object_parts': list_output.object_parts
 }, function(err, res, data) {
   console.log(res.statusCode);
   console.log(data);
@@ -154,7 +144,7 @@ Abort Multipart Upload
 
 ``` javascript
 bucket.abortMultipartUpload('object_multipart', {
-  'upload_id': init_output['upload_id']
+  'upload_id': init_output.upload_id
 }, function(err, res, data) {
   console.log(res.statusCode);
   console.log(data);
