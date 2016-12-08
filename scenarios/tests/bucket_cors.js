@@ -23,57 +23,54 @@ var fs = require('fs');
 var should = require('chai').should();
 
 module.exports = function () {
-    var config = new Config().loadUserConfig();
-    var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-    var test = new Qingstor(config);
-    var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    var test_res = undefined;
-    var test_data = undefined;
-    test_bucket.put();
+  this.setDefaultTimeout(10 * 1000);
 
-    this.When(/^put bucket CORS:$/, function (string, callback) {
-        test_bucket.putCORS({
-            'cors_rules': JSON.parse(string)['cors_rules']
-        }, function (err, res, data) {
-            test_res = res;
-            test_data = data;
-            callback();
-        });
-    });
-    this.Then(/^put bucket CORS status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
-    this.When(/^get bucket CORS$/, function (callback) {
-        test_bucket.getCORS(function (err, res, data) {
-            console.log(data);
-            test_res = res;
-            test_data = JSON.parse(data);
-            callback();
-        });
-    });
-    this.Then(/^get bucket CORS status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
-    this.Then(/^get bucket CORS should have allowed origin "([^"]*)"$/, function (arg1, callback) {
-        var ok = false;
-        for (var i in test_data['cors_rules']) {
-            if (test_data['cors_rules'][i]['allowed_origin'] === arg1) {
-                ok = true;
-            }
-        }
-        callback(null, ok.should.eql(true));
-    });
-    this.When(/^delete bucket CORS$/, function (callback) {
-        test_bucket.deleteCORS(function (err, res, data) {
-            console.log(data);
-            test_res = res;
-            test_data = data;
-            callback();
-        });
-    });
-    this.Then(/^delete bucket CORS status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
+  var config = new Config().loadUserConfig();
+  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  var test = new Qingstor(config);
+  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  var test_res = undefined;
+  var test_data = undefined;
+  test_bucket.put();
 
-    test_bucket.delete();
+  this.When(/^put bucket CORS:$/, function (string, callback) {
+    test_bucket.putCORS({
+      'cors_rules': JSON.parse(string)['cors_rules']
+    }, function (err, res) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^put bucket CORS status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+  this.When(/^get bucket CORS$/, function (callback) {
+    test_bucket.getCORS(function (err, res) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^get bucket CORS status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+  this.Then(/^get bucket CORS should have allowed origin "([^"]*)"$/, function (arg1, callback) {
+    var ok = false;
+    for (var i in test_res.cors_rules) {
+      if (test_res.cors_rules[i]['allowed_origin'] === arg1) {
+        ok = true;
+      }
+    }
+    callback(null, ok.should.eql(true));
+  });
+  this.When(/^delete bucket CORS$/, function (callback) {
+    test_bucket.deleteCORS(function (err, res) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^delete bucket CORS status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+
+  test_bucket.delete();
 };

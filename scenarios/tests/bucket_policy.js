@@ -23,61 +23,60 @@ var fs = require('fs');
 var should = require('chai').should();
 
 module.exports = function () {
-    var config = new Config().loadUserConfig();
-    var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-    var test = new Qingstor(config);
-    var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    var test_res = undefined;
-    var test_data = undefined;
-    test_bucket.put();
+  this.setDefaultTimeout(10 * 1000);
 
-    this.When(/^put bucket policy:$/, function (string, callback) {
-        var test_string = JSON.parse(string);
-        if (test_string['statement'].length) {
-            test_string['statement'][0]['resource'] = [test_config['bucket_name'] + "/*"];
+  var config = new Config().loadUserConfig();
+  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  var test = new Qingstor(config);
+  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  var test_res = undefined;
+  var test_data = undefined;
+  test_bucket.put();
+
+  this.When(/^put bucket policy:$/, function (string, callback) {
+    var test_string = JSON.parse(string);
+    if (test_string['statement'].length) {
+      test_string['statement'][0]['resource'] = [test_config['bucket_name'] + "/*"];
+    }
+    test_bucket.putPolicy({
+      'statement': test_string['statement']
+    }, function (err, res) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^put bucket policy status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+  this.When(/^get bucket policy$/, function (callback) {
+    test_bucket.getPolicy(function (err, res, data) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^get bucket policy status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+  this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function (arg1, callback) {
+    var ok = false;
+    test_res.statement.forEach(function (statement) {
+      statement['condition']['string_like']['Referer'].forEach(function (value) {
+        if (value === arg1) {
+          ok = true;
         }
-        test_bucket.putPolicy({
-            'statement': test_string['statement']
-        }, function (err, res, data) {
-            test_res = res;
-            test_data = data;
-            callback();
-        });
+      })
     });
-    this.Then(/^put bucket policy status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
+    callback(null, ok.should.eql(true));
+  });
+  this.When(/^delete bucket policy$/, function (callback) {
+    test_bucket.deletePolicy(function (err, res) {
+      test_res = res;
+      callback();
     });
-    this.When(/^get bucket policy$/, function (callback) {
-        test_bucket.getPolicy(function (err, res, data) {
-            test_res = res;
-            test_data = JSON.parse(data);
-            callback();
-        });
-    });
-    this.Then(/^get bucket policy status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
-    this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function (arg1, callback) {
-        var ok = false;
-        test_data['statement'].forEach(function (statement) {
-            statement['condition']['string_like']['Referer'].forEach(function (value) {
-                if (value === arg1) {
-                    ok = true;
-                }
-            })
-        });
-        callback(null, ok.should.eql(true));
-    });
-    this.When(/^delete bucket policy$/, function (callback) {
-        test_bucket.deletePolicy(function (err, res, data) {
-            test_res = res;
-            test_data = data;
-            callback();
-        });
-    });
-    this.Then(/^delete bucket policy status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
+  });
+  this.Then(/^delete bucket policy status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
 
-    test_bucket.delete();
+  test_bucket.delete();
 };

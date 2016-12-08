@@ -23,47 +23,46 @@ var fs = require('fs');
 var should = require('chai').should();
 
 module.exports = function () {
-    var config = new Config().loadUserConfig();
-    var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-    var test = new Qingstor(config);
-    var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    var test_res = undefined;
-    var test_data = undefined;
-    test_bucket.put();
+  this.setDefaultTimeout(10 * 1000);
 
-    this.When(/^put bucket ACL:$/, function (string, callback) {
-        console.log(JSON.parse(string)['acl']);
-        test_bucket.putACL({
-            'acl': JSON.parse(string)['acl']
-        }, function (err, res, data) {
-            test_res = res;
-            test_data = data;
-            callback();
-        });
-    });
-    this.Then(/^put bucket ACL status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
-    this.When(/^get bucket ACL$/, function (callback) {
-        test_bucket.getACL(function (err, res, data) {
-            console.log(data);
-            test_res = res;
-            test_data = JSON.parse(data);
-            callback();
-        });
-    });
-    this.Then(/^get bucket ACL status code is (\d+)$/, function (arg1, callback) {
-        callback(null, test_res.statusCode.toString().should.eql(arg1));
-    });
-    this.Then(/^get bucket ACL should have grantee name "([^"]*)"$/, function (arg1, callback) {
-        var ok = false;
-        for (var i in test_data['acl']) {
-            if (test_data['acl'][i]['grantee']['name'] === arg1) {
-                ok = true;
-            }
-        }
-        callback(null, ok.should.eql(true));
-    });
+  var config = new Config().loadUserConfig();
+  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  var test = new Qingstor(config);
+  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  var test_res = undefined;
+  var test_data = undefined;
+  test_bucket.put();
 
-    test_bucket.delete();
+  this.When(/^put bucket ACL:$/, function (string, callback) {
+    console.log(JSON.parse(string)['acl']);
+    test_bucket.putACL({
+      'acl': JSON.parse(string)['acl']
+    }, function (err, res) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^put bucket ACL status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+  this.When(/^get bucket ACL$/, function (callback) {
+    test_bucket.getACL(function (err, res) {
+      test_res = res;
+      callback();
+    });
+  });
+  this.Then(/^get bucket ACL status code is (\d+)$/, function (arg1, callback) {
+    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  });
+  this.Then(/^get bucket ACL should have grantee name "([^"]*)"$/, function (arg1, callback) {
+    var ok = false;
+    for (var i in test_res.acl) {
+      if (test_res.acl[i]['grantee']['name'] === arg1) {
+        ok = true;
+      }
+    }
+    callback(null, ok.should.eql(true));
+  });
+
+  test_bucket.delete();
 };
