@@ -23,7 +23,7 @@ var process = require('process');
 var url = require('url');
 
 describe('Builder test', function () {
-    var config = new Config().loadUserConfig();
+    var config = new Config('test_access_key', 'test_secret_key');
     var operation = {
         "method": "PUT",
         "uri": "/<bucket-name>/<object-key>?acl",
