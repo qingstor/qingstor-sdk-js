@@ -20,21 +20,21 @@ var Config = require('../lib/config');
 var QingStor = require('../lib/qingstor/qingstor');
 var request = require('request');
 
-describe('Unpacker test', function () {
+describe('Unpacker test', function() {
   var config = new Config('test_access_key', 'test_secret_key');
   var qingstor = new QingStor(config);
-  it('Unpacker test', function (done) {
-    qingstor.listBuckets({}, function (err, res, data) {
-      res.connection.should.equal('close');
-      res.server.should.equal('QingStor');
-      res.should.to.ownProperty('date');
-      res['content-type'].should.equal('application/json');
-      res['content-length'].should.equal('216');
-      res.should.to.ownProperty('x-qs-request-id');
+  it('Unpacker test', function(done) {
+    qingstor.listBuckets({}, function(err, data) {
+      data.connection.should.equal('close');
+      data.server.should.equal('QingStor');
+      data.should.to.ownProperty('date');
+      data['content-type'].should.equal('application/json');
+      data['content-length'].should.equal('216');
+      data.should.to.ownProperty('x-qs-request-id');
 
-      res.message.should.equal('The access key id you provided does not exist.');
-      res.code.should.equal('invalid_access_key_id');
-      res.should.to.ownProperty('request_id');
+      data.message.should.equal('The access key id you provided does not exist.');
+      data.code.should.equal('invalid_access_key_id');
+      data.should.to.ownProperty('request_id');
       done();
     });
   });

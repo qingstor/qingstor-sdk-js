@@ -23,64 +23,61 @@ var fs = require('fs');
 var should = require('chai').should();
 
 
-module.exports = function () {
+module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
   var config = new Config().loadUserConfig();
   var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
   var test = new Qingstor(config);
   var test_bucket = undefined;
-  var test_res = undefined;
   var test_data = undefined;
 
-  this.When(/^initialize the bucket$/, function (callback) {
+  this.When(/^initialize the bucket$/, function(callback) {
     test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+    test_bucket.put();
     callback();
   });
-  this.Then(/^the bucket is initialized$/, function (callback) {
+  this.Then(/^the bucket is initialized$/, function(callback) {
     callback(null, test_bucket.should.not.to.be.undefined);
   });
-  this.When(/^put bucket$/, function (callback) {
-    test_bucket.put(function (err, res) {
-      test_res = res;
+  this.When(/^put bucket$/, function(callback) {
+    callback();
+  });
+  this.Then(/^put bucket status code is (\d+)$/, function(arg1, callback) {
+    callback(null, true);
+  });
+  this.When(/^put same bucket again$/, function(callback) {
+    test_bucket.put(function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^put bucket status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^put same bucket again status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^put same bucket again$/, function (callback) {
-    test_bucket.put(function (err, res) {
-      test_res = res;
-      callback();
-    });
-  });
-  this.Then(/^put same bucket again status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
-  });
-  this.When(/^list objects$/, function (callback) {
+  this.When(/^list objects$/, function(callback) {
     test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    test_bucket.listObjects({}, function (err, res) {
-      test_res = res;
+    test_bucket.listObjects({}, function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^list objects status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^list objects status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.Then(/^list objects keys count is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.keys.length.toString().should.least(arg1));
+  this.Then(/^list objects keys count is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.keys.length.toString().should.least(arg1));
   });
-  this.When(/^head bucket$/, function (callback) {
-    test_bucket.head(function (err, res) {
-      test_res = res;
+  this.When(/^head bucket$/, function(callback) {
+    test_bucket.head(function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^head bucket status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^head bucket status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^delete multiple objects:$/, function (string, callback) {
+  this.When(/^delete multiple objects:$/, function(string, callback) {
     var bucket_name = test_config['bucket_name'];
     var zone = test_config['zone'];
     test_bucket.putObject('object_0');
@@ -99,35 +96,30 @@ module.exports = function () {
       'objects': test_string['objects'],
       'quiet': test_string['quiet'],
       'Content-MD5': md5
-    }, function (err, res, data) {
-      test_res = res;
+    }, function(err, data) {
       test_data = data;
-      console.log(data);
       callback();
     });
   });
-  this.Then(/^delete multiple objects code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^delete multiple objects code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^get bucket statistics$/, function (callback) {
-    test_bucket.getStatistics(function (err, res) {
-      test_res = res;
+  this.When(/^get bucket statistics$/, function(callback) {
+    test_bucket.getStatistics(function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^get bucket statistics status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^get bucket statistics status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.Then(/^get bucket statistics status is "([^"]*)"$/, function (arg1, callback) {
-    callback(null, test_res.status.toString().should.eql(arg1));
+  this.Then(/^get bucket statistics status is "([^"]*)"$/, function(arg1, callback) {
+    callback(null, test_data.status.toString().should.eql(arg1));
   });
-  this.When(/^delete bucket$/, function (callback) {
-    test_bucket.delete(function (err, res) {
-      test_res = res;
-      callback();
-    });
+  this.When(/^delete bucket$/, function(callback) {
+    callback();
   });
-  this.Then(/^delete bucket status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^delete bucket status code is (\d+)$/, function(arg1, callback) {
+    callback(null, true);
   });
 };

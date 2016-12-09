@@ -16,30 +16,30 @@
 
 "use strict";
 
-describe('QingStor test', function () {
-    var Config = require('qingstor-sdk').Config;
-    var test_config = new Config().loadConfig({
-        'access_key_id': 'test_access_key_id',
-        'secret_access_key': 'test_secret_access_key',
-        'host': 'qingstor.com',
-        'port': 443,
-        'protocol': 'https',
-        'connection_retries': 3,
-        'log_level': 'error'
-    });
-    var QingStor = new require('qingstor-sdk').QingStor;
-    var test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
-    it('GetObject test', function () {
-        test.getObject('test_key', function (err, res, data) {
-            console.log(data);
-            res.statusCode.should.equal(200);
-        })
-    });
-    it('GetObjectQuery test', function () {
-        var expires = Math.floor(Date.now(), 1000) + 1000;
-        test.getObjectQuery(expires, 'test_key', function (err, res, data) {
-            console.log(data);
-            res.statusCode.should.equal(200);
-        })
-    });
+describe('QingStor test', function() {
+  var Config = require('qingstor-sdk').Config;
+  var test_config = new Config().loadConfig({
+    'access_key_id': 'test_access_key_id',
+    'secret_access_key': 'test_secret_access_key',
+    'host': 'qingstor.com',
+    'port': 443,
+    'protocol': 'https',
+    'connection_retries': 3,
+    'log_level': 'error'
+  });
+  var QingStor = new require('qingstor-sdk').QingStor;
+  var test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
+  it('GetObject test', function() {
+    test.getObject('test_key', function(err, res, data) {
+      console.log(data);
+      res.statusCode.should.equal(200);
+    })
+  });
+  it('GetObjectQuery test', function() {
+    var expires = Math.floor(Date.now(), 1000) + 1000;
+    test.getObjectQuery(expires, 'test_key', function(err, res, data) {
+      console.log(data);
+      res.statusCode.should.equal(200);
+    })
+  });
 });

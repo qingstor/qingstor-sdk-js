@@ -22,49 +22,46 @@ var yaml = require('js-yaml');
 var fs = require('fs');
 var should = require('chai').should();
 
-module.exports = function () {
+module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
   var config = new Config().loadUserConfig();
   var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
   var test = new Qingstor(config);
   var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-  var test_res = undefined;
   var test_data = undefined;
   test_bucket.put();
 
-  this.When(/^put bucket external mirror:$/, function (string, callback) {
+  this.When(/^put bucket external mirror:$/, function(string, callback) {
     test_bucket.putExternalMirror({
       'source_site': JSON.parse(string)['source_site']
-    }, function (err, res) {
-      test_res = res;
+    }, function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^put bucket external mirror status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^put bucket external mirror status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^get bucket external mirror$/, function (callback) {
-    test_bucket.getExternalMirror(function (err, res) {
-      test_res = res;
+  this.When(/^get bucket external mirror$/, function(callback) {
+    test_bucket.getExternalMirror(function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^get bucket external mirror status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^get bucket external mirror status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.Then(/^get bucket external mirror should have source_site "([^"]*)"$/, function (arg1, callback) {
-    callback(null, test_res.source_site.toString().should.eql(arg1));
+  this.Then(/^get bucket external mirror should have source_site "([^"]*)"$/, function(arg1, callback) {
+    callback(null, test_data.source_site.toString().should.eql(arg1));
   });
-  this.When(/^delete bucket external mirror$/, function (callback) {
-    test_bucket.deleteExternalMirror(function (err, res) {
-      test_res = res;
+  this.When(/^delete bucket external mirror$/, function(callback) {
+    test_bucket.deleteExternalMirror(function(err, data) {
+      test_data = data;
       callback();
     });
   });
-  this.Then(/^delete bucket external mirror status code is (\d+)$/, function (arg1, callback) {
-    callback(null, test_res.statusCode.toString().should.eql(arg1));
+  this.Then(/^delete bucket external mirror status code is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-
-  test_bucket.delete();
 };

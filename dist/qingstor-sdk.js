@@ -269,6 +269,7 @@ var Config = function(access_key_id, secret_access_key) {
     return yaml.safeLoad(fs.readFileSync(filePath));
   };
 
+  return this;
 };
 
 module.exports = Config;
@@ -404,8 +405,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: delete');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -482,8 +483,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: deleteCORS');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -560,8 +561,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: deleteExternalMirror');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -638,8 +639,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: deletePolicy');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -725,8 +726,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: deleteMultipleObjects');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -814,8 +815,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: getACL');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -892,8 +893,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: getCORS');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -970,8 +971,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: getExternalMirror');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1048,8 +1049,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: getPolicy');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1126,8 +1127,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: getStatistics');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1204,8 +1205,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: head');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1294,8 +1295,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: listObjects');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1376,8 +1377,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: put');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1457,8 +1458,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: putACL');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1576,8 +1577,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: putCORS');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1670,8 +1671,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: putExternalMirror');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1756,8 +1757,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: putPolicy');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1878,8 +1879,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: abortMultipartUpload');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -1980,8 +1981,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: completeMultipartUpload');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2074,8 +2075,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: deleteObject');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2177,8 +2178,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: getObject');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2285,8 +2286,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: headObject');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2383,8 +2384,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: initiateMultipartUpload');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2475,8 +2476,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: listMultipart');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2570,8 +2571,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: optionsObject');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2713,8 +2714,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: putObject');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2831,8 +2832,8 @@ var Bucket = function(config, properties) {
     while (1) {
       try {
         logger.info('Sending QingStor request: uploadMultipart');
-        request(signer.sign(), function(err, res, body) {
-          callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function(err, res) {
+          callback && callback(err, Unpacker.unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -2968,8 +2969,8 @@ var QingStor = function(config) {
    */
   this.listBuckets = function(options, callback) {
     var signer = this.listBucketsRequest(options);
-    request(signer.sign(), function(err, res, body) {
-      callback && callback(err, new Unpacker(res), body);
+    request(signer.sign(), function(err, res) {
+      callback && callback(err, Unpacker.unpack(res));
     });
   };
 
@@ -3215,9 +3216,11 @@ var Unpacker = function(res) {
 
   this.unpackResponseHeaders(res);
   this.unpackResponseBody(res);
+
+  return this;
 };
 
-module.exports = Unpacker;
+exports.unpack = Unpacker;
 },{}],10:[function(require,module,exports){
 (function (global){
 // +-------------------------------------------------------------------------
@@ -3238,7 +3241,7 @@ module.exports = Unpacker;
 
 'use strict';
 
-global.version = '2.0.0-beta.3';
+global.version = '2.0.0-beta.4';
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],11:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';

@@ -18,78 +18,77 @@ var Config = require('../lib/config');
 var should = require('chai').should();
 var yaml = require('js-yaml');
 
-describe('Config test', function () {
-    it('isFileExist test', function () {
-        var test = new Config();
-        fs = require('fs');
-        fs.writeFileSync('/tmp/exist_file', 'test_data');
-        test.isFileExist('/tmp/exist_file').should.equal(true);
-        test.isFileExist('/tmp/not_exist_file').should.equal(false);
-    });
-    it('loadDefaultConfig test', function () {
-        var test = new Config();
+describe('Config test', function() {
+  it('isFileExist test', function() {
+    var test = new Config();
+    fs = require('fs');
+    fs.writeFileSync('/tmp/exist_file', 'test_data');
+    test.isFileExist('/tmp/exist_file').should.equal(true);
+    test.isFileExist('/tmp/not_exist_file').should.equal(false);
+  });
+  it('loadDefaultConfig test', function() {
+    var test = new Config();
+    test.access_key_id.should.equal('');
+    test.secret_access_key.should.equal('');
+    test.host.should.equal('qingstor.com');
+    test.port.should.equal(443);
+    test.protocol.should.equal('https');
+    test.connection_retries.should.equal(3);
+    test.log_level.should.equal('warn');
+  });
 
-        test.access_key_id.should.equal('');
-        test.secret_access_key.should.equal('');
-        test.host.should.equal('qingstor.com');
-        test.port.should.equal(443);
-        test.protocol.should.equal('https');
-        test.connection_retries.should.equal(3);
-        test.log_level.should.equal('warn');
-    });
+  it('loadDefaultConfig with access key test', function() {
+    var test = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 
-    it('loadDefaultConfig with access key test', function () {
-        var test = new Config('ACCESS_KEY_ID_EXAMPLE','SECRET_ACCESS_KEY_EXAMPLE');
+    test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
+    test.secret_access_key.should.equal('SECRET_ACCESS_KEY_EXAMPLE');
+    test.host.should.equal('qingstor.com');
+    test.port.should.equal(443);
+    test.protocol.should.equal('https');
+    test.connection_retries.should.equal(3);
+    test.log_level.should.equal('warn');
+  });
 
-        test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
-        test.secret_access_key.should.equal('SECRET_ACCESS_KEY_EXAMPLE');
-        test.host.should.equal('qingstor.com');
-        test.port.should.equal(443);
-        test.protocol.should.equal('https');
-        test.connection_retries.should.equal(3);
-        test.log_level.should.equal('warn');
-    });
+  it('loadUserConfig test', function() {
+    var test = new Config();
 
-    it('loadUserConfig test', function () {
-        var test = new Config();
+    test.loadUserConfig()
+      .should
+      .to
+      .contain
+      .all
+      .keys([
+        'access_key_id',
+        'connection_retries',
+        'host',
+        'log_level',
+        'port',
+        'protocol',
+        'secret_access_key'
+      ]);
+  });
 
-        test.loadUserConfig()
-            .should
-            .to
-            .contain
-            .all
-            .keys([
-                'access_key_id',
-                'connection_retries',
-                'host',
-                'log_level',
-                'port',
-                'protocol',
-                'secret_access_key'
-            ]);
-    });
+  it('loadConfig test', function() {
+    var test = new Config();
+    var defaultConfigFileContent = "# QingStor Services Configuration\n"
+      + "\n"
+      + "access_key_id: 'ACCESS_KEY_ID_1'\n"
+      + "secret_access_key: 'SECRET_ACCESS_KEY_1'\n"
+      + "host: 'private.com'\n"
+      + "port: 80\n"
+      + "protocol: 'http'\n"
+      + "connection_retries: 1\n"
+      + "\n"
+      + "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n"
+      + "log_level: 'info'\n";
+    test.loadConfig(yaml.safeLoad(defaultConfigFileContent));
 
-    it('loadConfig test', function () {
-        var test = new Config();
-        var defaultConfigFileContent = "# QingStor Services Configuration\n"
-            + "\n"
-            + "access_key_id: 'ACCESS_KEY_ID_1'\n"
-            + "secret_access_key: 'SECRET_ACCESS_KEY_1'\n"
-            + "host: 'private.com'\n"
-            + "port: 80\n"
-            + "protocol: 'http'\n"
-            + "connection_retries: 1\n"
-            + "\n"
-            + "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n"
-            + "log_level: 'info'\n";
-        test.loadConfig(yaml.safeLoad(defaultConfigFileContent));
-
-        test.access_key_id.should.equal('ACCESS_KEY_ID_1');
-        test.secret_access_key.should.equal('SECRET_ACCESS_KEY_1');
-        test.host.should.equal('private.com');
-        test.port.should.equal(80);
-        test.protocol.should.equal('http');
-        test.connection_retries.should.equal(1);
-        test.log_level.should.equal('info');
-    })
+    test.access_key_id.should.equal('ACCESS_KEY_ID_1');
+    test.secret_access_key.should.equal('SECRET_ACCESS_KEY_1');
+    test.host.should.equal('private.com');
+    test.port.should.equal(80);
+    test.protocol.should.equal('http');
+    test.connection_retries.should.equal(1);
+    test.log_level.should.equal('info');
+  })
 });

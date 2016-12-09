@@ -23,28 +23,30 @@ var fs = require('fs');
 var should = require('chai').should();
 
 
-module.exports = function () {
+module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
   var config = new Config().loadUserConfig();
   var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
   var test = undefined;
   var test_res = undefined;
-  this.When(/^initialize QingStor service$/, function (callback) {
+  this.When(/^initialize QingStor service$/, function(callback) {
     test = new Qingstor(config);
     callback();
   });
-  this.Then(/^the QingStor service is initialized$/, function (callback) {
+  this.Then(/^the QingStor service is initialized$/, function(callback) {
     callback(null, test.should.not.to.be.undefined);
 
   });
-  this.When(/^list buckets$/, function (callback) {
-    test.listBuckets({'location': 'pek3a'}, function (err, res) {
+  this.When(/^list buckets$/, function(callback) {
+    test.listBuckets({
+      'location': 'pek3a'
+    }, function(err, res) {
       test_res = res;
       callback();
     });
   });
-  this.Then(/^list buckets status code is (\d+)$/, function (arg1, callback) {
+  this.Then(/^list buckets status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_res.statusCode.toString().should.eql(arg1));
   });
 };
