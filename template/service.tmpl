@@ -103,8 +103,8 @@ var {{$service.Name | camelCase}} = function (config) {
      */
     this.{{$operation.ID | camelCase|lowerFirst}} = function (options,callback) {
         var signer = this.{{$operation.ID | camelCase|lowerFirst}}Request(options);
-        request(signer.sign(), function (err, res, body) {
-            callback && callback(err, new Unpacker(res), body);
+        request(signer.sign(), function (err, res) {
+            callback && callback(err, Unpacker.unpack(res));
         });
     };
 
