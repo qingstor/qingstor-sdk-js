@@ -19,7 +19,7 @@
     "test": "mocha -t 10000",
     "dist": "gulp bundle bundle-map",
     "cucumber": "cd scenarios; npm install; ./node_modules/.bin/cucumber-js  features/*.feature --require tests;",
-    "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./lib/qingstor'; rm ./lib/qingstor/object.js; esformatter -i 'lib/**/*.js';"
+    "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./lib/qingstor'; rm ./lib/qingstor/object.js; esformatter -i 'lib/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js';"
   },
   "keywords": [
     "qingstor",
