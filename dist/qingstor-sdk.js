@@ -3241,19 +3241,9 @@ exports.unpack = Unpacker;
 
 'use strict';
 
-global.version = '2.0.0-beta.5';
-
-var Qingstor = require('qingstor-sdk').QingStor;
-var config = require('qingstor-sdk')
-  .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-
-var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects({}, function (err, data) {
-  console.log(data.statusCode);
-  console.log(data.keys);
-});
+global.version = '2.0.0-beta.6';
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"qingstor-sdk":"Focm2+"}],11:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
