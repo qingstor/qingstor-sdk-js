@@ -13,7 +13,7 @@ var Qingstor = require('qingstor-sdk').QingStor;
 Initialize the QingStor service with a configuration
 
 ``` javascript
-var config = new Config().loadUserConfig();
+var config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 vat service = new QingStor(config);
 ```
 

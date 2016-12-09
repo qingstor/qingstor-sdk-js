@@ -34,15 +34,16 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 
 *Used in node:*
 ```javascript
-"use strict";
+'use strict';
 
-var Qingstor = require('qingstor-sdk').QingStor;
-var config = require('qingstor-sdk').Config.loadUserConfig();
+var QingStor = require('qingstor-sdk').QingStor;
+var config = require('qingstor-sdk')
+  .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 var bucket = new Qingstor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects({}, function (err, res, data) {
-    console.log(data);
-    console.log(res.statusCode);
-})
+bucket.listObjects({}, function (err, data) {
+  console.log(data.statusCode);
+  console.log(data.keys);
+});
 ```
 
 *Used in Browser:*
@@ -56,14 +57,14 @@ Firstly, you should refer qingstor-sdk javascript files [qingstor-sdk.min.js](ht
 After that, you can use all functions in node way.
 
 ```javascript
-var Qingstor = require('qingstor-sdk').QingStor;
-var example_config = require('qingstor-sdk').Config.loadDefaultConfig();
-example_config.access_key_id = test_access_key_id;
-example_config.secret_access_key = test_secret_access_key;
-var example = new QingStor(example_config).Bucket('example_bucket', 'pek3a');
-example.getObject('test_key', function (err, res, data) {
-     console.log(data);
-     console.log(res.statusCode);
+var QingStor = require('qingstor-sdk').QingStor;
+var config = require('qingstor-sdk')
+  .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+
+var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
+bucket.listObjects({}, function (err, data) {
+  console.log(data.statusCode);
+  console.log(data.keys);
 });
 ```
 
