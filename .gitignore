@@ -1,7 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
-../php/vendor/katzgrau/klogger/tests/logs
 *.log
 npm-debug.log*
 
@@ -39,3 +38,5 @@ jspm_packages
 .node_repl_history
 
 test_config.yaml
+
+dist/
