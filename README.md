@@ -39,7 +39,7 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 var QingStor = require('qingstor-sdk').QingStor;
 var config = require('qingstor-sdk')
   .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-var bucket = new Qingstor(config).Bucket('example_bucket', 'pek3a');
+var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
 bucket.listObjects({}, function (err, data) {
   console.log(data.statusCode);
   console.log(data.keys);
