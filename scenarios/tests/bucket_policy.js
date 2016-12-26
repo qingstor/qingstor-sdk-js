@@ -35,7 +35,7 @@ module.exports = function() {
   this.When(/^put bucket policy:$/, function(string, callback) {
     var test_string = JSON.parse(string);
     if (test_string['statement'].length) {
-      test_string['statement'][0]['dataource'] = [test_config['bucket_name'] + "/*"];
+      test_string['statement'][0]['resource'] = [test_config['bucket_name'] + "/*"];
     }
     test_bucket.putPolicy({
       'statement': test_string['statement']
