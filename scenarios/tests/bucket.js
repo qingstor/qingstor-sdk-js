@@ -85,17 +85,9 @@ module.exports = function() {
     test_bucket.putObject('object_2');
 
     var test_string = JSON.parse(string);
-    var h = require("crypto").createHash('md5').update(
-      JSON.stringify({
-        'objects': test_string['objects'],
-        'quiet': test_string['quiet']
-      })
-    );
-    var md5 = new Buffer(h.digest()).toString("base64");
     test_bucket.deleteMultipleObjects({
       'objects': test_string['objects'],
-      'quiet': test_string['quiet'],
-      'Content-MD5': md5
+      'quiet': test_string['quiet']
     }, function(err, data) {
       test_data = data;
       callback();
