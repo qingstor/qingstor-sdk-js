@@ -94,14 +94,28 @@ module.exports = function() {
   });
 
   this.When(/^get object with query signature$/, function(callback) {
-    var expidata = Math.floor(Date.now(), 1000) + 1000;
-    request(test_bucket.getObjectQuery('test_object', expidata), function(err, data) {
+    var expires = Math.floor(Date.now(), 1000) + 1000;
+    request(test_bucket.getObjectQuery('test_object', expires), function(err, data) {
       test_data = data;
       callback();
     })
   });
   this.Then(/^get object with query signature content length is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.body.length.toString().should.eql(arg1));
+  });
+
+  this.When(/^get object with content type "([^"]*)"$/, function(arg1, callback) {
+    test_data = null;
+    test_bucket.getObject('test_object', {
+      'response-content-type': arg1
+    }, function(err, data) {
+      test_data = data;
+      callback();
+    })
+  });
+
+  this.Then(/^get object content type is "([^"]*)"$/, function(arg1, callback) {
+    callback(null, test_data['content-type'].toString().should.eql(arg1));
   });
 
   this.When(/^head object$/, function(callback) {
