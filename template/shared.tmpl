@@ -109,6 +109,7 @@
         {{- if $hasInput}}options{{end -}}
         ) {
         var operation = {
+            'api': '{{$operation.ID}}',
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$operation.Request.URI}}',
             'params': {

@@ -56,6 +56,7 @@ var {{$service.Name | camelCase}} = function (config) {
     this.{{$operation.ID | camelCase|lowerFirst}}Request = function (options) {
         if (_.isUndefined(options)) options = {};
         var operation = {
+            'api': '{{$operation.ID}}',
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$operation.Request.URI}}',
             'params': {
