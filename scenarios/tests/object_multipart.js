@@ -58,7 +58,7 @@ module.exports = function() {
       test_data = test_bucket.uploadMultipart('test_object_multipart', {
         'upload_id': init_output['upload_id'],
         'part_number': '0',
-        'body': fs.readFileSync('/tmp/sdk_bin_part_0')
+        'body': fs.createReadStream('/tmp/sdk_bin_part_0')
       }, function(err, data) {
         test_data = data;
         callback();
@@ -81,7 +81,7 @@ module.exports = function() {
       test_data = test_bucket.uploadMultipart('test_object_multipart', {
         'upload_id': init_output['upload_id'],
         'part_number': '1',
-        'body': fs.readFileSync('/tmp/sdk_bin_part_1')
+        'body': fs.createReadStream('/tmp/sdk_bin_part_1')
       }, function(err, data) {
         test_data = data;
         callback();
@@ -104,7 +104,7 @@ module.exports = function() {
       test_bucket.uploadMultipart('test_object_multipart', {
         'upload_id': init_output['upload_id'],
         'part_number': '2',
-        'body': fs.readFileSync('/tmp/sdk_bin_part_2')
+        'body': fs.createReadStream('/tmp/sdk_bin_part_2')
       }, function(err, data) {
         test_data = data;
         callback();
