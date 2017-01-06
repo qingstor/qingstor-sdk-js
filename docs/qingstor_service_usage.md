@@ -4,7 +4,7 @@ Import the QingStor and initialize service with a config, and you are ready to u
 To use bucket related APIs, you need to initialize a bucket from service using "Bucket" function.
 
 ``` javascript
-var Config = require("qingstor-sdk").Config;
+var Config = require('qingstor-sdk').Config;
 var Qingstor = require('qingstor-sdk').QingStor;
 ```
 
@@ -31,7 +31,7 @@ service.listBuckets({
 Initialize a QingStor bucket
 
 ``` javascript
-bucket = service.Bucket("test-bucket", "pek3a");
+bucket = service.Bucket('test-bucket', 'pek3a');
 ```
 
 List objects in the bucket
@@ -69,7 +69,7 @@ Put object
 
 ``` javascript
 bucket.putObject('object', {
-  'body': fs.readFileSync("/tmp/sdk_bin")
+  'body': fs.createReadStream('/tmp/sdk_bin')
 }, function(err, res, data) {
   console.log(res.statusCode);
 });
@@ -99,7 +99,7 @@ Upload Multipart
 bucket.uploadMultipart('object_multipart', {
   'upload_id': init_output.upload_id,
   'part_number': '0',
-  'body': fs.readFileSync('/tmp/sdk_bin_part_0')
+  'body': fs.createReadStream('/tmp/sdk_bin_part_0')
 }, function(err, res, data) {
   console.log(res.statusCode);
 });
@@ -107,7 +107,7 @@ bucket.uploadMultipart('object_multipart', {
 bucket.uploadMultipart('object_multipart', {
   'upload_id': init_output.upload_id,
   'part_number': '1',
-  'body': fs.readFileSync('/tmp/sdk_bin_part_1')
+  'body': fs.createReadStream('/tmp/sdk_bin_part_1')
 }, function(err, res, data) {
   console.log(res.statusCode);
 });
@@ -115,7 +115,7 @@ bucket.uploadMultipart('object_multipart', {
 bucket.uploadMultipart('object_multipart', {
   'upload_id': init_output.upload_id,
   'part_number': '2',
-  'body': fs.readFileSync('/tmp/sdk_bin_part_2')
+  'body': fs.createReadStream('/tmp/sdk_bin_part_2')
 }, function(err, res, data) {
   console.log(res.statusCode);
 });
