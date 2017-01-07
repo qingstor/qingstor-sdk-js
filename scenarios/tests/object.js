@@ -47,6 +47,11 @@ module.exports = function() {
         'body': fs.createReadStream("/tmp/sdk_bin")
       }, function(err, data) {
         test_data = data;
+      });
+      test_bucket.putObject(arg1, {
+        'body': fs.readFileSync("/tmp/sdk_bin")
+      }, function(err, data) {
+        test_data = data;
         child_process.exec('rm -f /tmp/sdk_bin');
         callback();
       });
