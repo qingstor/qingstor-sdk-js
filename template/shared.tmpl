@@ -4,7 +4,12 @@
     {{- $request := $operation.Request}}
     {{- $customizedTypes := index . 2}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
+    {{- if ne $belongs "QingStor"}}
     this.{{$opID | camelCase | lowerFirst}}Validate = function(operation){
+    {{- end}}
+    {{- if eq $belongs "QingStor"}}
+    this.{{$operation.ID | camelCase | lowerFirst}}Validate = function(operation){
+    {{- end}}
     {{- $i := passThrough "operation['params']" $request.Params $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
     {{- $i := passThrough "operation['headers']" $request.Headers $customizedTypes}}
@@ -87,7 +92,12 @@
     {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
 
     /**
+     {{- if ne $belongs "QingStor"}}
      * {{$opID | camelCase | lowerFirst}}Request: Build {{$opID}}'s request
+     {{- end}}
+     {{- if eq $belongs "QingStor"}}
+     * {{$operation.ID | camelCase | lowerFirst}}Request: Build {{$operation.ID}}'s request
+     {{- end}}
      {{- if $operation.DocumentationURL}}
      * @link {{$operation.DocumentationURL}} Documentation URL
      {{- end}}
@@ -103,21 +113,35 @@
      *
      * @return Signer
      */
+    {{- if ne $belongs "QingStor"}}
     this.{{$opID | camelCase | lowerFirst}}Request = function (
+    {{- end}}
+    {{- if eq $belongs "QingStor"}}
+    this.{{$operation.ID | camelCase | lowerFirst}}Request = function (
+    {{- end}}
         {{- if eq $belongs "Object"}}object_key{{end -}}
         {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
         {{- if $hasInput}}options{{end -}}
         ) {
+        {{- $uri := $operation.Request.URI}}
+        {{- $uri := replace $uri "{" "<" -1}}
+        {{- $uri := replace $uri "}" ">" -1}}
+        {{- $uri := dashConnected $uri}}
         var operation = {
             'api': '{{$operation.ID}}',
             'method': '{{$operation.Request.Method}}',
-            'uri': '{{$operation.Request.URI}}',
+            'uri': '{{$uri}}',
             'params': {
                 {{range $id, $property := $operation.Request.Params.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
             },
             'headers': {
+                {{- if ne $belongs "QingStor"}}
                 'Host': properties.zone+'.'+config.host,
+                {{- end}}
+                {{- if eq $belongs "QingStor"}}
+                'Host': config.host,
+                {{- end}}
                 {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
             },
@@ -125,13 +149,23 @@
                 {{range $id, $property := $operation.Request.Elements.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}', ''),
                 {{end -}}
             },
+            {{- if ne $belongs "QingStor"}}
             'properties': properties,
+            {{- end}}
+            {{- if eq $belongs "QingStor"}}
+            'properties': {},
+            {{- end}}
             'body': {{if $operation.Request.Body.Type}}_.result(options,'body',''){{else}}undefined{{end}}
         };
         {{- if eq $belongs "Object"}}
         operation.properties['object-key'] = object_key;
         {{- end}}
+        {{- if ne $belongs "QingStor"}}
         this.{{$opID | camelCase | lowerFirst}}Validate(operation);
+        {{- end}}
+        {{- if eq $belongs "QingStor"}}
+        this.{{$operation.ID | camelCase | lowerFirst}}Validate(operation);
+        {{- end}}
         return new Signer(
             new Builder(config, operation).parse(),
             config.access_key_id,
@@ -153,7 +187,12 @@
     {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
 
     /**
+     {{- if ne $belongs "QingStor"}}
      * {{$opID | camelCase | lowerFirst}}: {{$operation.Description}}
+     {{- end}}
+     {{- if eq $belongs "QingStor"}}
+     * {{$operation.ID | camelCase | lowerFirst}}: {{$operation.Description}}
+     {{- end}}
      {{- if $operation.DocumentationURL}}
      * @link {{$operation.DocumentationURL}} Documentation URL
      {{- end}}
@@ -170,17 +209,32 @@
      *
      * @return none
      */
+    {{- if ne $belongs "QingStor"}}
     this.{{$opID | camelCase | lowerFirst}} = function (
+    {{- end}}
+    {{- if eq $belongs "QingStor"}}
+    this.{{$operation.ID | camelCase | lowerFirst}} = function (
+    {{- end}}
         {{- if eq $belongs "Object"}}object_key,{{end -}}
         {{- if $hasInput}}options, {{end -}}callback) {
+        {{- if ne $belongs "QingStor"}}
         var signer = this.{{$opID | camelCase | lowerFirst}}Request(
+        {{- end}}
+        {{- if eq $belongs "QingStor"}}
+        var signer = this.{{$operation.ID | camelCase | lowerFirst}}Request(
+        {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
             {{- if $hasInput}}options{{end -}});
         var retries = this.config.connection_retries;
         while (1) {
             try {
+                {{- if ne $belongs "QingStor"}}
                 logger.info('Sending QingStor request: {{$opID | camelCase | lowerFirst}}');
+                {{- end}}
+                {{- if eq $belongs "QingStor"}}
+                logger.info('Sending QingStor request: {{$operation.ID | camelCase | lowerFirst}}');
+                {{- end}}
                 request(signer.sign(), function (err, res) {
                     callback && callback(err, Unpacker.unpack(res));
                 });
@@ -211,7 +265,12 @@
     {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
 
     /**
+     {{- if ne $belongs "QingStor"}}
      * {{$opID | camelCase | lowerFirst}}Query: {{$opID | camelCase}}'s Query Sign Way
+     {{- end}}
+     {{- if eq $belongs "QingStor"}}
+     * {{$operation.ID | camelCase | lowerFirst}}Query: {{$operation.ID | camelCase}}'s Query Sign Way
+     {{- end}}
      {{- if $operation.DocumentationURL}}
      * @link {{$operation.DocumentationURL}} Documentation URL
      {{- end}}
@@ -229,11 +288,21 @@
      *
      * @return none
      */
+     {{- if ne $belongs "QingStor"}}
      this.{{$opID | camelCase | lowerFirst}}Query = function (
+     {{- end}}
+     {{- if eq $belongs "QingStor"}}
+     this.{{$operation.ID | camelCase | lowerFirst}}Query = function (
+     {{- end}}
         {{- if eq $belongs "Object"}}object_key,{{end -}}
         expires
         {{- if $hasInput}},options{{end -}}) {
+         {{- if ne $belongs "QingStor"}}
          var signer = this.{{$opID | camelCase | lowerFirst}}Request(
+         {{- end}}
+         {{- if eq $belongs "QingStor"}}
+         var signer = this.{{$operation.ID | camelCase | lowerFirst}}Request(
+         {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
             {{- if $hasInput}}options{{end -}});

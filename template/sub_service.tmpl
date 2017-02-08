@@ -36,7 +36,7 @@ var Bucket = function (config, properties) {
     }
 {{- range $_, $subService := $subServices }}
     {{- range $_, $operation := $subService.Operations}}
-    {{- template "RenderOperation" passThrough $subService.Name $operation $customizedTypes}}
+      {{- template "RenderOperation" passThrough $subService.Name $operation $customizedTypes}}
     {{- end}}
 {{- end }}
 };
