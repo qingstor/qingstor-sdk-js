@@ -31,6 +31,7 @@ describe('Signer test', function() {
       "Content-Type": "image/jpeg",
       'x-qs-z': 'test-z',
       'x-qs-a': 'test-a',
+      'x-qs-a-abc': 'test-abc',
       'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
     }
   };
@@ -42,7 +43,7 @@ describe('Signer test', function() {
   });
   it('getAuthorization test', function() {
     test.getAuthorization().should.eql(
-      'rnP7tsFg54ezfEYOAixtzC2nZD82Z4IVSQuAaH95JtM='
+      '80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4='
     )
   });
   it('sign test', function() {
@@ -57,7 +58,8 @@ describe('Signer test', function() {
         'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
         'x-qs-z': 'test-z',
         'x-qs-a': 'test-a',
-        "Authorization": "QS test_key:rnP7tsFg54ezfEYOAixtzC2nZD82Z4IVSQuAaH95JtM=",
+        'x-qs-a-abc': 'test-abc',
+        'Authorization': 'QS test_key:80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4=',
         'Content-Type': 'image/jpeg'
       }
     })
