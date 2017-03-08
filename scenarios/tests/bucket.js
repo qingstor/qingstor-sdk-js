@@ -16,21 +16,20 @@
 
 "use strict";
 
-var Config = require("qingstor-sdk").Config;
-var Qingstor = require('qingstor-sdk').QingStor;
-var yaml = require('js-yaml');
-var fs = require('fs');
-var should = require('chai').should();
+import fs from "fs";
+import yaml from "js-yaml";
+import { Config, QingStor } from "qingstor-sdk";
 
+let should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  var config = new Config().loadUserConfig();
-  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-  var test = new Qingstor(config);
-  var test_bucket = undefined;
-  var test_data = undefined;
+  let config = new Config().loadUserConfig();
+  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let test = new QingStor(config);
+  let test_bucket = undefined;
+  let test_data = undefined;
 
   this.When(/^initialize the bucket$/, function(callback) {
     test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
@@ -57,7 +56,7 @@ module.exports = function() {
   });
   this.When(/^list objects$/, function(callback) {
     test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    test_bucket.listObjects({}, function(err, data) {
+    test_bucket.listObjects(function(err, data) {
       test_data = data;
       callback();
     });
@@ -78,13 +77,13 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.When(/^delete multiple objects:$/, function(string, callback) {
-    var bucket_name = test_config['bucket_name'];
-    var zone = test_config['zone'];
+    let bucket_name = test_config['bucket_name'];
+    let zone = test_config['zone'];
     test_bucket.putObject('object_0');
     test_bucket.putObject('object_1');
     test_bucket.putObject('object_2');
 
-    var test_string = JSON.parse(string);
+    let test_string = JSON.parse(string);
     test_bucket.deleteMultipleObjects({
       'objects': test_string['objects'],
       'quiet': test_string['quiet']
@@ -113,5 +112,18 @@ module.exports = function() {
   });
   this.Then(/^delete bucket status code is (\d+)$/, function(arg1, callback) {
     callback(null, true);
+  });
+  this.Given(/^an object created by initiate multipart upload$/, function(callback) {
+    test_bucket.initiateMultipartUpload("list_multipart_uploads");
+    callback();
+  });
+  this.When(/^list multipart uploads$/, function(callback) {
+    test_bucket.listMultipartUploads(function(err, data) {
+      test_data = data;
+      callback();
+    });
+  });
+  this.Then(/^list multipart uploads count is (\d+)$/, function(arg1, callback) {
+    callback(null, test_data.uploads.length.toString().should.eql(arg1));
   });
 };

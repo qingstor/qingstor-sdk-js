@@ -16,24 +16,24 @@
 
 "use strict";
 
-var Config = require("qingstor-sdk").Config;
-var Qingstor = require('qingstor-sdk').QingStor;
-var yaml = require('js-yaml');
-var fs = require('fs');
-var should = require('chai').should();
+import fs from "fs";
+import yaml from "js-yaml";
+import { Config, QingStor } from "qingstor-sdk";
+
+let should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  var config = new Config().loadUserConfig();
-  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-  var test = new Qingstor(config);
-  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-  var test_data = undefined;
+  let config = new Config().loadUserConfig();
+  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let test = new QingStor(config);
+  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  let test_data = undefined;
   test_bucket.put();
 
   this.When(/^put bucket policy:$/, function(string, callback) {
-    var test_string = JSON.parse(string);
+    let test_string = JSON.parse(string);
     if (test_string['statement'].length) {
       test_string['statement'][0]['resource'] = [test_config['bucket_name'] + "/*"];
     }
@@ -57,7 +57,7 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function(arg1, callback) {
-    var ok = false;
+    let ok = false;
     test_data.statement.forEach(function(statement) {
       statement['condition']['string_like']['Referer'].forEach(function(value) {
         if (value === arg1) {

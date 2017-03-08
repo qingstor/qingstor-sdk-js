@@ -16,20 +16,20 @@
 
 "use strict";
 
-var Config = require("qingstor-sdk").Config;
-var Qingstor = require('qingstor-sdk').QingStor;
-var yaml = require('js-yaml');
-var fs = require('fs');
-var should = require('chai').should();
+import fs from "fs";
+import yaml from "js-yaml";
+import { Config, QingStor } from "qingstor-sdk";
+
+let should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  var config = new Config().loadUserConfig();
-  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-  var test = new Qingstor(config);
-  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-  var test_data = undefined;
+  let config = new Config().loadUserConfig();
+  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let test = new QingStor(config);
+  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  let test_data = undefined;
   test_bucket.put();
 
   this.When(/^put bucket ACL:$/, function(string, callback) {
@@ -54,8 +54,8 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get bucket ACL should have grantee name "([^"]*)"$/, function(arg1, callback) {
-    var ok = false;
-    for (var i in test_data.acl) {
+    let ok = false;
+    for (let i in test_data.acl) {
       if (test_data.acl[i]['grantee']['name'] === arg1) {
         ok = true;
       }

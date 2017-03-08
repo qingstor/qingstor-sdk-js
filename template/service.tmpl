@@ -17,35 +17,39 @@
 {{$service := .Data.Service}}
 {{- $customizedTypes := .Data.CustomizedTypes -}}
 'use strict';
-var Bucket = require('./bucket');
-var Signer = require('../sign');
-var Builder = require('../build');
-var Unpacker = require('../unpack');
-var logger = require('loglevel');
-var request = require('request');
-var _ = require('lodash/core');
+import _ from 'lodash/core';
+import Signer from '../sign';
+import Bucket from './bucket';
+import logger from 'loglevel';
+import request from 'request';
+import Builder from '../build';
+import SDKError from '../error';
+import {unpack} from '../unpack';
 
 
-var {{$service.Name | camelCase}} = function (config) {
-    this.config = config;
-    if (_.isEmpty(config.access_key_id)) {
-        throw new Error('access key not provided');
+class {{$service.Name | camelCase}} {
+
+    constructor(config){
+      if (_.isEmpty(config.access_key_id)) {
+          throw new Error('access key not provided');
+      }
+      if (_.isEmpty(config.secret_access_key)) {
+          throw new Error('secret access key not provided');
+      }
+      this.config = config;
     }
-    if (_.isEmpty(config.secret_access_key)) {
-        throw new Error('secret access key not provided');
-    }
-    
+
     {{- range $_, $operation := $service.Operations}}
       {{- template "RenderOperation" passThrough $service.Name $operation $customizedTypes}}
     {{- end}}
 
-    this.Bucket = function(bucket_name, zone) {
-        var properties = {
+    Bucket(bucket_name, zone) {
+        let properties = {
             'bucket-name': bucket_name,
             'zone': zone
         };
-        return new Bucket(config, properties)
-    };
-};
+        return new Bucket(this.config, properties)
+    }
+}
 
-module.exports = {{$service.Name | camelCase}};
+export default {{$service.Name | camelCase}};

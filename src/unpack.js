@@ -16,32 +16,24 @@
 
 'use strict';
 
-var Unpacker = function(res) {
-  this.res = {};
-  this.res.statusCode = res.statusCode;
-  this.unpackResponseHeaders = function(res) {
-    for (var i in res.headers) {
-      this.res[i] = res.headers[i];
+export function unpack(res) {
+  // unpack Response Headers
+  for (let i in res.headers) {
+    if (res.headers.hasOwnProperty(i)) {
+      res[i] = res.headers[i];
     }
-  };
-
-  this.unpackResponseBody = function(res) {
-    var body = res.body;
-    if (this.res['content-type'] === 'application/json') {
-      if (body !== '') {
-        for (var i in JSON.parse(body)) {
-          this.res[i] = JSON.parse(body)[i];
+  }
+  // unpack Response Body
+  let body = res.body;
+  if (res.headers['content-type'] === 'application/json') {
+    if (body !== '') {
+      let parsed = JSON.parse(body);
+      for (let i in parsed) {
+        if (parsed.hasOwnProperty(i)) {
+          res[i] = parsed[i];
         }
       }
-    } else {
-      this.res.body = body;
     }
-  };
-
-  this.unpackResponseHeaders(res);
-  this.unpackResponseBody(res);
-
-  return this.res;
-};
-
-exports.unpack = Unpacker;
+  }
+  return res;
+}

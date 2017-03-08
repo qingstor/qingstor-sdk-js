@@ -16,54 +16,41 @@
 
 "use strict";
 
-var child_process = require("child_process");
-var Config = require("qingstor-sdk").Config;
-var Qingstor = require('qingstor-sdk').QingStor;
-var yaml = require('js-yaml');
-var fs = require('fs');
-var should = require('chai').should();
-var request = require('request');
+import fs from "fs";
+import yaml from "js-yaml";
+import request from "request";
+import child_process from "child_process";
+import { Config, QingStor } from "qingstor-sdk";
+
+let should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  var config = new Config().loadUserConfig();
-  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-  var test = new Qingstor(config);
-  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  let config = new Config().loadUserConfig();
+  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let test = new QingStor(config);
+  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
   test_bucket.put();
 
-  var test_data = undefined;
+  let test_data = undefined;
+  child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin bs=1048576 count=1');
 
-  this.When(/^put object with key "([^"]*)"$/, function(arg1, callback) {
-    child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin bs=1048576 count=1', function(error, stdout, stderr) {
-      if (error) {
-        console.error('exec error: ' + error);
-        return;
-      }
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      test_bucket.putObject(arg1, {
-        'body': fs.createReadStream("/tmp/sdk_bin")
-      }, function(err, data) {
-        test_data = data;
-      });
-      test_bucket.putObject(arg1, {
-        'body': fs.readFileSync("/tmp/sdk_bin")
-      }, function(err, data) {
-        test_data = data;
-        child_process.exec('rm -f /tmp/sdk_bin');
-        callback();
-      });
+  this.When(/^put object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.putObject(arg1, {
+      'body': fs.readFileSync("/tmp/sdk_bin")
+    }, function(err, data) {
+      test_data = data;
+      callback();
     });
   });
   this.Then(/^put object status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
-  this.When(/^copy object with key "([^"]*)"$/, function(arg1, callback) {
-    test_bucket.putObject(arg1, {
-      'x_qs_copy_source': '/' + test_config['bucket_name'] + '/' + 'test_object'
+  this.When(/^copy object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.putObject(arg1 + 'copy', {
+      'X-QS-Copy-Source': '/' + test_config['bucket_name'] + '/' + arg1
     }, function(err, data) {
       test_data = data;
       callback();
@@ -73,9 +60,9 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
-  this.When(/^move object with key "([^"]*)"$/, function(arg1, callback) {
-    test_bucket.putObject(arg1, {
-      'x_qs_move_source': '/' + test_config['bucket_name'] + '/' + ' test_object_copy'
+  this.When(/^move object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.putObject(arg1 + 'move', {
+      'X-QS-Move-Source': '/' + test_config['bucket_name'] + '/' + arg1 + 'copy'
     }, function(err, data) {
       test_data = data;
       callback();
@@ -85,8 +72,8 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
-  this.When(/^get object$/, function(callback) {
-    test_bucket.getObject('test_object', {}, function(err, data) {
+  this.When(/^get object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.getObject(arg1, function(err, data) {
       test_data = data;
       callback();
     });
@@ -98,9 +85,9 @@ module.exports = function() {
     callback(null, test_data.body.length.toString().should.eql(arg1));
   });
 
-  this.When(/^get object with query signature$/, function(callback) {
-    var expires = Math.floor(Date.now(), 1000) + 1000;
-    request(test_bucket.getObjectQuery('test_object', expires), function(err, data) {
+  this.When(/^get object "(.*)" with query signature$/, function(arg1, callback) {
+    let expires = Math.floor(Date.now(), 1000) + 1000;
+    request(test_bucket.getObjectQuery(arg1, expires), function(err, data) {
       test_data = data;
       callback();
     })
@@ -109,22 +96,21 @@ module.exports = function() {
     callback(null, test_data.body.length.toString().should.eql(arg1));
   });
 
-  this.When(/^get object with content type "([^"]*)"$/, function(arg1, callback) {
-    test_data = null;
-    test_bucket.getObject('test_object', {
-      'response-content-type': arg1
+  this.When(/^get object "(.*)" with content type "(.*)"$/, function(arg1, arg2, callback) {
+    test_bucket.getObject(arg1, {
+      'response-content-type': arg2
     }, function(err, data) {
       test_data = data;
       callback();
     })
   });
 
-  this.Then(/^get object content type is "([^"]*)"$/, function(arg1, callback) {
+  this.Then(/^get object content type is "(.*)"$/, function(arg1, callback) {
     callback(null, test_data['content-type'].toString().should.eql(arg1));
   });
 
-  this.When(/^head object$/, function(callback) {
-    test_bucket.headObject('test_object', {}, function(err, data) {
+  this.When(/^head object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.headObject(arg1, function(err, data) {
       test_data = data;
       callback();
     });
@@ -133,10 +119,10 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
-  this.When(/^options object with method "([^"]*)" and origin "([^"]*)"$/, function(arg1, arg2, callback) {
-    test_bucket.optionsObject('test_object', {
-      'Access-Control-Request-Method': arg1,
-      'Origin': arg2
+  this.When(/^options object "(.*)" with method "(.*)" and origin "(.*)"$/, function(arg1, arg2, arg3, callback) {
+    test_bucket.optionsObject(arg1, {
+      'Access-Control-Request-Method': arg2,
+      'Origin': arg3
     }, function(err, data) {
       test_data = data;
       callback();
@@ -146,8 +132,8 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
-  this.When(/^delete object$/, function(callback) {
-    test_bucket.deleteObject('test_object', function(err, data) {
+  this.When(/^delete object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.deleteObject(arg1, function(err, data) {
       test_data = data;
       callback();
     });
@@ -156,8 +142,8 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
-  this.When(/^delete the move object$/, function(callback) {
-    test_bucket.deleteObject('test_object_move', function(err, data) {
+  this.When(/^delete the move object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.deleteObject(arg1 + 'move', function(err, data) {
       test_data = data;
       callback();
     });

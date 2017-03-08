@@ -14,28 +14,19 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
 
-describe('Config test', function() {
-  it('loadConfig test', function() {
-    let Config = require('qingstor-sdk').Config;
-    let test_config = new Config().loadConfig({
-      'access_key_id': 'test_access_key_id',
-      'secret_access_key': 'test_secret_access_key',
-      'host': 'qingstor.com',
-      'port': 443,
-      'protocol': 'https',
-      'connection_retries': 3,
-      'log_level': 'warn'
-    });
-    test_config.should.to.contain.all.keys([
-      'access_key_id',
-      'secret_access_key',
-      'host',
-      'port',
-      'protocol',
-      'connection_retries',
-      'log_level'
-    ]);
-  });
-});
+class ParameterRequiredError extends Error {
+  constructor(parameter_name, parent_name) {
+    let msg = `${parameter_name} is required in ${parent_name}.`;
+    super(msg);
+  }
+}
+
+class ParameterValueNotAllowedError extends Error {
+  constructor(parameter_name, parameter_value, allowed_values) {
+    let msg = `${parameter_name} value ${parameter_value} is not allowed, should be one of ${allowed_values.join(', ')}`;
+    super(msg);
+  }
+}
+
+export { ParameterRequiredError as ParameterRequired, ParameterValueNotAllowedError as ParameterValueNotAllowed }

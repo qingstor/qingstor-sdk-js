@@ -14,20 +14,23 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-var Config = require('../lib/config');
-var should = require('chai').should();
-var yaml = require('js-yaml');
+
+import fs from 'fs';
+import yaml from 'js-yaml';
+import Config from '../src/config';
+
+let should = require('chai').should();
 
 describe('Config test', function() {
   it('isFileExist test', function() {
-    var test = new Config();
-    fs = require('fs');
+    let test = new Config();
     fs.writeFileSync('/tmp/exist_file', 'test_data');
     test.isFileExist('/tmp/exist_file').should.equal(true);
     test.isFileExist('/tmp/not_exist_file').should.equal(false);
   });
+
   it('loadDefaultConfig test', function() {
-    var test = new Config();
+    let test = new Config();
     test.access_key_id.should.equal('');
     test.secret_access_key.should.equal('');
     test.host.should.equal('qingstor.com');
@@ -38,7 +41,7 @@ describe('Config test', function() {
   });
 
   it('loadDefaultConfig with access key test', function() {
-    var test = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+    let test = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 
     test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
     test.secret_access_key.should.equal('SECRET_ACCESS_KEY_EXAMPLE');
@@ -50,7 +53,7 @@ describe('Config test', function() {
   });
 
   it('loadUserConfig test', function() {
-    var test = new Config();
+    let test = new Config();
 
     test.loadUserConfig()
       .should
@@ -69,8 +72,8 @@ describe('Config test', function() {
   });
 
   it('loadConfig test', function() {
-    var test = new Config();
-    var defaultConfigFileContent = "# QingStor Services Configuration\n"
+    let test = new Config();
+    let defaultConfigFileContent = "# QingStor Services Configuration\n"
       + "\n"
       + "access_key_id: 'ACCESS_KEY_ID_1'\n"
       + "secret_access_key: 'SECRET_ACCESS_KEY_1'\n"
@@ -90,5 +93,6 @@ describe('Config test', function() {
     test.protocol.should.equal('http');
     test.connection_retries.should.equal(1);
     test.log_level.should.equal('info');
-  })
+  });
+
 });

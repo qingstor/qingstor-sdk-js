@@ -16,10 +16,12 @@
     "email": "sdk_group@yunify.com"
   },
   "scripts": {
-    "test": "mocha -t 10000",
+    "build": "node_modules/babel-cli/bin/babel.js src -d lib; npm run format;",
+    "cucumber": "cd scenarios; npm install; ./node_modules/.bin/cucumber-js  features/*.feature --require tests --compiler es6:babel-core/register;",
     "dist": "gulp bundle bundle-map",
-    "cucumber": "cd scenarios; npm install; ./node_modules/.bin/cucumber-js  features/*.feature --require tests;",
-    "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./lib/qingstor'; rm ./lib/qingstor/object.js; esformatter -i 'lib/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js';"
+    "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./src/qingstor'; rm ./src/qingstor/object.js; npm run format;",
+    "test": "mocha --compilers js:babel-core/register -t 10000",
+    "format": "esformatter -i 'src/**/*.js' 'lib/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js';"
   },
   "keywords": [
     "qingstor",
@@ -34,6 +36,14 @@
   "author": "Yunify SDK Group <sdk_group@yunify.com>",
   "license": "Apache-2.0",
   "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-array-includes": "^2.0.3",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2017": "^6.22.0",
+    "babel-preset-stage-2": "^6.22.0",
     "chai": "^3.5.0",
     "eslint": "^3.11.0",
     "eslint-config-google": "^0.7.1",
