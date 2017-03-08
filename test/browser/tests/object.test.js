@@ -17,8 +17,8 @@
 "use strict";
 
 describe('QingStor test', function() {
-  var Config = require('qingstor-sdk').Config;
-  var test_config = new Config().loadConfig({
+  let Config = require('qingstor-sdk').Config;
+  let test_config = new Config().loadConfig({
     'access_key_id': 'test_access_key_id',
     'secret_access_key': 'test_secret_access_key',
     'host': 'qingstor.com',
@@ -27,8 +27,8 @@ describe('QingStor test', function() {
     'connection_retries': 3,
     'log_level': 'error'
   });
-  var QingStor = new require('qingstor-sdk').QingStor;
-  var test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
+  let QingStor = new require('qingstor-sdk').QingStor;
+  let test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
   it('GetObject test', function() {
     test.getObject('test_key', function(err, res, data) {
       console.log(data);
@@ -36,7 +36,7 @@ describe('QingStor test', function() {
     })
   });
   it('GetObjectQuery test', function() {
-    var expires = Math.floor(Date.now(), 1000) + 1000;
+    let expires = Math.floor(Date.now(), 1000) + 1000;
     test.getObjectQuery(expires, 'test_key', function(err, res, data) {
       console.log(data);
       res.statusCode.should.equal(200);

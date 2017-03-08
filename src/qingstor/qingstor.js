@@ -15,41 +15,46 @@
 // +-------------------------------------------------------------------------
 
 'use strict';
-var Bucket = require('./bucket');
-var Signer = require('../sign');
-var Builder = require('../build');
-var Unpacker = require('../unpack');
-var logger = require('loglevel');
-var request = require('request');
-var _ = require('lodash/core');
+import _ from 'lodash/core';
+import Signer from '../sign';
+import Bucket from './bucket';
+import logger from 'loglevel';
+import request from 'request';
+import Builder from '../build';
+import SDKError from '../error';
+import { unpack } from '../unpack';
 
 
-var QingStor = function(config) {
-  this.config = config;
-  if (_.isEmpty(config.access_key_id)) {
-    throw new Error('access key not provided');
-  }
-  if (_.isEmpty(config.secret_access_key)) {
-    throw new Error('secret access key not provided');
+class QingStor {
+
+  constructor(config) {
+    if (_.isEmpty(config.access_key_id)) {
+      throw new Error('access key not provided');
+    }
+    if (_.isEmpty(config.secret_access_key)) {
+      throw new Error('secret access key not provided');
+    }
+    this.config = config;
   }
 
 
   /**
    * listBucketsRequest: Build ListBuckets's request
    * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param options['Location'] Limits results to buckets that in the location
+   * @param {Object} options - User input options;
+   * @param options.Location - Limits results to buckets that in the location
    *
    * @return Signer
    */
-  this.listBucketsRequest = function(options) {
-    var operation = {
+  listBucketsRequest(options) {
+    let operation = {
       'api': 'ListBuckets',
       'method': 'GET',
       'uri': '/',
       'params': {
       },
       'headers': {
-        'Host': config.host,
+        'Host': this.config.host,
         'Location': _.result(options, 'Location', ''),
       },
       'elements': {
@@ -59,30 +64,35 @@ var QingStor = function(config) {
     };
     this.listBucketsValidate(operation);
     return new Signer(
-      new Builder(config, operation).parse(),
-      config.access_key_id,
-      config.secret_access_key
+      new Builder(this.config, operation).parse(),
+      this.config.access_key_id,
+      this.config.secret_access_key
     );
-  };
+  }
 
 
 
   /**
    * listBuckets: Retrieve the bucket list.
    * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param options['Location'] Limits results to buckets that in the location
+   * @param {Object} options - User input options;
+   * @param options.Location - Limits results to buckets that in the location
    * @param callback Callback function
    *
    * @return none
    */
-  this.listBuckets = function(options, callback) {
-    var signer = this.listBucketsRequest(options);
-    var retries = this.config.connection_retries;
+  listBuckets(options, callback) {
+    if (_.isFunction(options)) {
+      callback = options;
+      options = {};
+    }
+    let signer = this.listBucketsRequest(options);
+    let retries = this.config.connection_retries;
     while (1) {
       try {
         logger.info('Sending QingStor request: listBuckets');
         request(signer.sign(), function(err, res) {
-          callback && callback(err, Unpacker.unpack(res));
+          callback && callback(err, unpack(res));
         });
       } catch (err) {
         logger.info(err);
@@ -94,38 +104,38 @@ var QingStor = function(config) {
       }
       break;
     }
-  };
+  }
 
 
 
   /**
    * listBucketsQuery: ListBuckets's Query Sign Way
    * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param options['Location'] Limits results to buckets that in the location
+   * @param {Object} options - User input options;
+   * @param options.Location - Limits results to buckets that in the location
    * @param expires The time when this quert sign expires
-   * @param callback Callback function
    *
    * @return none
    */
-  this.listBucketsQuery = function(expires, options) {
-    var signer = this.listBucketsRequest(options);
+  listBucketsQuery(expires, options) {
+    let signer = this.listBucketsRequest(options);
     return signer.query_sign(expires).uri;
-  };
+  }
 
 
-  this.listBucketsValidate = function(operation) {};
+  listBucketsValidate(operation) {}
 
 
-  this.Bucket = function(bucket_name, zone) {
-    var properties = {
+  Bucket(bucket_name, zone) {
+    let properties = {
       'bucket-name': bucket_name,
       'zone': zone
     };
-    return new Bucket(config, properties)
-  };
-};
+    return new Bucket(this.config, properties)
+  }
+}
 
-module.exports = QingStor;
+export default QingStor;
 
 
 

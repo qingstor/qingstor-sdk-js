@@ -16,125 +16,139 @@
 
 'use strict';
 
-var logger = require('loglevel');
-var url = require('url');
-var querystring = require('querystring');
-var _ = require('lodash/core');
+import url from 'url';
+import _ from 'lodash/core';
+import logger from 'loglevel';
+import { createHmac } from 'crypto';
+import querystring from 'querystring';
 
-var process = require('process');
 
-var Signer = function(op, access_key_id, secret_access_key) {
-  this.op = op;
-  this.sign = function() {
-    op.headers.Authorization = 'QS '
-    + access_key_id
+class Signer {
+  constructor(op, access_key_id, secret_access_key) {
+    this.op = op;
+    this.access_key_id = access_key_id;
+    this.secret_access_key = secret_access_key;
+  }
+
+  sign() {
+    this.op.headers.Authorization = 'QS '
+    + this.access_key_id
     + ':'
     + this.getAuthorization();
-    return op;
-  };
-  this.query_sign = function(expires) {
-    delete op.headers['X-QS-Date'];
-    delete op.headers['Host'];
-    delete op.headers['Content-Type'];
-    delete op.headers['User-Agent'];
+    return this.op;
+  }
 
-    var url_object = url.parse(op.uri, true);
-    url_object.query = _.assignIn(url_object.query, {
+  query_sign(expires) {
+    delete this.op.headers['X-QS-Date'];
+    delete this.op.headers['Host'];
+    delete this.op.headers['Content-Type'];
+    delete this.op.headers['User-Agent'];
+
+    let url_object = url.parse(this.op.uri, true);
+    url_object.query = Object.assign(url_object.query, {
       signature: this.getQuerySignature(expires),
-      access_key_id: access_key_id,
+      access_key_id: this.access_key_id,
       expires: expires
     });
     url_object.search = '?' + querystring.stringify(url_object.query);
-    op.uri = url.format(url_object);
-    logger.debug('QingStor query request url: ' + op.uri);
-    return op;
-  };
-  this.getContentMD5 = function() {
-    var parsedContentMD5 = '';
-    if (op.headers.hasOwnProperty('Content-MD5')) {
-      parsedContentMD5 = op.headers['Content-MD5'];
+    this.op.uri = url.format(url_object);
+    logger.debug('QingStor query request url: ' + this.op.uri);
+    return this.op;
+  }
+
+  getContentMD5() {
+    let parsedContentMD5 = '';
+    if (this.op.headers.hasOwnProperty('Content-MD5')) {
+      parsedContentMD5 = this.op.headers['Content-MD5'];
     }
     return parsedContentMD5;
-  };
-  this.getContentType = function() {
-    var parsedContentType = '';
-    if (op.headers.hasOwnProperty('Content-Type')) {
-      parsedContentType = op.headers['Content-Type'];
+  }
+
+  getContentType() {
+    let parsedContentType = '';
+    if (this.op.headers.hasOwnProperty('Content-Type')) {
+      parsedContentType = this.op.headers['Content-Type'];
     }
     return parsedContentType;
-  };
-  this.getCanonicalizedHeaders = function(hasDate) {
+  }
+
+  getCanonicalizedHeaders(hasDate) {
     if (_.isUndefined(hasDate))
       hasDate = true;
-    var canonicalizedHeaders = '';
-    var headers = {};
-    _.forEach(op.headers, function(v, k) {
+    let canonicalizedHeaders = '';
+    let headers = {};
+
+    _.forEach(this.op.headers, function(v, k) {
       if (k.toLowerCase().indexOf('x-qs-') !== -1) {
         if (hasDate || k.toLowerCase().trim() !== 'x-qs-date') {
           headers[k.toLowerCase()] = v;
         }
       }
     });
-    var keys = _.keys(headers).sort();
+
+    let keys = Object.keys(headers).sort();
     if (keys.length > 0) {
-      _.forEach(keys, function(i) {
+      for (let i of keys) {
         canonicalizedHeaders += i.toLowerCase().trim() + ':' + headers[i].trim() + '\n';
-      })
+      }
     }
     return canonicalizedHeaders;
-  };
-  this.getCanonicalizedResource = function() {
-    var parsedUri = url.parse(op.uri, true);
-    var canonicalizedResource = parsedUri.pathname;
-    var query = [];
+  }
+
+  getCanonicalizedResource() {
+    let parsedUri = url.parse(this.op.uri, true);
+    let canonicalizedResource = parsedUri.pathname;
+    let query = [];
     if (!_.isEmpty(parsedUri.query)) {
-      for (var i in parsedUri.query) {
+      for (let i in parsedUri.query) {
         if (this.isSubResource(i)) {
           if (parsedUri.query[i] !== '') {
-            query.push(i + '=' + _.escape(parsedUri.query[i]));
+            query.push(i + '=' + parsedUri.query[i]);
           } else {
             query.push(i)
           }
         }
       }
     }
-    var joinedKeys = query.sort().join('&');
+    let joinedKeys = query.sort().join('&');
     if (joinedKeys) {
       canonicalizedResource += '?' + joinedKeys;
     }
     return canonicalizedResource;
-  };
-  this.getAuthorization = function() {
-    var string_to_sign = op.method + '\n'
+  }
+
+  getAuthorization() {
+    let string_to_sign = this.op.method + '\n'
     + this.getContentMD5() + '\n'
     + this.getContentType() + '\n'
     + '\n'
     + this.getCanonicalizedHeaders()
     + this.getCanonicalizedResource();
     logger.debug('QingStor request string to sign: ' + string_to_sign);
-    var h = require('crypto').createHmac('sha256', secret_access_key);
+    let h = createHmac('sha256', this.secret_access_key);
     h.update(string_to_sign);
-    var sigb64 = new Buffer(h.digest()).toString('base64');
+    let sigb64 = new Buffer(h.digest()).toString('base64');
     logger.debug('QingStor request authorization: ' + sigb64);
     return sigb64;
-  };
-  this.getQuerySignature = function(expires) {
-    var string_to_sign = op.method + '\n'
+  }
+
+  getQuerySignature(expires) {
+    let string_to_sign = this.op.method + '\n'
     + this.getContentMD5() + '\n'
     + this.getContentType() + '\n'
     + expires + '\n'
     + this.getCanonicalizedHeaders(false)
     + this.getCanonicalizedResource();
     logger.debug('QingStor query request string to sign: ' + string_to_sign);
-    var h = require('crypto').createHmac('sha256', secret_access_key);
+    let h = createHmac('sha256', this.secret_access_key);
     h.update(string_to_sign);
-    var sigb64 = new Buffer(h.digest()).toString('base64');
+    let sigb64 = new Buffer(h.digest()).toString('base64');
     logger.debug('QingStor query request authorization: ' + sigb64);
     return sigb64;
-  };
+  }
 
-  this.isSubResource = function(key) {
-    var keysMap = [
+  isSubResource(key) {
+    let keysMap = [
       'acl',
       'cors',
       'delete',
@@ -151,8 +165,8 @@ var Signer = function(op, access_key_id, secret_access_key) {
       'response-content-encoding',
       'response-content-disposition'
     ];
-    return _.indexOf(keysMap, key) !== -1;
+    return keysMap.includes(key);
   }
-};
+}
 
-module.exports = Signer;
+export default Signer;

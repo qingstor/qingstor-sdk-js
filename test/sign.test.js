@@ -14,13 +14,14 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-var Signer = require('../lib/sign');
-var should = require('chai').should();
-var pjson = require('../package.json');
-var process = require('process');
+import process from 'process';
+import Signer from '../src/sign';
+
+let pjson = require('../package.json');
+let should = require('chai').should();
 
 describe('Signer test', function() {
-  var operation = {
+  let operation = {
     'method': 'PUT',
     'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
     'body': 'test string',
@@ -32,20 +33,23 @@ describe('Signer test', function() {
       'x-qs-z': 'test-z',
       'x-qs-a': 'test-a',
       'x-qs-a-abc': 'test-abc',
-      'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
+      'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
     }
   };
-  var test = new Signer(operation, 'test_key', 'test_secret');
+  let test = new Signer(operation, 'test_key', 'test_secret');
+
   it('getCanonicalizedResource test', function() {
     test.getCanonicalizedResource().should.eql(
       '/test_bucket/test_object.jpg?acl&upload_id=test_upload_id'
     )
   });
+
   it('getAuthorization test', function() {
     test.getAuthorization().should.eql(
       '80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4='
     )
   });
+
   it('sign test', function() {
     test.sign().should.eql({
       'method': 'PUT',
@@ -55,7 +59,7 @@ describe('Signer test', function() {
         'Host': 'qingstor.com',
         'X-QS-Date': 'test time',
         'Content-Length': 11,
-        'User-Agent': 'QingStorSDK/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
+        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
         'x-qs-z': 'test-z',
         'x-qs-a': 'test-a',
         'x-qs-a-abc': 'test-abc',
@@ -63,5 +67,6 @@ describe('Signer test', function() {
         'Content-Type': 'image/jpeg'
       }
     })
-  })
+  });
+
 });

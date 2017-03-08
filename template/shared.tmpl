@@ -5,10 +5,10 @@
     {{- $customizedTypes := index . 2}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
     {{- if ne $belongs "QingStor"}}
-    this.{{$opID | camelCase | lowerFirst}}Validate = function(operation){
+    {{$opID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
     {{- if eq $belongs "QingStor"}}
-    this.{{$operation.ID | camelCase | lowerFirst}}Validate = function(operation){
+    {{$operation.ID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
     {{- $i := passThrough "operation['params']" $request.Params $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
@@ -16,7 +16,7 @@
     {{- template "RenderCustomizedTypeValidation" $i}}
     {{- $i := passThrough "operation['elements']" $request.Elements $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
-    };
+    }
 {{- end}}
 
 
@@ -64,7 +64,7 @@
     {{- end}}
     {{- if gt ($property.Enum | len) 0}}
     if(!{{$prefix}}.hasOwnProperty('{{$property.ID}}') || _.isNull({{$prefix}}['{{$property.ID}}'])){
-        var {{$property.ID | snakeCase}}_valid_values = [{{$property.Enum | commaConnectedWithQuote}}];
+        let {{$property.ID | snakeCase}}_valid_values = [{{$property.Enum | commaConnectedWithQuote}}];
         if(_.includes({{$property.ID | snakeCase}}_valid_values, {{$prefix}}['{{$property.ID}}'])){
             throw new SDKError.ParameterValueNotAllowedError(
             '{{$property.ID}}',
@@ -101,23 +101,29 @@
      {{- if $operation.DocumentationURL}}
      * @link {{$operation.DocumentationURL}} Documentation URL
      {{- end}}
+     {{- if $hasInput}}
+     * @param {Object} options - User input options;
+     {{- end}}
      {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Params.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
+     {{- end}}
+     {{- if eq $belongs "Object"}}
+     * @param object_key The object key
      {{- end}}
      *
      * @return Signer
      */
     {{- if ne $belongs "QingStor"}}
-    this.{{$opID | camelCase | lowerFirst}}Request = function (
+    {{$opID | camelCase | lowerFirst}}Request(
     {{- end}}
     {{- if eq $belongs "QingStor"}}
-    this.{{$operation.ID | camelCase | lowerFirst}}Request = function (
+    {{$operation.ID | camelCase | lowerFirst}}Request(
     {{- end}}
         {{- if eq $belongs "Object"}}object_key{{end -}}
         {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
@@ -127,7 +133,7 @@
         {{- $uri := replace $uri "{" "<" -1}}
         {{- $uri := replace $uri "}" ">" -1}}
         {{- $uri := dashConnected $uri}}
-        var operation = {
+        let operation = {
             'api': '{{$operation.ID}}',
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$uri}}',
@@ -137,10 +143,10 @@
             },
             'headers': {
                 {{- if ne $belongs "QingStor"}}
-                'Host': properties.zone+'.'+config.host,
+                'Host': this.properties.zone+'.'+this.config.host,
                 {{- end}}
                 {{- if eq $belongs "QingStor"}}
-                'Host': config.host,
+                'Host': this.config.host,
                 {{- end}}
                 {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
@@ -150,7 +156,7 @@
                 {{end -}}
             },
             {{- if ne $belongs "QingStor"}}
-            'properties': properties,
+            'properties': this.properties,
             {{- end}}
             {{- if eq $belongs "QingStor"}}
             'properties': {},
@@ -167,11 +173,11 @@
         this.{{$operation.ID | camelCase | lowerFirst}}Validate(operation);
         {{- end}}
         return new Signer(
-            new Builder(config, operation).parse(),
-            config.access_key_id,
-            config.secret_access_key
+            new Builder(this.config, operation).parse(),
+            this.config.access_key_id,
+            this.config.secret_access_key
         );
-    };
+    }
 {{end}}
 
 {{define "BuildNormalOperation"}}
@@ -196,37 +202,49 @@
      {{- if $operation.DocumentationURL}}
      * @link {{$operation.DocumentationURL}} Documentation URL
      {{- end}}
+     {{- if $hasInput}}
+     * @param {Object} options - User input options;
+     {{- end}}
      {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Params.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
+     {{- end}}
+     {{- if eq $belongs "Object"}}
+     * @param object_key The object key
      {{- end}}
      * @param callback Callback function
      *
      * @return none
      */
     {{- if ne $belongs "QingStor"}}
-    this.{{$opID | camelCase | lowerFirst}} = function (
+    {{$opID | camelCase | lowerFirst}}(
     {{- end}}
     {{- if eq $belongs "QingStor"}}
-    this.{{$operation.ID | camelCase | lowerFirst}} = function (
+    {{$operation.ID | camelCase | lowerFirst}}(
     {{- end}}
         {{- if eq $belongs "Object"}}object_key,{{end -}}
         {{- if $hasInput}}options, {{end -}}callback) {
+        {{- if $hasInput}}
+        if (_.isFunction(options)){
+          callback = options;
+          options = {};
+        }
+        {{- end}}
         {{- if ne $belongs "QingStor"}}
-        var signer = this.{{$opID | camelCase | lowerFirst}}Request(
+        let signer = this.{{$opID | camelCase | lowerFirst}}Request(
         {{- end}}
         {{- if eq $belongs "QingStor"}}
-        var signer = this.{{$operation.ID | camelCase | lowerFirst}}Request(
+        let signer = this.{{$operation.ID | camelCase | lowerFirst}}Request(
         {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
             {{- if $hasInput}}options{{end -}});
-        var retries = this.config.connection_retries;
+        let retries = this.config.connection_retries;
         while (1) {
             try {
                 {{- if ne $belongs "QingStor"}}
@@ -236,7 +254,7 @@
                 logger.info('Sending QingStor request: {{$operation.ID | camelCase | lowerFirst}}');
                 {{- end}}
                 request(signer.sign(), function (err, res) {
-                    callback && callback(err, Unpacker.unpack(res));
+                    callback && callback(err, unpack(res));
                 });
             }
             catch (err) {
@@ -249,7 +267,7 @@
             }
             break;
         }
-    };
+    }
 {{end}}
 
 {{define "BuildQueryOperation"}}
@@ -274,40 +292,45 @@
      {{- if $operation.DocumentationURL}}
      * @link {{$operation.DocumentationURL}} Documentation URL
      {{- end}}
+     {{- if $hasInput}}
+     * @param {Object} options - User input options;
+     {{- end}}
      {{- range $id, $property := $operation.Request.Headers.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Params.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
-     * @param options['{{$property.ID}}'] {{$property.Description}}
+     * @param options.{{$property.ID}} - {{$property.Description}}
+     {{- end}}
+     {{- if eq $belongs "Object"}}
+     * @param object_key The object key
      {{- end}}
      * @param expires The time when this quert sign expires
-     * @param callback Callback function
      *
      * @return none
      */
      {{- if ne $belongs "QingStor"}}
-     this.{{$opID | camelCase | lowerFirst}}Query = function (
+     {{$opID | camelCase | lowerFirst}}Query(
      {{- end}}
      {{- if eq $belongs "QingStor"}}
-     this.{{$operation.ID | camelCase | lowerFirst}}Query = function (
+     {{$operation.ID | camelCase | lowerFirst}}Query(
      {{- end}}
         {{- if eq $belongs "Object"}}object_key,{{end -}}
         expires
         {{- if $hasInput}},options{{end -}}) {
          {{- if ne $belongs "QingStor"}}
-         var signer = this.{{$opID | camelCase | lowerFirst}}Request(
+         let signer = this.{{$opID | camelCase | lowerFirst}}Request(
          {{- end}}
          {{- if eq $belongs "QingStor"}}
-         var signer = this.{{$operation.ID | camelCase | lowerFirst}}Request(
+         let signer = this.{{$operation.ID | camelCase | lowerFirst}}Request(
          {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
             {{- if $hasInput}}options{{end -}});
          return signer.query_sign(expires).uri;
-    };
+    }
 {{end}}
 
 {{define "RenderOperation"}}

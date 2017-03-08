@@ -16,51 +16,55 @@
 
 'use strict';
 
-var _ = require('lodash/core');
-var logger = require('loglevel');
-var mime = require('mime');
-var util = require('util');
-var url = require('url');
-var querystring = require('querystring');
-var fs = require('fs');
+import './version';
+import fs from 'fs';
+import url from 'url';
+import mime from 'mime';
+import util from 'util';
+import _ from 'lodash/core';
+import logger from 'loglevel';
+import { createHash } from 'crypto';
+import querystring from 'querystring';
 
-var Builder = function(config, operation) {
-  this.config = config;
-  this.operation = operation;
 
-  this.parse = function() {
-    var operation = this.operation;
-    var parsedOperation = {};
+class Builder {
+  constructor(config, operation) {
+    this.config = config;
+    this.operation = operation;
+  }
+
+  parse() {
+    let operation = this.operation;
+    let parsedOperation = {};
     parsedOperation.method = operation.method;
     parsedOperation.uri = url.format(this.parseRequestUri(operation));
-
+    logger.debug('QingStor request parsedUri: ' + parsedOperation.uri);
     parsedOperation.body = this.parseRequestBody(operation);
 
-    var parsedHeaders = this.parseRequestHeaders(operation);
+    let parsedHeaders = this.parseRequestHeaders(operation);
     if (!_.isEmpty(parsedHeaders)) {
       parsedOperation.headers = parsedHeaders;
     }
     return parsedOperation;
-  };
+  }
 
-  this.parseRequestParams = function(operation) {
-    var parsedParams = {};
-    for (var i in operation.params) {
-      if (operation.params[i] !== '') {
-        parsedParams[i] = operation.params[i];
+  parseRequestParams(operation) {
+    let parsedParams = {};
+    for (let i in operation.params) {
+      if (operation.params.hasOwnProperty(i) && operation.params[i].toString() !== '') {
+        parsedParams[i] = operation.params[i].toString();
       }
     }
     return parsedParams;
-  };
+  }
 
-  this.parseRequestHeaders = function(operation) {
-    var parsedHeaders = {};
-    for (var i in operation.headers) {
-      if (operation.headers[i] !== '') {
-        parsedHeaders[i] = operation.headers[i];
+  parseRequestHeaders(operation) {
+    let parsedHeaders = {};
+    for (let i in operation.headers) {
+      if (operation.headers.hasOwnProperty(i) && operation.headers[i] !== '') {
+        parsedHeaders[i] = encodeURI(operation.headers[i]);
       }
     }
-
     //Add X-QS-Date header
     parsedHeaders['X-QS-Date'] = _.result(
       operation.headers,
@@ -76,9 +80,9 @@ var Builder = function(config, operation) {
     );
 
     //Add Content-Type header
-    var parsedBody = this.parseRequestBody(operation);
+    let parsedBody = this.parseRequestBody(operation);
     if (parsedBody instanceof fs.ReadStream) {
-      var stats = fs.statSync(parsedBody.path);
+      let stats = fs.statSync(parsedBody.path);
       parsedHeaders['Content-Length'] = stats.size;
     } else {
       parsedHeaders['Content-Length'] = this.parseRequestBody(operation).length;
@@ -87,46 +91,45 @@ var Builder = function(config, operation) {
     //Add User-Agent header
     require('./version');
     parsedHeaders['User-Agent'] = util.format(
-      'QingStorSDK/%s (Node.js %s; %s)',
+      'qingstor-sdk-js/%s (Node.js %s; %s)',
       global.version,
       process.version,
       process.platform
     );
 
     if (operation.api === 'DeleteMultipleObjects') {
-      var h = require('crypto').createHash('md5');
+      let h = createHash('md5');
       h.update(this.parseRequestBody(operation));
       parsedHeaders['Content-MD5'] = new Buffer(h.digest()).toString('base64')
     }
-    console.log(parsedHeaders);
     return parsedHeaders;
-  };
+  }
 
-  this.parseRequestBody = function(operation) {
-    var parsedBody = '';
+  parseRequestBody(operation) {
+    let parsedBody = '';
     if (!_.isEmpty(operation.body)) {
       parsedBody = operation.body;
     } else if (!_.isEmpty(operation.elements)) {
       parsedBody = JSON.stringify(operation.elements);
     }
     return parsedBody;
-  };
+  }
 
-  this.parseRequestProperties = function(operation) {
-    var parsedProperties = {};
-    for (var i in operation.properties) {
-      if (operation.properties[i] !== '') {
-        parsedProperties[i] = operation.properties[i];
+  parseRequestProperties(operation) {
+    let parsedProperties = {};
+    for (let i in operation.properties) {
+      if (operation.properties.hasOwnProperty(i) && operation.properties[i] !== '') {
+        parsedProperties[i] = encodeURI(operation.properties[i]);
       }
     }
     return parsedProperties;
-  };
+  }
 
-  this.parseRequestUri = function(operation) {
-    var key;
-    var parsedUri = url.parse(operation.uri, true);
+  parseRequestUri(operation) {
+    let key;
+    let parsedUri = url.parse(operation.uri, true);
 
-    var parsedProperties = this.parseRequestProperties(operation);
+    let parsedProperties = this.parseRequestProperties(operation);
     if (_.result(parsedProperties, 'zone')) {
       parsedUri.hostname = parsedProperties.zone + '.' + this.config.host;
     } else {
@@ -135,16 +138,16 @@ var Builder = function(config, operation) {
     parsedUri.protocol = this.config.protocol;
     parsedUri.port = this.config.port;
 
-    if (!_.isEmpty(parsedProperties)) {
-      for (key in parsedProperties) {
+    for (key in parsedProperties) {
+      if (parsedProperties.hasOwnProperty(key)) {
         parsedUri.pathname = parsedUri.pathname.replace('<' + key + '>', parsedProperties[key]);
       }
     }
 
-    var parsedParams = this.parseRequestParams(operation);
+    let parsedParams = this.parseRequestParams(operation);
     if (!_.isEmpty(parsedParams)) {
       for (key in parsedParams) {
-        if (!_.isEmpty(parsedParams[key])) {
+        if (parsedParams.hasOwnProperty(key) && !_.isEmpty(parsedParams[key])) {
           parsedUri.query[key] = parsedParams[key];
         }
       }
@@ -153,6 +156,7 @@ var Builder = function(config, operation) {
 
     return parsedUri;
   }
-};
+}
 
-module.exports = Builder;
+
+export default Builder;

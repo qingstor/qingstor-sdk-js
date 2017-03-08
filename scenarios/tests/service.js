@@ -16,22 +16,21 @@
 
 "use strict";
 
-var Config = require("qingstor-sdk").Config;
-var Qingstor = require('qingstor-sdk').QingStor;
-var yaml = require('js-yaml');
-var fs = require('fs');
-var should = require('chai').should();
+import fs from "fs";
+import yaml from "js-yaml";
+import { Config, QingStor } from "qingstor-sdk";
 
+let should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  var config = new Config().loadUserConfig();
-  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-  var test = undefined;
-  var test_res = undefined;
+  let config = new Config().loadUserConfig();
+  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let test = undefined;
+  let test_res = undefined;
   this.When(/^initialize QingStor service$/, function(callback) {
-    test = new Qingstor(config);
+    test = new QingStor(config);
     callback();
   });
   this.Then(/^the QingStor service is initialized$/, function(callback) {
@@ -40,7 +39,7 @@ module.exports = function() {
   });
   this.When(/^list buckets$/, function(callback) {
     test.listBuckets({
-      'location': 'pek3a'
+      'location': test_config.zone
     }, function(err, res) {
       test_res = res;
       callback();

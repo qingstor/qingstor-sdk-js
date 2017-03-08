@@ -56,7 +56,7 @@ Load configuration from config file
 
 ``` javascript
 var Config = require('qingstor-sdk').Config;
-var userConfig = new Config().loadUserConfig('PATH/TO/FILE');
+var userConfig = new Config().loadConfigFromFilepath('PATH/TO/FILE');
 ```
 
 Change API endpoint

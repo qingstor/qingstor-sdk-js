@@ -16,26 +16,27 @@
 
 "use strict";
 
-var child_process = require("child_process");
-var Config = require("qingstor-sdk").Config;
-var Qingstor = require('qingstor-sdk').QingStor;
-var yaml = require('js-yaml');
-var fs = require('fs');
-var should = require('chai').should();
+import fs from "fs";
+import yaml from "js-yaml";
+import child_process from "child_process";
+import { Config, QingStor } from "qingstor-sdk";
+
+let should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  var config = new Config().loadUserConfig();
-  var test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
-  var test = new Qingstor(config);
-  var test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-  var test_multipart_object = undefined;
-  var test_data = undefined;
+  let config = new Config().loadUserConfig();
+  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let test = new QingStor(config);
+  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  let test_multipart_object = undefined;
+  let test_data = undefined;
   test_bucket.put();
+  child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin_part bs=1048576 count=5');
 
-  var init_output = undefined;
-  this.When(/^initiate multipart upload with key "([^"]*)"$/, function(arg1, callback) {
+  let init_output = undefined;
+  this.When(/^initiate multipart upload with key "(.*)"$/, function(arg1, callback) {
     test_bucket.initiateMultipartUpload(arg1, {
       "Content-Type": "text/plain"
     }, function(err, data) {
@@ -47,78 +48,51 @@ module.exports = function() {
   this.Then(/^initiate multipart upload status code is (\d+)$/, function(arg1, callback) {
     callback(null, init_output.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^upload the first part$/, function(callback) {
-    child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin_part_0 bs=1048576 count=5', function(error, stdout, stderr) {
-      if (error) {
-        console.error('exec error: ' + error);
-        return;
-      }
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      test_data = test_bucket.uploadMultipart('test_object_multipart', {
-        'upload_id': init_output['upload_id'],
-        'part_number': '0',
-        'body': fs.createReadStream('/tmp/sdk_bin_part_0')
-      }, function(err, data) {
-        test_data = data;
-        callback();
-      })
-    })
-    ;
+  this.When(/^upload the first part with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.uploadMultipart(arg1, {
+      'upload_id': init_output['upload_id'],
+      'part_number': '0',
+      'body': fs.createReadStream('/tmp/sdk_bin_part')
+    }, function(err, data) {
+      test_data = data;
+      callback();
+    });
   });
   this.Then(/^upload the first part status code is (\d+)$/, function(arg1, callback) {
 
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^upload the second part$/, function(callback) {
-    child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin_part_1 bs=1048576 count=5', function(error, stdout, stderr) {
-      if (error) {
-        console.error('exec error: ' + error);
-        return;
-      }
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      test_data = test_bucket.uploadMultipart('test_object_multipart', {
-        'upload_id': init_output['upload_id'],
-        'part_number': '1',
-        'body': fs.createReadStream('/tmp/sdk_bin_part_1')
-      }, function(err, data) {
-        test_data = data;
-        callback();
-      })
-    })
-    ;
+  this.When(/^upload the second part with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.uploadMultipart(arg1, {
+      'upload_id': init_output['upload_id'],
+      'part_number': '1',
+      'body': fs.createReadStream('/tmp/sdk_bin_part')
+    }, function(err, data) {
+      test_data = data;
+      callback();
+    });
   });
   this.Then(/^upload the second part status code is (\d+)$/, function(arg1, callback) {
 
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^upload the third part$/, function(callback) {
-    child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin_part_2 bs=1048576 count=5', function(error, stdout, stderr) {
-      if (error) {
-        console.error('exec error: ' + error);
-        return;
-      }
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      test_bucket.uploadMultipart('test_object_multipart', {
-        'upload_id': init_output['upload_id'],
-        'part_number': '2',
-        'body': fs.createReadStream('/tmp/sdk_bin_part_2')
-      }, function(err, data) {
-        test_data = data;
-        callback();
-      });
-    })
-    ;
+  this.When(/^upload the third part with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.uploadMultipart(arg1, {
+      'upload_id': init_output['upload_id'],
+      'part_number': '2',
+      'body': fs.createReadStream('/tmp/sdk_bin_part')
+    }, function(err, data) {
+      test_data = data;
+      callback();
+    });
   });
   this.Then(/^upload the third part status code is (\d+)$/, function(arg1, callback) {
 
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  var list_multipart_output = undefined;
-  this.When(/^list multipart$/, function(callback) {
-    test_bucket.listMultipart('test_object_multipart', {
+  let list_multipart_output = undefined;
+  this.When(/^list multipart with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.listMultipart(arg1, {
       'upload_id': init_output['upload_id']
     }, function(err, data) {
       list_multipart_output = data;
@@ -133,8 +107,8 @@ module.exports = function() {
 
     callback(null, list_multipart_output.object_parts.length.toString().should.eql(arg1));
   });
-  this.When(/^complete multipart upload$/, function(callback) {
-    test_bucket.completeMultipartUpload('test_object_multipart', {
+  this.When(/^complete multipart upload with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.completeMultipartUpload(arg1, {
       'upload_id': init_output.upload_id,
       'etag': '"4072783b8efb99a9e5817067d68f61c6"',
       'object_parts': list_multipart_output.object_parts
@@ -146,8 +120,8 @@ module.exports = function() {
   this.Then(/^complete multipart upload status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^abort multipart upload$/, function(callback) {
-    test_bucket.abortMultipartUpload('test_object_multipart', {
+  this.When(/^abort multipart upload with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.abortMultipartUpload(arg1, {
       'upload_id': init_output['upload_id']
     }, function(err, data) {
       test_data = data;
@@ -157,8 +131,8 @@ module.exports = function() {
   this.Then(/^abort multipart upload status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^delete the multipart object$/, function(callback) {
-    test_bucket.deleteObject('test_object_multipart', function(err, data) {
+  this.When(/^delete the multipart object with key "(.*)"$/, function(arg1, callback) {
+    test_bucket.deleteObject(arg1, function(err, data) {
       test_data = data;
       callback();
     });
