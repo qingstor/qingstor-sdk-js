@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-'use strict';
-
 import url from 'url';
 import _ from 'lodash/core';
 import logger from 'loglevel';

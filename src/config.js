@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-'use strict';
-
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';

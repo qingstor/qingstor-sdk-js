@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-'use strict';
-
 export function unpack(res) {
   // unpack Response Headers
   for (let i in res.headers) {

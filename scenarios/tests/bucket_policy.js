@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
-
 import fs from "fs";
 import yaml from "js-yaml";
 import { Config, QingStor } from "qingstor-sdk";
@@ -57,12 +55,9 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function(arg1, callback) {
-    let ok = false;
-    test_data.statement.forEach(function(statement) {
-      statement['condition']['string_like']['Referer'].forEach(function(value) {
-        if (value === arg1) {
-          ok = true;
-        }
+    let ok = test_data.statement.some(function(statement) {
+      return statement.condition.string_like.Referer.some(function(item) {
+        return item === arg1
       })
     });
     callback(null, ok.should.eql(true));
