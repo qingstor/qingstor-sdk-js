@@ -87,7 +87,6 @@ class Builder {
     }
 
     //Add User-Agent header
-    require('./version');
     parsedHeaders['User-Agent'] = util.format(
       'qingstor-sdk-js/%s (Node.js %s; %s)',
       global.version,
