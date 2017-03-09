@@ -26,6 +26,7 @@ let should = require('chai').should();
 
 describe('Builder test', function() {
   let config = new Config('test_access_key', 'test_secret_key');
+  config.additional_user_agent = 'UserExample';
   let operation = {
     "method": "PUT",
     "uri": "/<bucket-name>/<object-key>?acl",
@@ -62,7 +63,7 @@ describe('Builder test', function() {
         "Host": 'qingstor.com',
         'X-QS-Date': 'test time',
         'Content-Type': 'image/jpeg',
-        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
+        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
         'Content-Length': 11
       }
     );
@@ -100,7 +101,7 @@ describe('Builder test', function() {
         'X-QS-Date': 'test time',
         'Content-Length': 11,
         "Content-Type": "image/jpeg",
-        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
+        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample'
       }
     })
   });

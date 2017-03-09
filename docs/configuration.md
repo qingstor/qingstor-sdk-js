@@ -8,7 +8,7 @@ Except for Access Key, you can also configure the API endpoint for private cloud
 
 *Default Configuration File:*
 
-```
+```yaml
 # QingStor Services Configuration
 
 access_key_id: ''
@@ -19,6 +19,8 @@ port: 443
 protocol: 'https'
 connection_retries: 3
 
+# Additional User-Agent
+additional_user_agent: ""
 # Valid levels are "debug", "info", "warn", "error", and "fatal".
 log_level: 'warn'
 ```
@@ -31,14 +33,14 @@ Just create a config structure instance with your API Access Key.
 
 Create default configuration
 
-``` javascript
+```javascript
 import { Config } from 'qingstor-sdk';
 let defaultConfig = new Config().loadDefaultConfig();
 ```
 
 Create configuration from Access Key
 
-``` javascript
+```javascript
 import { Config } from 'qingstor-sdk';
 let userConfig = new Config().loadDefaultConfig();
 userConfig.access_key_id = "ACCESS_KEY_ID";
@@ -47,25 +49,33 @@ userConfig.secret_access_key = "SECRET_ACCESS_KEY";
 
 Load user configuration
 
-``` javascript
+```javascript
 import { Config } from 'qingstor-sdk';
 let userConfig = new Config().loadUserConfig();
 ```
 
 Load configuration from config file
 
-``` javascript
+```javascript
 import { Config } from 'qingstor-sdk';
 let userConfig = new Config().loadConfigFromFilepath('PATH/TO/FILE');
 ```
 
 Change API endpoint
 
-``` javascript
+```javascript
 import { Config } from 'qingstor-sdk';
 let moreConfiguration = new Config().loadDefaultConfig();
 
 moreConfiguration.protocol = "https";
 moreConfiguration.host = "api.private.com";
 moreConfiguration.port = 4433;
+```
+
+Customize User Agent
+
+```javascript
+import { Config } from 'qingstor-sdk';
+let userConfig = new Config().loadDefaultConfig();
+userConfig.additional_user_agent = "UserExample";
 ```
