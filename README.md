@@ -34,13 +34,10 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 
 *Used in node:*
 ```javascript
-'use strict';
-
-var QingStor = require('qingstor-sdk').QingStor;
-var config = require('qingstor-sdk')
-  .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects({}, function (err, data) {
+import { Config, QingStor } from 'qingstor-sdk';
+let config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+let bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
+bucket.listObjects(function (err, data) {
   console.log(data.statusCode);
   console.log(data.keys);
 });
@@ -62,7 +59,7 @@ var config = require('qingstor-sdk')
   .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 
 var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects({}, function (err, data) {
+bucket.listObjects(function (err, data) {
   console.log(data.statusCode);
   console.log(data.keys);
 });
