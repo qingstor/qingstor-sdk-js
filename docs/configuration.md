@@ -32,15 +32,15 @@ Just create a config structure instance with your API Access Key.
 Create default configuration
 
 ``` javascript
-var Config = require('qingstor-sdk').Config;
-var defaultConfig = new Config().loadDefaultConfig();
+import { Config } from 'qingstor-sdk';
+let defaultConfig = new Config().loadDefaultConfig();
 ```
 
 Create configuration from Access Key
 
 ``` javascript
-var Config = require('qingstor-sdk').Config;
-var userConfig = new Config().loadDefaultConfig();
+import { Config } from 'qingstor-sdk';
+let userConfig = new Config().loadDefaultConfig();
 userConfig.access_key_id = "ACCESS_KEY_ID";
 userConfig.secret_access_key = "SECRET_ACCESS_KEY";
 ```
@@ -48,22 +48,22 @@ userConfig.secret_access_key = "SECRET_ACCESS_KEY";
 Load user configuration
 
 ``` javascript
-var Config = require('qingstor-sdk').Config;
-var userConfig = new Config().loadUserConfig();
+import { Config } from 'qingstor-sdk';
+let userConfig = new Config().loadUserConfig();
 ```
 
 Load configuration from config file
 
 ``` javascript
-var Config = require('qingstor-sdk').Config;
-var userConfig = new Config().loadConfigFromFilepath('PATH/TO/FILE');
+import { Config } from 'qingstor-sdk';
+let userConfig = new Config().loadConfigFromFilepath('PATH/TO/FILE');
 ```
 
 Change API endpoint
 
 ``` javascript
-var Config = require('qingstor-sdk').Config;
-var moreConfiguration = new Config().loadDefaultConfig();
+import { Config } from 'qingstor-sdk';
+let moreConfiguration = new Config().loadDefaultConfig();
 
 moreConfiguration.protocol = "https";
 moreConfiguration.host = "api.private.com";

@@ -4,8 +4,7 @@ Import the QingStor and initialize service with a config, and you are ready to u
 To use bucket related APIs, you need to initialize a bucket from service using "Bucket" function.
 
 ``` javascript
-var Config = require('qingstor-sdk').Config;
-var Qingstor = require('qingstor-sdk').QingStor;
+import { Config, QingStor } from 'qingstor-sdk';
 ```
 
 ### Code Snippet
@@ -13,7 +12,7 @@ var Qingstor = require('qingstor-sdk').QingStor;
 Initialize the QingStor service with a configuration
 
 ``` javascript
-var config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+let config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 vat service = new QingStor(config);
 ```
 
@@ -37,7 +36,7 @@ bucket = service.Bucket('test-bucket', 'pek3a');
 List objects in the bucket
 
 ``` javascript
-bucket.listObjects({}, function(err, data) {
+bucket.listObjects(function(err, data) {
   console.log(res.statusCode);
   console.log(res.keys);
 });
@@ -86,7 +85,7 @@ bucket.deleteObject('object', function(err, data) {
 Initialize Multipart Upload
 
 ``` javascript
-bucket.initiateMultipartUpload('object_multipart', {},
+bucket.initiateMultipartUpload('object_multipart',
   function(err, data) {
     init_output = res;
   }
