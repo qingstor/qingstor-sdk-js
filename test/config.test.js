@@ -95,4 +95,26 @@ describe('Config test', function() {
     test.log_level.should.equal('info');
   });
 
+  it('checkConfig test', function() {
+    let test = new Config();
+    let notAllowedConfigFileContent = "# QingStor Services Configuration\n"
+      + "\n"
+      + "access_key_id: 'ACCESS_KEY_ID_1'\n"
+      + "secret_access_key: 'SECRET_ACCESS_KEY_1'\n"
+      + "host: 'private.com'\n"
+      + "port: 80\n"
+      + "protocol: 'http'\n"
+      + "connection_retries: 1\n"
+      + "\n"
+      + '# Additional User-Agent\n'
+      + 'additional_user_agent: "()abc"\n'
+      + "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n"
+      + "log_level: 'info'\n";
+    try {
+      test.loadConfig(yaml.safeLoad(notAllowedConfigFileContent));
+    } catch (err) {
+      err.should.be.instanceof(RangeError);
+    }
+  })
+
 });

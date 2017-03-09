@@ -20,7 +20,7 @@ import yaml from 'js-yaml';
 import logger from 'loglevel'
 
 class Config {
-  defaultConfigFileContent='# QingStor Services Configuration\n'
+  defaultConfigFileContent ='# QingStor Services Configuration\n'
   + '\n'
   + 'access_key_id: ""\n'
   + 'secret_access_key: ""\n'
@@ -29,6 +29,8 @@ class Config {
   + 'protocol: "https"\n'
   + 'connection_retries: 3\n'
   + '\n'
+  + '# Additional User-Agent\n'
+  + 'additional_user_agent: ""\n'
   + '# Valid levels are "debug", "info", "warn", "error", and "fatal".\n'
   + 'log_level: "warn"\n';
   defaultConfigFile = '~/.qingstor/config.yaml';
@@ -70,7 +72,31 @@ class Config {
       }
     }
     logger.setLevel(this['log_level']);
+    this.checkConfig();
     return this;
+  }
+
+  checkConfig() {
+    for (let key in this) {
+      if (this.hasOwnProperty(key)) {
+        // check user_agent_tags
+        if (key === 'additional_user_agent') {
+          let checkIfAllowed = function(v) {
+            v = v.charCodeAt();
+            // Non-ASCII, control characters, {}~|();, space are not allowed
+            if (v >= 32 && v <= 122 && ![32, 40, 41, 59].includes(v)) {
+              return true;
+            }
+          };
+          for (let v of this[key]) {
+            if (!checkIfAllowed(v)) {
+              let err = new RangeError(`additional_user_agent has not allowed value ${v}.`);
+              throw err;
+            }
+          }
+        }
+      }
+    }
   }
 
   loadDefaultConfig() {

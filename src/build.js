@@ -88,10 +88,11 @@ class Builder {
 
     //Add User-Agent header
     parsedHeaders['User-Agent'] = util.format(
-      'qingstor-sdk-js/%s (Node.js %s; %s)',
+      'qingstor-sdk-js/%s (Node.js %s; %s) %s',
       global.version,
       process.version,
-      process.platform
+      process.platform + ' ' + process.arch,
+      this.config.additional_user_agent
     );
 
     if (operation.api === 'DeleteMultipleObjects') {
