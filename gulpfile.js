@@ -16,42 +16,64 @@
 
 "use strict";
 
-var gulp = require('gulp');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var rename = require('gulp-rename');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
+const gulp = require('gulp');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
+const gutil = require('gulp-util');
+const tar = require('gulp-tar');
+const gzip = require('gulp-gzip');
+const zip = require('gulp-zip');
+require('./lib/version');
+const del = require('del');
 
 gulp.task('default', function () {
-    console.log('test');
+  console.log('test');
 });
 
-gulp.task('bundle', function () {
-    var b = browserify();
-    var options = {
-        preserveComments: 'license'
-    };
-    b.require('./index.js', {expose: 'qingstor-sdk'});
-    return b.bundle()
-        .pipe(source('qingstor-sdk.js'))
-        .pipe(buffer())
-        .pipe(gulp.dest('./dist'))
-        .pipe(uglify())
-        .on('error', gutil.log)
-        .pipe(rename({extname: '.min.js'}))
-        .pipe(gulp.dest('./dist'));
+gulp.task('clean', function () {
+  del(['dist/*']);
 });
 
-gulp.task('bundle-map', function () {
-    var b = browserify();
-    b.require('./index.js', {expose: 'qingstor-sdk'});
-    return b.bundle()
-        .pipe(source('qingstor-sdk.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./dist'));
+gulp.task('bundle', ['clean'], function () {
+  let b = browserify();
+  let options = {
+    preserveComments: 'license'
+  };
+  b.require('./index.js', {expose: 'qingstor-sdk'});
+  return b.bundle()
+    .pipe(source('qingstor-sdk.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('./dist'))
+    .pipe(uglify())
+    .on('error', gutil.log)
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest('./dist'));
 });
+
+gulp.task('bundle-map', ['clean'], function () {
+  let b = browserify();
+  b.require('./index.js', {expose: 'qingstor-sdk'});
+  return b.bundle()
+    .pipe(source('qingstor-sdk.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('zip', ['bundle', 'bundle-map'], () =>
+  gulp.src(['dist/*.js', 'dist/*.map'])
+    .pipe(zip(`qingstor-sdk-javascript-${global.version}.zip`))
+    .pipe(gulp.dest('dist'))
+);
+
+gulp.task('tar', ['bundle', 'bundle-map'], () =>
+  gulp.src(['dist/*.js', 'dist/*.map'])
+    .pipe(tar(`qingstor-sdk-javascript-${global.version}.tar`))
+    .pipe(gzip())
+    .pipe(gulp.dest('dist'))
+);
