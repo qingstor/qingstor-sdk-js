@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
-
 import fs from "fs";
 import yaml from "js-yaml";
 import { Config, QingStor } from "qingstor-sdk";
@@ -53,12 +51,9 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get bucket CORS should have allowed origin "([^"]*)"$/, function(arg1, callback) {
-    let ok = false;
-    for (let i in test_data.cors_rules) {
-      if (test_data.cors_rules[i]['allowed_origin'] === arg1) {
-        ok = true;
-      }
-    }
+    let ok = test_data.cors_rules.some(function(item) {
+      return item.allowed_origin === arg1;
+    });
     callback(null, ok.should.eql(true));
   });
   this.When(/^delete bucket CORS$/, function(callback) {

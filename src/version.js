@@ -14,6 +14,4 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-'use strict';
-
 global.version = '2.1.3';

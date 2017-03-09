@@ -14,7 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-'use strict';
 import _ from 'lodash/core';
 import Signer from '../sign';
 import Bucket from './bucket';

@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-'use strict';
-
 import './version';
 import fs from 'fs';
 import url from 'url';

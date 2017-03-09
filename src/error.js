@@ -14,7 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-
 class ParameterRequiredError extends Error {
   constructor(parameter_name, parent_name) {
     let msg = `${parameter_name} is required in ${parent_name}.`;
