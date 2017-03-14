@@ -22,13 +22,6 @@ import Config from '../src/config';
 let should = require('chai').should();
 
 describe('Config test', function() {
-  it('isFileExist test', function() {
-    let test = new Config();
-    fs.writeFileSync('/tmp/exist_file', 'test_data');
-    test.isFileExist('/tmp/exist_file').should.equal(true);
-    test.isFileExist('/tmp/not_exist_file').should.equal(false);
-  });
-
   it('loadDefaultConfig test', function() {
     let test = new Config();
     test.access_key_id.should.equal('');
