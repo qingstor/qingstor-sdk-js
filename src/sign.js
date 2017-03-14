@@ -22,50 +22,47 @@ import querystring from 'querystring';
 
 
 class Signer {
-  constructor(op, access_key_id, secret_access_key) {
-    this.op = op;
+  constructor(operation, access_key_id, secret_access_key) {
+    this.operation = operation;
     this.access_key_id = access_key_id;
     this.secret_access_key = secret_access_key;
   }
 
   sign() {
-    this.op.headers.Authorization = 'QS '
-    + this.access_key_id
-    + ':'
-    + this.getAuthorization();
-    return this.op;
+    this.operation.headers.Authorization = `QS ${this.access_key_id}:${this.getAuthorization()}`;
+    return this.operation;
   }
 
-  query_sign(expires) {
-    delete this.op.headers['X-QS-Date'];
-    delete this.op.headers['Host'];
-    delete this.op.headers['Content-Type'];
-    delete this.op.headers['User-Agent'];
+  signQuery(expires) {
+    delete this.operation.headers['X-QS-Date'];
+    delete this.operation.headers['Host'];
+    delete this.operation.headers['Content-Type'];
+    delete this.operation.headers['User-Agent'];
 
-    let url_object = url.parse(this.op.uri, true);
+    let url_object = url.parse(this.operation.uri, true);
     url_object.query = Object.assign(url_object.query, {
       signature: this.getQuerySignature(expires),
       access_key_id: this.access_key_id,
       expires: expires
     });
     url_object.search = '?' + querystring.stringify(url_object.query);
-    this.op.uri = url.format(url_object);
-    logger.debug('QingStor query request url: ' + this.op.uri);
-    return this.op;
+    this.operation.uri = url.format(url_object);
+    logger.debug(`QingStor query request url: ${this.operation.uri}`);
+    return this.operation;
   }
 
   getContentMD5() {
     let parsedContentMD5 = '';
-    if (this.op.headers.hasOwnProperty('Content-MD5')) {
-      parsedContentMD5 = this.op.headers['Content-MD5'];
+    if (this.operation.headers.hasOwnProperty('Content-MD5')) {
+      parsedContentMD5 = this.operation.headers['Content-MD5'];
     }
     return parsedContentMD5;
   }
 
   getContentType() {
     let parsedContentType = '';
-    if (this.op.headers.hasOwnProperty('Content-Type')) {
-      parsedContentType = this.op.headers['Content-Type'];
+    if (this.operation.headers.hasOwnProperty('Content-Type')) {
+      parsedContentType = this.operation.headers['Content-Type'];
     }
     return parsedContentType;
   }
@@ -76,7 +73,7 @@ class Signer {
     let canonicalizedHeaders = '';
     let headers = {};
 
-    _.forEach(this.op.headers, function(v, k) {
+    _.forEach(this.operation.headers, function(v, k) {
       if (k.toLowerCase().indexOf('x-qs-') !== -1) {
         if (hasDate || k.toLowerCase().trim() !== 'x-qs-date') {
           headers[k.toLowerCase()] = v;
@@ -87,21 +84,22 @@ class Signer {
     let keys = Object.keys(headers).sort();
     if (keys.length > 0) {
       for (let i of keys) {
-        canonicalizedHeaders += i.toLowerCase().trim() + ':' + headers[i].trim() + '\n';
+        canonicalizedHeaders += `${i.toLowerCase().trim()}:${headers[i].trim()}
+`;
       }
     }
     return canonicalizedHeaders;
   }
 
   getCanonicalizedResource() {
-    let parsedUri = url.parse(this.op.uri, true);
-    let canonicalizedResource = parsedUri.pathname;
+    let parsedURI = url.parse(this.operation.uri, true);
+    let canonicalizedResource = parsedURI.pathname;
     let query = [];
-    if (!_.isEmpty(parsedUri.query)) {
-      for (let i in parsedUri.query) {
+    if (!_.isEmpty(parsedURI.query)) {
+      for (let i in parsedURI.query) {
         if (this.isSubResource(i)) {
-          if (parsedUri.query[i] !== '') {
-            query.push(i + '=' + parsedUri.query[i]);
+          if (parsedURI.query[i] !== '') {
+            query.push(`${i}=${parsedURI.query[i]}`);
           } else {
             query.push(i)
           }
@@ -116,37 +114,48 @@ class Signer {
   }
 
   getAuthorization() {
-    let string_to_sign = this.op.method + '\n'
-    + this.getContentMD5() + '\n'
-    + this.getContentType() + '\n'
-    + '\n'
-    + this.getCanonicalizedHeaders()
-    + this.getCanonicalizedResource();
-    logger.debug('QingStor request string to sign: ' + string_to_sign);
     let h = createHmac('sha256', this.secret_access_key);
-    h.update(string_to_sign);
-    let sigb64 = new Buffer(h.digest()).toString('base64');
-    logger.debug('QingStor request authorization: ' + sigb64);
-    return sigb64;
+    h.update(this.getStringToSign());
+
+    let signature = new Buffer(h.digest()).toString('base64');
+    logger.debug(`QingStor request authorization: ${signature}`);
+    return signature;
   }
 
   getQuerySignature(expires) {
-    let string_to_sign = this.op.method + '\n'
-    + this.getContentMD5() + '\n'
-    + this.getContentType() + '\n'
-    + expires + '\n'
-    + this.getCanonicalizedHeaders(false)
-    + this.getCanonicalizedResource();
-    logger.debug('QingStor query request string to sign: ' + string_to_sign);
     let h = createHmac('sha256', this.secret_access_key);
-    h.update(string_to_sign);
-    let sigb64 = new Buffer(h.digest()).toString('base64');
-    logger.debug('QingStor query request authorization: ' + sigb64);
-    return sigb64;
+    h.update(this.getQueryStringToSign(expires));
+
+    let signature = new Buffer(h.digest()).toString('base64');
+    logger.debug('QingStor query request authorization: ' + signature);
+    return signature;
+  }
+
+  getStringToSign() {
+    let stringToSign = this.operation.method + '\n' +
+    this.getContentMD5() + '\n' +
+    this.getContentType() + '\n' + '\n' +
+    this.getCanonicalizedHeaders() +
+    this.getCanonicalizedResource();
+
+    logger.debug(`QingStor request string to sign: ${stringToSign}`);
+    return stringToSign;
+  }
+
+  getQueryStringToSign(expires) {
+    let stringToSign = this.operation.method + '\n' +
+    this.getContentMD5() + '\n' +
+    this.getContentType() + '\n' +
+    expires + '\n' +
+    this.getCanonicalizedHeaders(false) +
+    this.getCanonicalizedResource();
+
+    logger.debug(`QingStor query request string to sign: ${stringToSign}`);
+    return stringToSign;
   }
 
   isSubResource(key) {
-    let keysMap = [
+    return [
       'acl',
       'cors',
       'delete',
@@ -162,8 +171,7 @@ class Signer {
       'response-content-language',
       'response-content-encoding',
       'response-content-disposition'
-    ];
-    return keysMap.includes(key);
+    ].includes(key);
   }
 }
 
