@@ -23,8 +23,8 @@ let should = require('chai').should();
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadUserConfig();
-  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
   let test = undefined;
   let test_res = undefined;
   this.When(/^initialize QingStor service$/, function(callback) {
