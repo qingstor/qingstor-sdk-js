@@ -85,7 +85,7 @@ module.exports = function() {
 
   this.When(/^get object "(.*)" with query signature$/, function(arg1, callback) {
     let expires = Math.floor(Date.now(), 1000) + 1000;
-    request(test_bucket.getObjectQuery(arg1, expires), function(err, data) {
+    request(test_bucket.getObjectRequest(arg1).signQuery(expires).operation.uri, function(err, data) {
       test_data = data;
       callback();
     })
