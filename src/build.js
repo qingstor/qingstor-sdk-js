@@ -88,12 +88,12 @@ class Builder {
 
     //Add User-Agent header
     parsedHeaders['User-Agent'] = util.format(
-      'qingstor-sdk-js/%s (Node.js %s; %s) %s',
-      global.version,
-      process.version,
-      process.platform + ' ' + process.arch,
-      this.config.additional_user_agent
+      'qingstor-sdk-js/%s (Node.js %s; %s %s)',
+      global.version, process.version, process.platform, process.arch,
     );
+    if (!_.isEmpty(this.config.additional_user_agent)) {
+      parsedHeaders['User-Agent'] += util.format(' %s', this.config.additional_user_agent)
+    }
 
     if (operation.api === 'DeleteMultipleObjects') {
       let h = createHash('md5');
