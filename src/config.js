@@ -36,33 +36,36 @@ class Config {
   defaultConfigFile = '~/.qingstor/config.yaml';
 
   constructor(access_key_id, secret_access_key) {
+    this.loadDefaultConfig();
     this.access_key_id = access_key_id === undefined ? '' : access_key_id;
     this.secret_access_key = secret_access_key === undefined ? '' : secret_access_key;
-    this.host = 'qingstor.com';
-    this.port = 443;
-    this.protocol = 'https';
-    this.connection_retries = 3;
-    this.log_level = 'warn';
   }
 
   getUserConfigFilePath() {
     let home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
-    return home + this.defaultConfigFile.replace('~', '');
-  }
-
-  isFileExist(filePath) {
-    try {
-      fs.accessSync(filePath, fs.R_OK | fs.W_OK);
-    } catch ($e) {
-      return false;
-    }
-    return true;
+    return `${home}${this.defaultConfigFile.replace('~', '')}`;
   }
 
   installDefaultUserConfig() {
     let filePath = this.getUserConfigFilePath();
-    fs.mkdirSync(path.dirname(filePath));
+    this.mkdirParentSync(path.dirname(filePath));
     fs.writeFileSync(filePath, this.defaultConfigFileContent);
+  }
+
+  checkConfig() {
+    for (let key in this) {
+      if (this.hasOwnProperty(key)) {
+        if (key === 'additional_user_agent') {
+          for (let v of this[key]) {
+            let x = v.charCodeAt();
+            // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
+            if (x < 32 || x > 126 || x == 32 || x == 34) {
+              throw new RangeError(`additional_user_agent has not allowed value ${x}.`);
+            }
+          }
+        }
+      }
+    }
   }
 
   loadConfig(data) {
@@ -76,29 +79,6 @@ class Config {
     return this;
   }
 
-  checkConfig() {
-    for (let key in this) {
-      if (this.hasOwnProperty(key)) {
-        // check user_agent_tags
-        if (key === 'additional_user_agent') {
-          let checkIfAllowed = function(v) {
-            v = v.charCodeAt();
-            // Non-ASCII, control characters, {}~|();, space are not allowed
-            if (v >= 32 && v <= 122 && ![32, 40, 41, 59].includes(v)) {
-              return true;
-            }
-          };
-          for (let v of this[key]) {
-            if (!checkIfAllowed(v)) {
-              let err = new RangeError(`additional_user_agent has not allowed value ${v}.`);
-              throw err;
-            }
-          }
-        }
-      }
-    }
-  }
-
   loadDefaultConfig() {
     let defaultUserConfig = yaml.safeLoad(this.defaultConfigFileContent);
     return this.loadConfig(defaultUserConfig);
@@ -106,15 +86,26 @@ class Config {
 
   loadUserConfig() {
     let filePath = this.getUserConfigFilePath();
-    if (!this.isFileExist(filePath)) {
+    if (!fs.existsSync(filePath)) {
       this.installDefaultUserConfig();
     }
-    let config = this.loadConfigFromFilepath(filePath);
-    return this.loadConfig(config);
+    return this.loadConfigFromFilepath(filePath)
   }
 
   loadConfigFromFilepath(filePath) {
-    return yaml.safeLoad(fs.readFileSync(filePath));
+    return this.loadConfig(yaml.safeLoad(fs.readFileSync(filePath)));
+  }
+
+  mkdirParentSync(dirPath, mode) {
+    mode = typeof mode !== 'undefined' ? mode : '0755';
+
+    if (!fs.existsSync(dirPath)) {
+      let parentDir = path.dirname(dirPath);
+      if (!fs.existsSync(parentDir)) {
+        this.mkdirParentSync(parentDir);
+      }
+      fs.mkdirSync(dirPath, mode);
+    }
   }
 }
 
