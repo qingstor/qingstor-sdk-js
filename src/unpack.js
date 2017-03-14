@@ -14,7 +14,13 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
+import _ from 'lodash/core';
+
 export function unpack(res) {
+  if (_.isEmpty(res)) {
+    return
+  }
+
   // unpack Response Headers
   for (let i in res.headers) {
     if (res.headers.hasOwnProperty(i)) {
