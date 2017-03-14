@@ -86,7 +86,7 @@ describe('Builder test', function() {
   });
 
   it('parseRequestUri test', function() {
-    url.format(test.parseRequestUri(operation)).should.eql(
+    url.format(test.parseRequestURI(operation)).should.eql(
       'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id'
     );
   });
