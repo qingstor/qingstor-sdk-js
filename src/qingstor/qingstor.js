@@ -15,24 +15,14 @@
 // +-------------------------------------------------------------------------
 
 import _ from 'lodash/core';
-import Signer from '../sign';
-import Bucket from './bucket';
 import logger from 'loglevel';
-import request from 'request';
-import Builder from '../build';
+import Request from '../request';
 import SDKError from '../error';
-import { unpack } from '../unpack';
-
+import Bucket from './bucket';
 
 class QingStor {
 
   constructor(config) {
-    if (_.isEmpty(config.access_key_id)) {
-      throw new Error('access key not provided');
-    }
-    if (_.isEmpty(config.secret_access_key)) {
-      throw new Error('secret access key not provided');
-    }
     this.config = config;
   }
 
@@ -62,11 +52,7 @@ class QingStor {
       'body': undefined
     };
     this.listBucketsValidate(operation);
-    return new Signer(
-      new Builder(this.config, operation).parse(),
-      this.config.access_key_id,
-      this.config.secret_access_key
-    );
+    return new Request(this.config, operation).build();
   }
 
 
@@ -85,40 +71,7 @@ class QingStor {
       callback = options;
       options = {};
     }
-    let signer = this.listBucketsRequest(options);
-    let retries = this.config.connection_retries;
-    while (1) {
-      try {
-        logger.info('Sending QingStor request: listBuckets');
-        request(signer.sign(), function(err, res) {
-          callback && callback(err, unpack(res));
-        });
-      } catch (err) {
-        logger.info(err);
-        if (retries > 0) {
-          retries -= 1;
-        } else {
-          throw new Error("Network Error");
-        }
-      }
-      break;
-    }
-  }
-
-
-
-  /**
-   * listBucketsQuery: ListBuckets's Query Sign Way
-   * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Location - Limits results to buckets that in the location
-   * @param expires The time when this quert sign expires
-   *
-   * @return none
-   */
-  listBucketsQuery(expires, options) {
-    let signer = this.listBucketsRequest(options);
-    return signer.query_sign(expires).uri;
+    this.listBucketsRequest(options).sign().send(callback);
   }
 
 
@@ -135,8 +88,6 @@ class QingStor {
 }
 
 export default QingStor;
-
-
 
 
 
