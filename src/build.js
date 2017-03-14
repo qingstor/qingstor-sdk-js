@@ -24,7 +24,6 @@ import logger from 'loglevel';
 import { createHash } from 'crypto';
 import querystring from 'querystring';
 
-
 class Builder {
   constructor(config, operation) {
     this.config = config;
@@ -35,9 +34,10 @@ class Builder {
     let operation = this.operation;
     let parsedOperation = {};
     parsedOperation.method = operation.method;
-    parsedOperation.uri = url.format(this.parseRequestUri(operation));
-    logger.debug('QingStor request parsedUri: ' + parsedOperation.uri);
+    parsedOperation.uri = url.format(this.parseRequestURI(operation));
     parsedOperation.body = this.parseRequestBody(operation);
+
+    logger.debug(`QingStor request uri: ${parsedOperation.uri}`);
 
     let parsedHeaders = this.parseRequestHeaders(operation);
     if (!_.isEmpty(parsedHeaders)) {
@@ -74,7 +74,7 @@ class Builder {
     parsedHeaders['Content-Type'] = _.result(
       operation.headers,
       'Content-Type',
-      mime.lookup(this.parseRequestUri(operation).pathname)
+      mime.lookup(this.parseRequestURI(operation).pathname)
     );
 
     //Add Content-Type header
@@ -123,22 +123,24 @@ class Builder {
     return parsedProperties;
   }
 
-  parseRequestUri(operation) {
+  parseRequestURI(operation) {
     let key;
-    let parsedUri = url.parse(operation.uri, true);
+    let parsedURI = url.parse(operation.uri, true);
 
     let parsedProperties = this.parseRequestProperties(operation);
     if (_.result(parsedProperties, 'zone')) {
-      parsedUri.hostname = parsedProperties.zone + '.' + this.config.host;
+      parsedURI.hostname = `${parsedProperties.zone}.${this.config.host}`
     } else {
-      parsedUri.hostname = this.config.host;
+      parsedURI.hostname = this.config.host;
     }
-    parsedUri.protocol = this.config.protocol;
-    parsedUri.port = this.config.port;
+    parsedURI.protocol = this.config.protocol;
+    parsedURI.port = this.config.port;
 
     for (key in parsedProperties) {
       if (parsedProperties.hasOwnProperty(key)) {
-        parsedUri.pathname = parsedUri.pathname.replace('<' + key + '>', parsedProperties[key]);
+        parsedURI.pathname = parsedURI.pathname.replace(`<${key}>`, parsedProperties[key]);
+        parsedURI.path = parsedURI.pathname;
+        parsedURI.href = parsedURI.pathname;
       }
     }
 
@@ -146,13 +148,13 @@ class Builder {
     if (!_.isEmpty(parsedParams)) {
       for (key in parsedParams) {
         if (parsedParams.hasOwnProperty(key) && !_.isEmpty(parsedParams[key])) {
-          parsedUri.query[key] = parsedParams[key];
+          parsedURI.query[key] = parsedParams[key];
         }
       }
-      parsedUri.search = '?' + querystring.stringify(parsedUri.query);
+      parsedURI.search = '?' + querystring.stringify(parsedURI.query);
     }
 
-    return parsedUri;
+    return parsedURI;
   }
 }
 
