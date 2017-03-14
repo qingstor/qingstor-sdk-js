@@ -145,4 +145,4 @@ export default function() {
       callback(null, test_data.uploads.length.toString().should.eql(count));
     });
   });
-};
+}
