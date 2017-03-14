@@ -25,14 +25,14 @@ let should = require('chai').should();
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadUserConfig();
-  let test_config = yaml.safeLoad(fs.readFileSync("test_config.yaml"));
+  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
   let test = new QingStor(config);
   let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
   test_bucket.put();
 
   let test_data = undefined;
-  child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin bs=1048576 count=1');
+  child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin bs=1024 count=1');
 
   this.When(/^put object with key "(.*)"$/, function(arg1, callback) {
     test_bucket.putObject(arg1, {
@@ -80,7 +80,7 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get object content length is (\d+)$/, function(arg1, callback) {
-    callback(null, test_data.body.length.toString().should.eql(arg1));
+    callback(null, (test_data.body.length * 1024).toString().should.eql(arg1));
   });
 
   this.When(/^get object "(.*)" with query signature$/, function(arg1, callback) {
@@ -91,7 +91,7 @@ module.exports = function() {
     })
   });
   this.Then(/^get object with query signature content length is (\d+)$/, function(arg1, callback) {
-    callback(null, test_data.body.length.toString().should.eql(arg1));
+    callback(null, (test_data.body.length * 1024).toString().should.eql(arg1));
   });
 
   this.When(/^get object "(.*)" with content type "(.*)"$/, function(arg1, arg2, callback) {
