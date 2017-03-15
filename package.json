@@ -1,6 +1,6 @@
 {
   "name": "qingstor-sdk",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Official QingStor SDK for JavaScript",
   "main": "index.js",
   "directories": {
