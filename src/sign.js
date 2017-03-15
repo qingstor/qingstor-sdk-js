@@ -117,21 +117,11 @@ class Signer {
   }
 
   getAuthorization() {
-    let h = createHmac('sha256', this.secret_access_key);
-    h.update(this.getStringToSign());
-
-    let signature = new Buffer(h.digest()).toString('base64');
-    logger.debug(`QingStor request authorization: ${signature}`);
-    return signature;
+    return this.calculateSignature(this.getStringToSign());
   }
 
   getQuerySignature(expires) {
-    let h = createHmac('sha256', this.secret_access_key);
-    h.update(this.getQueryStringToSign(expires));
-
-    let signature = new Buffer(h.digest()).toString('base64');
-    logger.debug('QingStor query request authorization: ' + signature);
-    return signature;
+    return this.calculateSignature(this.getQueryStringToSign(expires));
   }
 
   getStringToSign() {
@@ -155,6 +145,15 @@ class Signer {
 
     logger.debug(`QingStor query request string to sign: ${stringToSign}`);
     return stringToSign;
+  }
+
+  calculateSignature(stringToSign) {
+    let h = createHmac('sha256', this.secret_access_key);
+    h.update(stringToSign);
+
+    let signature = new Buffer(h.digest()).toString('base64');
+    logger.debug('QingStor query request authorization: ' + signature);
+    return signature;
   }
 
   isSubResource(key) {
