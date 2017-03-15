@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.2] - 2017-03-15
+
+### Added
+
+- signer: Add calculateSignature
+
+### Changed
+
+- Export Request and Signer class
+- signer: Assign query signature to request params
+
 ## [2.2.1] - 2017-03-15
 
 ### Added
@@ -77,6 +88,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.2]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/yunify/qingstor-sdk-js/compare/2.1.3...2.2.0
 [2.1.3]: https://github.com/yunify/qingstor-sdk-js/compare/2.1.2...2.1.3
