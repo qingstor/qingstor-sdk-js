@@ -15,6 +15,8 @@
 // +-------------------------------------------------------------------------
 
 module.exports = {
-    'QingStor': require('./lib/qingstor/qingstor'),
-    'Config': require('./lib/config')
+  'QingStor': require('./lib/qingstor/qingstor'),
+  'Config':   require('./lib/config'),
+  'Request':  require('./lib/request'),
+  'Signer':   require('./lib/sign'),
 };
