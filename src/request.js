@@ -64,9 +64,11 @@ class Request {
   }
 
   applyQuerySignature(access_key_id, signature, expires) {
-    this.operation.params.access_key_id = access_key_id;
-    this.operation.params.signature = signature;
-    this.operation.params.expires = expires;
+    this.operation.params = _.extend({}, this.operation.params, {
+      access_key_id,
+      signature,
+      expires,
+    });
     return this;
   }
 

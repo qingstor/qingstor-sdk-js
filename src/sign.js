@@ -39,14 +39,17 @@ class Signer {
     delete this.operation.headers['Content-Type'];
     delete this.operation.headers['User-Agent'];
 
-    let url_object = url.parse(this.operation.uri, true);
-    url_object.query = Object.assign(url_object.query, {
+    const data = {
       signature: this.getQuerySignature(expires),
       access_key_id: this.access_key_id,
       expires: expires
-    });
+    };
+
+    let url_object = url.parse(this.operation.uri, true);
+    url_object.query = _.extend({}, url_object.query, data);
     url_object.search = '?' + querystring.stringify(url_object.query);
     this.operation.uri = url.format(url_object);
+    this.operation.params = _.extend({}, this.operation.params, data);
     logger.debug(`QingStor query request url: ${this.operation.uri}`);
     return this.operation;
   }
