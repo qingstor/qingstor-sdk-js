@@ -17,7 +17,7 @@
 import './version';
 import fs from 'fs';
 import url from 'url';
-import mime from 'mime';
+import mime from 'mime-types';
 import util from 'util';
 import _ from 'lodash/core';
 import logger from 'loglevel';
@@ -74,12 +74,12 @@ class Builder {
     parsedHeaders['Content-Type'] = _.result(
       operation.headers,
       'Content-Type',
-      mime.lookup(this.parseRequestURI(operation).pathname)
+      mime.lookup(this.parseRequestURI(operation).pathname) || 'application/octet-stream'
     );
 
     //Add Content-Type header
     let parsedBody = this.parseRequestBody(operation);
-    if (parsedBody instanceof fs.ReadStream) {
+    if (parsedBody.constructor == fs.ReadStream) {
       let stats = fs.statSync(parsedBody.path);
       parsedHeaders['Content-Length'] = stats.size;
     } else {
@@ -139,6 +139,8 @@ class Builder {
     for (key in parsedProperties) {
       if (parsedProperties.hasOwnProperty(key)) {
         parsedURI.pathname = parsedURI.pathname.replace(`<${key}>`, parsedProperties[key]);
+        // Be compatible with browserify's url.parse
+        parsedURI.pathname = parsedURI.pathname.replace(`%3C${key}%3E`, parsedProperties[key]);
         parsedURI.path = parsedURI.pathname;
         parsedURI.href = parsedURI.pathname;
       }
