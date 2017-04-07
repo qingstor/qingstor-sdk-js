@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.4] - 2017-04-07
+
+### Changed
+
+- Change xhr withCredentials to false
+
 ## [2.2.3] - 2017-04-07
 
 ### Fixed
@@ -94,6 +100,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.4]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.2...2.2.3
 [2.2.2]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.1...2.2.2
 [2.2.1]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.0...2.2.1
