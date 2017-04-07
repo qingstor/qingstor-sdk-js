@@ -77,6 +77,10 @@ class Request {
     while (true) {
       try {
         logger.info(`Sending QingStor request: ${this.operation.uri}`);
+
+        // QingStor do not send Access-Control-Allow-Credentials header, so always keep withCredentials false
+        this.operation.withCredentials = false;
+
         request(this.operation, (err, res) => {
           this.response = res;
           callback && callback(err, this.unpack().response);
