@@ -77,9 +77,9 @@ class Builder {
       mime.lookup(this.parseRequestURI(operation).pathname) || 'application/octet-stream'
     );
 
-    //Add Content-Type header
+    //Add Content-Length header
     let parsedBody = this.parseRequestBody(operation);
-    if (parsedBody.constructor == fs.ReadStream) {
+    if (parsedBody.constructor === fs.ReadStream) {
       let stats = fs.statSync(parsedBody.path);
       parsedHeaders['Content-Length'] = stats.size;
     } else {
