@@ -20,19 +20,19 @@ import yaml from 'js-yaml';
 import logger from 'loglevel'
 
 class Config {
-  defaultConfigFileContent ='# QingStor Services Configuration\n'
-  + '\n'
-  + 'access_key_id: ""\n'
-  + 'secret_access_key: ""\n'
-  + 'host: "qingstor.com"\n'
-  + 'port: 443\n'
-  + 'protocol: "https"\n'
-  + 'connection_retries: 3\n'
-  + '\n'
-  + '# Additional User-Agent\n'
-  + 'additional_user_agent: ""\n'
-  + '# Valid levels are "debug", "info", "warn", "error", and "fatal".\n'
-  + 'log_level: "warn"\n';
+  defaultConfigFileContent =['# QingStor Services Configuration',
+    '',
+    'access_key_id: ""',
+    'secret_access_key: ""',
+    'host: "qingstor.com"',
+    'port: 443',
+    'protocol: "https"',
+    'connection_retries: 3',
+    '',
+    '# Additional User-Agent',
+    'additional_user_agent: ""',
+    '# Valid levels are "debug", "info", "warn", "error", and "fatal".',
+    'log_level: "warn"'].join('\n');
   defaultConfigFile = '~/.qingstor/config.yaml';
 
   constructor(access_key_id, secret_access_key) {
@@ -42,7 +42,7 @@ class Config {
   }
 
   getUserConfigFilePath() {
-    let home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+    let home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
     return `${home}${this.defaultConfigFile.replace('~', '')}`;
   }
 
@@ -59,7 +59,7 @@ class Config {
           for (let v of this[key]) {
             let x = v.charCodeAt();
             // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
-            if (x < 32 || x > 126 || x == 32 || x == 34) {
+            if (x < 32 || x > 126 || x === 32 || x === 34) {
               throw new RangeError(`additional_user_agent has not allowed value ${x}.`);
             }
           }
