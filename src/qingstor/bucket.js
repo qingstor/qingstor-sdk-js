@@ -1648,6 +1648,15 @@ class Bucket {
    * @param {Object} options - User input options;
    * @param options.Content-Length - Object multipart content length
    * @param options.Content-MD5 - Object multipart content MD5sum
+   * @param options.X-QS-Copy-Range - Specify range of the source object
+   * @param options.X-QS-Copy-Source - Copy source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Copy-Source-If-Match - Check whether the Etag of copy source matches the specified value
+   * @param options.X-QS-Copy-Source-If-Modified-Since - Check whether the copy source has been modified since the specified date
+   * @param options.X-QS-Copy-Source-If-None-Match - Check whether the Etag of copy source does not matches the specified value
+   * @param options.X-QS-Copy-Source-If-Unmodified-Since - Check whether the copy source has not been unmodified since the specified date
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
@@ -1670,6 +1679,15 @@ class Bucket {
         'Host': this.properties.zone + '.' + this.config.host,
         'Content-Length': _.result(options, 'Content-Length', ''),
         'Content-MD5': _.result(options, 'Content-MD5', ''),
+        'X-QS-Copy-Range': _.result(options, 'X-QS-Copy-Range', ''),
+        'X-QS-Copy-Source': _.result(options, 'X-QS-Copy-Source', ''),
+        'X-QS-Copy-Source-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Algorithm', ''),
+        'X-QS-Copy-Source-Encryption-Customer-Key': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Key', ''),
+        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Key-MD5', ''),
+        'X-QS-Copy-Source-If-Match': _.result(options, 'X-QS-Copy-Source-If-Match', ''),
+        'X-QS-Copy-Source-If-Modified-Since': _.result(options, 'X-QS-Copy-Source-If-Modified-Since', ''),
+        'X-QS-Copy-Source-If-None-Match': _.result(options, 'X-QS-Copy-Source-If-None-Match', ''),
+        'X-QS-Copy-Source-If-Unmodified-Since': _.result(options, 'X-QS-Copy-Source-If-Unmodified-Since', ''),
         'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
         'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
         'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
@@ -1692,6 +1710,15 @@ class Bucket {
    * @param {Object} options - User input options;
    * @param options.Content-Length - Object multipart content length
    * @param options.Content-MD5 - Object multipart content MD5sum
+   * @param options.X-QS-Copy-Range - Specify range of the source object
+   * @param options.X-QS-Copy-Source - Copy source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Copy-Source-If-Match - Check whether the Etag of copy source matches the specified value
+   * @param options.X-QS-Copy-Source-If-Modified-Since - Check whether the copy source has been modified since the specified date
+   * @param options.X-QS-Copy-Source-If-None-Match - Check whether the Etag of copy source does not matches the specified value
+   * @param options.X-QS-Copy-Source-If-Unmodified-Since - Check whether the copy source has not been unmodified since the specified date
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
