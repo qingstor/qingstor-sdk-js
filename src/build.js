@@ -16,13 +16,12 @@
 
 import './version';
 import fs from 'fs';
-import url from 'url';
 import mime from 'mime-types';
 import util from 'util';
 import _ from 'lodash/core';
 import logger from 'loglevel';
 import { createHash } from 'crypto';
-import querystring from 'querystring';
+import { fixedEncodeURIComponent, buildUri } from './utils';
 
 class Builder {
   constructor(config, operation) {
@@ -31,18 +30,14 @@ class Builder {
   }
 
   parse() {
-    let operation = this.operation;
-    let parsedOperation = {};
-    parsedOperation.method = operation.method;
-    parsedOperation.uri = url.format(this.parseRequestURI(operation));
-    parsedOperation.body = this.parseRequestBody(operation);
+    let parsedOperation = this.parseRequestURI(this.operation);
+    parsedOperation.method = this.operation.method;
+    parsedOperation.params = this.parseRequestParams(this.operation);
+    parsedOperation.headers = this.parseRequestHeaders(this.operation);
+    parsedOperation.body = this.parseRequestBody(this.operation);
 
     logger.debug(`QingStor request uri: ${parsedOperation.uri}`);
 
-    let parsedHeaders = this.parseRequestHeaders(operation);
-    if (!_.isEmpty(parsedHeaders)) {
-      parsedOperation.headers = parsedHeaders;
-    }
     return parsedOperation;
   }
 
@@ -70,23 +65,27 @@ class Builder {
       new Date().toUTCString()
     );
 
-    //Add Content-Type header
+    // Add Content-Type header
     parsedHeaders['Content-Type'] = _.result(
       operation.headers,
       'Content-Type',
-      mime.lookup(this.parseRequestURI(operation).pathname) || 'application/octet-stream'
+      mime.lookup(this.parseRequestProperties(operation)['object-key']) || 'application/octet-stream'
     );
 
-    //Add Content-Length header
+    // Add Content-Length header
     let parsedBody = this.parseRequestBody(operation);
-    if (parsedBody.constructor === fs.ReadStream) {
-      let stats = fs.statSync(parsedBody.path);
-      parsedHeaders['Content-Length'] = stats.size;
+    if (parsedBody) {
+      if (parsedBody.constructor === fs.ReadStream) {
+        let stats = fs.statSync(parsedBody.path);
+        parsedHeaders['Content-Length'] = stats.size;
+      } else {
+        parsedHeaders['Content-Length'] = this.parseRequestBody(operation).length;
+      }
     } else {
-      parsedHeaders['Content-Length'] = this.parseRequestBody(operation).length;
+      parsedHeaders['Content-Length'] = 0;
     }
 
-    //Add User-Agent header
+    // Add User-Agent header
     parsedHeaders['User-Agent'] = util.format(
       'qingstor-sdk-js/%s (Node.js %s; %s %s)',
       global.version, process.version, process.platform, process.arch,
@@ -95,6 +94,7 @@ class Builder {
       parsedHeaders['User-Agent'] += util.format(' %s', this.config.additional_user_agent)
     }
 
+    // Add helper for DeleteMultipleObjects
     if (operation.api === 'DeleteMultipleObjects') {
       let h = createHash('md5');
       h.update(this.parseRequestBody(operation));
@@ -104,7 +104,7 @@ class Builder {
   }
 
   parseRequestBody(operation) {
-    let parsedBody = '';
+    let parsedBody = null;
     if (!_.isEmpty(operation.body)) {
       parsedBody = operation.body;
     } else if (!_.isEmpty(operation.elements)) {
@@ -117,46 +117,37 @@ class Builder {
     let parsedProperties = {};
     for (let i in operation.properties) {
       if (operation.properties.hasOwnProperty(i) && operation.properties[i] !== '') {
-        parsedProperties[i] = encodeURI(operation.properties[i]);
+        parsedProperties[i] = fixedEncodeURIComponent(operation.properties[i]);
       }
     }
     return parsedProperties;
   }
 
   parseRequestURI(operation) {
-    let key;
-    let parsedURI = url.parse(operation.uri, true);
-
+    let path = operation.uri;
+    let endpoint = "";
     let parsedProperties = this.parseRequestProperties(operation);
-    if (_.result(parsedProperties, 'zone')) {
-      parsedURI.hostname = `${parsedProperties.zone}.${this.config.host}`
-    } else {
-      parsedURI.hostname = this.config.host;
-    }
-    parsedURI.protocol = this.config.protocol;
-    parsedURI.port = this.config.port;
 
-    for (key in parsedProperties) {
+    if (_.result(parsedProperties, 'zone')) {
+      endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}:${this.config.port}`
+    } else {
+      endpoint = `${this.config.protocol}://${this.config.host}:${this.config.port}`;
+    }
+
+    for (let key in parsedProperties) {
       if (parsedProperties.hasOwnProperty(key)) {
-        parsedURI.pathname = parsedURI.pathname.replace(`<${key}>`, parsedProperties[key]);
-        // Be compatible with browserify's url.parse
-        parsedURI.pathname = parsedURI.pathname.replace(`%3C${key}%3E`, parsedProperties[key]);
-        parsedURI.path = parsedURI.pathname;
-        parsedURI.href = parsedURI.pathname;
+        path = path.replace(`<${key}>`, parsedProperties[key]);
       }
     }
 
     let parsedParams = this.parseRequestParams(operation);
-    if (!_.isEmpty(parsedParams)) {
-      for (key in parsedParams) {
-        if (parsedParams.hasOwnProperty(key) && !_.isEmpty(parsedParams[key])) {
-          parsedURI.query[key] = parsedParams[key];
-        }
-      }
-      parsedURI.search = '?' + querystring.stringify(parsedURI.query);
-    }
+    let parsedUri = buildUri(endpoint, path, parsedParams);
 
-    return parsedURI;
+    return {
+      endpoint,
+      path,
+      uri: parsedUri
+    };
   }
 }
 

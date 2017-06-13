@@ -14,12 +14,10 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import url from 'url';
 import _ from 'lodash/core';
 import logger from 'loglevel';
 import { createHmac } from 'crypto';
-import querystring from 'querystring';
-
+import { buildUri } from './utils';
 
 class Signer {
   constructor(operation, access_key_id, secret_access_key) {
@@ -46,11 +44,13 @@ class Signer {
       expires: expires
     };
 
-    let url_object = url.parse(this.operation.uri, true);
-    url_object.query = _.extend({}, url_object.query, data);
-    url_object.search = '?' + querystring.stringify(url_object.query);
-    this.operation.uri = url.format(url_object);
     this.operation.params = _.extend({}, this.operation.params, data);
+    this.operation.uri = buildUri(
+      this.operation.endpoint,
+      this.operation.path,
+      this.operation.params
+    );
+
     logger.debug(`QingStor query request url: ${this.operation.uri}`);
     return this.operation;
   }
@@ -96,14 +96,14 @@ class Signer {
   }
 
   getCanonicalizedResource() {
-    let parsedURI = url.parse(this.operation.uri, true);
-    let canonicalizedResource = parsedURI.pathname;
+    let canonicalizedResource = this.operation.path;
+    let parsedParams = this.operation.params;
     let query = [];
-    if (!_.isEmpty(parsedURI.query)) {
-      for (let i in parsedURI.query) {
+    if (!_.isEmpty(parsedParams)) {
+      for (let i in parsedParams) {
         if (this.isSubResource(i)) {
-          if (parsedURI.query[i] !== '') {
-            query.push(`${i}=${parsedURI.query[i]}`);
+          if (parsedParams[i] !== '') {
+            query.push(`${i}=${parsedParams[i]}`);
           } else {
             query.push(i)
           }
@@ -112,7 +112,8 @@ class Signer {
     }
     let joinedKeys = query.sort().join('&');
     if (joinedKeys) {
-      canonicalizedResource += '?' + joinedKeys;
+      let separator = canonicalizedResource.includes('?') ? '&' : '?';
+      canonicalizedResource += separator + joinedKeys;
     }
     return canonicalizedResource;
   }
@@ -132,7 +133,8 @@ class Signer {
     this.getCanonicalizedHeaders() +
     this.getCanonicalizedResource();
 
-    logger.debug(`QingStor request string to sign: ${stringToSign}`);
+    logger.debug(`QingStor request string to sign:
+${stringToSign}`);
     return stringToSign;
   }
 
@@ -144,7 +146,8 @@ class Signer {
     this.getCanonicalizedHeaders(false) +
     this.getCanonicalizedResource();
 
-    logger.debug(`QingStor query request string to sign: ${stringToSign}`);
+    logger.debug(`QingStor query request string to sign:
+${stringToSign}`);
     return stringToSign;
   }
 
