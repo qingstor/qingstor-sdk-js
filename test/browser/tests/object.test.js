@@ -31,7 +31,7 @@ describe('QingStor test', function() {
   let test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
   it('GetObjectQuery test', function() {
     let expires = Math.floor(Date.now(), 1000) + 1000;
-    let testUri = test.getObjectRequest('test_key').signQuery(expires);
+    let testUri = test.getObjectRequest('test_key').signQuery(expires).operation.uri;
     console.log(testUri);
   });
 });

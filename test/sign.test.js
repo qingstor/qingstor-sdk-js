@@ -23,7 +23,11 @@ let should = require('chai').should();
 describe('Signer test', function() {
   let operation = {
     'method': 'PUT',
-    'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
+    'path': '/test_bucket/test_object.jpg?acl',
+    'params': {
+      'upload_id': 'test_upload_id'
+    },
+    'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
     'body': 'test string',
     'headers': {
       'Host': 'qingstor.com',
@@ -53,7 +57,11 @@ describe('Signer test', function() {
   it('sign test', function() {
     test.sign().should.eql({
       'method': 'PUT',
-      'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
+      'params': {
+        'upload_id': 'test_upload_id'
+      },
+      'path': '/test_bucket/test_object.jpg?acl',
+      'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
       'body': 'test string',
       'headers': {
         'Host': 'qingstor.com',
