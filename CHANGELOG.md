@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.6] - 2017-06-13
+
+### Added
+
+- Add promise support
+- Add multipart copy and range support
+
+### Fixed
+
+- Fix bug which cause browser can't handle reponse
+
+### Breaking Change
+
+- Reponse body changed into a Readable Stream, no more a String
+
 ## [2.2.5] - 2017-04-09
 
 ### Fixed
@@ -106,6 +121,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.6]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.5...2.2.6
 [2.2.5]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.4...2.2.5
 [2.2.4]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.3...2.2.4
 [2.2.3]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.2...2.2.3
