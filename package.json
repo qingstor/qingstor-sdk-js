@@ -16,7 +16,7 @@
     "email": "sdk_group@yunify.com"
   },
   "scripts": {
-    "build": "node_modules/babel-cli/bin/babel.js src -d lib; npm run format;",
+    "build": "rm -rf build; node_modules/babel-cli/bin/babel.js src -d lib; npm run format;",
     "cucumber": "cd scenarios; npm install; ./node_modules/.bin/cucumber-js  features/*.feature --require tests --compiler es6:babel-core/register;",
     "dist": "gulp clean bundle bundle-map zip tar",
     "generate": "snips --service=qingstor --service-api-version=latest --spec='./specs' --template='./template' --output='./src/qingstor'; rm ./src/qingstor/object.js; npm run format;",
@@ -31,19 +31,25 @@
   "browser": {
     "fs": false,
     "mime": false,
-    "request": "browser-request"
+    "./fetch/fetch-node": "./fetch/fetch-browser"
   },
   "author": "Yunify SDK Group <sdk_group@yunify.com>",
   "license": "Apache-2.0",
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
+    "babel-eslint": "^7.2.3",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-array-includes": "^2.0.3",
     "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-transform-es2015-for-of": "^6.23.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-es2016": "^6.24.1",
     "babel-preset-es2017": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
+    "babel-preset-stage-3": "^6.24.1",
     "chai": "^3.5.0",
     "del": "^2.2.2",
     "eslint": "^3.11.0",
@@ -63,12 +69,13 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "browser-request": "^0.3.3",
     "crypto-js": "^3.1.8",
     "js-yaml": "3.7.0",
     "lodash": "^4.17.0",
     "loglevel": "^1.4.1",
     "mime-types": "^2.1.15",
-    "request": "^2.78.0"
+    "node-fetch": "^1.7.0",
+    "promise-polyfill": "^6.0.2",
+    "whatwg-fetch": "^2.0.3"
   }
 }

@@ -36,6 +36,7 @@ class Signer {
   signQuery(expires) {
     delete this.operation.headers['X-QS-Date'];
     delete this.operation.headers['Host'];
+    delete this.operation.headers['Content-Length'];
     delete this.operation.headers['Content-Type'];
     delete this.operation.headers['User-Agent'];
 
