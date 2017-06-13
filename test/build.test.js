@@ -14,12 +14,9 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import url from 'url';
-import { expect } from 'chai';
 import process from 'process';
 import Builder from '../src/build';
 import Config from '../src/config';
-
 
 let pjson = require('../package.json');
 let should = require('chai').should();
@@ -86,16 +83,25 @@ describe('Builder test', function() {
   });
 
   it('parseRequestUri test', function() {
-    url.format(test.parseRequestURI(operation)).should.eql(
-      'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id'
+    test.parseRequestURI(operation).should.eql(
+      {
+        'endpoint': 'https://pek3a.qingstor.com:443',
+        'path': '/test_bucket/test_object.jpg?acl',
+        "uri": "https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id"
+      }
     );
   });
 
   it('parse test', function() {
     test.parse().should.eql({
       'method': 'PUT',
-      'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl=&upload_id=test_upload_id',
+      'endpoint': 'https://pek3a.qingstor.com:443',
+      'path': '/test_bucket/test_object.jpg?acl',
+      'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
       'body': 'test string',
+      "params": {
+        "upload_id": "test_upload_id"
+      },
       'headers': {
         'Host': 'qingstor.com',
         'X-QS-Date': 'test time',

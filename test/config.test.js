@@ -14,8 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-
-import fs from 'fs';
 import yaml from 'js-yaml';
 import Config from '../src/config';
 
