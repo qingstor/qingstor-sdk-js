@@ -14,10 +14,9 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
+require('./fetch/fetch-node');
 import _ from 'lodash/core';
 import logger from 'loglevel';
-import request from 'request';
-
 import Signer from './sign';
 import Builder from './build';
 
@@ -72,56 +71,43 @@ class Request {
     return this;
   }
 
-  send(callback) {
-    let retries = this.config.connection_retries;
-    while (true) {
-      try {
-        logger.info(`Sending QingStor request: ${this.operation.uri}`);
-
-        // QingStor do not send Access-Control-Allow-Credentials header, so always keep withCredentials false
-        this.operation.withCredentials = false;
-
-        request(this.operation, (err, res) => {
-          this.response = res;
-          callback && callback(err, this.unpack().response);
-        });
-      } catch (err) {
-        logger.error(err);
-        if (retries > 0) {
-          retries -= 1;
-          continue;
-        } else {
-          throw new Error("Network Error");
-        }
-      }
-      break;
+  async send(callback) {
+    let res = await fetch(this.operation.uri, {
+      method: this.operation.method,
+      headers: this.operation.headers,
+      body: this.operation.body
+    });
+    if (typeof callback === 'function') {
+      callback(null, await this.unpack(res));
+    } else {
+      return new Promise((resolve) => {
+        return resolve(this.unpack(res))
+      })
     }
   }
 
-  unpack() {
-    if (_.isEmpty(this.response)) {
-      return this
-    }
+  async unpack(res) {
+    let unpack_res = res;
+    unpack_res.statusCode = res.status;
 
     // Unpack Response Headers
-    for (let i in this.response.headers) {
-      if (this.response.headers.hasOwnProperty(i)) {
-        this.response[i] = this.response.headers[i];
+    for (let key in res.headers._headers) {
+      if (res.headers._headers.hasOwnProperty(key)) {
+        unpack_res[key] = res.headers.get(key);
       }
     }
+
     // Unpack Response Body
-    let body = this.response.body;
-    if (this.response.headers['content-type'] === 'application/json') {
-      if (body !== '') {
-        let parsed = JSON.parse(body);
-        for (let i in parsed) {
-          if (parsed.hasOwnProperty(i)) {
-            this.response[i] = parsed[i];
-          }
+    if (res.headers.get('content-type') === 'application/json') {
+      let data = await unpack_res.json();
+      for (let i in data) {
+        if (data.hasOwnProperty(i)) {
+          unpack_res[i] = data[i];
         }
       }
     }
-    return this;
+
+    return unpack_res;
   }
 }
 

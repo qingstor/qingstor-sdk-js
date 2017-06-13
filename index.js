@@ -14,9 +14,19 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
+var isNode = require('./lib/utils').isNode;
+require("babel-polyfill");
+
+// To add to window
+if (!isNode) {
+  if (!window.Promise) {
+    window.Promise = require('promise-polyfill');
+  }
+}
+
 module.exports = {
   'QingStor': require('./lib/qingstor/qingstor'),
-  'Config':   require('./lib/config'),
-  'Request':  require('./lib/request'),
-  'Signer':   require('./lib/sign'),
+  'Config': require('./lib/config'),
+  'Request': require('./lib/request'),
+  'Signer': require('./lib/sign')
 };
