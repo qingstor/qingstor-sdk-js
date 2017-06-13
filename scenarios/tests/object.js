@@ -16,7 +16,7 @@
 
 import fs from "fs";
 import yaml from "js-yaml";
-import request from "request";
+import fetch from "node-fetch";
 import child_process from "child_process";
 import { Config, QingStor } from "qingstor-sdk";
 
@@ -80,18 +80,19 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get object content length is (\d+)$/, function(arg1, callback) {
-    callback(null, (test_data.body.length * 1024).toString().should.eql(arg1));
+    callback(null, (test_data.body.read().length * 1024).toString().should.eql(arg1));
   });
 
   this.When(/^get object "(.*)" with query signature$/, function(arg1, callback) {
     let expires = Math.floor(Date.now(), 1000) + 1000;
-    request(test_bucket.getObjectRequest(arg1).signQuery(expires).operation.uri, function(err, data) {
-      test_data = data;
-      callback();
-    })
+    fetch(test_bucket.getObjectRequest(arg1).signQuery(expires).operation.uri)
+      .then(function(data) {
+        test_data = data;
+        callback();
+      })
   });
   this.Then(/^get object with query signature content length is (\d+)$/, function(arg1, callback) {
-    callback(null, (test_data.body.length * 1024).toString().should.eql(arg1));
+    callback(null, (test_data.body.read().length * 1024).toString().should.eql(arg1));
   });
 
   this.When(/^get object "(.*)" with content type "(.*)"$/, function(arg1, arg2, callback) {
