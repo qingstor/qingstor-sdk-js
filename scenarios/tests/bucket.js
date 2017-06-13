@@ -20,7 +20,7 @@ import { Config, QingStor } from "qingstor-sdk";
 
 let should = require('chai').should();
 
-export default function() {
+export default function () {
   this.setDefaultTimeout(10 * 1000);
 
   let config = new Config().loadConfigFromFilepath('tests/config.yaml');
@@ -138,6 +138,18 @@ export default function() {
     });
   });
   this.Then(/^list multipart uploads count is (\d+)$/, (count, callback) => {
+    callback(null, test_data.uploads.length.toString().should.eql(count));
+  });
+  this.When(/^list multipart uploads with prefix$/, (callback) => {
+    test_bucket.listMultipartUploads({
+      prefix: "list_multipart_uploads"
+    }, (err, data) => {
+      should.not.exist(err);
+      test_data = data;
+      callback();
+    });
+  });
+  this.Then(/^list multipart uploads with prefix count is (\d+)$/, (count, callback) => {
     test_bucket.abortMultipartUpload('list_multipart_uploads', {
       upload_id: test_data.uploads[0].upload_id,
     }, (err, _) => {
