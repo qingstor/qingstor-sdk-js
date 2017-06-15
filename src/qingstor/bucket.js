@@ -61,7 +61,7 @@ class Bucket {
    * @return none
    */
   delete(callback) {
-    this.deleteRequest().sign().send(callback);
+    return this.deleteRequest().sign().send(callback);
   }
 
 
@@ -104,7 +104,7 @@ class Bucket {
    * @return none
    */
   deleteCORS(callback) {
-    this.deleteCORSRequest().sign().send(callback);
+    return this.deleteCORSRequest().sign().send(callback);
   }
 
 
@@ -147,7 +147,7 @@ class Bucket {
    * @return none
    */
   deleteExternalMirror(callback) {
-    this.deleteExternalMirrorRequest().sign().send(callback);
+    return this.deleteExternalMirrorRequest().sign().send(callback);
   }
 
 
@@ -190,7 +190,7 @@ class Bucket {
    * @return none
    */
   deletePolicy(callback) {
-    this.deletePolicyRequest().sign().send(callback);
+    return this.deletePolicyRequest().sign().send(callback);
   }
 
 
@@ -248,7 +248,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.deleteMultipleObjectsRequest(options).sign().send(callback);
+    return this.deleteMultipleObjectsRequest(options).sign().send(callback);
   }
 
 
@@ -299,7 +299,7 @@ class Bucket {
    * @return none
    */
   getACL(callback) {
-    this.getACLRequest().sign().send(callback);
+    return this.getACLRequest().sign().send(callback);
   }
 
 
@@ -342,7 +342,7 @@ class Bucket {
    * @return none
    */
   getCORS(callback) {
-    this.getCORSRequest().sign().send(callback);
+    return this.getCORSRequest().sign().send(callback);
   }
 
 
@@ -385,7 +385,7 @@ class Bucket {
    * @return none
    */
   getExternalMirror(callback) {
-    this.getExternalMirrorRequest().sign().send(callback);
+    return this.getExternalMirrorRequest().sign().send(callback);
   }
 
 
@@ -428,7 +428,7 @@ class Bucket {
    * @return none
    */
   getPolicy(callback) {
-    this.getPolicyRequest().sign().send(callback);
+    return this.getPolicyRequest().sign().send(callback);
   }
 
 
@@ -471,7 +471,7 @@ class Bucket {
    * @return none
    */
   getStatistics(callback) {
-    this.getStatisticsRequest().sign().send(callback);
+    return this.getStatisticsRequest().sign().send(callback);
   }
 
 
@@ -514,7 +514,7 @@ class Bucket {
    * @return none
    */
   head(callback) {
-    this.headRequest().sign().send(callback);
+    return this.headRequest().sign().send(callback);
   }
 
 
@@ -575,7 +575,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.listMultipartUploadsRequest(options).sign().send(callback);
+    return this.listMultipartUploadsRequest(options).sign().send(callback);
   }
 
 
@@ -636,7 +636,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.listObjectsRequest(options).sign().send(callback);
+    return this.listObjectsRequest(options).sign().send(callback);
   }
 
 
@@ -679,7 +679,7 @@ class Bucket {
    * @return none
    */
   put(callback) {
-    this.putRequest().sign().send(callback);
+    return this.putRequest().sign().send(callback);
   }
 
 
@@ -731,7 +731,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.putACLRequest(options).sign().send(callback);
+    return this.putACLRequest(options).sign().send(callback);
   }
 
 
@@ -820,7 +820,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.putCORSRequest(options).sign().send(callback);
+    return this.putCORSRequest(options).sign().send(callback);
   }
 
 
@@ -884,7 +884,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.putExternalMirrorRequest(options).sign().send(callback);
+    return this.putExternalMirrorRequest(options).sign().send(callback);
   }
 
 
@@ -940,7 +940,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.putPolicyRequest(options).sign().send(callback);
+    return this.putPolicyRequest(options).sign().send(callback);
   }
 
 
@@ -1035,7 +1035,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.abortMultipartUploadRequest(object_key, options).sign().send(callback);
+    return this.abortMultipartUploadRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1109,7 +1109,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.completeMultipartUploadRequest(object_key, options).sign().send(callback);
+    return this.completeMultipartUploadRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1164,7 +1164,7 @@ class Bucket {
    * @return none
    */
   deleteObject(object_key, callback) {
-    this.deleteObjectRequest(object_key).sign().send(callback);
+    return this.deleteObjectRequest(object_key).sign().send(callback);
   }
 
 
@@ -1258,7 +1258,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.getObjectRequest(object_key, options).sign().send(callback);
+    return this.getObjectRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1331,7 +1331,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.headObjectRequest(object_key, options).sign().send(callback);
+    return this.headObjectRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1395,7 +1395,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.initiateMultipartUploadRequest(object_key, options).sign().send(callback);
+    return this.initiateMultipartUploadRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1456,7 +1456,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.listMultipartRequest(object_key, options).sign().send(callback);
+    return this.listMultipartRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1521,7 +1521,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.optionsObjectRequest(object_key, options).sign().send(callback);
+    return this.optionsObjectRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1634,7 +1634,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.putObjectRequest(object_key, options).sign().send(callback);
+    return this.putObjectRequest(object_key, options).sign().send(callback);
   }
 
 
@@ -1734,7 +1734,7 @@ class Bucket {
       callback = options;
       options = {};
     }
-    this.uploadMultipartRequest(object_key, options).sign().send(callback);
+    return this.uploadMultipartRequest(object_key, options).sign().send(callback);
   }
 
 

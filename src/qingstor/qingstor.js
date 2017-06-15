@@ -71,7 +71,7 @@ class QingStor {
       callback = options;
       options = {};
     }
-    this.listBucketsRequest(options).sign().send(callback);
+    return this.listBucketsRequest(options).sign().send(callback);
   }
 
 

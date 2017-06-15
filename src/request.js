@@ -77,7 +77,7 @@ class Request {
       headers: this.operation.headers,
       body: this.operation.body
     });
-    if (typeof callback === 'function') {
+    if (_.isFunction(callback)) {
       callback(null, await this.unpack(res));
     } else {
       return new Promise((resolve) => {

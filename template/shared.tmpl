@@ -232,10 +232,10 @@
         }
         {{- end}}
         {{- if ne $belongs "QingStor"}}
-        this.{{$opID | camelCase | lowerFirst}}Request(
+        return this.{{$opID | camelCase | lowerFirst}}Request(
         {{- end}}
         {{- if eq $belongs "QingStor"}}
-        this.{{$operation.ID | camelCase | lowerFirst}}Request(
+        return this.{{$operation.ID | camelCase | lowerFirst}}Request(
         {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
