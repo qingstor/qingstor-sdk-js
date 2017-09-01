@@ -21,6 +21,11 @@ import Request from '../request';
 class Bucket {
 
   constructor(config, properties) {
+    // Zone should be forced to lower case
+    if (properties && properties["zone"]) {
+      properties["zone"] = properties["zone"].toLowerCase();
+    }
+
     this.config = config;
     this.properties = properties;
   }
