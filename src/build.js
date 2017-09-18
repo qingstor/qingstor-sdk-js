@@ -73,16 +73,19 @@ class Builder {
     );
 
     // Add Content-Length header
+    let noContentLength = _.isEmpty(operation.headers['Content-Length']);
     let parsedBody = this.parseRequestBody(operation);
-    if (parsedBody) {
+    if (noContentLength && parsedBody) {
       if (parsedBody.constructor === fs.ReadStream) {
         let stats = fs.statSync(parsedBody.path);
         parsedHeaders['Content-Length'] = stats.size;
+      } else if (parsedBody.constructor === Buffer) {
+        parsedHeaders['Content-Length'] = this.parseRequestBody(operation).byteLength;
       } else {
         parsedHeaders['Content-Length'] = this.parseRequestBody(operation).length;
       }
     } else {
-      parsedHeaders['Content-Length'] = 0;
+      parsedHeaders['Content-Length'] = _.result(operation.headers, 'Content-Length', 0);
     }
 
     // Add User-Agent header
@@ -108,7 +111,7 @@ class Builder {
     if (!_.isEmpty(operation.body)) {
       parsedBody = operation.body;
     } else if (!_.isEmpty(operation.elements)) {
-      parsedBody = JSON.stringify(operation.elements);
+      parsedBody = new Buffer(JSON.stringify(operation.elements));
     }
     return parsedBody;
   }
