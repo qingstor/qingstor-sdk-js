@@ -23,7 +23,7 @@ class Bucket {
   constructor(config, properties) {
     // Zone should be forced to lower case
     if (properties && properties["zone"]) {
-      properties["zone"] = String(properties["zone"]).toLowerCase();
+      properties["zone"] = properties["zone"].toLowerCase();
     }
 
     this.config = config;
@@ -532,9 +532,10 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.delimiter - Put all keys that share a common prefix into a list
+   * @param options.key_marker - Limit results returned from the first key after key_marker sorted by alphabetical order
    * @param options.limit - Results count limit
-   * @param options.marker - Limit results to keys that start at this marker
    * @param options.prefix - Limits results to keys that begin with the prefix
+   * @param options.upload_id_marker - Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
    *
    * @return Signer
    */
@@ -545,9 +546,10 @@ class Bucket {
       'uri': '/<bucket-name>?uploads',
       'params': {
         'delimiter': _.result(options, 'delimiter', ''),
+        'key_marker': _.result(options, 'key_marker', ''),
         'limit': _.result(options, 'limit', ''),
-        'marker': _.result(options, 'marker', ''),
         'prefix': _.result(options, 'prefix', ''),
+        'upload_id_marker': _.result(options, 'upload_id_marker', ''),
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
@@ -568,9 +570,10 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.delimiter - Put all keys that share a common prefix into a list
+   * @param options.key_marker - Limit results returned from the first key after key_marker sorted by alphabetical order
    * @param options.limit - Results count limit
-   * @param options.marker - Limit results to keys that start at this marker
    * @param options.prefix - Limits results to keys that begin with the prefix
+   * @param options.upload_id_marker - Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
    * @param callback Callback function
    *
    * @return none
@@ -1341,6 +1344,86 @@ class Bucket {
 
 
   headObjectValidate(operation) {}
+
+
+
+  /**
+   * imageProcessRequest: Build ImageProcess's request
+   * @link https://docs.qingcloud.com/qingstor/data_process/image_process/index.html Documentation URL
+   * @param {Object} options - User input options;
+   * @param options.If-Modified-Since - Check whether the object has been modified
+   * @param options.action - Image process action
+   * @param options.response-cache-control - Specified the Cache-Control response header
+   * @param options.response-content-disposition - Specified the Content-Disposition response header
+   * @param options.response-content-encoding - Specified the Content-Encoding response header
+   * @param options.response-content-language - Specified the Content-Language response header
+   * @param options.response-content-type - Specified the Content-Type response header
+   * @param options.response-expires - Specified the Expires response header
+   * @param object_key The object key
+   *
+   * @return Signer
+   */
+  imageProcessRequest(object_key, options) {
+    let operation = {
+      'api': 'ImageProcess',
+      'method': 'GET',
+      'uri': '/<bucket-name>/<object-key>?image',
+      'params': {
+        'action': _.result(options, 'action', ''),
+        'response-cache-control': _.result(options, 'response-cache-control', ''),
+        'response-content-disposition': _.result(options, 'response-content-disposition', ''),
+        'response-content-encoding': _.result(options, 'response-content-encoding', ''),
+        'response-content-language': _.result(options, 'response-content-language', ''),
+        'response-content-type': _.result(options, 'response-content-type', ''),
+        'response-expires': _.result(options, 'response-expires', ''),
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+        'If-Modified-Since': _.result(options, 'If-Modified-Since', ''),
+      },
+      'elements': {
+      },
+      'properties': this.properties,
+      'body': undefined
+    };
+    operation.properties['object-key'] = object_key;
+    this.imageProcessValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * imageProcess: Image process with the action on the object
+   * @link https://docs.qingcloud.com/qingstor/data_process/image_process/index.html Documentation URL
+   * @param {Object} options - User input options;
+   * @param options.If-Modified-Since - Check whether the object has been modified
+   * @param options.action - Image process action
+   * @param options.response-cache-control - Specified the Cache-Control response header
+   * @param options.response-content-disposition - Specified the Content-Disposition response header
+   * @param options.response-content-encoding - Specified the Content-Encoding response header
+   * @param options.response-content-language - Specified the Content-Language response header
+   * @param options.response-content-type - Specified the Content-Type response header
+   * @param options.response-expires - Specified the Expires response header
+   * @param object_key The object key
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  imageProcess(object_key, options, callback) {
+    if (_.isFunction(options)) {
+      callback = options;
+      options = {};
+    }
+    return this.imageProcessRequest(object_key, options).sign().send(callback);
+  }
+
+
+  imageProcessValidate(operation) {
+    if (!operation['params'].hasOwnProperty('action') || _.isNull(operation['params']['action'])) {
+      throw new SDKError.ParameterRequired('action', 'ImageProcessInput');
+    }
+  }
 
 
 
