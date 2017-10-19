@@ -55,8 +55,8 @@ After that, you can use all functions in node way.
 
 ```javascript
 var QingStor = require('qingstor-sdk').QingStor;
-var config = require('qingstor-sdk')
-  .Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+var Config = require('qingstor-sdk').Config;
+var config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 
 var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
 bucket.listObjects(function (err, data) {
