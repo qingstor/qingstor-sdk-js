@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.8] - 2017-10-30
+
+### Added
+
+- Add image process API
+- Add advanced client of image process
+
+### Changed
+
+- Force the zone ID to be lowercase
+
+### Fixed
+
+- Fix BUG that JSON length calculates not correctly 
+- Fix BUG that toLowerCase is not a function
+- Fix BUG that missing dependence statement
+
 ## [2.2.7] - 2017-06-15
 
 ### Fixed
@@ -127,6 +144,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.8]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.7...2.2.8
 [2.2.7]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.6...2.2.7
 [2.2.6]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.5...2.2.6
 [2.2.5]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.4...2.2.5
