@@ -101,7 +101,7 @@ class Request {
     if (res.headers.get('content-type') === 'application/json') {
       let data = await unpack_res.json();
       for (let i in data) {
-        if (data.hasOwnProperty(i)) {
+        if (data.hasOwnProperty(i) && i !== "url") {
           unpack_res[i] = data[i];
         }
       }
