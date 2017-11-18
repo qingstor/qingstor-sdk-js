@@ -17,9 +17,7 @@
 {{$service := .Data.Service}}
 {{- $customizedTypes := .Data.CustomizedTypes -}}
 import _ from 'lodash/core';
-import logger from 'loglevel';
 import Request from '../request';
-import SDKError from '../error';
 import Bucket from './bucket';
 
 class {{$service.Name | camelCase}} {
