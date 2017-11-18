@@ -14,9 +14,9 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import _ from 'lodash/core';
-import logger from 'loglevel';
 import Request from '../request';
+import SDKError from '../error';
+import { isFunction } from '../utils';
 
 class Bucket {
 
@@ -213,7 +213,7 @@ class Bucket {
    *
    * @return Signer
    */
-  deleteMultipleObjectsRequest(options) {
+  deleteMultipleObjectsRequest(options = {}) {
     let operation = {
       'api': 'DeleteMultipleObjects',
       'method': 'POST',
@@ -222,14 +222,14 @@ class Bucket {
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'Content-MD5': _.result(options, 'Content-MD5', ''),
+        'Content-MD5': options['Content-MD5'] || undefined,
       },
       'elements': {
-        'objects': _.result(options, 'objects', ''),
-        'quiet': _.result(options, 'quiet', ''),
+        'objects': options['objects'] || undefined,
+        'quiet': options['quiet'] || undefined,
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     this.deleteMultipleObjectsValidate(operation);
     return new Request(this.config, operation).build();
@@ -249,7 +249,7 @@ class Bucket {
    * @return none
    */
   deleteMultipleObjects(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -258,10 +258,7 @@ class Bucket {
 
 
   deleteMultipleObjectsValidate(operation) {
-    if (!operation['headers'].hasOwnProperty('Content-MD5') || _.isNull(operation['headers']['Content-MD5'])) {
-      throw new SDKError.ParameterRequired('Content-MD5', 'DeleteMultipleObjectsInput');
-    }
-    if (!operation['elements'].hasOwnProperty('objects') || _.isNull(operation['elements']['objects'])) {
+    if (operation['elements'] === undefined || operation['elements']['objects'] === undefined || operation['elements']['objects'].toString() === '') {
       throw new SDKError.ParameterRequired('objects', 'DeleteMultipleObjectsInput');
     }
     operation['elements']['objects'].forEach(function(value) {});
@@ -539,17 +536,17 @@ class Bucket {
    *
    * @return Signer
    */
-  listMultipartUploadsRequest(options) {
+  listMultipartUploadsRequest(options = {}) {
     let operation = {
       'api': 'ListMultipartUploads',
       'method': 'GET',
       'uri': '/<bucket-name>?uploads',
       'params': {
-        'delimiter': _.result(options, 'delimiter', ''),
-        'key_marker': _.result(options, 'key_marker', ''),
-        'limit': _.result(options, 'limit', ''),
-        'prefix': _.result(options, 'prefix', ''),
-        'upload_id_marker': _.result(options, 'upload_id_marker', ''),
+        'delimiter': options['delimiter'] || undefined,
+        'key_marker': options['key_marker'] || undefined,
+        'limit': options['limit'] || undefined,
+        'prefix': options['prefix'] || undefined,
+        'upload_id_marker': options['upload_id_marker'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
@@ -579,7 +576,7 @@ class Bucket {
    * @return none
    */
   listMultipartUploads(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -602,16 +599,16 @@ class Bucket {
    *
    * @return Signer
    */
-  listObjectsRequest(options) {
+  listObjectsRequest(options = {}) {
     let operation = {
       'api': 'ListObjects',
       'method': 'GET',
       'uri': '/<bucket-name>',
       'params': {
-        'delimiter': _.result(options, 'delimiter', ''),
-        'limit': _.result(options, 'limit', ''),
-        'marker': _.result(options, 'marker', ''),
-        'prefix': _.result(options, 'prefix', ''),
+        'delimiter': options['delimiter'] || undefined,
+        'limit': options['limit'] || undefined,
+        'marker': options['marker'] || undefined,
+        'prefix': options['prefix'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
@@ -640,7 +637,7 @@ class Bucket {
    * @return none
    */
   listObjects(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -703,7 +700,7 @@ class Bucket {
    *
    * @return Signer
    */
-  putACLRequest(options) {
+  putACLRequest(options = {}) {
     let operation = {
       'api': 'PutBucketACL',
       'method': 'PUT',
@@ -714,10 +711,10 @@ class Bucket {
         'Host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
-        'acl': _.result(options, 'acl', ''),
+        'acl': options['acl'] || undefined,
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     this.putACLValidate(operation);
     return new Request(this.config, operation).build();
@@ -735,7 +732,7 @@ class Bucket {
    * @return none
    */
   putACL(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -744,17 +741,17 @@ class Bucket {
 
 
   putACLValidate(operation) {
-    if (!operation['elements'].hasOwnProperty('acl') || _.isNull(operation['elements']['acl'])) {
+    if (operation['elements'] === undefined || operation['elements']['acl'] === undefined || operation['elements']['acl'].toString() === '') {
       throw new SDKError.ParameterRequired('acl', 'PutBucketACLInput');
     }
     operation['elements']['acl'].forEach(function(value) {
       if (value.hasOwnProperty('grantee')) {
-        if (!value["grantee"].hasOwnProperty('type') || _.isNull(value["grantee"]['type'])) {
+        if (value["grantee"] === undefined || value["grantee"]['type'] === undefined || value["grantee"]['type'].toString() === '') {
           throw new SDKError.ParameterRequired('type', 'grantee');
         }
-        if (!value["grantee"].hasOwnProperty('type') || _.isNull(value["grantee"]['type'])) {
+        if (value["grantee"] === undefined || value["grantee"]['type'] === undefined || value["grantee"]['type'].toString() === '') {
           let type_valid_values = ["user", "group"];
-          if (_.includes(type_valid_values, value["grantee"]['type'])) {
+          if (type_valid_values.indexOf(value["grantee"]['type']) === -1) {
             throw new SDKError.ParameterValueNotAllowedError(
               'type',
               value["grantee"]['type'],
@@ -763,15 +760,15 @@ class Bucket {
           }
         }
       }
-      if (!value.hasOwnProperty('grantee')) {
+      if (value === undefined || value.toString() === '') {
         throw new SDKError.ParameterRequired('grantee', 'acl');
       }
-      if (!value.hasOwnProperty('permission') || _.isNull(value['permission'])) {
+      if (value === undefined || value['permission'] === undefined || value['permission'].toString() === '') {
         throw new SDKError.ParameterRequired('permission', 'acl');
       }
-      if (!value.hasOwnProperty('permission') || _.isNull(value['permission'])) {
+      if (value === undefined || value['permission'] === undefined || value['permission'].toString() === '') {
         let permission_valid_values = ["READ", "WRITE", "FULL_CONTROL"];
-        if (_.includes(permission_valid_values, value['permission'])) {
+        if (permission_valid_values.indexOf(value['permission']) === -1) {
           throw new SDKError.ParameterValueNotAllowedError(
             'permission',
             value['permission'],
@@ -792,7 +789,7 @@ class Bucket {
    *
    * @return Signer
    */
-  putCORSRequest(options) {
+  putCORSRequest(options = {}) {
     let operation = {
       'api': 'PutBucketCORS',
       'method': 'PUT',
@@ -803,10 +800,10 @@ class Bucket {
         'Host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
-        'cors_rules': _.result(options, 'cors_rules', ''),
+        'cors_rules': options['cors_rules'] || undefined,
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     this.putCORSValidate(operation);
     return new Request(this.config, operation).build();
@@ -824,7 +821,7 @@ class Bucket {
    * @return none
    */
   putCORS(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -833,14 +830,14 @@ class Bucket {
 
 
   putCORSValidate(operation) {
-    if (!operation['elements'].hasOwnProperty('cors_rules') || _.isNull(operation['elements']['cors_rules'])) {
+    if (operation['elements'] === undefined || operation['elements']['cors_rules'] === undefined || operation['elements']['cors_rules'].toString() === '') {
       throw new SDKError.ParameterRequired('cors_rules', 'PutBucketCORSInput');
     }
     operation['elements']['cors_rules'].forEach(function(value) {
-      if (!value.hasOwnProperty('allowed_methods') || _.isNull(value['allowed_methods'])) {
+      if (value === undefined || value['allowed_methods'] === undefined || value['allowed_methods'].toString() === '') {
         throw new SDKError.ParameterRequired('allowed_methods', 'cors_rule');
       }
-      if (!value.hasOwnProperty('allowed_origin') || _.isNull(value['allowed_origin'])) {
+      if (value === undefined || value['allowed_origin'] === undefined || value['allowed_origin'].toString() === '') {
         throw new SDKError.ParameterRequired('allowed_origin', 'cors_rule');
       }
     });
@@ -856,7 +853,7 @@ class Bucket {
    *
    * @return Signer
    */
-  putExternalMirrorRequest(options) {
+  putExternalMirrorRequest(options = {}) {
     let operation = {
       'api': 'PutBucketExternalMirror',
       'method': 'PUT',
@@ -867,10 +864,10 @@ class Bucket {
         'Host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
-        'source_site': _.result(options, 'source_site', ''),
+        'source_site': options['source_site'] || undefined,
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     this.putExternalMirrorValidate(operation);
     return new Request(this.config, operation).build();
@@ -888,7 +885,7 @@ class Bucket {
    * @return none
    */
   putExternalMirror(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -897,7 +894,7 @@ class Bucket {
 
 
   putExternalMirrorValidate(operation) {
-    if (!operation['elements'].hasOwnProperty('source_site') || _.isNull(operation['elements']['source_site'])) {
+    if (operation['elements'] === undefined || operation['elements']['source_site'] === undefined || operation['elements']['source_site'].toString() === '') {
       throw new SDKError.ParameterRequired('source_site', 'PutBucketExternalMirrorInput');
     }
   }
@@ -912,7 +909,7 @@ class Bucket {
    *
    * @return Signer
    */
-  putPolicyRequest(options) {
+  putPolicyRequest(options = {}) {
     let operation = {
       'api': 'PutBucketPolicy',
       'method': 'PUT',
@@ -923,10 +920,10 @@ class Bucket {
         'Host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
-        'statement': _.result(options, 'statement', ''),
+        'statement': options['statement'] || undefined,
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     this.putPolicyValidate(operation);
     return new Request(this.config, operation).build();
@@ -944,7 +941,7 @@ class Bucket {
    * @return none
    */
   putPolicy(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -953,11 +950,11 @@ class Bucket {
 
 
   putPolicyValidate(operation) {
-    if (!operation['elements'].hasOwnProperty('statement') || _.isNull(operation['elements']['statement'])) {
+    if (operation['elements'] === undefined || operation['elements']['statement'] === undefined || operation['elements']['statement'].toString() === '') {
       throw new SDKError.ParameterRequired('statement', 'PutBucketPolicyInput');
     }
     operation['elements']['statement'].forEach(function(value) {
-      if (!value.hasOwnProperty('action') || _.isNull(value['action'])) {
+      if (value === undefined || value['action'] === undefined || value['action'].toString() === '') {
         throw new SDKError.ParameterRequired('action', 'statement');
       }
       if (value.hasOwnProperty('condition')) {
@@ -972,12 +969,12 @@ class Bucket {
         if (value["condition"].hasOwnProperty('string_not_like')) {
         }
       }
-      if (!value.hasOwnProperty('effect') || _.isNull(value['effect'])) {
+      if (value === undefined || value['effect'] === undefined || value['effect'].toString() === '') {
         throw new SDKError.ParameterRequired('effect', 'statement');
       }
-      if (!value.hasOwnProperty('effect') || _.isNull(value['effect'])) {
+      if (value === undefined || value['effect'] === undefined || value['effect'].toString() === '') {
         let effect_valid_values = ["allow", "deny"];
-        if (_.includes(effect_valid_values, value['effect'])) {
+        if (effect_valid_values.indexOf(value['effect']) === -1) {
           throw new SDKError.ParameterValueNotAllowedError(
             'effect',
             value['effect'],
@@ -985,10 +982,10 @@ class Bucket {
           )
         }
       }
-      if (!value.hasOwnProperty('id') || _.isNull(value['id'])) {
+      if (value === undefined || value['id'] === undefined || value['id'].toString() === '') {
         throw new SDKError.ParameterRequired('id', 'statement');
       }
-      if (!value.hasOwnProperty('user') || _.isNull(value['user'])) {
+      if (value === undefined || value['user'] === undefined || value['user'].toString() === '') {
         throw new SDKError.ParameterRequired('user', 'statement');
       }
     });
@@ -1005,13 +1002,13 @@ class Bucket {
    *
    * @return Signer
    */
-  abortMultipartUploadRequest(object_key, options) {
+  abortMultipartUploadRequest(object_key, options = {}) {
     let operation = {
       'api': 'AbortMultipartUpload',
       'method': 'DELETE',
       'uri': '/<bucket-name>/<object-key>',
       'params': {
-        'upload_id': _.result(options, 'upload_id', ''),
+        'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
@@ -1039,7 +1036,7 @@ class Bucket {
    * @return none
    */
   abortMultipartUpload(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1048,7 +1045,7 @@ class Bucket {
 
 
   abortMultipartUploadValidate(operation) {
-    if (!operation['params'].hasOwnProperty('upload_id') || _.isNull(operation['params']['upload_id'])) {
+    if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'AbortMultipartUploadInput');
     }
   }
@@ -1069,26 +1066,26 @@ class Bucket {
    *
    * @return Signer
    */
-  completeMultipartUploadRequest(object_key, options) {
+  completeMultipartUploadRequest(object_key, options = {}) {
     let operation = {
       'api': 'CompleteMultipartUpload',
       'method': 'POST',
       'uri': '/<bucket-name>/<object-key>',
       'params': {
-        'upload_id': _.result(options, 'upload_id', ''),
+        'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'ETag': _.result(options, 'ETag', ''),
-        'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
-        'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
-        'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
+        'ETag': options['ETag'] || undefined,
+        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
+        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
-        'object_parts': _.result(options, 'object_parts', ''),
+        'object_parts': options['object_parts'] || undefined,
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     operation.properties['object-key'] = object_key;
     this.completeMultipartUploadValidate(operation);
@@ -1113,7 +1110,7 @@ class Bucket {
    * @return none
    */
   completeMultipartUpload(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1122,11 +1119,11 @@ class Bucket {
 
 
   completeMultipartUploadValidate(operation) {
-    if (!operation['params'].hasOwnProperty('upload_id') || _.isNull(operation['params']['upload_id'])) {
+    if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'CompleteMultipartUploadInput');
     }
     operation['elements']['object_parts'].forEach(function(value) {
-      if (!value.hasOwnProperty('part_number') || _.isNull(value['part_number'])) {
+      if (value === undefined || value['part_number'] === undefined || value['part_number'].toString() === '') {
         throw new SDKError.ParameterRequired('part_number', 'object_part');
       }
     });
@@ -1202,29 +1199,29 @@ class Bucket {
    *
    * @return Signer
    */
-  getObjectRequest(object_key, options) {
+  getObjectRequest(object_key, options = {}) {
     let operation = {
       'api': 'GetObject',
       'method': 'GET',
       'uri': '/<bucket-name>/<object-key>',
       'params': {
-        'response-cache-control': _.result(options, 'response-cache-control', ''),
-        'response-content-disposition': _.result(options, 'response-content-disposition', ''),
-        'response-content-encoding': _.result(options, 'response-content-encoding', ''),
-        'response-content-language': _.result(options, 'response-content-language', ''),
-        'response-content-type': _.result(options, 'response-content-type', ''),
-        'response-expires': _.result(options, 'response-expires', ''),
+        'response-cache-control': options['response-cache-control'] || undefined,
+        'response-content-disposition': options['response-content-disposition'] || undefined,
+        'response-content-encoding': options['response-content-encoding'] || undefined,
+        'response-content-language': options['response-content-language'] || undefined,
+        'response-content-type': options['response-content-type'] || undefined,
+        'response-expires': options['response-expires'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'If-Match': _.result(options, 'If-Match', ''),
-        'If-Modified-Since': _.result(options, 'If-Modified-Since', ''),
-        'If-None-Match': _.result(options, 'If-None-Match', ''),
-        'If-Unmodified-Since': _.result(options, 'If-Unmodified-Since', ''),
-        'Range': _.result(options, 'Range', ''),
-        'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
-        'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
-        'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
+        'If-Match': options['If-Match'] || undefined,
+        'If-Modified-Since': options['If-Modified-Since'] || undefined,
+        'If-None-Match': options['If-None-Match'] || undefined,
+        'If-Unmodified-Since': options['If-Unmodified-Since'] || undefined,
+        'Range': options['Range'] || undefined,
+        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
+        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
@@ -1262,7 +1259,7 @@ class Bucket {
    * @return none
    */
   getObject(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1289,7 +1286,7 @@ class Bucket {
    *
    * @return Signer
    */
-  headObjectRequest(object_key, options) {
+  headObjectRequest(object_key, options = {}) {
     let operation = {
       'api': 'HeadObject',
       'method': 'HEAD',
@@ -1298,13 +1295,13 @@ class Bucket {
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'If-Match': _.result(options, 'If-Match', ''),
-        'If-Modified-Since': _.result(options, 'If-Modified-Since', ''),
-        'If-None-Match': _.result(options, 'If-None-Match', ''),
-        'If-Unmodified-Since': _.result(options, 'If-Unmodified-Since', ''),
-        'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
-        'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
-        'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
+        'If-Match': options['If-Match'] || undefined,
+        'If-Modified-Since': options['If-Modified-Since'] || undefined,
+        'If-None-Match': options['If-None-Match'] || undefined,
+        'If-Unmodified-Since': options['If-Unmodified-Since'] || undefined,
+        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
+        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
@@ -1335,7 +1332,7 @@ class Bucket {
    * @return none
    */
   headObject(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1363,23 +1360,23 @@ class Bucket {
    *
    * @return Signer
    */
-  imageProcessRequest(object_key, options) {
+  imageProcessRequest(object_key, options = {}) {
     let operation = {
       'api': 'ImageProcess',
       'method': 'GET',
       'uri': '/<bucket-name>/<object-key>?image',
       'params': {
-        'action': _.result(options, 'action', ''),
-        'response-cache-control': _.result(options, 'response-cache-control', ''),
-        'response-content-disposition': _.result(options, 'response-content-disposition', ''),
-        'response-content-encoding': _.result(options, 'response-content-encoding', ''),
-        'response-content-language': _.result(options, 'response-content-language', ''),
-        'response-content-type': _.result(options, 'response-content-type', ''),
-        'response-expires': _.result(options, 'response-expires', ''),
+        'action': options['action'] || undefined,
+        'response-cache-control': options['response-cache-control'] || undefined,
+        'response-content-disposition': options['response-content-disposition'] || undefined,
+        'response-content-encoding': options['response-content-encoding'] || undefined,
+        'response-content-language': options['response-content-language'] || undefined,
+        'response-content-type': options['response-content-type'] || undefined,
+        'response-expires': options['response-expires'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'If-Modified-Since': _.result(options, 'If-Modified-Since', ''),
+        'If-Modified-Since': options['If-Modified-Since'] || undefined,
       },
       'elements': {
       },
@@ -1411,7 +1408,7 @@ class Bucket {
    * @return none
    */
   imageProcess(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1420,7 +1417,7 @@ class Bucket {
 
 
   imageProcessValidate(operation) {
-    if (!operation['params'].hasOwnProperty('action') || _.isNull(operation['params']['action'])) {
+    if (operation['params'] === undefined || operation['params']['action'] === undefined || operation['params']['action'].toString() === '') {
       throw new SDKError.ParameterRequired('action', 'ImageProcessInput');
     }
   }
@@ -1439,7 +1436,7 @@ class Bucket {
    *
    * @return Signer
    */
-  initiateMultipartUploadRequest(object_key, options) {
+  initiateMultipartUploadRequest(object_key, options = {}) {
     let operation = {
       'api': 'InitiateMultipartUpload',
       'method': 'POST',
@@ -1448,10 +1445,10 @@ class Bucket {
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'Content-Type': _.result(options, 'Content-Type', ''),
-        'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
-        'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
-        'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
+        'Content-Type': options['Content-Type'] || undefined,
+        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
+        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
@@ -1479,7 +1476,7 @@ class Bucket {
    * @return none
    */
   initiateMultipartUpload(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1502,15 +1499,15 @@ class Bucket {
    *
    * @return Signer
    */
-  listMultipartRequest(object_key, options) {
+  listMultipartRequest(object_key, options = {}) {
     let operation = {
       'api': 'ListMultipart',
       'method': 'GET',
       'uri': '/<bucket-name>/<object-key>',
       'params': {
-        'limit': _.result(options, 'limit', ''),
-        'part_number_marker': _.result(options, 'part_number_marker', ''),
-        'upload_id': _.result(options, 'upload_id', ''),
+        'limit': options['limit'] || undefined,
+        'part_number_marker': options['part_number_marker'] || undefined,
+        'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
@@ -1540,7 +1537,7 @@ class Bucket {
    * @return none
    */
   listMultipart(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1549,7 +1546,7 @@ class Bucket {
 
 
   listMultipartValidate(operation) {
-    if (!operation['params'].hasOwnProperty('upload_id') || _.isNull(operation['params']['upload_id'])) {
+    if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'ListMultipartInput');
     }
   }
@@ -1567,7 +1564,7 @@ class Bucket {
    *
    * @return Signer
    */
-  optionsObjectRequest(object_key, options) {
+  optionsObjectRequest(object_key, options = {}) {
     let operation = {
       'api': 'OptionsObject',
       'method': 'OPTIONS',
@@ -1576,9 +1573,9 @@ class Bucket {
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'Access-Control-Request-Headers': _.result(options, 'Access-Control-Request-Headers', ''),
-        'Access-Control-Request-Method': _.result(options, 'Access-Control-Request-Method', ''),
-        'Origin': _.result(options, 'Origin', ''),
+        'Access-Control-Request-Headers': options['Access-Control-Request-Headers'] || undefined,
+        'Access-Control-Request-Method': options['Access-Control-Request-Method'] || undefined,
+        'Origin': options['Origin'] || undefined,
       },
       'elements': {
       },
@@ -1605,7 +1602,7 @@ class Bucket {
    * @return none
    */
   optionsObject(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1614,10 +1611,10 @@ class Bucket {
 
 
   optionsObjectValidate(operation) {
-    if (!operation['headers'].hasOwnProperty('Access-Control-Request-Method') || _.isNull(operation['headers']['Access-Control-Request-Method'])) {
+    if (operation['headers'] === undefined || operation['headers']['Access-Control-Request-Method'] === undefined || operation['headers']['Access-Control-Request-Method'].toString() === '') {
       throw new SDKError.ParameterRequired('Access-Control-Request-Method', 'OptionsObjectInput');
     }
-    if (!operation['headers'].hasOwnProperty('Origin') || _.isNull(operation['headers']['Origin'])) {
+    if (operation['headers'] === undefined || operation['headers']['Origin'] === undefined || operation['headers']['Origin'].toString() === '') {
       throw new SDKError.ParameterRequired('Origin', 'OptionsObjectInput');
     }
   }
@@ -1650,7 +1647,7 @@ class Bucket {
    *
    * @return Signer
    */
-  putObjectRequest(object_key, options) {
+  putObjectRequest(object_key, options = {}) {
     let operation = {
       'api': 'PutObject',
       'method': 'PUT',
@@ -1659,29 +1656,29 @@ class Bucket {
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'Content-Length': _.result(options, 'Content-Length', ''),
-        'Content-MD5': _.result(options, 'Content-MD5', ''),
-        'Content-Type': _.result(options, 'Content-Type', ''),
-        'Expect': _.result(options, 'Expect', ''),
-        'X-QS-Copy-Source': _.result(options, 'X-QS-Copy-Source', ''),
-        'X-QS-Copy-Source-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Algorithm', ''),
-        'X-QS-Copy-Source-Encryption-Customer-Key': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Key', ''),
-        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Key-MD5', ''),
-        'X-QS-Copy-Source-If-Match': _.result(options, 'X-QS-Copy-Source-If-Match', ''),
-        'X-QS-Copy-Source-If-Modified-Since': _.result(options, 'X-QS-Copy-Source-If-Modified-Since', ''),
-        'X-QS-Copy-Source-If-None-Match': _.result(options, 'X-QS-Copy-Source-If-None-Match', ''),
-        'X-QS-Copy-Source-If-Unmodified-Since': _.result(options, 'X-QS-Copy-Source-If-Unmodified-Since', ''),
-        'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
-        'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
-        'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
-        'X-QS-Fetch-If-Unmodified-Since': _.result(options, 'X-QS-Fetch-If-Unmodified-Since', ''),
-        'X-QS-Fetch-Source': _.result(options, 'X-QS-Fetch-Source', ''),
-        'X-QS-Move-Source': _.result(options, 'X-QS-Move-Source', ''),
+        'Content-Length': options['Content-Length'] || undefined,
+        'Content-MD5': options['Content-MD5'] || undefined,
+        'Content-Type': options['Content-Type'] || undefined,
+        'Expect': options['Expect'] || undefined,
+        'X-QS-Copy-Source': options['X-QS-Copy-Source'] || undefined,
+        'X-QS-Copy-Source-Encryption-Customer-Algorithm': options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Copy-Source-Encryption-Customer-Key': options['X-QS-Copy-Source-Encryption-Customer-Key'] || undefined,
+        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': options['X-QS-Copy-Source-Encryption-Customer-Key-MD5'] || undefined,
+        'X-QS-Copy-Source-If-Match': options['X-QS-Copy-Source-If-Match'] || undefined,
+        'X-QS-Copy-Source-If-Modified-Since': options['X-QS-Copy-Source-If-Modified-Since'] || undefined,
+        'X-QS-Copy-Source-If-None-Match': options['X-QS-Copy-Source-If-None-Match'] || undefined,
+        'X-QS-Copy-Source-If-Unmodified-Since': options['X-QS-Copy-Source-If-Unmodified-Since'] || undefined,
+        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
+        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'X-QS-Fetch-If-Unmodified-Since': options['X-QS-Fetch-If-Unmodified-Since'] || undefined,
+        'X-QS-Fetch-Source': options['X-QS-Fetch-Source'] || undefined,
+        'X-QS-Move-Source': options['X-QS-Move-Source'] || undefined,
       },
       'elements': {
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     operation.properties['object-key'] = object_key;
     this.putObjectValidate(operation);
@@ -1718,7 +1715,7 @@ class Bucket {
    * @return none
    */
   putObject(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1754,36 +1751,36 @@ class Bucket {
    *
    * @return Signer
    */
-  uploadMultipartRequest(object_key, options) {
+  uploadMultipartRequest(object_key, options = {}) {
     let operation = {
       'api': 'UploadMultipart',
       'method': 'PUT',
       'uri': '/<bucket-name>/<object-key>',
       'params': {
-        'part_number': _.result(options, 'part_number', ''),
-        'upload_id': _.result(options, 'upload_id', ''),
+        'part_number': options['part_number'] || undefined,
+        'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
-        'Content-Length': _.result(options, 'Content-Length', ''),
-        'Content-MD5': _.result(options, 'Content-MD5', ''),
-        'X-QS-Copy-Range': _.result(options, 'X-QS-Copy-Range', ''),
-        'X-QS-Copy-Source': _.result(options, 'X-QS-Copy-Source', ''),
-        'X-QS-Copy-Source-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Algorithm', ''),
-        'X-QS-Copy-Source-Encryption-Customer-Key': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Key', ''),
-        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Copy-Source-Encryption-Customer-Key-MD5', ''),
-        'X-QS-Copy-Source-If-Match': _.result(options, 'X-QS-Copy-Source-If-Match', ''),
-        'X-QS-Copy-Source-If-Modified-Since': _.result(options, 'X-QS-Copy-Source-If-Modified-Since', ''),
-        'X-QS-Copy-Source-If-None-Match': _.result(options, 'X-QS-Copy-Source-If-None-Match', ''),
-        'X-QS-Copy-Source-If-Unmodified-Since': _.result(options, 'X-QS-Copy-Source-If-Unmodified-Since', ''),
-        'X-QS-Encryption-Customer-Algorithm': _.result(options, 'X-QS-Encryption-Customer-Algorithm', ''),
-        'X-QS-Encryption-Customer-Key': _.result(options, 'X-QS-Encryption-Customer-Key', ''),
-        'X-QS-Encryption-Customer-Key-MD5': _.result(options, 'X-QS-Encryption-Customer-Key-MD5', ''),
+        'Content-Length': options['Content-Length'] || undefined,
+        'Content-MD5': options['Content-MD5'] || undefined,
+        'X-QS-Copy-Range': options['X-QS-Copy-Range'] || undefined,
+        'X-QS-Copy-Source': options['X-QS-Copy-Source'] || undefined,
+        'X-QS-Copy-Source-Encryption-Customer-Algorithm': options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Copy-Source-Encryption-Customer-Key': options['X-QS-Copy-Source-Encryption-Customer-Key'] || undefined,
+        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': options['X-QS-Copy-Source-Encryption-Customer-Key-MD5'] || undefined,
+        'X-QS-Copy-Source-If-Match': options['X-QS-Copy-Source-If-Match'] || undefined,
+        'X-QS-Copy-Source-If-Modified-Since': options['X-QS-Copy-Source-If-Modified-Since'] || undefined,
+        'X-QS-Copy-Source-If-None-Match': options['X-QS-Copy-Source-If-None-Match'] || undefined,
+        'X-QS-Copy-Source-If-Unmodified-Since': options['X-QS-Copy-Source-If-Unmodified-Since'] || undefined,
+        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
+        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
       'properties': this.properties,
-      'body': _.result(options, 'body', '')
+      'body': options['body'] || undefined
     };
     operation.properties['object-key'] = object_key;
     this.uploadMultipartValidate(operation);
@@ -1818,7 +1815,7 @@ class Bucket {
    * @return none
    */
   uploadMultipart(object_key, options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }
@@ -1827,10 +1824,10 @@ class Bucket {
 
 
   uploadMultipartValidate(operation) {
-    if (!operation['params'].hasOwnProperty('part_number') || _.isNull(operation['params']['part_number'])) {
+    if (operation['params'] === undefined || operation['params']['part_number'] === undefined || operation['params']['part_number'].toString() === '') {
       throw new SDKError.ParameterRequired('part_number', 'UploadMultipartInput');
     }
-    if (!operation['params'].hasOwnProperty('upload_id') || _.isNull(operation['params']['upload_id'])) {
+    if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'UploadMultipartInput');
     }
   }

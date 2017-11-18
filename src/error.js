@@ -28,4 +28,7 @@ class ParameterValueNotAllowedError extends Error {
   }
 }
 
-export { ParameterRequiredError as ParameterRequired, ParameterValueNotAllowedError as ParameterValueNotAllowed }
+export default {
+  ParameterRequired: ParameterRequiredError,
+  ParameterValueNotAllowed: ParameterValueNotAllowedError
+}

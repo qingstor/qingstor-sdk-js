@@ -16,9 +16,7 @@
 
 import './version';
 import fs from 'fs';
-import mime from 'mime-types';
 import util from 'util';
-import _ from 'lodash/core';
 import logger from 'loglevel';
 import { createHash } from 'crypto';
 import { fixedEncodeURIComponent, buildUri } from './utils';
@@ -43,8 +41,8 @@ class Builder {
 
   parseRequestParams(operation) {
     let parsedParams = {};
-    for (let i in operation.params) {
-      if (operation.params.hasOwnProperty(i) && operation.params[i].toString() !== '') {
+    for (let i of Object.keys(operation.params)) {
+      if (operation.params[i] !== undefined && operation.params[i].toString() !== '') {
         parsedParams[i] = operation.params[i].toString();
       }
     }
@@ -53,29 +51,21 @@ class Builder {
 
   parseRequestHeaders(operation) {
     let parsedHeaders = {};
-    for (let i in operation.headers) {
-      if (operation.headers.hasOwnProperty(i) && operation.headers[i] !== '') {
+    for (let i of Object.keys(operation.headers)) {
+      if (operation.headers[i] !== undefined && operation.headers[i].toString() !== '') {
         parsedHeaders[i] = encodeURI(operation.headers[i]);
       }
     }
     //Add X-QS-Date header
-    parsedHeaders['X-QS-Date'] = _.result(
-      operation.headers,
-      'X-QS-Date',
-      new Date().toUTCString()
-    );
+    parsedHeaders['X-QS-Date'] = operation.headers['X-QS-Date'] || new Date().toUTCString();
 
     // Add Content-Type header
-    parsedHeaders['Content-Type'] = _.result(
-      operation.headers,
-      'Content-Type',
-      mime.lookup(this.parseRequestProperties(operation)['object-key']) || 'application/octet-stream'
-    );
+    parsedHeaders['Content-Type'] = operation.headers['Content-Type'] || 'application/octet-stream';
+
 
     // Add Content-Length header
-    let noContentLength = _.isEmpty(operation.headers['Content-Length']);
     let parsedBody = this.parseRequestBody(operation);
-    if (noContentLength && parsedBody) {
+    if (!operation.headers['Content-Length'] && parsedBody) {
       if (parsedBody.constructor === fs.ReadStream) {
         let stats = fs.statSync(parsedBody.path);
         parsedHeaders['Content-Length'] = stats.size;
@@ -85,7 +75,7 @@ class Builder {
         parsedHeaders['Content-Length'] = this.parseRequestBody(operation).length;
       }
     } else {
-      parsedHeaders['Content-Length'] = _.result(operation.headers, 'Content-Length', 0);
+      parsedHeaders['Content-Length'] = operation.headers['Content-Length'] || 0;
     }
 
     // Add User-Agent header
@@ -93,7 +83,7 @@ class Builder {
       'qingstor-sdk-js/%s (Node.js %s; %s %s)',
       global.version, process.version, process.platform, process.arch,
     );
-    if (!_.isEmpty(this.config.additional_user_agent)) {
+    if (this.config.hasOwnProperty('additional_user_agent') && this.config.additional_user_agent) {
       parsedHeaders['User-Agent'] += util.format(' %s', this.config.additional_user_agent)
     }
 
@@ -107,10 +97,10 @@ class Builder {
   }
 
   parseRequestBody(operation) {
-    let parsedBody = null;
-    if (!_.isEmpty(operation.body)) {
+    let parsedBody = undefined;
+    if (operation.body !== undefined) {
       parsedBody = operation.body;
-    } else if (!_.isEmpty(operation.elements)) {
+    } else if (Object.keys(operation.elements).length !== 0) {
       parsedBody = new Buffer(JSON.stringify(operation.elements));
     }
     return parsedBody;
@@ -118,8 +108,8 @@ class Builder {
 
   parseRequestProperties(operation) {
     let parsedProperties = {};
-    for (let i in operation.properties) {
-      if (operation.properties.hasOwnProperty(i) && operation.properties[i] !== '') {
+    for (let i of Object.keys(operation.properties)) {
+      if (operation.properties[i] !== undefined && operation.properties[i].toString() !== '') {
         parsedProperties[i] = fixedEncodeURIComponent(operation.properties[i]);
       }
     }
@@ -131,16 +121,14 @@ class Builder {
     let endpoint = "";
     let parsedProperties = this.parseRequestProperties(operation);
 
-    if (_.result(parsedProperties, 'zone')) {
+    if (parsedProperties['zone']) {
       endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}:${this.config.port}`
     } else {
       endpoint = `${this.config.protocol}://${this.config.host}:${this.config.port}`;
     }
 
-    for (let key in parsedProperties) {
-      if (parsedProperties.hasOwnProperty(key)) {
-        path = path.replace(`<${key}>`, parsedProperties[key]);
-      }
+    for (let key of Object.keys(parsedProperties)) {
+      path = path.replace(`<${key}>`, parsedProperties[key]);
     }
 
     let parsedParams = this.parseRequestParams(operation);

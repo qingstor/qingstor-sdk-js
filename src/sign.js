@@ -14,7 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import _ from 'lodash/core';
 import logger from 'loglevel';
 import { createHmac } from 'crypto';
 import { buildUri } from './utils';
@@ -44,7 +43,7 @@ class Signer {
       expires: expires
     };
 
-    this.operation.params = _.extend({}, this.operation.params, data);
+    this.operation.params = Object.assign(this.operation.params, data);
     this.operation.uri = buildUri(
       this.operation.endpoint,
       this.operation.path,
@@ -72,18 +71,18 @@ class Signer {
   }
 
   getCanonicalizedHeaders(hasDate) {
-    if (_.isUndefined(hasDate))
+    if (!hasDate)
       hasDate = true;
     let canonicalizedHeaders = '';
     let headers = {};
 
-    _.forEach(this.operation.headers, function(v, k) {
-      if (k.toLowerCase().indexOf('x-qs-') !== -1) {
-        if (hasDate || k.toLowerCase().trim() !== 'x-qs-date') {
-          headers[k.toLowerCase()] = v;
+    for (let i of Object.keys(this.operation.headers)) {
+      if (i.toLowerCase().indexOf('x-qs-') !== -1) {
+        if (hasDate || i.toLowerCase().trim() !== 'x-qs-date') {
+          headers[i.toLowerCase()] = this.operation.headers[i];
         }
       }
-    });
+    }
 
     let keys = Object.keys(headers).sort();
     if (keys.length > 0) {
@@ -99,8 +98,8 @@ class Signer {
     let canonicalizedResource = this.operation.path;
     let parsedParams = this.operation.params;
     let query = [];
-    if (!_.isEmpty(parsedParams)) {
-      for (let i in parsedParams) {
+    if (Object.keys(parsedParams).length !== 0) {
+      for (let i of Object.keys(parsedParams)) {
         if (this.isSubResource(i)) {
           if (parsedParams[i] !== '') {
             query.push(`${i}=${parsedParams[i]}`);

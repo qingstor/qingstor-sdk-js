@@ -17,7 +17,6 @@
 "use strict";
 
 import { stringify } from 'querystring';
-import _ from 'lodash/core';
 
 export default {
   // To be more stringent in adhering to RFC 3986 (which reserves !, ', (, ), and *),
@@ -29,13 +28,13 @@ export default {
   },
   buildUri: (endpoint, path, params) => {
     let parsedUri = endpoint + path;
-    if (!_.isEmpty(params)) {
+    if (Object.keys(params).length !== 0) {
       let separator = path.includes('?') ? '&' : '?';
       parsedUri += separator + stringify(params);
     }
     return parsedUri;
   },
-  isNode: () => {
-    return (typeof process !== 'undefined' ? process : 0) === '[object process]';
+  isFunction: (fn) => {
+    return (typeof fn !== 'undefined' ? Object.prototype.toString.call(fn) : 0) === '[object Function]';
   }
 }
