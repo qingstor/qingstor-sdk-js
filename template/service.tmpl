@@ -16,9 +16,9 @@
 
 {{$service := .Data.Service}}
 {{- $customizedTypes := .Data.CustomizedTypes -}}
-import _ from 'lodash/core';
 import Request from '../request';
 import Bucket from './bucket';
+import {isFunction} from '../utils';
 
 class {{$service.Name | camelCase}} {
 

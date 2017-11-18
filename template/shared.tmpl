@@ -12,8 +12,10 @@
     {{- end}}
     {{- $i := passThrough "operation['params']" $request.Query $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
+    {{- if ne $operation.Name "Delete Multiple Objects"}}
     {{- $i := passThrough "operation['headers']" $request.Headers $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
+    {{- end}}
     {{- $i := passThrough "operation['elements']" $request.Elements $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
     }
@@ -34,13 +36,13 @@
         {{- template "RenderCustomizedTypeValidation" $x}}
         }
         {{- if $property.IsRequired }}
-        if(!{{$prefix}}.hasOwnProperty('{{$property.ID}}')) {
+        if({{$prefix}} === undefined || {{$prefix}}.toString() === '') {
             throw new SDKError.ParameterRequired('{{$property.ID}}', '{{$customizedType.ID}}');
         }
     {{- end}}
     {{- else if eq $property.Type "array"}}
         {{- if $property.IsRequired}}
-        if (!{{$prefix}}.hasOwnProperty('{{$property.ID}}') || _.isNull({{$prefix}}['{{$property.ID}}'])) {
+        if ({{$prefix}} === undefined || {{$prefix}}['{{$property.ID}}'] === undefined || {{$prefix}}['{{$property.ID}}'].toString() === '') {
             throw new SDKError.ParameterRequired('{{$property.ID}}', '{{$customizedType.ID}}');
         }
     {{- end}}
@@ -58,14 +60,14 @@
     {{- $isContentLength := eq $property.ID "Content-Length"}}
     {{- if not $isContentLength}}
     {{- if $property.IsRequired}}
-    if(!{{$prefix}}.hasOwnProperty('{{$property.ID}}')||_.isNull({{$prefix}}['{{$property.ID}}'])){
+    if({{$prefix}} === undefined || {{$prefix}}['{{$property.ID}}'] === undefined || {{$prefix}}['{{$property.ID}}'].toString() === ''){
         throw new SDKError.ParameterRequired('{{$property.ID}}', '{{$customizedType.ID}}');
     }
     {{- end}}
     {{- if gt ($property.Enum | len) 0}}
-    if(!{{$prefix}}.hasOwnProperty('{{$property.ID}}') || _.isNull({{$prefix}}['{{$property.ID}}'])){
+    if({{$prefix}} === undefined || {{$prefix}}['{{$property.ID}}'] === undefined || {{$prefix}}['{{$property.ID}}'].toString() === ''){
         let {{$property.ID | snakeCase}}_valid_values = [{{$property.Enum | commaConnectedWithQuote}}];
-        if(_.includes({{$property.ID | snakeCase}}_valid_values, {{$prefix}}['{{$property.ID}}'])){
+        if({{$property.ID | snakeCase}}_valid_values.indexOf({{$prefix}}['{{$property.ID}}']) === -1){
             throw new SDKError.ParameterValueNotAllowedError(
             '{{$property.ID}}',
             {{$prefix}}['{{$property.ID}}'],
@@ -127,7 +129,7 @@
     {{- end}}
         {{- if eq $belongs "Object"}}object_key{{end -}}
         {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
-        {{- if $hasInput}}options{{end -}}
+        {{- if $hasInput}}options={}{{end -}}
         ) {
         {{- $uri := $operation.Request.Path}}
         {{- $uri := replace $uri "{" "<" -1}}
@@ -138,7 +140,7 @@
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$uri}}',
             'params': {
-                {{range $id, $property := $operation.Request.Query.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
+                {{range $id, $property := $operation.Request.Query.Properties}}'{{$property.Name}}': options['{{$property.ID}}'] || undefined,
                 {{end -}}
             },
             'headers': {
@@ -148,11 +150,11 @@
                 {{- if eq $belongs "QingStor"}}
                 'Host': this.config.host,
                 {{- end}}
-                {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
+                {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': options['{{$property.ID}}'] || undefined,
                 {{end -}}
             },
             'elements': {
-                {{range $id, $property := $operation.Request.Elements.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}', ''),
+                {{range $id, $property := $operation.Request.Elements.Properties}}'{{$property.Name}}': options['{{$property.ID}}'] || undefined,
                 {{end -}}
             },
             {{- if ne $belongs "QingStor"}}
@@ -161,7 +163,7 @@
             {{- if eq $belongs "QingStor"}}
             'properties': {},
             {{- end}}
-            'body': {{if $operation.Request.Body.Type}}_.result(options,'body',''){{else}}undefined{{end}}
+            'body': {{if $operation.Request.Body.Type}}options['body'] || undefined{{else}}undefined{{end}}
         };
         {{- if eq $belongs "Object"}}
         operation.properties['object-key'] = object_key;
@@ -226,7 +228,7 @@
         {{- if eq $belongs "Object"}}object_key,{{end -}}
         {{- if $hasInput}}options, {{end -}}callback) {
         {{- if $hasInput}}
-        if (_.isFunction(options)){
+        if (isFunction(options)){
           callback = options;
           options = {};
         }
