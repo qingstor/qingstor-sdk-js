@@ -32,12 +32,25 @@ Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and 
 - [Configuration Guide](docs/configuration.md)
 - [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
 
-*Used in node:*
+*Used in node with callback:*
+
 ```javascript
 import { Config, QingStor } from 'qingstor-sdk';
 let config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 let bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
 bucket.listObjects(function (err, data) {
+  console.log(data.statusCode);
+  console.log(data.keys);
+});
+```
+
+or *Used in node with promise/A+*
+
+```javascript
+import { Config, QingStor } from 'qingstor-sdk';
+let config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+let bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
+bucket.listObjects().then((data) => {
   console.log(data.statusCode);
   console.log(data.keys);
 });
@@ -51,15 +64,25 @@ Firstly, you should refer qingstor-sdk javascript files [qingstor-sdk.min.js](ht
 <script src='qingstor-sdk.min.js'></script>
 ```
 
-After that, you can use all functions in node way.
+After that, `qingstor_sdk` will be exported to browser's `windows`, so that you can use `qingstor_sdk` directly.
+
+You can use all functions in node way with callback.
 
 ```javascript
-var QingStor = require('qingstor-sdk').QingStor;
-var Config = require('qingstor-sdk').Config;
-var config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-
-var bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
+let config = new qingstor_sdk.Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+let bucket = new qingstor_sdk.QingStor(config).Bucket('example_bucket', 'pek3a');
 bucket.listObjects(function (err, data) {
+  console.log(data.statusCode);
+  console.log(data.keys);
+});
+```
+
+or *Used in browser with promise/A+*
+
+```javascript
+let config = new qingstor_sdk.Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+let bucket = new qingstor_sdk.QingStor(config).Bucket('example_bucket', 'pek3a');
+bucket.listObjects().then((data) => {
   console.log(data.statusCode);
   console.log(data.keys);
 });
