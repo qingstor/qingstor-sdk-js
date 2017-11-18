@@ -1,0 +1,4 @@
+var qingstor_test_config = {
+  "bucket": "test",
+  "zone": "pek3a"
+}

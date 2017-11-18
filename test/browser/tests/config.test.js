@@ -16,18 +16,11 @@
 
 "use strict";
 
+
 describe('Config test', function() {
   it('loadConfig test', function() {
-    let Config = require('qingstor-sdk').Config;
-    let test_config = new Config().loadConfig({
-      'access_key_id': 'test_access_key_id',
-      'secret_access_key': 'test_secret_access_key',
-      'host': 'qingstor.com',
-      'port': 443,
-      'protocol': 'https',
-      'connection_retries': 3,
-      'log_level': 'warn'
-    });
+    let Config = qingstor_sdk.Config;
+    let test_config = new Config().loadConfig(qingstor_config);
     test_config.should.to.contain.all.keys([
       'access_key_id',
       'secret_access_key',

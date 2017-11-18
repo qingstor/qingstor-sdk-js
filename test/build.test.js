@@ -30,6 +30,7 @@ describe('Builder test', function() {
     "headers": {
       "Host": 'qingstor.com',
       'X-QS-Date': 'test time',
+      'Content-Type': 'image/jpeg',
       'empty-header': ''
     },
     "params": {
