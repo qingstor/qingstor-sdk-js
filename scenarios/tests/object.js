@@ -35,15 +35,31 @@ module.exports = function() {
   child_process.exec('dd if=/dev/zero of=/tmp/sdk_bin bs=1024 count=1');
 
   this.When(/^put object with key "(.*)"$/, function(arg1, callback) {
-    test_bucket.putObject(arg1, {
-      'body': fs.readFileSync("/tmp/sdk_bin")
-    }, function(err, data) {
-      test_data = data;
+    test_data = [];
+
+    (async () => {
+      test_data[0] = await test_bucket.putObject(arg1, {
+        'body': fs.readFileSync("/tmp/sdk_bin")
+      });
+      test_data[1] = await test_bucket.putObject(arg1 + 's', {
+        'body': fs.createReadStream("/tmp/sdk_bin")
+      });
+      test_data[2] = await test_bucket.putObject(arg1 + 'sp', {
+        'body': fs.createReadStream("/tmp/sdk_bin", {
+          start: 0,
+          end: 100
+        })
+      });
       callback();
-    });
+    })()
   });
   this.Then(/^put object status code is (\d+)$/, function(arg1, callback) {
-    callback(null, test_data.statusCode.toString().should.eql(arg1));
+    for (let v of test_data) {
+      if (!v.statusCode.toString().should.eql(arg1)) {
+        callback(null, false);
+      }
+    }
+    callback(null, true);
   });
 
   this.When(/^copy object with key "(.*)"$/, function(arg1, callback) {
@@ -132,13 +148,22 @@ module.exports = function() {
   });
 
   this.When(/^delete object with key "(.*)"$/, function(arg1, callback) {
-    test_bucket.deleteObject(arg1, function(err, data) {
-      test_data = data;
+    test_data = [];
+
+    (async () => {
+      test_data[0] = await  test_bucket.deleteObject(arg1);
+      test_data[1] = await test_bucket.deleteObject(arg1 + "s");
+      test_data[2] = await test_bucket.deleteObject(arg1 + "sp");
       callback();
-    });
+    })()
   });
   this.Then(/^delete object status code is (\d+)$/, function(arg1, callback) {
-    callback(null, test_data.statusCode.toString().should.eql(arg1));
+    for (let v of test_data) {
+      if (!v.statusCode.toString().should.eql(arg1)) {
+        callback(null, false);
+      }
+    }
+    callback(null, true);
   });
 
   this.When(/^delete the move object with key "(.*)"$/, function(arg1, callback) {
