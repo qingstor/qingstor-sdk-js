@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.9] - 2017-11-19
+
+### Changed
+
+- `qingstor_sdk` exported to `windows` on browser
+
+### Fixed
+
+- Fix url can't be set in browser
+- Fix bug that content-lenght miscalculated
+
 ## [2.2.8] - 2017-10-30
 
 ### Added
@@ -144,6 +155,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.9]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.8...2.2.9
 [2.2.8]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.7...2.2.8
 [2.2.7]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.6...2.2.7
 [2.2.6]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.5...2.2.6

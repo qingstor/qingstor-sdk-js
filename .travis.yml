@@ -1,11 +1,13 @@
 language: node_js
 node_js:
+  - "node"
+  - "lts/*"
+  - "8"
   - "6"
-  - "5"
-  - "4"
 
 install: npm install
 script:
   - npm install esformatter -g
   - npm run build
+  - npm run dist
   - npm test
