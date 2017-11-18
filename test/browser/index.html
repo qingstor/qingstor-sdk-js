@@ -10,11 +10,13 @@
 <div id="mocha"></div>
 <script src="../../node_modules/mocha/mocha.js"></script>
 <script src='../../node_modules/chai/chai.js'></script>
-<script src='../../dist/qingstor-sdk.min.js'></script>
+<script src='../../dist/browser/qingstor-sdk.min.js'></script>
 <script>
     mocha.ui('bdd');
     var should = chai.should();
 </script>
+<script src='config.js'></script>
+<script src='test_config.js'></script>
 <script src="tests/config.test.js"></script>
 <script src="tests/object.test.js"></script>
 <script>

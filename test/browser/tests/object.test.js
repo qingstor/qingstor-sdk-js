@@ -17,21 +17,27 @@
 "use strict";
 
 describe('QingStor test', function() {
-  let Config = require('qingstor-sdk').Config;
-  let QingStor = require('qingstor-sdk').QingStor;
-  let test_config = new Config().loadConfig({
-    'access_key_id': 'test_access_key_id',
-    'secret_access_key': 'test_secret_access_key',
-    'host': 'qingstor.com',
-    'port': 443,
-    'protocol': 'https',
-    'connection_retries': 3,
-    'log_level': 'error'
-  });
-  let test = new QingStor(test_config).Bucket('test_bucket', 'pek3a');
+  let Config = qingstor_sdk.Config;
+  let QingStor = qingstor_sdk.QingStor;
+  let test_config = new Config().loadConfig(qingstor_config);
+  let test = new QingStor(test_config).Bucket(qingstor_test_config['bucket'], qingstor_test_config['zone']);
   it('GetObjectQuery test', function() {
     let expires = Math.floor(Date.now(), 1000) + 1000;
     let testUri = test.getObjectRequest('test_key').signQuery(expires).operation.uri;
     console.log(testUri);
+  });
+  it('ListObjects test', () => {
+    test.listObjects().then((res) => {
+      console.log(res.keys)
+    }
+    )
+  });
+  it('PutObject test', () => {
+    test.putObject("test_key", {
+      body: "aaaaaaaaaaaaaaaaa"
+    }).then((res) => {
+      console.log(res.statusCode)
+    }
+    )
   });
 });
