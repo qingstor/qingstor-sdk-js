@@ -14,11 +14,9 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import _ from 'lodash/core';
-import logger from 'loglevel';
 import Request from '../request';
-import SDKError from '../error';
 import Bucket from './bucket';
+import { isFunction } from '../utils';
 
 class QingStor {
 
@@ -35,7 +33,7 @@ class QingStor {
    *
    * @return Signer
    */
-  listBucketsRequest(options) {
+  listBucketsRequest(options = {}) {
     let operation = {
       'api': 'ListBuckets',
       'method': 'GET',
@@ -44,7 +42,7 @@ class QingStor {
       },
       'headers': {
         'Host': this.config.host,
-        'Location': _.result(options, 'Location', ''),
+        'Location': options['Location'] || undefined,
       },
       'elements': {
       },
@@ -67,7 +65,7 @@ class QingStor {
    * @return none
    */
   listBuckets(options, callback) {
-    if (_.isFunction(options)) {
+    if (isFunction(options)) {
       callback = options;
       options = {};
     }

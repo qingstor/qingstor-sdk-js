@@ -14,11 +14,11 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-require('./fetch/fetch-node');
-import _ from 'lodash/core';
 import logger from 'loglevel';
+
 import Signer from './sign';
 import Builder from './build';
+import { isFunction } from './utils';
 
 class Request {
   constructor(config, operation) {
@@ -63,7 +63,7 @@ class Request {
   }
 
   applyQuerySignature(access_key_id, signature, expires) {
-    this.operation.params = _.extend({}, this.operation.params, {
+    this.operation.params = Object.assign(this.operation.params, {
       access_key_id,
       signature,
       expires,
@@ -72,17 +72,19 @@ class Request {
   }
 
   async send(callback) {
-    let res = await fetch(this.operation.uri, {
-      method: this.operation.method,
-      headers: this.operation.headers,
-      body: this.operation.body
-    });
-    if (_.isFunction(callback)) {
-      callback(null, await this.unpack(res));
-    } else {
-      return new Promise((resolve) => {
-        return resolve(this.unpack(res))
-      })
+    try {
+      let res = await fetch(this.operation.uri, {
+        method: this.operation.method,
+        headers: this.operation.headers,
+        body: this.operation.body
+      });
+      if (isFunction(callback)) {
+        callback(null, await this.unpack(res));
+      } else {
+        return await this.unpack(res)
+      }
+    } catch (e) {
+      logger.error("SDK request failed for: ", e);
     }
   }
 
