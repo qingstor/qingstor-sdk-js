@@ -15,11 +15,12 @@
 // +-------------------------------------------------------------------------
 
 import './version';
-import fs from 'fs';
 import util from 'util';
 import logger from 'loglevel';
 import { createHash } from 'crypto';
-import { fixedEncodeURIComponent, buildUri } from './utils';
+
+import SDKError from './error'
+import { fixedEncodeURIComponent, buildUri, getStreamSize } from './utils';
 
 class Builder {
   constructor(config, operation) {
@@ -66,14 +67,11 @@ class Builder {
     // Add Content-Length header
     let parsedBody = this.parseRequestBody(operation);
     if (!operation.headers['Content-Length'] && parsedBody) {
-      if (parsedBody.constructor === fs.ReadStream) {
-        let stats = fs.statSync(parsedBody.path);
-        parsedHeaders['Content-Length'] = stats.size;
-      } else if (parsedBody.constructor === Buffer) {
-        parsedHeaders['Content-Length'] = this.parseRequestBody(operation).byteLength;
-      } else {
-        parsedHeaders['Content-Length'] = this.parseRequestBody(operation).length;
+      let l = getStreamSize(parsedBody);
+      if (l === void 0) {
+        throw new SDKError.ParameterRequired("Content-Length", operation.api)
       }
+      parsedHeaders['Content-Length'] = l;
     } else {
       parsedHeaders['Content-Length'] = operation.headers['Content-Length'] || 0;
     }
