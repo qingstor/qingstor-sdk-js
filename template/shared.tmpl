@@ -10,7 +10,7 @@
     {{- if eq $belongs "QingStor"}}
     {{$operation.ID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
-    {{- $i := passThrough "operation['params']" $request.Params $customizedTypes}}
+    {{- $i := passThrough "operation['params']" $request.Query $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
     {{- $i := passThrough "operation['headers']" $request.Headers $customizedTypes}}
     {{- template "RenderCustomizedTypeValidation" $i}}
@@ -84,7 +84,7 @@
     {{- $operation := index . 1}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
 
-    {{- $hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{- $hasParams := gt (len $operation.Request.Query.Properties) 0}}
     {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
     {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
@@ -107,7 +107,7 @@
      {{- range $id, $property := $operation.Request.Headers.Properties}}
      * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
-     {{- range $id, $property := $operation.Request.Params.Properties}}
+     {{- range $id, $property := $operation.Request.Query.Properties}}
      * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
@@ -129,7 +129,7 @@
         {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
         {{- if $hasInput}}options{{end -}}
         ) {
-        {{- $uri := $operation.Request.URI}}
+        {{- $uri := $operation.Request.Path}}
         {{- $uri := replace $uri "{" "<" -1}}
         {{- $uri := replace $uri "}" ">" -1}}
         {{- $uri := dashConnected $uri}}
@@ -138,7 +138,7 @@
             'method': '{{$operation.Request.Method}}',
             'uri': '{{$uri}}',
             'params': {
-                {{range $id, $property := $operation.Request.Params.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
+                {{range $id, $property := $operation.Request.Query.Properties}}'{{$property.Name}}': _.result(options,'{{$property.ID}}',''),
                 {{end -}}
             },
             'headers': {
@@ -181,7 +181,7 @@
     {{- $operation := index . 1}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
 
-    {{- $hasParams := gt (len $operation.Request.Params.Properties) 0}}
+    {{- $hasParams := gt (len $operation.Request.Query.Properties) 0}}
     {{- $hasHeaders := gt (len $operation.Request.Headers.Properties) 0}}
     {{- $hasElements := gt (len $operation.Request.Elements.Properties) 0}}
     {{- $hasStringBody := eq $operation.Request.Body.Type "string"}}
@@ -204,7 +204,7 @@
      {{- range $id, $property := $operation.Request.Headers.Properties}}
      * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
-     {{- range $id, $property := $operation.Request.Params.Properties}}
+     {{- range $id, $property := $operation.Request.Query.Properties}}
      * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
