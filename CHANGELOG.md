@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.10] - 2017-11-20
+
+### Fixed
+
+- Add `@babel/polyfill` into webpack entry to fix dependence missing
+- Fix `package.json` typo
+
 ## [2.2.9] - 2017-11-19
 
 ### Changed
@@ -155,6 +162,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.10]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.9...2.2.10
 [2.2.9]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.8...2.2.9
 [2.2.8]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.7...2.2.8
 [2.2.7]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.6...2.2.7
