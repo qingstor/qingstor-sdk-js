@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 
 const nodeConfig = {
-  entry: './index.js',
+  entry: ['@babel/polyfill', './index.js'],
   target: 'node',
   output: {
     path: path.resolve(__dirname, 'dist'),
