@@ -3,8 +3,6 @@
   "version": "2.2.10",
   "description": "Official QingStor SDK for JavaScript",
   "main": "./dist/node/qingstor-sdk.min.js",
-  "browser": "./dist/browser/qingstor-sdk.min.js",
-  "module": "./dist/node/qingstor-sdk.min.js",
   "directories": {
     "doc": "docs",
     "test": "test"
