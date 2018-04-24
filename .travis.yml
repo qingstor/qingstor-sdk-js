@@ -9,5 +9,4 @@ install: npm install
 script:
   - npm install esformatter -g
   - npm run build
-  - npm run dist
   - npm test
