@@ -85,6 +85,11 @@ class Request {
       }
     } catch (e) {
       logger.error("SDK request failed for: ", e);
+      if (isFunction(callback)) {
+        callback(e, null)
+      } else {
+        return e
+      }
     }
   }
 
