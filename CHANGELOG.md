@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.13] - 2018-05-29
+
+### Changed
+
+- Do not calculate content length for JSON body
+
 ## [2.2.12] - 2018-05-14
 
 ### Fixed
@@ -174,6 +180,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.13]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.12...2.2.13
 [2.2.12]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.11...2.2.12
 [2.2.11]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.10...2.2.11
 [2.2.10]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.9...2.2.10
