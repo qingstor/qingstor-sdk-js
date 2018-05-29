@@ -14,4 +14,4 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-global.version = '2.2.12';
+global.version = '2.2.13';
