@@ -39,11 +39,6 @@ export default {
     return (typeof fn !== 'undefined' ? Object.prototype.toString.call(fn) : 0) === '[object Function]';
   },
   getStreamSize: (stream) => {
-    // If stream has property "length", we can return length directly.
-    if (stream.length !== void 0) {
-      return stream.length
-    }
-
     // If stream has property "fd", it could be a file read stream.
     if (stream.hasOwnProperty("fd")) {
       if (stream.end !== void 0 && stream.end !== Infinity && stream.start !== void 0) {
