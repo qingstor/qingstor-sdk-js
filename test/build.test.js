@@ -62,7 +62,6 @@ describe('Builder test', function() {
         'X-QS-Date': 'test time',
         'Content-Type': 'image/jpeg',
         'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
-        'Content-Length': 11
       }
     );
   });
@@ -106,7 +105,6 @@ describe('Builder test', function() {
       'headers': {
         'Host': 'qingstor.com',
         'X-QS-Date': 'test time',
-        'Content-Length': 11,
         "Content-Type": "image/jpeg",
         'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample'
       }
