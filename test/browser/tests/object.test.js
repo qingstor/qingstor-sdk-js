@@ -40,4 +40,33 @@ describe('QingStor test', function() {
     }
     )
   });
+  it('DeleteMultipleObject test', () => {
+    test.deleteMultipleObjects({
+      objects: [
+        {
+          "key": "aaa"
+        },
+        {
+          "key": "bbb"
+        },
+      ]
+    }).then((res) => {
+      console.log(res.statusCode)
+    })
+  });
+  it("CompleteMultipart test", () => {
+    test.completeMultipartUpload("test", {
+      object_parts: [
+        {
+          "part_number": "0"
+        },
+        {
+          "part_number": "1"
+        },
+      ],
+      upload_id: "xxx"
+    }).then((res) => {
+      console.log(res.statusCode)
+    })
+  });
 });
