@@ -35,72 +35,83 @@ const del = require('del');
 
 const targets = ['node', 'browser'];
 const target_name = {
-  'node': 'nodejs',
-  'browser': 'javascript',
+    'node': 'nodejs',
+    'browser': 'javascript',
 };
 
-gulp.task('clean', function () {
-  del(['dist/*']);
+gulp.task('clean', function (done) {
+    del(['dist/*']);
+    done();
 });
 
-gulp.task('bundle', ['clean'], function () {
-  return pump([
-    webpack_stream({config: require('./webpack.config.js')}, webpack),
-    gulp.dest('./dist')
-  ]);
-});
+gulp.task('bundle', gulp.series('clean', function (done) {
+    let x = pump([
+        webpack_stream({config: require('./webpack.config.js')}, webpack),
+        gulp.dest('./dist')
+    ]);
+    done();
+    return x
+}));
 
 const _min = (d) => {
-  return pump([
-    gulp.src(`dist/${d}/qingstor-sdk.js`),
-    buffer(),
-    minify({
-      ecma: 6,
-    }),
-    rename({extname: '.min.js'}),
-    gulp.dest(`dist/${d}`)
-  ]);
+    return pump([
+        gulp.src(`dist/${d}/qingstor-sdk.js`),
+        buffer(),
+        minify({
+            ecma: 6,
+        }),
+        rename({extname: '.min.js'}),
+        gulp.dest(`dist/${d}`),
+    ]);
 };
 
-gulp.task('bundle-min', ['bundle'], function () {
-  return merge(targets.map(_min));
-});
+gulp.task('bundle-min', gulp.series('bundle', function (done) {
+    let x = merge(targets.map(_min));
+    done();
+    return x
+}));
 
 const _map = (d) => {
-  return pump([
-    gulp.src(`dist/${d}/qingstor-sdk.js`),
-    buffer(),
-    sourcemaps.init({loadMaps: true}),
-    sourcemaps.write('./'),
-    gulp.dest(`dist/${d}`)
-  ]);
+    return pump([
+        gulp.src(`dist/${d}/qingstor-sdk.js`),
+        buffer(),
+        sourcemaps.init({loadMaps: true}),
+        sourcemaps.write('./'),
+        gulp.dest(`dist/${d}`)
+    ]);
 };
 
-gulp.task('bundle-map', ['bundle'], function () {
-  return merge(targets.map(_map));
-});
+gulp.task('bundle-map', gulp.series('bundle', function (done) {
+    let x = merge(targets.map(_map));
+    done();
+    return x
+}));
 
 const _zip = (d) => {
-  return pump([
-    gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
-    zip(`qingstor-sdk-${target_name[d]}-${global.version}.zip`),
-    gulp.dest(`dist/${d}`)
-  ]);
+    return pump([
+        gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
+        zip(`qingstor-sdk-${target_name[d]}-${global.version}.zip`),
+        gulp.dest(`dist/${d}`),
+    ]);
 };
 
-gulp.task('zip', ['bundle-min', 'bundle-map'], () => {
-  return merge(targets.map(_zip));
-});
+gulp.task('zip', gulp.series('bundle-min', 'bundle-map', (done) => {
+    let x = merge(targets.map(_zip));
+    done();
+    return x
+}));
 
 const _tar = (d) => {
-  return pump([
-    gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
-    tar(`qingstor-sdk-${target_name[d]}-${global.version}.tar`),
-    gzip(),
-    gulp.dest(`dist/${d}`)
-  ]);
+    return pump([
+        gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
+        tar(`qingstor-sdk-${target_name[d]}-${global.version}.tar`),
+        gzip(),
+        gulp.dest(`dist/${d}`),
+    ]);
 };
 
-gulp.task('tar', ['bundle-min', 'bundle-map'], () => {
-  return merge(targets.map(_tar));
-});
+gulp.task('tar', gulp.series('bundle-min', 'bundle-map', (done) => {
+    let x = merge(targets.map(_tar));
+    done();
+    return x
+}));
