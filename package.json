@@ -24,7 +24,7 @@
     "dist": "gulp tar zip",
     "generate": "snips -f='./specs/qingstor/2016-01-06/swagger/api_v2.0.json' -t='./template' -o='./src/qingstor'; rm ./src/qingstor/object.js; npm run format;",
     "test": "mocha --require @babel/register -t 10000",
-    "format": "esformatter -i 'src/**/*.js' 'lib/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js';"
+    "format": "esformatter -i 'src/**/*.js' 'lib/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js' '*.js';"
   },
   "keywords": [
     "qingstor",
