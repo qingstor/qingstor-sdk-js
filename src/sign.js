@@ -154,7 +154,7 @@ ${stringToSign}`);
     let h = createHmac('sha256', this.secret_access_key);
     h.update(stringToSign);
 
-    let signature = new Buffer(h.digest()).toString('base64');
+    let signature = Buffer.from(h.digest()).toString('base64');
     logger.debug('QingStor query request authorization: ' + signature);
     return signature;
   }
