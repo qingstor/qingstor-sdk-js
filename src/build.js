@@ -68,10 +68,9 @@ class Builder {
     let parsedBody = this.parseRequestBody(operation);
     if (!operation.headers['Content-Length'] && parsedBody) {
       let l = getStreamSize(parsedBody);
-      if (l === void 0) {
-        throw new SDKError.ParameterRequired("Content-Length", operation.api)
+      if (l !== void 0) {
+        parsedHeaders['Content-Length'] = l;
       }
-      parsedHeaders['Content-Length'] = l;
     } else {
       parsedHeaders['Content-Length'] = operation.headers['Content-Length'] || 0;
     }
@@ -99,7 +98,7 @@ class Builder {
     if (operation.body !== undefined) {
       parsedBody = operation.body;
     } else if (Object.keys(operation.elements).length !== 0) {
-      parsedBody = new Buffer(JSON.stringify(operation.elements));
+      parsedBody = JSON.stringify(operation.elements);
     }
     return parsedBody;
   }
