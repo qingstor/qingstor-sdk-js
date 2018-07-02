@@ -16,73 +16,74 @@
 
 import Request from '../request';
 import Bucket from './bucket';
-import { isFunction } from '../utils';
+import {isFunction} from '../utils';
 
 class QingStor {
 
-  constructor(config) {
-    this.config = config;
-  }
-
-
-  /**
-   * listBucketsRequest: Build ListBuckets's request
-   * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Location - Limits results to buckets that in the location
-   *
-   * @return Signer
-   */
-  listBucketsRequest(options = {}) {
-    let operation = {
-      'api': 'ListBuckets',
-      'method': 'GET',
-      'uri': '/',
-      'params': {
-      },
-      'headers': {
-        'Host': this.config.host,
-        'Location': options['Location'] || undefined,
-      },
-      'elements': {
-      },
-      'properties': {},
-      'body': undefined
-    };
-    this.listBucketsValidate(operation);
-    return new Request(this.config, operation).build();
-  }
-
-
-
-  /**
-   * listBuckets: Retrieve the bucket list.
-   * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Location - Limits results to buckets that in the location
-   * @param callback Callback function
-   *
-   * @return none
-   */
-  listBuckets(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
+    constructor(config){
+      this.config = config;
     }
-    return this.listBucketsRequest(options).sign().send(callback);
-  }
+    
+
+    /**
+     * listBucketsRequest: Build ListBuckets's request
+     * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
+     * @param {Object} options - User input options;
+     * @param options.Location - Limits results to buckets that in the location
+     *
+     * @return Signer
+     */
+    listBucketsRequest(options={}) {
+        let operation = {
+            'api': 'ListBuckets',
+            'method': 'GET',
+            'uri': '/',
+            'params': {
+                },
+            'headers': {
+                'Host': this.config.host,
+                'Location': options['Location'] || undefined,
+                },
+            'elements': {
+                },
+            'properties': {},
+            'body': undefined
+        };
+        this.listBucketsValidate(operation);
+        return new Request(this.config, operation).build();
+    }
+
+    
+
+    /**
+     * listBuckets: Retrieve the bucket list.
+     * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
+     * @param {Object} options - User input options;
+     * @param options.Location - Limits results to buckets that in the location
+     * @param callback Callback function
+     *
+     * @return none
+     */
+    listBuckets(options, callback) {
+        if (isFunction(options)){
+          callback = options;
+          options = {};
+        }
+        return this.listBucketsRequest(options).sign().send(callback);
+    }
+
+    
+    listBucketsValidate(operation){
+    }
 
 
-  listBucketsValidate(operation) {}
-
-
-  Bucket(bucket_name, zone) {
-    let properties = {
-      'bucket-name': bucket_name,
-      'zone': zone
-    };
-    return new Bucket(this.config, properties)
-  }
+    Bucket(bucket_name, zone) {
+        let properties = {
+            'bucket-name': bucket_name,
+            'zone': zone
+        };
+        return new Bucket(this.config, properties)
+    }
 }
 
 export default QingStor;
