@@ -161,6 +161,92 @@ class Bucket {
 
 
   /**
+   * deleteLifecycleRequest: Build DeleteLifecycle's request
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html Documentation URL
+   *
+   * @return Signer
+   */
+  deleteLifecycleRequest() {
+    let operation = {
+      'api': 'DeleteBucketLifecycle',
+      'method': 'DELETE',
+      'uri': '/<bucket-name>?lifecycle',
+      'params': {
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+      },
+      'elements': {
+      },
+      'properties': this.properties,
+      'body': undefined
+    };
+    this.deleteLifecycleValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * deleteLifecycle: Delete Lifecycle information of the bucket.
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html Documentation URL
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  deleteLifecycle(callback) {
+    return this.deleteLifecycleRequest().sign().send(callback);
+  }
+
+
+  deleteLifecycleValidate(operation) {}
+
+
+
+  /**
+   * deleteNotificationRequest: Build DeleteNotification's request
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html Documentation URL
+   *
+   * @return Signer
+   */
+  deleteNotificationRequest() {
+    let operation = {
+      'api': 'DeleteBucketNotification',
+      'method': 'DELETE',
+      'uri': '/<bucket-name>?notification',
+      'params': {
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+      },
+      'elements': {
+      },
+      'properties': this.properties,
+      'body': undefined
+    };
+    this.deleteNotificationValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * deleteNotification: Delete Notification information of the bucket.
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html Documentation URL
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  deleteNotification(callback) {
+    return this.deleteNotificationRequest().sign().send(callback);
+  }
+
+
+  deleteNotificationValidate(operation) {}
+
+
+
+  /**
    * deletePolicyRequest: Build DeletePolicy's request
    * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html Documentation URL
    *
@@ -392,6 +478,92 @@ class Bucket {
 
 
   getExternalMirrorValidate(operation) {}
+
+
+
+  /**
+   * getLifecycleRequest: Build GetLifecycle's request
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html Documentation URL
+   *
+   * @return Signer
+   */
+  getLifecycleRequest() {
+    let operation = {
+      'api': 'GetBucketLifecycle',
+      'method': 'GET',
+      'uri': '/<bucket-name>?lifecycle',
+      'params': {
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+      },
+      'elements': {
+      },
+      'properties': this.properties,
+      'body': undefined
+    };
+    this.getLifecycleValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * getLifecycle: Get Lifecycle information of the bucket.
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html Documentation URL
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  getLifecycle(callback) {
+    return this.getLifecycleRequest().sign().send(callback);
+  }
+
+
+  getLifecycleValidate(operation) {}
+
+
+
+  /**
+   * getNotificationRequest: Build GetNotification's request
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html Documentation URL
+   *
+   * @return Signer
+   */
+  getNotificationRequest() {
+    let operation = {
+      'api': 'GetBucketNotification',
+      'method': 'GET',
+      'uri': '/<bucket-name>?notification',
+      'params': {
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+      },
+      'elements': {
+      },
+      'properties': this.properties,
+      'body': undefined
+    };
+    this.getNotificationValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * getNotification: Get Notification information of the bucket.
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html Documentation URL
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  getNotification(callback) {
+    return this.getNotificationRequest().sign().send(callback);
+  }
+
+
+  getNotificationValidate(operation) {}
 
 
 
@@ -902,6 +1074,182 @@ class Bucket {
 
 
   /**
+   * putLifecycleRequest: Build PutLifecycle's request
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html Documentation URL
+   * @param {Object} options - User input options;
+   * @param options.rule - Bucket Lifecycle rule
+   *
+   * @return Signer
+   */
+  putLifecycleRequest(options = {}) {
+    let operation = {
+      'api': 'PutBucketLifecycle',
+      'method': 'PUT',
+      'uri': '/<bucket-name>?lifecycle',
+      'params': {
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+      },
+      'elements': {
+        'rule': options['rule'] || undefined,
+      },
+      'properties': this.properties,
+      'body': options['body'] || undefined
+    };
+    this.putLifecycleValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * putLifecycle: Set Lifecycle information of the bucket.
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html Documentation URL
+   * @param {Object} options - User input options;
+   * @param options.rule - Bucket Lifecycle rule
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  putLifecycle(options, callback) {
+    if (isFunction(options)) {
+      callback = options;
+      options = {};
+    }
+    return this.putLifecycleRequest(options).sign().send(callback);
+  }
+
+
+  putLifecycleValidate(operation) {
+    if (operation['elements'] === undefined || operation['elements']['rule'] === undefined || operation['elements']['rule'].toString() === '') {
+      throw new SDKError.ParameterRequired('rule', 'PutBucketLifecycleInput');
+    }
+    operation['elements']['rule'].forEach(function(value) {
+      if (value.hasOwnProperty('abort_incomplete_multipart_upload')) {
+        if (value["abort_incomplete_multipart_upload"] === undefined || value["abort_incomplete_multipart_upload"]['days_after_initiation'] === undefined || value["abort_incomplete_multipart_upload"]['days_after_initiation'].toString() === '') {
+          throw new SDKError.ParameterRequired('days_after_initiation', 'abort_incomplete_multipart_upload');
+        }
+      }
+      if (value.hasOwnProperty('expiration')) {
+      }
+      if (value.hasOwnProperty('filter')) {
+        if (value["filter"] === undefined || value["filter"]['prefix'] === undefined || value["filter"]['prefix'].toString() === '') {
+          throw new SDKError.ParameterRequired('prefix', 'filter');
+        }
+      }
+      if (value === undefined || value.toString() === '') {
+        throw new SDKError.ParameterRequired('filter', 'rule');
+      }
+      if (value === undefined || value['id'] === undefined || value['id'].toString() === '') {
+        throw new SDKError.ParameterRequired('id', 'rule');
+      }
+      if (value === undefined || value['status'] === undefined || value['status'].toString() === '') {
+        throw new SDKError.ParameterRequired('status', 'rule');
+      }
+      if (value === undefined || value['status'] === undefined || value['status'].toString() === '') {
+        let status_valid_values = ["enabled", "disabled"];
+        if (status_valid_values.indexOf(value['status']) === -1) {
+          throw new SDKError.ParameterValueNotAllowedError(
+            'status',
+            value['status'],
+            status_valid_values
+          )
+        }
+      }
+      if (value.hasOwnProperty('transition')) {
+        if (value["transition"] === undefined || value["transition"]['storage_class'] === undefined || value["transition"]['storage_class'].toString() === '') {
+          throw new SDKError.ParameterRequired('storage_class', 'transition');
+        }
+      }
+    });
+  }
+
+
+
+  /**
+   * putNotificationRequest: Build PutNotification's request
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html Documentation URL
+   * @param {Object} options - User input options;
+   * @param options.notifications - Bucket Notification
+   *
+   * @return Signer
+   */
+  putNotificationRequest(options = {}) {
+    let operation = {
+      'api': 'PutBucketNotification',
+      'method': 'PUT',
+      'uri': '/<bucket-name>?notification',
+      'params': {
+      },
+      'headers': {
+        'Host': this.properties.zone + '.' + this.config.host,
+      },
+      'elements': {
+        'notifications': options['notifications'] || undefined,
+      },
+      'properties': this.properties,
+      'body': options['body'] || undefined
+    };
+    this.putNotificationValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+
+
+  /**
+   * putNotification: Set Notification information of the bucket.
+   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html Documentation URL
+   * @param {Object} options - User input options;
+   * @param options.notifications - Bucket Notification
+   * @param callback Callback function
+   *
+   * @return none
+   */
+  putNotification(options, callback) {
+    if (isFunction(options)) {
+      callback = options;
+      options = {};
+    }
+    return this.putNotificationRequest(options).sign().send(callback);
+  }
+
+
+  putNotificationValidate(operation) {
+    if (operation['elements'] === undefined || operation['elements']['notifications'] === undefined || operation['elements']['notifications'].toString() === '') {
+      throw new SDKError.ParameterRequired('notifications', 'PutBucketNotificationInput');
+    }
+    operation['elements']['notifications'].forEach(function(value) {
+      if (value === undefined || value['cloudfunc'] === undefined || value['cloudfunc'].toString() === '') {
+        throw new SDKError.ParameterRequired('cloudfunc', 'notification');
+      }
+      if (value === undefined || value['cloudfunc'] === undefined || value['cloudfunc'].toString() === '') {
+        let cloudfunc_valid_values = ["tupu-porn", "notifier", "image"];
+        if (cloudfunc_valid_values.indexOf(value['cloudfunc']) === -1) {
+          throw new SDKError.ParameterValueNotAllowedError(
+            'cloudfunc',
+            value['cloudfunc'],
+            cloudfunc_valid_values
+          )
+        }
+      }
+      if (value.hasOwnProperty('cloudfunc_args')) {
+        if (value["cloudfunc_args"] === undefined || value["cloudfunc_args"]['action'] === undefined || value["cloudfunc_args"]['action'].toString() === '') {
+          throw new SDKError.ParameterRequired('action', 'cloudfunc_args');
+        }
+      }
+      if (value === undefined || value['event_types'] === undefined || value['event_types'].toString() === '') {
+        throw new SDKError.ParameterRequired('event_types', 'notification');
+      }
+      if (value === undefined || value['id'] === undefined || value['id'].toString() === '') {
+        throw new SDKError.ParameterRequired('id', 'notification');
+      }
+    });
+  }
+
+
+
+  /**
    * putPolicyRequest: Build PutPolicy's request
    * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html Documentation URL
    * @param {Object} options - User input options;
@@ -1121,6 +1469,9 @@ class Bucket {
   completeMultipartUploadValidate(operation) {
     if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'CompleteMultipartUploadInput');
+    }
+    if (operation['elements'] === undefined || operation['elements']['object_parts'] === undefined || operation['elements']['object_parts'].toString() === '') {
+      throw new SDKError.ParameterRequired('object_parts', 'CompleteMultipartUploadInput');
     }
     operation['elements']['object_parts'].forEach(function(value) {
       if (value === undefined || value['part_number'] === undefined || value['part_number'].toString() === '') {
@@ -1432,6 +1783,7 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
    *
    * @return Signer
@@ -1449,6 +1801,7 @@ class Bucket {
         'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
         'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
         'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'X-QS-Storage-Class': options['X-QS-Storage-Class'] || undefined,
       },
       'elements': {
       },
@@ -1470,6 +1823,7 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
    * @param callback Callback function
    *
@@ -1484,7 +1838,18 @@ class Bucket {
   }
 
 
-  initiateMultipartUploadValidate(operation) {}
+  initiateMultipartUploadValidate(operation) {
+    if (operation['headers'] === undefined || operation['headers']['X-QS-Storage-Class'] === undefined || operation['headers']['X-QS-Storage-Class'].toString() === '') {
+      let x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"];
+      if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
+        throw new SDKError.ParameterValueNotAllowedError(
+          'X-QS-Storage-Class',
+          operation['headers']['X-QS-Storage-Class'],
+          X - QS - Storage - Class_valid_values
+        )
+      }
+    }
+  }
 
 
 
@@ -1643,6 +2008,7 @@ class Bucket {
    * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
    * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
    *
    * @return Signer
@@ -1674,6 +2040,7 @@ class Bucket {
         'X-QS-Fetch-If-Unmodified-Since': options['X-QS-Fetch-If-Unmodified-Since'] || undefined,
         'X-QS-Fetch-Source': options['X-QS-Fetch-Source'] || undefined,
         'X-QS-Move-Source': options['X-QS-Move-Source'] || undefined,
+        'X-QS-Storage-Class': options['X-QS-Storage-Class'] || undefined,
       },
       'elements': {
       },
@@ -1709,6 +2076,7 @@ class Bucket {
    * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
    * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
    * @param callback Callback function
    *
@@ -1723,7 +2091,18 @@ class Bucket {
   }
 
 
-  putObjectValidate(operation) {}
+  putObjectValidate(operation) {
+    if (operation['headers'] === undefined || operation['headers']['X-QS-Storage-Class'] === undefined || operation['headers']['X-QS-Storage-Class'].toString() === '') {
+      let x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"];
+      if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
+        throw new SDKError.ParameterValueNotAllowedError(
+          'X-QS-Storage-Class',
+          operation['headers']['X-QS-Storage-Class'],
+          X - QS - Storage - Class_valid_values
+        )
+      }
+    }
+  }
 
 
 
