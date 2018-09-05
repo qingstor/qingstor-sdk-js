@@ -1659,6 +1659,7 @@ class Bucket {
         'Content-Length': options['Content-Length'] || undefined,
         'Content-MD5': options['Content-MD5'] || undefined,
         'Content-Type': options['Content-Type'] || undefined,
+        'Content-Encoding': options['Content-Encoding'] || undefined,
         'Expect': options['Expect'] || undefined,
         'X-QS-Copy-Source': options['X-QS-Copy-Source'] || undefined,
         'X-QS-Copy-Source-Encryption-Customer-Algorithm': options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
