@@ -4,14 +4,11 @@
       "@babel/env",
       {
         "targets": {
-          "browsers": [
-            "> 5%"
-          ],
-          "node": [
-            "4"
-          ]
+          "browsers": "> 5%",
+          "node": "6"
         },
-        "loose": true
+        "loose": true,
+        "useBuiltIns": "entry"
       }
     ]
   ],

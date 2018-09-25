@@ -39,21 +39,18 @@ const target_name = {
   'browser': 'javascript',
 };
 
-gulp.task('clean', function(done) {
+gulp.task('clean', function() {
   del(['dist/*']);
-  done();
 });
 
-gulp.task('bundle', gulp.series('clean', function(done) {
-  let x = pump([
+gulp.task('bundle', ['clean'], function() {
+  return pump([
     webpack_stream({
       config: require('./webpack.config.js')
     }, webpack),
     gulp.dest('./dist')
   ]);
-  done();
-  return x
-}));
+});
 
 const _min = (d) => {
   return pump([
@@ -65,15 +62,13 @@ const _min = (d) => {
     rename({
       extname: '.min.js'
     }),
-    gulp.dest(`dist/${d}`),
+    gulp.dest(`dist/${d}`)
   ]);
 };
 
-gulp.task('bundle-min', gulp.series('bundle', function(done) {
-  let x = merge(targets.map(_min));
-  done();
-  return x
-}));
+gulp.task('bundle-min', ['bundle'], function() {
+  return merge(targets.map(_min));
+});
 
 const _map = (d) => {
   return pump([
@@ -87,37 +82,31 @@ const _map = (d) => {
   ]);
 };
 
-gulp.task('bundle-map', gulp.series('bundle', function(done) {
-  let x = merge(targets.map(_map));
-  done();
-  return x
-}));
+gulp.task('bundle-map', ['bundle'], function() {
+  return merge(targets.map(_map));
+});
 
 const _zip = (d) => {
   return pump([
     gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
     zip(`qingstor-sdk-${target_name[d]}-${global.version}.zip`),
-    gulp.dest(`dist/${d}`),
+    gulp.dest(`dist/${d}`)
   ]);
 };
 
-gulp.task('zip', gulp.series('bundle-min', 'bundle-map', (done) => {
-  let x = merge(targets.map(_zip));
-  done();
-  return x
-}));
+gulp.task('zip', ['bundle-min', 'bundle-map'], () => {
+  return merge(targets.map(_zip));
+});
 
 const _tar = (d) => {
   return pump([
     gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
     tar(`qingstor-sdk-${target_name[d]}-${global.version}.tar`),
     gzip(),
-    gulp.dest(`dist/${d}`),
+    gulp.dest(`dist/${d}`)
   ]);
 };
 
-gulp.task('tar', gulp.series('bundle-min', 'bundle-map', (done) => {
-  let x = merge(targets.map(_tar));
-  done();
-  return x
-}));
+gulp.task('tar', ['bundle-min', 'bundle-map'], () => {
+  return merge(targets.map(_tar));
+});

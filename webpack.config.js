@@ -25,11 +25,9 @@ const nodeConfig = {
           options: {
             presets: [['@babel/preset-env', {
               "targets": {
-                "node": [
-                  "6"
-                ]
+                "node": "6"
               },
-              "useBuiltIn": true
+              "useBuiltIns": "entry"
             }]],
             plugins: [
               "add-module-exports"
@@ -70,13 +68,11 @@ const browserConfig = {
             presets: [
               ['@babel/preset-env', {
                 "targets": {
-                  "browsers": [
-                    "> 1%"
-                  ],
-                  "loose": true,
-                  "modules": false
+                  "browsers": "> 1%"
                 },
-                "useBuiltIn": true
+                "loose": true,
+                "modules": false,
+                "useBuiltIns": "entry"
               }]
             ],
             "plugins": [
