@@ -88,7 +88,7 @@ class Builder {
     if (operation.api === 'DeleteMultipleObjects') {
       let h = createHash('md5');
       h.update(this.parseRequestBody(operation));
-      parsedHeaders['Content-MD5'] = new Buffer(h.digest()).toString('base64')
+      parsedHeaders['Content-MD5'] = Buffer.from(h.digest()).toString('base64')
     }
     return parsedHeaders;
   }
