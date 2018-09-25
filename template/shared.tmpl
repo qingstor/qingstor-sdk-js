@@ -65,7 +65,7 @@
     }
     {{- end}}
     {{- if gt ($property.Enum | len) 0}}
-    if({{$prefix}} === undefined || {{$prefix}}['{{$property.ID}}'] === undefined || {{$prefix}}['{{$property.ID}}'].toString() === ''){
+    if({{$prefix}} !== undefined && {{$prefix}}['{{$property.ID}}'] !== undefined && {{$prefix}}['{{$property.ID}}'].toString() !== ''){
         let {{$property.ID | snakeCase}}_valid_values = [{{$property.Enum | commaConnectedWithQuote}}];
         if({{$property.ID | snakeCase}}_valid_values.indexOf({{$prefix}}['{{$property.ID}}']) === -1){
             throw new SDKError.ParameterValueNotAllowed(

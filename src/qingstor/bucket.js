@@ -921,7 +921,7 @@ class Bucket {
         if (value["grantee"] === undefined || value["grantee"]['type'] === undefined || value["grantee"]['type'].toString() === '') {
           throw new SDKError.ParameterRequired('type', 'grantee');
         }
-        if (value["grantee"] === undefined || value["grantee"]['type'] === undefined || value["grantee"]['type'].toString() === '') {
+        if (value["grantee"] !== undefined && value["grantee"]['type'] !== undefined && value["grantee"]['type'].toString() !== '') {
           let type_valid_values = ["user", "group"];
           if (type_valid_values.indexOf(value["grantee"]['type']) === -1) {
             throw new SDKError.ParameterValueNotAllowed(
@@ -938,7 +938,7 @@ class Bucket {
       if (value === undefined || value['permission'] === undefined || value['permission'].toString() === '') {
         throw new SDKError.ParameterRequired('permission', 'acl');
       }
-      if (value === undefined || value['permission'] === undefined || value['permission'].toString() === '') {
+      if (value !== undefined && value['permission'] !== undefined && value['permission'].toString() !== '') {
         let permission_valid_values = ["READ", "WRITE", "FULL_CONTROL"];
         if (permission_valid_values.indexOf(value['permission']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
@@ -1147,7 +1147,7 @@ class Bucket {
       if (value === undefined || value['status'] === undefined || value['status'].toString() === '') {
         throw new SDKError.ParameterRequired('status', 'rule');
       }
-      if (value === undefined || value['status'] === undefined || value['status'].toString() === '') {
+      if (value !== undefined && value['status'] !== undefined && value['status'].toString() !== '') {
         let status_valid_values = ["enabled", "disabled"];
         if (status_valid_values.indexOf(value['status']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
@@ -1223,7 +1223,7 @@ class Bucket {
       if (value === undefined || value['cloudfunc'] === undefined || value['cloudfunc'].toString() === '') {
         throw new SDKError.ParameterRequired('cloudfunc', 'notification');
       }
-      if (value === undefined || value['cloudfunc'] === undefined || value['cloudfunc'].toString() === '') {
+      if (value !== undefined && value['cloudfunc'] !== undefined && value['cloudfunc'].toString() !== '') {
         let cloudfunc_valid_values = ["tupu-porn", "notifier", "image"];
         if (cloudfunc_valid_values.indexOf(value['cloudfunc']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
@@ -1320,7 +1320,7 @@ class Bucket {
       if (value === undefined || value['effect'] === undefined || value['effect'].toString() === '') {
         throw new SDKError.ParameterRequired('effect', 'statement');
       }
-      if (value === undefined || value['effect'] === undefined || value['effect'].toString() === '') {
+      if (value !== undefined && value['effect'] !== undefined && value['effect'].toString() !== '') {
         let effect_valid_values = ["allow", "deny"];
         if (effect_valid_values.indexOf(value['effect']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
@@ -1839,7 +1839,7 @@ class Bucket {
 
 
   initiateMultipartUploadValidate(operation) {
-    if (operation['headers'] === undefined || operation['headers']['X-QS-Storage-Class'] === undefined || operation['headers']['X-QS-Storage-Class'].toString() === '') {
+    if (operation['headers'] !== undefined && operation['headers']['X-QS-Storage-Class'] !== undefined && operation['headers']['X-QS-Storage-Class'].toString() !== '') {
       let x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"];
       if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
         throw new SDKError.ParameterValueNotAllowed(
@@ -2095,7 +2095,7 @@ class Bucket {
 
 
   putObjectValidate(operation) {
-    if (operation['headers'] === undefined || operation['headers']['X-QS-Storage-Class'] === undefined || operation['headers']['X-QS-Storage-Class'].toString() === '') {
+    if (operation['headers'] !== undefined && operation['headers']['X-QS-Storage-Class'] !== undefined && operation['headers']['X-QS-Storage-Class'].toString() !== '') {
       let x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"];
       if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
         throw new SDKError.ParameterValueNotAllowed(
