@@ -71,7 +71,7 @@
             throw new SDKError.ParameterValueNotAllowedError(
             '{{$property.ID}}',
             {{$prefix}}['{{$property.ID}}'],
-            {{$property.ID}}_valid_values
+            {{$property.ID | snakeCase}}_valid_values
             )
         }
     }

@@ -1845,7 +1845,7 @@ class Bucket {
         throw new SDKError.ParameterValueNotAllowedError(
           'X-QS-Storage-Class',
           operation['headers']['X-QS-Storage-Class'],
-          X - QS - Storage - Class_valid_values
+          x_qs_storage_class_valid_values
         )
       }
     }
@@ -2101,7 +2101,7 @@ class Bucket {
         throw new SDKError.ParameterValueNotAllowedError(
           'X-QS-Storage-Class',
           operation['headers']['X-QS-Storage-Class'],
-          X - QS - Storage - Class_valid_values
+          x_qs_storage_class_valid_values
         )
       }
     }
