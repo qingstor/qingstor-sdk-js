@@ -924,7 +924,7 @@ class Bucket {
         if (value["grantee"] === undefined || value["grantee"]['type'] === undefined || value["grantee"]['type'].toString() === '') {
           let type_valid_values = ["user", "group"];
           if (type_valid_values.indexOf(value["grantee"]['type']) === -1) {
-            throw new SDKError.ParameterValueNotAllowedError(
+            throw new SDKError.ParameterValueNotAllowed(
               'type',
               value["grantee"]['type'],
               type_valid_values
@@ -941,7 +941,7 @@ class Bucket {
       if (value === undefined || value['permission'] === undefined || value['permission'].toString() === '') {
         let permission_valid_values = ["READ", "WRITE", "FULL_CONTROL"];
         if (permission_valid_values.indexOf(value['permission']) === -1) {
-          throw new SDKError.ParameterValueNotAllowedError(
+          throw new SDKError.ParameterValueNotAllowed(
             'permission',
             value['permission'],
             permission_valid_values
@@ -1150,7 +1150,7 @@ class Bucket {
       if (value === undefined || value['status'] === undefined || value['status'].toString() === '') {
         let status_valid_values = ["enabled", "disabled"];
         if (status_valid_values.indexOf(value['status']) === -1) {
-          throw new SDKError.ParameterValueNotAllowedError(
+          throw new SDKError.ParameterValueNotAllowed(
             'status',
             value['status'],
             status_valid_values
@@ -1226,7 +1226,7 @@ class Bucket {
       if (value === undefined || value['cloudfunc'] === undefined || value['cloudfunc'].toString() === '') {
         let cloudfunc_valid_values = ["tupu-porn", "notifier", "image"];
         if (cloudfunc_valid_values.indexOf(value['cloudfunc']) === -1) {
-          throw new SDKError.ParameterValueNotAllowedError(
+          throw new SDKError.ParameterValueNotAllowed(
             'cloudfunc',
             value['cloudfunc'],
             cloudfunc_valid_values
@@ -1323,7 +1323,7 @@ class Bucket {
       if (value === undefined || value['effect'] === undefined || value['effect'].toString() === '') {
         let effect_valid_values = ["allow", "deny"];
         if (effect_valid_values.indexOf(value['effect']) === -1) {
-          throw new SDKError.ParameterValueNotAllowedError(
+          throw new SDKError.ParameterValueNotAllowed(
             'effect',
             value['effect'],
             effect_valid_values
@@ -1842,7 +1842,7 @@ class Bucket {
     if (operation['headers'] === undefined || operation['headers']['X-QS-Storage-Class'] === undefined || operation['headers']['X-QS-Storage-Class'].toString() === '') {
       let x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"];
       if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
-        throw new SDKError.ParameterValueNotAllowedError(
+        throw new SDKError.ParameterValueNotAllowed(
           'X-QS-Storage-Class',
           operation['headers']['X-QS-Storage-Class'],
           x_qs_storage_class_valid_values
@@ -2098,7 +2098,7 @@ class Bucket {
     if (operation['headers'] === undefined || operation['headers']['X-QS-Storage-Class'] === undefined || operation['headers']['X-QS-Storage-Class'].toString() === '') {
       let x_qs_storage_class_valid_values = ["STANDARD", "STANDARD_IA"];
       if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
-        throw new SDKError.ParameterValueNotAllowedError(
+        throw new SDKError.ParameterValueNotAllowed(
           'X-QS-Storage-Class',
           operation['headers']['X-QS-Storage-Class'],
           x_qs_storage_class_valid_values
