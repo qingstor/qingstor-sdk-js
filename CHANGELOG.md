@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.15] - 2018-09-25
+
+### Fixed
+
+- template: Fix bug results in "X is not defined"
+- Fix ParameterValueNotAllowedError is not a constructor
+- Fix X-QS-Storage-Class value undefined is not allowed
+- Fix Buffer() is deprecated
+
 ## [2.2.14] - 2018-09-25
 
 ### Added
@@ -190,6 +199,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[2.2.15]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.14...2.2.15
 [2.2.14]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.13...2.2.14
 [2.2.13]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.12...2.2.13
 [2.2.12]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.11...2.2.12
