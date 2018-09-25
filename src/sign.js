@@ -170,6 +170,8 @@ ${stringToSign}`);
       'stats',
       'upload_id',
       'uploads',
+      'lifecycle',
+      'notification',
       'response-expires',
       'response-cache-control',
       'response-content-type',
