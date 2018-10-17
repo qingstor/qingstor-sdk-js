@@ -1990,6 +1990,7 @@ class Bucket {
    * putObjectRequest: Build PutObject's request
    * @link https://docs.qingcloud.com/qingstor/api/object/put.html Documentation URL
    * @param {Object} options - User input options;
+   * @param options.Cache-Control - Object cache control
    * @param options.Content-Encoding - Object content encoding
    * @param options.Content-Length - Object content size
    * @param options.Content-MD5 - Object MD5sum
@@ -2023,6 +2024,7 @@ class Bucket {
       },
       'headers': {
         'Host': this.properties.zone + '.' + this.config.host,
+        'Cache-Control': options['Cache-Control'] || undefined,
         'Content-Encoding': options['Content-Encoding'] || undefined,
         'Content-Length': options['Content-Length'] || undefined,
         'Content-MD5': options['Content-MD5'] || undefined,
@@ -2060,6 +2062,7 @@ class Bucket {
    * putObject: Upload the object.
    * @link https://docs.qingcloud.com/qingstor/api/object/put.html Documentation URL
    * @param {Object} options - User input options;
+   * @param options.Cache-Control - Object cache control
    * @param options.Content-Encoding - Object content encoding
    * @param options.Content-Length - Object content size
    * @param options.Content-MD5 - Object MD5sum
