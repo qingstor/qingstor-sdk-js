@@ -5,8 +5,8 @@ node_js:
   - "8"
   - "6"
 
-install: npm install
+install: yarn install
 script:
-  - npm install esformatter -g
-  - npm run build
-  - npm test
+  - yarn global add esformatter
+  - yarn run build
+  - yarn test
