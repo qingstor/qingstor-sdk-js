@@ -41,8 +41,8 @@ class QingStor {
       'params': {
       },
       'headers': {
-        'Host': this.config.host,
-        'Location': options['Location'] || undefined,
+        'host': this.config.host,
+        'location': options['location'] || options['Location'] || undefined,
       },
       'elements': {
       },

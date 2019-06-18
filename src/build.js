@@ -19,7 +19,6 @@ import util from 'util';
 import logger from 'loglevel';
 import { createHash } from 'crypto';
 
-import SDKError from './error'
 import { fixedEncodeURIComponent, buildUri, getStreamSize } from './utils';
 
 class Builder {
@@ -58,37 +57,37 @@ class Builder {
       }
     }
     //Add X-QS-Date header
-    parsedHeaders['X-QS-Date'] = operation.headers['X-QS-Date'] || new Date().toUTCString();
+    parsedHeaders['x-qs-date'] = operation.headers['x-qs-date'] || new Date().toUTCString();
 
     // Add Content-Type header
-    parsedHeaders['Content-Type'] = operation.headers['Content-Type'] || 'application/octet-stream';
+    parsedHeaders['content-type'] = operation.headers['content-type'] || 'application/octet-stream';
 
 
-    // Add Content-Length header
+    // Add content-length header
     let parsedBody = this.parseRequestBody(operation);
-    if (!operation.headers['Content-Length'] && parsedBody) {
+    if (!operation.headers['content-length'] && parsedBody) {
       let l = getStreamSize(parsedBody);
       if (l !== void 0) {
-        parsedHeaders['Content-Length'] = l;
+        parsedHeaders['content-length'] = l;
       }
     } else {
-      parsedHeaders['Content-Length'] = operation.headers['Content-Length'] || 0;
+      parsedHeaders['content-length'] = operation.headers['content-length'] || 0;
     }
 
-    // Add User-Agent header
-    parsedHeaders['User-Agent'] = util.format(
+    // Add user-agent header
+    parsedHeaders['user-agent'] = util.format(
       'qingstor-sdk-js/%s (Node.js %s; %s %s)',
       global.version, process.version, process.platform, process.arch,
     );
     if (this.config.hasOwnProperty('additional_user_agent') && this.config.additional_user_agent) {
-      parsedHeaders['User-Agent'] += util.format(' %s', this.config.additional_user_agent)
+      parsedHeaders['user-agent'] += util.format(' %s', this.config.additional_user_agent)
     }
 
     // Add helper for DeleteMultipleObjects
     if (operation.api === 'DeleteMultipleObjects') {
       let h = createHash('md5');
       h.update(this.parseRequestBody(operation));
-      parsedHeaders['Content-MD5'] = Buffer.from(h.digest()).toString('base64')
+      parsedHeaders['content-md5'] = Buffer.from(h.digest()).toString('base64')
     }
     return parsedHeaders;
   }

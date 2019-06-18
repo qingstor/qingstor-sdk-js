@@ -28,9 +28,9 @@ describe('Builder test', function() {
     "method": "PUT",
     "uri": "/<bucket-name>/<object-key>?acl",
     "headers": {
-      "Host": 'qingstor.com',
-      'X-QS-Date': 'test time',
-      'Content-Type': 'image/jpeg',
+      "host": 'qingstor.com',
+      'x-qs-date': 'test time',
+      'content-type': 'image/jpeg',
       'empty-header': ''
     },
     "params": {
@@ -58,10 +58,10 @@ describe('Builder test', function() {
   it('parseRequestHeaders test', function() {
     test.parseRequestHeaders(operation).should.eql(
       {
-        "Host": 'qingstor.com',
-        'X-QS-Date': 'test time',
-        'Content-Type': 'image/jpeg',
-        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
+        "host": 'qingstor.com',
+        'x-qs-date': 'test time',
+        'content-type': 'image/jpeg',
+        'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
       }
     );
   });
@@ -103,10 +103,10 @@ describe('Builder test', function() {
         "upload_id": "test_upload_id"
       },
       'headers': {
-        'Host': 'qingstor.com',
-        'X-QS-Date': 'test time',
-        "Content-Type": "image/jpeg",
-        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample'
+        'host': 'qingstor.com',
+        'x-qs-date': 'test time',
+        "content-type": "image/jpeg",
+        'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample'
       }
     })
   });

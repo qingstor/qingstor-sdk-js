@@ -30,14 +30,14 @@ describe('Signer test', function() {
     'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
     'body': 'test string',
     'headers': {
-      'Host': 'qingstor.com',
-      'X-QS-Date': 'test time',
-      'Content-Length': 11,
-      "Content-Type": "image/jpeg",
+      'host': 'qingstor.com',
+      'x-qs-date': 'test time',
+      'content-length': 11,
+      "content-type": "image/jpeg",
       'x-qs-z': 'test-z',
       'x-qs-a': 'test-a',
       'x-qs-a-abc': 'test-abc',
-      'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
+      'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
     }
   };
   let test = new Signer(operation, 'test_key', 'test_secret');
@@ -64,15 +64,15 @@ describe('Signer test', function() {
       'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
       'body': 'test string',
       'headers': {
-        'Host': 'qingstor.com',
-        'X-QS-Date': 'test time',
-        'Content-Length': 11,
-        'User-Agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
+        'host': 'qingstor.com',
+        'x-qs-date': 'test time',
+        'content-length': 11,
+        'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
         'x-qs-z': 'test-z',
         'x-qs-a': 'test-a',
         'x-qs-a-abc': 'test-abc',
-        'Authorization': 'QS test_key:80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4=',
-        'Content-Type': 'image/jpeg'
+        'authorization': 'QS test_key:80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4=',
+        'content-type': 'image/jpeg'
       }
     })
   });

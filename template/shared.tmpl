@@ -145,12 +145,12 @@
             },
             'headers': {
                 {{- if ne $belongs "QingStor"}}
-                'Host': this.properties.zone+'.'+this.config.host,
+                'host': this.properties.zone+'.'+this.config.host,
                 {{- end}}
                 {{- if eq $belongs "QingStor"}}
-                'Host': this.config.host,
+                'host': this.config.host,
                 {{- end}}
-                {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name}}': options['{{$property.ID}}'] || undefined,
+                {{range $id, $property := $operation.Request.Headers.Properties}}'{{$property.Name | lower}}': options['{{$property.ID | lower}}'] || options['{{$property.ID}}'] || undefined,
                 {{end -}}
             },
             'elements': {

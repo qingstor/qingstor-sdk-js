@@ -26,16 +26,16 @@ class Signer {
   }
 
   sign() {
-    this.operation.headers.Authorization = `QS ${this.access_key_id}:${this.getAuthorization()}`;
+    this.operation.headers.authorization = `QS ${this.access_key_id}:${this.getAuthorization()}`;
     return this.operation;
   }
 
   signQuery(expires) {
-    delete this.operation.headers['X-QS-Date'];
-    delete this.operation.headers['Host'];
-    delete this.operation.headers['Content-Length'];
-    delete this.operation.headers['Content-Type'];
-    delete this.operation.headers['User-Agent'];
+    delete this.operation.headers['x-qs-date'];
+    delete this.operation.headers['host'];
+    delete this.operation.headers['content-length'];
+    delete this.operation.headers['content-type'];
+    delete this.operation.headers['user-agent'];
 
     const data = {
       signature: this.getQuerySignature(expires),
@@ -56,16 +56,16 @@ class Signer {
 
   getContentMD5() {
     let parsedContentMD5 = '';
-    if (this.operation.headers.hasOwnProperty('Content-MD5')) {
-      parsedContentMD5 = this.operation.headers['Content-MD5'];
+    if (this.operation.headers.hasOwnProperty('content-md5')) {
+      parsedContentMD5 = this.operation.headers['content-md5'];
     }
     return parsedContentMD5;
   }
 
   getContentType() {
     let parsedContentType = '';
-    if (this.operation.headers.hasOwnProperty('Content-Type')) {
-      parsedContentType = this.operation.headers['Content-Type'];
+    if (this.operation.headers.hasOwnProperty('content-type')) {
+      parsedContentType = this.operation.headers['content-type'];
     }
     return parsedContentType;
   }

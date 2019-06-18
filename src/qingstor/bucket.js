@@ -45,7 +45,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -88,7 +88,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -131,7 +131,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -174,7 +174,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -217,7 +217,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -260,7 +260,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -307,8 +307,8 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'Content-MD5': options['Content-MD5'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'content-md5': options['content-md5'] || options['Content-MD5'] || undefined,
       },
       'elements': {
         'objects': options['objects'] || undefined,
@@ -366,7 +366,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -409,7 +409,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -452,7 +452,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -495,7 +495,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -538,7 +538,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -581,7 +581,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -624,7 +624,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -667,7 +667,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -721,7 +721,7 @@ class Bucket {
         'upload_id_marker': options['upload_id_marker'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -783,7 +783,7 @@ class Bucket {
         'prefix': options['prefix'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -835,7 +835,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -880,7 +880,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
         'acl': options['acl'] || undefined,
@@ -969,7 +969,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
         'cors_rules': options['cors_rules'] || undefined,
@@ -1033,7 +1033,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
         'source_site': options['source_site'] || undefined,
@@ -1089,7 +1089,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
         'rule': options['rule'] || undefined,
@@ -1183,7 +1183,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
         'notifications': options['notifications'] || undefined,
@@ -1265,7 +1265,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
         'statement': options['statement'] || undefined,
@@ -1359,7 +1359,7 @@ class Bucket {
         'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -1423,11 +1423,11 @@ class Bucket {
         'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'ETag': options['ETag'] || undefined,
-        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
-        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'etag': options['etag'] || options['ETag'] || undefined,
+        'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
+        'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
         'object_parts': options['object_parts'] || undefined,
@@ -1497,7 +1497,7 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -1564,15 +1564,15 @@ class Bucket {
         'response-expires': options['response-expires'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'If-Match': options['If-Match'] || undefined,
-        'If-Modified-Since': options['If-Modified-Since'] || undefined,
-        'If-None-Match': options['If-None-Match'] || undefined,
-        'If-Unmodified-Since': options['If-Unmodified-Since'] || undefined,
-        'Range': options['Range'] || undefined,
-        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
-        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'if-match': options['if-match'] || options['If-Match'] || undefined,
+        'if-modified-since': options['if-modified-since'] || options['If-Modified-Since'] || undefined,
+        'if-none-match': options['if-none-match'] || options['If-None-Match'] || undefined,
+        'if-unmodified-since': options['if-unmodified-since'] || options['If-Unmodified-Since'] || undefined,
+        'range': options['range'] || options['Range'] || undefined,
+        'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
+        'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
@@ -1645,14 +1645,14 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'If-Match': options['If-Match'] || undefined,
-        'If-Modified-Since': options['If-Modified-Since'] || undefined,
-        'If-None-Match': options['If-None-Match'] || undefined,
-        'If-Unmodified-Since': options['If-Unmodified-Since'] || undefined,
-        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
-        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'if-match': options['if-match'] || options['If-Match'] || undefined,
+        'if-modified-since': options['if-modified-since'] || options['If-Modified-Since'] || undefined,
+        'if-none-match': options['if-none-match'] || options['If-None-Match'] || undefined,
+        'if-unmodified-since': options['if-unmodified-since'] || options['If-Unmodified-Since'] || undefined,
+        'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
+        'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
@@ -1726,8 +1726,8 @@ class Bucket {
         'response-expires': options['response-expires'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'If-Modified-Since': options['If-Modified-Since'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'if-modified-since': options['if-modified-since'] || options['If-Modified-Since'] || undefined,
       },
       'elements': {
       },
@@ -1796,12 +1796,12 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'Content-Type': options['Content-Type'] || undefined,
-        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
-        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
-        'X-QS-Storage-Class': options['X-QS-Storage-Class'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'content-type': options['content-type'] || options['Content-Type'] || undefined,
+        'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
+        'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'x-qs-storage-class': options['x-qs-storage-class'] || options['X-QS-Storage-Class'] || undefined,
       },
       'elements': {
       },
@@ -1875,7 +1875,7 @@ class Bucket {
         'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
+        'host': this.properties.zone + '.' + this.config.host,
       },
       'elements': {
       },
@@ -1937,10 +1937,10 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'Access-Control-Request-Headers': options['Access-Control-Request-Headers'] || undefined,
-        'Access-Control-Request-Method': options['Access-Control-Request-Method'] || undefined,
-        'Origin': options['Origin'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'access-control-request-headers': options['access-control-request-headers'] || options['Access-Control-Request-Headers'] || undefined,
+        'access-control-request-method': options['access-control-request-method'] || options['Access-Control-Request-Method'] || undefined,
+        'origin': options['origin'] || options['Origin'] || undefined,
       },
       'elements': {
       },
@@ -2023,28 +2023,28 @@ class Bucket {
       'params': {
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'Cache-Control': options['Cache-Control'] || undefined,
-        'Content-Encoding': options['Content-Encoding'] || undefined,
-        'Content-Length': options['Content-Length'] || undefined,
-        'Content-MD5': options['Content-MD5'] || undefined,
-        'Content-Type': options['Content-Type'] || undefined,
-        'Expect': options['Expect'] || undefined,
-        'X-QS-Copy-Source': options['X-QS-Copy-Source'] || undefined,
-        'X-QS-Copy-Source-Encryption-Customer-Algorithm': options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Copy-Source-Encryption-Customer-Key': options['X-QS-Copy-Source-Encryption-Customer-Key'] || undefined,
-        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': options['X-QS-Copy-Source-Encryption-Customer-Key-MD5'] || undefined,
-        'X-QS-Copy-Source-If-Match': options['X-QS-Copy-Source-If-Match'] || undefined,
-        'X-QS-Copy-Source-If-Modified-Since': options['X-QS-Copy-Source-If-Modified-Since'] || undefined,
-        'X-QS-Copy-Source-If-None-Match': options['X-QS-Copy-Source-If-None-Match'] || undefined,
-        'X-QS-Copy-Source-If-Unmodified-Since': options['X-QS-Copy-Source-If-Unmodified-Since'] || undefined,
-        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
-        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
-        'X-QS-Fetch-If-Unmodified-Since': options['X-QS-Fetch-If-Unmodified-Since'] || undefined,
-        'X-QS-Fetch-Source': options['X-QS-Fetch-Source'] || undefined,
-        'X-QS-Move-Source': options['X-QS-Move-Source'] || undefined,
-        'X-QS-Storage-Class': options['X-QS-Storage-Class'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'cache-control': options['cache-control'] || options['Cache-Control'] || undefined,
+        'content-encoding': options['content-encoding'] || options['Content-Encoding'] || undefined,
+        'content-length': options['content-length'] || options['Content-Length'] || undefined,
+        'content-md5': options['content-md5'] || options['Content-MD5'] || undefined,
+        'content-type': options['content-type'] || options['Content-Type'] || undefined,
+        'expect': options['expect'] || options['Expect'] || undefined,
+        'x-qs-copy-source': options['x-qs-copy-source'] || options['X-QS-Copy-Source'] || undefined,
+        'x-qs-copy-source-encryption-customer-algorithm': options['x-qs-copy-source-encryption-customer-algorithm'] || options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-copy-source-encryption-customer-key': options['x-qs-copy-source-encryption-customer-key'] || options['X-QS-Copy-Source-Encryption-Customer-Key'] || undefined,
+        'x-qs-copy-source-encryption-customer-key-md5': options['x-qs-copy-source-encryption-customer-key-md5'] || options['X-QS-Copy-Source-Encryption-Customer-Key-MD5'] || undefined,
+        'x-qs-copy-source-if-match': options['x-qs-copy-source-if-match'] || options['X-QS-Copy-Source-If-Match'] || undefined,
+        'x-qs-copy-source-if-modified-since': options['x-qs-copy-source-if-modified-since'] || options['X-QS-Copy-Source-If-Modified-Since'] || undefined,
+        'x-qs-copy-source-if-none-match': options['x-qs-copy-source-if-none-match'] || options['X-QS-Copy-Source-If-None-Match'] || undefined,
+        'x-qs-copy-source-if-unmodified-since': options['x-qs-copy-source-if-unmodified-since'] || options['X-QS-Copy-Source-If-Unmodified-Since'] || undefined,
+        'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
+        'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'x-qs-fetch-if-unmodified-since': options['x-qs-fetch-if-unmodified-since'] || options['X-QS-Fetch-If-Unmodified-Since'] || undefined,
+        'x-qs-fetch-source': options['x-qs-fetch-source'] || options['X-QS-Fetch-Source'] || undefined,
+        'x-qs-move-source': options['x-qs-move-source'] || options['X-QS-Move-Source'] || undefined,
+        'x-qs-storage-class': options['x-qs-storage-class'] || options['X-QS-Storage-Class'] || undefined,
       },
       'elements': {
       },
@@ -2146,21 +2146,21 @@ class Bucket {
         'upload_id': options['upload_id'] || undefined,
       },
       'headers': {
-        'Host': this.properties.zone + '.' + this.config.host,
-        'Content-Length': options['Content-Length'] || undefined,
-        'Content-MD5': options['Content-MD5'] || undefined,
-        'X-QS-Copy-Range': options['X-QS-Copy-Range'] || undefined,
-        'X-QS-Copy-Source': options['X-QS-Copy-Source'] || undefined,
-        'X-QS-Copy-Source-Encryption-Customer-Algorithm': options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Copy-Source-Encryption-Customer-Key': options['X-QS-Copy-Source-Encryption-Customer-Key'] || undefined,
-        'X-QS-Copy-Source-Encryption-Customer-Key-MD5': options['X-QS-Copy-Source-Encryption-Customer-Key-MD5'] || undefined,
-        'X-QS-Copy-Source-If-Match': options['X-QS-Copy-Source-If-Match'] || undefined,
-        'X-QS-Copy-Source-If-Modified-Since': options['X-QS-Copy-Source-If-Modified-Since'] || undefined,
-        'X-QS-Copy-Source-If-None-Match': options['X-QS-Copy-Source-If-None-Match'] || undefined,
-        'X-QS-Copy-Source-If-Unmodified-Since': options['X-QS-Copy-Source-If-Unmodified-Since'] || undefined,
-        'X-QS-Encryption-Customer-Algorithm': options['X-QS-Encryption-Customer-Algorithm'] || undefined,
-        'X-QS-Encryption-Customer-Key': options['X-QS-Encryption-Customer-Key'] || undefined,
-        'X-QS-Encryption-Customer-Key-MD5': options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'host': this.properties.zone + '.' + this.config.host,
+        'content-length': options['content-length'] || options['Content-Length'] || undefined,
+        'content-md5': options['content-md5'] || options['Content-MD5'] || undefined,
+        'x-qs-copy-range': options['x-qs-copy-range'] || options['X-QS-Copy-Range'] || undefined,
+        'x-qs-copy-source': options['x-qs-copy-source'] || options['X-QS-Copy-Source'] || undefined,
+        'x-qs-copy-source-encryption-customer-algorithm': options['x-qs-copy-source-encryption-customer-algorithm'] || options['X-QS-Copy-Source-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-copy-source-encryption-customer-key': options['x-qs-copy-source-encryption-customer-key'] || options['X-QS-Copy-Source-Encryption-Customer-Key'] || undefined,
+        'x-qs-copy-source-encryption-customer-key-md5': options['x-qs-copy-source-encryption-customer-key-md5'] || options['X-QS-Copy-Source-Encryption-Customer-Key-MD5'] || undefined,
+        'x-qs-copy-source-if-match': options['x-qs-copy-source-if-match'] || options['X-QS-Copy-Source-If-Match'] || undefined,
+        'x-qs-copy-source-if-modified-since': options['x-qs-copy-source-if-modified-since'] || options['X-QS-Copy-Source-If-Modified-Since'] || undefined,
+        'x-qs-copy-source-if-none-match': options['x-qs-copy-source-if-none-match'] || options['X-QS-Copy-Source-If-None-Match'] || undefined,
+        'x-qs-copy-source-if-unmodified-since': options['x-qs-copy-source-if-unmodified-since'] || options['X-QS-Copy-Source-If-Unmodified-Since'] || undefined,
+        'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
+        'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
+        'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
       },
       'elements': {
       },
