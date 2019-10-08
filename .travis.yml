@@ -2,11 +2,11 @@ language: node_js
 node_js:
   - "node"
   - "lts/*"
+  - "10"
   - "8"
-  - "6"
 
 install: yarn install
 script:
-  - yarn global add esformatter
+  - yarn add --dev esformatter
   - yarn run build
   - yarn test
