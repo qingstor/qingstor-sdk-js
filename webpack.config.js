@@ -45,7 +45,7 @@ const browserConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'browser/qingstor-sdk.js',
-    libraryTarget: "var",
+    libraryTarget: "umd",
     library: "qingstor_sdk"
   },
   plugins: [
