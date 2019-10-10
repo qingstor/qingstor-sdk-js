@@ -19,36 +19,37 @@
 import fs from 'fs';
 import { stringify } from 'querystring';
 
-export default {
-  // To be more stringent in adhering to RFC 3986 (which reserves !, ', (, ), and *),
-  // even though these characters have no formalized URI delimiting uses
-  fixedEncodeURIComponent: (str) => {
-    return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
-      return '%' + c.charCodeAt(0).toString(16);
-    });
-  },
-  buildUri: (endpoint, path, params) => {
-    let parsedUri = endpoint + path;
-    if (Object.keys(params).length !== 0) {
-      let separator = path.includes('?') ? '&' : '?';
-      parsedUri += separator + stringify(params);
-    }
-    return parsedUri;
-  },
-  isFunction: (fn) => {
-    return (typeof fn !== 'undefined' ? Object.prototype.toString.call(fn) : 0) === '[object Function]';
-  },
-  getStreamSize: (stream) => {
-    // If stream has property "fd", it could be a file read stream.
-    if (stream.hasOwnProperty("fd")) {
-      if (stream.end !== void 0 && stream.end !== Infinity && stream.start !== void 0) {
-        return stream.end + 1 - (stream.start || 0)
-      }
-      // If stream's start and end not set, we can try to get file size by fs.stat.
-      let stats = fs.statSync(stream.path);
-      return stats.size - (stream.start || 0)
-    }
+// To be more stringent in adhering to RFC 3986 (which reserves !, ', (, ), and *),
+// even though these characters have no formalized URI delimiting uses
+export const fixedEncodeURIComponent = (str) => {
+  return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+    return '%' + c.charCodeAt(0).toString(16);
+  });
+}
 
-    return undefined
+export const buildUri = (endpoint, path, params) => {
+  let parsedUri = endpoint + path;
+  if (Object.keys(params).length !== 0) {
+    let separator = path.includes('?') ? '&' : '?';
+    parsedUri += separator + stringify(params);
   }
+  return parsedUri;
+}
+
+export const isFunction = (fn) => {
+  return (typeof fn !== 'undefined' ? Object.prototype.toString.call(fn) : 0) === '[object Function]';
+}
+
+export const getStreamSize = (stream) => {
+  // If stream has property "fd", it could be a file read stream.
+  if (stream.hasOwnProperty("fd")) {
+    if (stream.end !== void 0 && stream.end !== Infinity && stream.start !== void 0) {
+      return stream.end + 1 - (stream.start || 0)
+    }
+    // If stream's start and end not set, we can try to get file size by fs.stat.
+    let stats = fs.statSync(stream.path);
+    return stats.size - (stream.start || 0)
+  }
+
+  return undefined
 }

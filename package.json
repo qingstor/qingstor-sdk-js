@@ -19,7 +19,6 @@
     "email": "sdk_group@yunify.com"
   },
   "scripts": {
-    "build": "rm -rf build; ./node_modules/@babel/cli/bin/babel.js src -d lib; npm run format;",
     "cucumber": "cd scenarios; npm install; ./node_modules/cucumber/bin/cucumber.js  features/*.feature --require tests --compiler es6:@babel/register;",
     "dist": "gulp tar zip",
     "generate": "snips -f='./specs/qingstor/2016-01-06/swagger/api_v2.0.json' -t='./template' -o='./src/qingstor'; rm ./src/qingstor/object.js; npm run format;",

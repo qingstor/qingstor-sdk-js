@@ -15,7 +15,7 @@
 // +-------------------------------------------------------------------------
 
 "use strict";
-require('./lib/version');
+require('./src/version');
 
 const gulp = require('gulp');
 const webpack = require('webpack');
