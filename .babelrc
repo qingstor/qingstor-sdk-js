@@ -7,8 +7,7 @@
           "browsers": "> 5%",
           "node": "6"
         },
-        "loose": true,
-        "useBuiltIns": "entry"
+        "modules": "umd"
       }
     ]
   ],
