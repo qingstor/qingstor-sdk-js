@@ -17,96 +17,81 @@
 "use strict";
 require('./src/version');
 
+const path = require('path');
+const util = require('util');
+
 const gulp = require('gulp');
-const webpack = require('webpack');
-const webpack_stream = require('webpack-stream');
-const merge = require('merge-stream');
-const buffer = require('vinyl-buffer');
+const terser = require('gulp-terser');
 const rename = require('gulp-rename');
-const sourcemaps = require('gulp-sourcemaps');
-const tar = require('gulp-tar');
-const gzip = require('gulp-gzip');
-const uglifyes = require('uglify-es');
-const composer = require('gulp-uglify/composer');
-const minify = composer(uglifyes, console);
-const zip = require('gulp-zip');
-const pump = require('pump');
-const del = require('del');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
 
-const targets = ['node', 'browser'];
-const target_name = {
-  'node': 'nodejs',
-  'browser': 'javascript',
-};
+const exec = util.promisify(require('child_process').exec);
 
-gulp.task('clean', function() {
-  del(['dist/*']);
-});
+function clean(cb) {
+  exec('rm -rf dist', () => {
+    cb();
+  });
+}
 
-gulp.task('bundle', ['clean'], function() {
-  return pump([
-    webpack_stream({
-      config: require('./webpack.config.js')
-    }, webpack),
-    gulp.dest('./dist')
-  ]);
-});
+function bundle(cb) {
+  webpack(webpackConfig, function(err, stats) {
+    if (err) {
+      throw err;
+    }
 
-const _min = (d) => {
-  return pump([
-    gulp.src(`dist/${d}/qingstor-sdk.js`),
-    buffer(),
-    minify({
-      ecma: 6,
-    }),
-    rename({
-      extname: '.min.js'
-    }),
-    gulp.dest(`dist/${d}`)
-  ]);
-};
+    process.stdout.write(stats.toString({
+      colors: true,
+      modules: false,
+      children: false,
+      chunks: false,
+      chunkModules: false
+    }) + '\n\n');
 
-gulp.task('bundle-min', ['bundle'], function() {
-  return merge(targets.map(_min));
-});
+    cb();
+  });
+}
 
-const _map = (d) => {
-  return pump([
-    gulp.src(`dist/${d}/qingstor-sdk.js`),
-    buffer(),
-    sourcemaps.init({
-      loadMaps: true
-    }),
-    sourcemaps.write('./'),
-    gulp.dest(`dist/${d}`)
-  ]);
-};
+function minify() {
+  return gulp.src('./dist/**/*.js')
+    .pipe(terser())
+    .pipe(rename({ extname: '.min.js' }))
+    .pipe(gulp.dest('./dist/'));
+}
 
-gulp.task('bundle-map', ['bundle'], function() {
-  return merge(targets.map(_map));
-});
+function compress(cb) {
+  exec('ls ./dist/**/*.js').then(({stdout, stderr}) => {
+    if (stderr) {
+      return Promise.reject(stderr);
+    }
 
-const _zip = (d) => {
-  return pump([
-    gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
-    zip(`qingstor-sdk-${target_name[d]}-${global.version}.zip`),
-    gulp.dest(`dist/${d}`)
-  ]);
-};
+    return stdout.split('\n').filter((filePath) => !!filePath).reduce((assets, filePath) => {
+      const { dir, base, name, ext} = path.parse(filePath);
+      if (!assets[dir]) {
+        assets[dir] = [base];
+      } else {
+        assets[dir].push(base);
+      }
 
-gulp.task('zip', ['bundle-min', 'bundle-map'], () => {
-  return merge(targets.map(_zip));
-});
+      return assets;
+    }, {});
+  }).then((assets) => {
+    return Promise.all(Object.keys(assets).map((dir) => {
+      const zipFileName = dir.endsWith('node') ?
+        `qingstor-sdk-nodejs-${global.version}` : `qingstor-sdk-javascript-${global.version}`;
 
-const _tar = (d) => {
-  return pump([
-    gulp.src([`dist/${d}/*.js`, `dist/${d}/*.map`]),
-    tar(`qingstor-sdk-${target_name[d]}-${global.version}.tar`),
-    gzip(),
-    gulp.dest(`dist/${d}`)
-  ]);
-};
+        return exec([
+          `cd ${dir}`,
+          `zip ${zipFileName}.zip ${assets[dir].join(' ')}`,
+          `tar -czvf ${zipFileName}.tar.gz ${assets[dir].join(' ')}`,
+        ].join(' && '));
+    }));
+  }).then(() => cb())
+  .catch((err) => {
+    console.log(err);
+  });
+}
 
-gulp.task('tar', ['bundle-min', 'bundle-map'], () => {
-  return merge(targets.map(_tar));
-});
+exports.bundle = gulp.series(clean, bundle);
+exports.minify = gulp.series(clean, bundle, minify);
+exports.compress = gulp.series(clean, bundle, minify, compress);
