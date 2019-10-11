@@ -14,10 +14,16 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
+import QingStor from './src/qingstor/qingstor';
+import Config from './src/config';
+import Request from './src/request';
+import Signer from './src/sign';
+import Client from './src/client/all';
+
 module.exports = {
-  'QingStor': require('./lib/qingstor/qingstor'),
-  'Config': require('./lib/config'),
-  'Request': require('./lib/request'),
-  'Signer': require('./lib/sign'),
-  'Client': require('./lib/client/all')
+  QingStor,
+  Config,
+  Request,
+  Signer,
+  Client,
 };

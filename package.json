@@ -19,9 +19,8 @@
     "email": "sdk_group@yunify.com"
   },
   "scripts": {
-    "build": "rm -rf build; ./node_modules/@babel/cli/bin/babel.js src -d lib; npm run format;",
     "cucumber": "cd scenarios; npm install; ./node_modules/cucumber/bin/cucumber.js  features/*.feature --require tests --compiler es6:@babel/register;",
-    "dist": "gulp tar zip",
+    "dist": "gulp compress",
     "generate": "snips -f='./specs/qingstor/2016-01-06/swagger/api_v2.0.json' -t='./template' -o='./src/qingstor'; rm ./src/qingstor/object.js; npm run format;",
     "test": "mocha --require @babel/register -t 10000",
     "format": "./node_modules/.bin/esformatter -i 'src/**/*.js' 'lib/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js' '*.js';"
@@ -48,26 +47,15 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babelify": "^8.0.0",
     "chai": "^3.5.0",
-    "del": "^2.2.2",
     "esformatter": "^0.10.0",
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.7.1",
-    "gulp": "^3.9.1",
-    "gulp-gzip": "^1.4.2",
-    "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-tar": "^2.1.0",
-    "gulp-uglify": "^3.0.0",
-    "gulp-zip": "^4.1.0",
-    "merge-stream": "^1.0.1",
+    "gulp": "^4.0.2",
+    "gulp-exec": "^4.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-terser": "^1.2.0",
     "mocha": "^4.1.0",
-    "pump": "^1.0.3",
-    "uglify-es": "^3.3.10",
-    "uglifyjs-webpack-plugin": "^1.2.5",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^1.1.2",
-    "webpack": "^3.11.0",
-    "webpack-stream": "^4.0.3"
+    "webpack": "^3.11.0"
   },
   "dependencies": {
     "crypto-js": "^3.1.8",

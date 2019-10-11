@@ -22,18 +22,7 @@ const nodeConfig = {
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: [['@babel/preset-env', {
-              "targets": {
-                "node": "6"
-              },
-              "useBuiltIns": "entry"
-            }]],
-            plugins: [
-              "add-module-exports"
-            ]
-          }
-        }
+        },
       },
     ]
   }
@@ -64,21 +53,6 @@ const browserConfig = {
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', {
-                "targets": {
-                  "browsers": "> 1%"
-                },
-                "loose": true,
-                "modules": false,
-                "useBuiltIns": "entry"
-              }]
-            ],
-            "plugins": [
-              "add-module-exports"
-            ]
-          }
         }
       },
     ]
