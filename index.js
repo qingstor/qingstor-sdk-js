@@ -15,7 +15,7 @@
 // +-------------------------------------------------------------------------
 
 import QingStor from './src/qingstor/qingstor';
-import Config from './src/config';
+import Config from 'config';
 import Request from './src/request';
 import Signer from './src/sign';
 import Client from './src/client/all';

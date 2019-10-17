@@ -16,7 +16,7 @@
 
 import process from 'process';
 import Builder from '../src/build';
-import Config from '../src/config';
+import Config from '../src/config/node';
 
 let pjson = require('../package.json');
 let should = require('chai').should();
