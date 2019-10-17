@@ -21,12 +21,6 @@ const nodeConfig = {
     }
   },
 
-  plugins: [
-    new webpack.ProvidePlugin({
-      'fetch': './fetch/fetch-node'
-    }),
-  ],
-
   module: {
     rules: [
       {
@@ -58,9 +52,6 @@ const browserConfig = {
   },
 
   plugins: [
-    new webpack.ProvidePlugin({
-      'fetch': './fetch/fetch-browser',
-    }),
     new BundleAnalyzerPlugin({
       // Can be `server`, `static` or `disabled`.
       // In `server` mode analyzer will start HTTP server to show bundle report.

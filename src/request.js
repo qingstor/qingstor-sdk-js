@@ -15,6 +15,7 @@
 // +-------------------------------------------------------------------------
 
 import logger from 'loglevel';
+import axios from 'axios';
 
 import Signer from './sign';
 import Builder from './build';
@@ -71,50 +72,13 @@ class Request {
     return this;
   }
 
-  async send(callback) {
-    try {
-      let res = await fetch(this.operation.uri, {
-        method: this.operation.method,
-        headers: this.operation.headers,
-        body: this.operation.body
-      });
-      if (isFunction(callback)) {
-        callback(null, await this.unpack(res));
-      } else {
-        return await this.unpack(res)
-      }
-    } catch (e) {
-      logger.error("SDK request failed for: ", e);
-      if (isFunction(callback)) {
-        callback(e, null)
-      } else {
-        return e
-      }
-    }
-  }
-
-  async unpack(res) {
-    let unpack_res = res;
-    unpack_res.statusCode = res.status;
-
-    // Unpack Response Headers
-    for (let key in res.headers._headers) {
-      if (res.headers._headers.hasOwnProperty(key)) {
-        unpack_res[key] = res.headers.get(key);
-      }
-    }
-
-    // Unpack Response Body
-    if (res.headers.get('content-type') === 'application/json') {
-      let data = await unpack_res.json();
-      for (let i in data) {
-        if (data.hasOwnProperty(i) && i !== "url") {
-          unpack_res[i] = data[i];
-        }
-      }
-    }
-
-    return unpack_res;
+  send() {
+    return axios({
+      url: this.operation.uri,
+      method: this.operation.method,
+      headers: this.operation.headers,
+      data: this.operation.body
+    });
   }
 }
 
