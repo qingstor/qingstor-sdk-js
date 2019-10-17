@@ -17,7 +17,8 @@
 import './version';
 import util from 'util';
 import logger from 'loglevel';
-import { createHash } from 'crypto';
+import md5 from 'crypto-js/md5';
+import Base64 from 'crypto-js/enc-base64';
 
 import { fixedEncodeURIComponent, buildUri, getStreamSize } from './utils';
 
@@ -85,9 +86,7 @@ class Builder {
 
     // Add helper for DeleteMultipleObjects
     if (operation.api === 'DeleteMultipleObjects') {
-      let h = createHash('md5');
-      h.update(this.parseRequestBody(operation));
-      parsedHeaders['content-md5'] = Buffer.from(h.digest()).toString('base64')
+      parsedHeaders['content-md5'] = Base64.stringify(md5(this.parseRequestBody(operation)))
     }
     return parsedHeaders;
   }

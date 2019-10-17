@@ -20,10 +20,10 @@ import Request from './src/request';
 import Signer from './src/sign';
 import Client from './src/client/all';
 
-module.exports = {
+export default {
   QingStor,
   Config,
   Request,
   Signer,
   Client,
-};
+}

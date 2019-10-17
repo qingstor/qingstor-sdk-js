@@ -15,7 +15,8 @@
 // +-------------------------------------------------------------------------
 
 import logger from 'loglevel';
-import { createHmac } from 'crypto';
+import hmacSHA256 from 'crypto-js/hmac-sha256';
+import Base64 from 'crypto-js/enc-base64';
 import { buildUri } from './utils';
 
 class Signer {
@@ -151,10 +152,8 @@ ${stringToSign}`);
   }
 
   calculateSignature(stringToSign) {
-    let h = createHmac('sha256', this.secret_access_key);
-    h.update(stringToSign);
+    const signature = Base64.stringify(hmacSHA256(stringToSign, this.secret_access_key));
 
-    let signature = Buffer.from(h.digest()).toString('base64');
     logger.debug('QingStor query request authorization: ' + signature);
     return signature;
   }

@@ -44,12 +44,11 @@ const browserConfig = {
   mode: 'development',
   devtool: false,
   entry: './index.js',
-  target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'browser/qingstor-sdk.js',
     libraryTarget: "umd",
-    library: "qingstor_sdk"
+    library: "qingstor_sdk",
   },
 
   resolve: {
