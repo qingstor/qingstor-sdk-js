@@ -20,7 +20,12 @@ import logger from 'loglevel';
 import md5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 
-import { fixedEncodeURIComponent, buildUri, getStreamSize } from './utils';
+import {
+  fixedEncodeURIComponent,
+  buildUri,
+  getStreamSize,
+  filterUnsafeHeaders
+} from './utils';
 
 class Builder {
   constructor(config, operation) {
@@ -61,7 +66,9 @@ class Builder {
     parsedHeaders['x-qs-date'] = operation.headers['x-qs-date'] || new Date().toUTCString();
 
     // Add Content-Type header
-    parsedHeaders['content-type'] = operation.headers['content-type'] || 'application/octet-stream';
+    if (operation.headers['content-type']) {
+      parsedHeaders['content-type'] = operation.headers['content-type']
+    }
 
 
     // Add content-length header
@@ -88,7 +95,8 @@ class Builder {
     if (operation.api === 'DeleteMultipleObjects') {
       parsedHeaders['content-md5'] = Base64.stringify(md5(this.parseRequestBody(operation)))
     }
-    return parsedHeaders;
+
+    return filterUnsafeHeaders(parsedHeaders);
   }
 
   parseRequestBody(operation) {

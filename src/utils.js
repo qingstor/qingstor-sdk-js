@@ -53,3 +53,18 @@ export const getStreamSize = (stream) => {
 
   return undefined
 }
+
+const UNSAFA_HEADERS = ['host', 'content-length', 'user-agent'];
+export function filterUnsafeHeaders(headers) {
+  if (typeof window === 'undefined') {
+    return headers;
+  }
+
+  return Object.keys(headers).reduce((safeHeaders, key) => {
+    if (UNSAFA_HEADERS.indexOf(key) === -1) {
+      safeHeaders[key] = headers[key];
+    }
+
+    return safeHeaders;
+  }, {});
+}
