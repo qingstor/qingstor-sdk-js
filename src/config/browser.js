@@ -16,6 +16,15 @@
 
 import logger from 'loglevel';
 
+const DEFAULT_CONFIG = {
+  host: 'qingstor.com',
+  port: 443,
+  protocol: 'https',
+  connection_retries: 3,
+  // Valid levels are "debug", "info", "warn", "error", and "fatal"
+  log_level: 'warn',
+};
+
 class Config {
   constructor(access_key_id, secret_access_key) {
     this.loadDefaultConfig();
@@ -55,20 +64,14 @@ class Config {
   }
 
   loadDefaultConfig() {
-    return;
+    this.loadConfig(DEFAULT_CONFIG);
   }
 
-  loadUserConfig() {
-    return;
-  }
+  loadUserConfig() {}
 
-  loadConfigFromFilepath() {
-    return;
-  }
+  loadConfigFromFilepath() {}
 
-  mkdirParentSync() {
-    return;
-  }
+  mkdirParentSync() {}
 }
 
 export default Config;
