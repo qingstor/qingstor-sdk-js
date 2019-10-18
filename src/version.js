@@ -14,4 +14,4 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-global.version = '2.3.0';
+global.version = '3.0.0-beta.0';
