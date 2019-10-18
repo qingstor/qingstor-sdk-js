@@ -67,7 +67,12 @@ class Builder {
 
     // Add Content-Type header
     if (operation.headers['content-type']) {
-      parsedHeaders['content-type'] = operation.headers['content-type']
+      parsedHeaders['content-type'] = operation.headers['content-type'];
+    } else if (operation.body && operation.body.type) {
+      // get content-type from body
+      parsedHeaders['content-type'] = operation.body.type;
+    } else if (Object.keys(operation.elements).length) {
+      parsedHeaders['content-type'] = 'application/json';
     }
 
 
