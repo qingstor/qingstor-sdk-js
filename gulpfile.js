@@ -62,36 +62,45 @@ function minify() {
 }
 
 function compress(cb) {
-  exec('ls ./dist/**/*.js').then(({stdout, stderr}) => {
-    if (stderr) {
-      return Promise.reject(stderr);
-    }
+  // exec('ls ./dist/**/*.js').then(({stdout, stderr}) => {
+  //   if (stderr) {
+  //     return Promise.reject(stderr);
+  //   }
 
-    return stdout.split('\n').filter((filePath) => !!filePath).reduce((assets, filePath) => {
-      const {dir, base, name, ext} = path.parse(filePath);
-      if (!assets[dir]) {
-        assets[dir] = [base];
-      } else {
-        assets[dir].push(base);
-      }
+  //   return stdout.split('\n').filter((filePath) => !!filePath).reduce((assets, filePath) => {
+  //     const {dir, base, name, ext} = path.parse(filePath);
+  //     if (!assets[dir]) {
+  //       assets[dir] = [base];
+  //     } else {
+  //       assets[dir].push(base);
+  //     }
 
-      return assets;
-    }, {});
-  }).then((assets) => {
-    return Promise.all(Object.keys(assets).map((dir) => {
-      const zipFileName = dir.endsWith('node') ?
-        `qingstor-sdk-nodejs-${global.version}` : `qingstor-sdk-javascript-${global.version}`;
+  //     return assets;
+  //   }, {});
+  // }).then((assets) => {
+  //   return Promise.all(Object.keys(assets).map((dir) => {
+  //     const zipFileName = dir.endsWith('node') ?
+  //       `qingstor-sdk-nodejs-${global.version}` : `qingstor-sdk-javascript-${global.version}`;
 
-      return exec([
-        `cd ${dir}`,
-        `zip ${zipFileName}.zip ${assets[dir].join(' ')}`,
-        `tar -czvf ${zipFileName}.tar.gz ${assets[dir].join(' ')}`,
-      ].join(' && '));
-    }));
-  }).then(() => cb())
-    .catch((err) => {
-      console.log(err);
-    });
+  //     return exec([
+  //       `cd ${dir}`,
+  //       `zip ${zipFileName}.zip ${assets[dir].join(' ')}`,
+  //       `tar -czvf ${zipFileName}.tar.gz ${assets[dir].join(' ')}`,
+  //     ].join(' && '));
+  //   }));
+  // }).then(() => cb())
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  exec([
+    `cd ./dist`,
+    `zip qingstor-sdk-${global.version}.zip *.js`,
+    `tar -czvf qingstor-sdk-${global.version}.tar.gz *.js`,
+  ].join(' && ')).then(() => {
+    cb();
+  }).catch((err) => {
+    console.log(err);
+  });
 }
 
 exports.bundle = gulp.series(clean, bundle);

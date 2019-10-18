@@ -10,7 +10,7 @@ const nodeConfig = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'node/qingstor-sdk.js',
+    filename: 'qingstor-sdk-node.js',
     libraryTarget: "umd",
     library: "qingstor_sdk"
   },
@@ -40,7 +40,7 @@ const browserConfig = {
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'browser/qingstor-sdk.js',
+    filename: 'qingstor-sdk-browser.js',
     libraryTarget: "umd",
     library: "qingstor_sdk",
   },
