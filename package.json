@@ -17,7 +17,7 @@
   },
   "license": "Apache-2.0",
   "author": "Yunify SDK Group <sdk_group@yunify.com>",
-  "main": "./dist/node/qingstor-sdk.min.js",
+  "main": "index.js",
   "directories": {
     "doc": "docs",
     "test": "test"
