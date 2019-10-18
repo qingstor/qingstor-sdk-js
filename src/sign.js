@@ -133,7 +133,8 @@ class Signer {
     this.getCanonicalizedHeaders() +
     this.getCanonicalizedResource();
 
-    logger.debug(`QingStor request string to sign: \n${stringToSign}`);
+    logger.debug(`QingStor request string to sign: 
+${stringToSign}`);
     return stringToSign;
   }
 

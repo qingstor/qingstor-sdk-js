@@ -60,16 +60,12 @@ class QingStor {
    * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.Location - Limits results to buckets that in the location
-   * @param callback Callback function
    *
    * @return none
    */
-  listBuckets(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.listBucketsRequest(options).sign().send(callback);
+  listBuckets(options) {
+    options = options || {};
+    return this.listBucketsRequest(options).sign().send();
   }
 
 

@@ -20,12 +20,7 @@ import logger from 'loglevel';
 import md5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 
-import {
-  fixedEncodeURIComponent,
-  buildUri,
-  getStreamSize,
-  filterUnsafeHeaders
-} from './utils';
+import { fixedEncodeURIComponent, buildUri, getStreamSize, filterUnsafeHeaders } from './utils';
 
 class Builder {
   constructor(config, operation) {

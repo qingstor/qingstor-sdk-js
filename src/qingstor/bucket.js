@@ -61,12 +61,11 @@ class Bucket {
   /**
    * delete: Delete a bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/delete.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  delete(callback) {
-    return this.deleteRequest().sign().send(callback);
+  delete() {
+    return this.deleteRequest().sign().send();
   }
 
 
@@ -104,12 +103,11 @@ class Bucket {
   /**
    * deleteCORS: Delete CORS information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  deleteCORS(callback) {
-    return this.deleteCORSRequest().sign().send(callback);
+  deleteCORS() {
+    return this.deleteCORSRequest().sign().send();
   }
 
 
@@ -147,12 +145,11 @@ class Bucket {
   /**
    * deleteExternalMirror: Delete external mirror of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  deleteExternalMirror(callback) {
-    return this.deleteExternalMirrorRequest().sign().send(callback);
+  deleteExternalMirror() {
+    return this.deleteExternalMirrorRequest().sign().send();
   }
 
 
@@ -190,12 +187,11 @@ class Bucket {
   /**
    * deleteLifecycle: Delete Lifecycle information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  deleteLifecycle(callback) {
-    return this.deleteLifecycleRequest().sign().send(callback);
+  deleteLifecycle() {
+    return this.deleteLifecycleRequest().sign().send();
   }
 
 
@@ -233,12 +229,11 @@ class Bucket {
   /**
    * deleteNotification: Delete Notification information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  deleteNotification(callback) {
-    return this.deleteNotificationRequest().sign().send(callback);
+  deleteNotification() {
+    return this.deleteNotificationRequest().sign().send();
   }
 
 
@@ -276,12 +271,11 @@ class Bucket {
   /**
    * deletePolicy: Delete policy information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  deletePolicy(callback) {
-    return this.deletePolicyRequest().sign().send(callback);
+  deletePolicy() {
+    return this.deletePolicyRequest().sign().send();
   }
 
 
@@ -330,16 +324,12 @@ class Bucket {
    * @param options.Content-MD5 - Object MD5sum
    * @param options.objects - A list of keys to delete
    * @param options.quiet - Whether to return the list of deleted objects
-   * @param callback Callback function
    *
    * @return none
    */
-  deleteMultipleObjects(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.deleteMultipleObjectsRequest(options).sign().send(callback);
+  deleteMultipleObjects(options) {
+    options = options || {};
+    return this.deleteMultipleObjectsRequest(options).sign().send();
   }
 
 
@@ -382,12 +372,11 @@ class Bucket {
   /**
    * getACL: Get ACL information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getACL(callback) {
-    return this.getACLRequest().sign().send(callback);
+  getACL() {
+    return this.getACLRequest().sign().send();
   }
 
 
@@ -425,12 +414,11 @@ class Bucket {
   /**
    * getCORS: Get CORS information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getCORS(callback) {
-    return this.getCORSRequest().sign().send(callback);
+  getCORS() {
+    return this.getCORSRequest().sign().send();
   }
 
 
@@ -468,12 +456,11 @@ class Bucket {
   /**
    * getExternalMirror: Get external mirror of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getExternalMirror(callback) {
-    return this.getExternalMirrorRequest().sign().send(callback);
+  getExternalMirror() {
+    return this.getExternalMirrorRequest().sign().send();
   }
 
 
@@ -511,12 +498,11 @@ class Bucket {
   /**
    * getLifecycle: Get Lifecycle information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getLifecycle(callback) {
-    return this.getLifecycleRequest().sign().send(callback);
+  getLifecycle() {
+    return this.getLifecycleRequest().sign().send();
   }
 
 
@@ -554,12 +540,11 @@ class Bucket {
   /**
    * getNotification: Get Notification information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getNotification(callback) {
-    return this.getNotificationRequest().sign().send(callback);
+  getNotification() {
+    return this.getNotificationRequest().sign().send();
   }
 
 
@@ -597,12 +582,11 @@ class Bucket {
   /**
    * getPolicy: Get policy information of the bucket.
    * @link https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getPolicy(callback) {
-    return this.getPolicyRequest().sign().send(callback);
+  getPolicy() {
+    return this.getPolicyRequest().sign().send();
   }
 
 
@@ -640,12 +624,11 @@ class Bucket {
   /**
    * getStatistics: Get statistics information of the bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  getStatistics(callback) {
-    return this.getStatisticsRequest().sign().send(callback);
+  getStatistics() {
+    return this.getStatisticsRequest().sign().send();
   }
 
 
@@ -683,12 +666,11 @@ class Bucket {
   /**
    * head: Check whether the bucket exists and available.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/head.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  head(callback) {
-    return this.headRequest().sign().send(callback);
+  head() {
+    return this.headRequest().sign().send();
   }
 
 
@@ -743,16 +725,12 @@ class Bucket {
    * @param options.limit - Results count limit
    * @param options.prefix - Limits results to keys that begin with the prefix
    * @param options.upload_id_marker - Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
-   * @param callback Callback function
    *
    * @return none
    */
-  listMultipartUploads(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.listMultipartUploadsRequest(options).sign().send(callback);
+  listMultipartUploads(options) {
+    options = options || {};
+    return this.listMultipartUploadsRequest(options).sign().send();
   }
 
 
@@ -804,16 +782,12 @@ class Bucket {
    * @param options.limit - Results count limit
    * @param options.marker - Limit results to keys that start at this marker
    * @param options.prefix - Limits results to keys that begin with the prefix
-   * @param callback Callback function
    *
    * @return none
    */
-  listObjects(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.listObjectsRequest(options).sign().send(callback);
+  listObjects(options) {
+    options = options || {};
+    return this.listObjectsRequest(options).sign().send();
   }
 
 
@@ -851,12 +825,11 @@ class Bucket {
   /**
    * put: Create a new bucket.
    * @link https://docs.qingcloud.com/qingstor/api/bucket/put.html Documentation URL
-   * @param callback Callback function
    *
    * @return none
    */
-  put(callback) {
-    return this.putRequest().sign().send(callback);
+  put() {
+    return this.putRequest().sign().send();
   }
 
 
@@ -899,16 +872,12 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.acl - Bucket ACL rules
-   * @param callback Callback function
    *
    * @return none
    */
-  putACL(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putACLRequest(options).sign().send(callback);
+  putACL(options) {
+    options = options || {};
+    return this.putACLRequest(options).sign().send();
   }
 
 
@@ -988,16 +957,12 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.cors_rules - Bucket CORS rules
-   * @param callback Callback function
    *
    * @return none
    */
-  putCORS(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putCORSRequest(options).sign().send(callback);
+  putCORS(options) {
+    options = options || {};
+    return this.putCORSRequest(options).sign().send();
   }
 
 
@@ -1052,16 +1017,12 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.source_site - Source site url
-   * @param callback Callback function
    *
    * @return none
    */
-  putExternalMirror(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putExternalMirrorRequest(options).sign().send(callback);
+  putExternalMirror(options) {
+    options = options || {};
+    return this.putExternalMirrorRequest(options).sign().send();
   }
 
 
@@ -1108,16 +1069,12 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.rule - Bucket Lifecycle rule
-   * @param callback Callback function
    *
    * @return none
    */
-  putLifecycle(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putLifecycleRequest(options).sign().send(callback);
+  putLifecycle(options) {
+    options = options || {};
+    return this.putLifecycleRequest(options).sign().send();
   }
 
 
@@ -1202,16 +1159,12 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.notifications - Bucket Notification
-   * @param callback Callback function
    *
    * @return none
    */
-  putNotification(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putNotificationRequest(options).sign().send(callback);
+  putNotification(options) {
+    options = options || {};
+    return this.putNotificationRequest(options).sign().send();
   }
 
 
@@ -1284,16 +1237,12 @@ class Bucket {
    * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html Documentation URL
    * @param {Object} options - User input options;
    * @param options.statement - Bucket policy statement
-   * @param callback Callback function
    *
    * @return none
    */
-  putPolicy(options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putPolicyRequest(options).sign().send(callback);
+  putPolicy(options) {
+    options = options || {};
+    return this.putPolicyRequest(options).sign().send();
   }
 
 
@@ -1379,16 +1328,12 @@ class Bucket {
    * @param {Object} options - User input options;
    * @param options.upload_id - Object multipart upload ID
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  abortMultipartUpload(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.abortMultipartUploadRequest(object_key, options).sign().send(callback);
+  abortMultipartUpload(object_key, options) {
+    options = options || {};
+    return this.abortMultipartUploadRequest(object_key, options).sign().send();
   }
 
 
@@ -1453,16 +1398,12 @@ class Bucket {
    * @param options.upload_id - Object multipart upload ID
    * @param options.object_parts - Object parts
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  completeMultipartUpload(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.completeMultipartUploadRequest(object_key, options).sign().send(callback);
+  completeMultipartUpload(object_key, options) {
+    options = options || {};
+    return this.completeMultipartUploadRequest(object_key, options).sign().send();
   }
 
 
@@ -1515,12 +1456,11 @@ class Bucket {
    * deleteObject: Delete the object.
    * @link https://docs.qingcloud.com/qingstor/api/object/delete.html Documentation URL
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  deleteObject(object_key, callback) {
-    return this.deleteObjectRequest(object_key).sign().send(callback);
+  deleteObject(object_key,) {
+    return this.deleteObjectRequest(object_key).sign().send();
   }
 
 
@@ -1605,16 +1545,12 @@ class Bucket {
    * @param options.response-content-type - Specified the Content-Type response header
    * @param options.response-expires - Specified the Expires response header
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  getObject(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.getObjectRequest(object_key, options).sign().send(callback);
+  getObject(object_key, options) {
+    options = options || {};
+    return this.getObjectRequest(object_key, options).sign().send();
   }
 
 
@@ -1678,16 +1614,12 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  headObject(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.headObjectRequest(object_key, options).sign().send(callback);
+  headObject(object_key, options) {
+    options = options || {};
+    return this.headObjectRequest(object_key, options).sign().send();
   }
 
 
@@ -1754,16 +1686,12 @@ class Bucket {
    * @param options.response-content-type - Specified the Content-Type response header
    * @param options.response-expires - Specified the Expires response header
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  imageProcess(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.imageProcessRequest(object_key, options).sign().send(callback);
+  imageProcess(object_key, options) {
+    options = options || {};
+    return this.imageProcessRequest(object_key, options).sign().send();
   }
 
 
@@ -1825,16 +1753,12 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  initiateMultipartUpload(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.initiateMultipartUploadRequest(object_key, options).sign().send(callback);
+  initiateMultipartUpload(object_key, options) {
+    options = options || {};
+    return this.initiateMultipartUploadRequest(object_key, options).sign().send();
   }
 
 
@@ -1897,16 +1821,12 @@ class Bucket {
    * @param options.part_number_marker - Object multipart upload part number
    * @param options.upload_id - Object multipart upload ID
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  listMultipart(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.listMultipartRequest(object_key, options).sign().send(callback);
+  listMultipart(object_key, options) {
+    options = options || {};
+    return this.listMultipartRequest(object_key, options).sign().send();
   }
 
 
@@ -1962,16 +1882,12 @@ class Bucket {
    * @param options.Access-Control-Request-Method - Request method
    * @param options.Origin - Request origin
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  optionsObject(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.optionsObjectRequest(object_key, options).sign().send(callback);
+  optionsObject(object_key, options) {
+    options = options || {};
+    return this.optionsObjectRequest(object_key, options).sign().send();
   }
 
 
@@ -2084,16 +2000,12 @@ class Bucket {
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  putObject(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.putObjectRequest(object_key, options).sign().send(callback);
+  putObject(object_key, options) {
+    options = options || {};
+    return this.putObjectRequest(object_key, options).sign().send();
   }
 
 
@@ -2195,16 +2107,12 @@ class Bucket {
    * @param options.part_number - Object multipart upload part number
    * @param options.upload_id - Object multipart upload ID
    * @param object_key The object key
-   * @param callback Callback function
    *
    * @return none
    */
-  uploadMultipart(object_key, options, callback) {
-    if (isFunction(options)) {
-      callback = options;
-      options = {};
-    }
-    return this.uploadMultipartRequest(object_key, options).sign().send(callback);
+  uploadMultipart(object_key, options) {
+    options = options || {};
+    return this.uploadMultipartRequest(object_key, options).sign().send();
   }
 
 

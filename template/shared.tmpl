@@ -215,7 +215,6 @@
      {{- if eq $belongs "Object"}}
      * @param object_key The object key
      {{- end}}
-     * @param callback Callback function
      *
      * @return none
      */
@@ -226,12 +225,9 @@
     {{$operation.ID | camelCase | lowerFirst}}(
     {{- end}}
         {{- if eq $belongs "Object"}}object_key,{{end -}}
-        {{- if $hasInput}}options, {{end -}}callback) {
+        {{- if $hasInput}}options{{end -}}) {
         {{- if $hasInput}}
-        if (isFunction(options)){
-          callback = options;
-          options = {};
-        }
+        options = options ||{};
         {{- end}}
         {{- if ne $belongs "QingStor"}}
         return this.{{$opID | camelCase | lowerFirst}}Request(
@@ -241,7 +237,7 @@
         {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
-            {{- if $hasInput}}options{{end -}}).sign().send(callback);
+            {{- if $hasInput}}options{{end -}}).sign().send();
     }
 {{end}}
 

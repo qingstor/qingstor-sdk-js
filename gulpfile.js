@@ -41,12 +41,12 @@ function bundle(cb) {
     }
 
     process.stdout.write(stats.toString({
-      colors: true,
-      modules: false,
-      children: false,
-      chunks: false,
-      chunkModules: false
-    }) + '\n\n');
+        colors: true,
+        modules: false,
+        children: false,
+        chunks: false,
+        chunkModules: false
+      }) + '\n\n');
 
     cb();
   });
@@ -55,7 +55,9 @@ function bundle(cb) {
 function minify() {
   return gulp.src('./dist/**/*.js')
     .pipe(terser())
-    .pipe(rename({ extname: '.min.js' }))
+    .pipe(rename({
+      extname: '.min.js'
+    }))
     .pipe(gulp.dest('./dist/'));
 }
 
@@ -66,7 +68,7 @@ function compress(cb) {
     }
 
     return stdout.split('\n').filter((filePath) => !!filePath).reduce((assets, filePath) => {
-      const { dir, base, name, ext} = path.parse(filePath);
+      const {dir, base, name, ext} = path.parse(filePath);
       if (!assets[dir]) {
         assets[dir] = [base];
       } else {
@@ -80,16 +82,16 @@ function compress(cb) {
       const zipFileName = dir.endsWith('node') ?
         `qingstor-sdk-nodejs-${global.version}` : `qingstor-sdk-javascript-${global.version}`;
 
-        return exec([
-          `cd ${dir}`,
-          `zip ${zipFileName}.zip ${assets[dir].join(' ')}`,
-          `tar -czvf ${zipFileName}.tar.gz ${assets[dir].join(' ')}`,
-        ].join(' && '));
+      return exec([
+        `cd ${dir}`,
+        `zip ${zipFileName}.zip ${assets[dir].join(' ')}`,
+        `tar -czvf ${zipFileName}.tar.gz ${assets[dir].join(' ')}`,
+      ].join(' && '));
     }));
   }).then(() => cb())
-  .catch((err) => {
-    console.log(err);
-  });
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 exports.bundle = gulp.series(clean, bundle);
