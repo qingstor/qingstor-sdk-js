@@ -7,11 +7,39 @@
 
 The official QingStor SDK for the JavaScript programming language.
 
-## Getting Started
+## Installation
 
-### Installation
+Install SDK into your project by NPM:
 
-Refer to the [Installation Guide](docs/installation.md), and have this SDK installed.
+```bash
+npm install qingstor-sdk
+```
+
+Import the **browser** version SDK:
+
+```javascript
+import { QingStor, Config, version } from 'qingstor-sdk/dist/qingstor-sdk-browser';
+```
+
+Import the **Node.js** version SDK:
+
+```javascript
+import { QingStor, Config, version } from 'qingstor-sdk/dist/qingstor-sdk-node';
+```
+
+Alternatively, you can also use SDK by script tag. Go to the [release](https://github.com/yunify/qingstor-sdk-js/releases) page, download and save the SDK into you project, then in your HTML:
+
+```html
+<script src="https://example.com/path/to/qingstor-sdk-browser.min.js"></script>
+<script>
+  // reference sdk by a global variable: qingstor_sdk
+  console.log(qingstor_sdk.version);
+  console.log(qingstor_sdk.QingStor);
+  console.log(qingstor_sdk.Config);
+</script>
+```
+
+## Quick Started
 
 ### Preparation
 
@@ -26,67 +54,31 @@ secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
 
 ### Usage
 
+```javascript
+import { QingStor, Config, version } from 'qingstor-sdk/dist/qingstor-sdk-browser';
+
+const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+const bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
+
+// list objects under perfix '/images'
+bucket.listObjects({
+  limit: 10,
+  prefix: '/images',
+}).then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.log(error);
+});
+```
+
+QingStor SDK use [axios](https://github.com/axios/axios) as the HTTP client, all the methods of `QingStor` and `Bucket` will return a axios instance, which is a Promise, if your environment doesn't support ES6 Promises, you can [polyfill](https://github.com/jakearchibald/es6-promise).
+
 Now you are ready to code. You can read the detailed guides in the list below to have a clear understanding or just take the quick start code example.
+
 Checkout our [releases](https://github.com/yunify/qingstor-sdk-js/releases) and [change logs](CHANGELOG.md) for information about the latest features, bug fixes and new ideas.
 
 - [Configuration Guide](docs/configuration.md)
 - [QingStor Service Usage Guide](docs/qingstor_service_usage.md)
-
-*Used in node with callback:*
-
-```javascript
-import { Config, QingStor } from 'qingstor-sdk';
-let config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-let bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects(function (err, data) {
-  console.log(data.statusCode);
-  console.log(data.keys);
-});
-```
-
-or *Used in node with promise/A+*
-
-```javascript
-import { Config, QingStor } from 'qingstor-sdk';
-let config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-let bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects().then((data) => {
-  console.log(data.statusCode);
-  console.log(data.keys);
-});
-```
-
-*Used in Browser:*
-
-Firstly, you should refer qingstor-sdk javascript files [qingstor-sdk.min.js](https://github.com/yunify/qingstor-sdk-js/blob/master/dist/qingstor-sdk.min.js)
-
-```html
-<script src='qingstor-sdk.min.js'></script>
-```
-
-After that, `qingstor_sdk` will be exported to browser's `windows`, so that you can use `qingstor_sdk` directly.
-
-You can use all functions in node way with callback.
-
-```javascript
-let config = new qingstor_sdk.Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-let bucket = new qingstor_sdk.QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects(function (err, data) {
-  console.log(data.statusCode);
-  console.log(data.keys);
-});
-```
-
-or *Used in browser with promise/A+*
-
-```javascript
-let config = new qingstor_sdk.Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
-let bucket = new qingstor_sdk.QingStor(config).Bucket('example_bucket', 'pek3a');
-bucket.listObjects().then((data) => {
-  console.log(data.statusCode);
-  console.log(data.keys);
-});
-```
 
 ## Reference Documentations
 

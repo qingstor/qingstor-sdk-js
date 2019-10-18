@@ -2,7 +2,7 @@
 
 ## Summary
 
-This SDK uses a structure called "Config" to store and manage configuration, read comments of public functions in ["config.js"](https://github.com/yunify/qingstor-sdk-js/blob/master/lib/config.js) for details.
+This SDK uses a structure called "Config" to store and manage configuration, read comments of public functions in ["config.js"](https://github.com/yunify/qingstor-sdk-js/src/config/node.js) for details.
 
 Except for Access Key, you can also configure the API endpoint for private cloud usage scenario. All available configurable items are listed in the default configuration file.
 
@@ -19,63 +19,90 @@ port: 443
 protocol: 'https'
 connection_retries: 3
 
-# Additional User-Agent
+# Additional User-Agent, Node.js only
 additional_user_agent: ""
 # Valid levels are "debug", "info", "warn", "error", and "fatal".
 log_level: 'warn'
 ```
 
-## Usage
+## Code Snippet
 
-Just create a config structure instance with your API Access Key.
+**Create configuration from Access Key:**
 
-### Code Snippet
-
-Create default configuration
+browser
 
 ```javascript
-import { Config } from 'qingstor-sdk';
-let defaultConfig = new Config().loadDefaultConfig();
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-browser';
+
+const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 ```
 
-Create configuration from Access Key
+Node.js
 
 ```javascript
-import { Config } from 'qingstor-sdk';
-let userConfig = new Config().loadDefaultConfig();
-userConfig.access_key_id = "ACCESS_KEY_ID";
-userConfig.secret_access_key = "SECRET_ACCESS_KEY";
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
+
+const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 ```
 
-Load user configuration
+**Load current user default configuration:**
+
+Node.js
 
 ```javascript
-import { Config } from 'qingstor-sdk';
-let userConfig = new Config().loadUserConfig();
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
+
+const config = new Config().loadDefaultConfig();
+config.access_key_id = "ACCESS_KEY_ID";
+config.secret_access_key = "SECRET_ACCESS_KEY";
 ```
 
-Load configuration from config file
+**Create default configuration:**
+
+Node.js
 
 ```javascript
-import { Config } from 'qingstor-sdk';
-let userConfig = new Config().loadConfigFromFilepath('PATH/TO/FILE');
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
+
+// a yaml config file will be created at ~/.qingstor/config
+const config = new Config().installDefaultUserConfig();
 ```
 
-Change API endpoint
+**Load configuration from config file:**
+
+Node.js
 
 ```javascript
-import { Config } from 'qingstor-sdk';
-let moreConfiguration = new Config().loadDefaultConfig();
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
 
-moreConfiguration.protocol = "https";
-moreConfiguration.host = "api.private.com";
-moreConfiguration.port = 4433;
+const config = new Config().loadConfigFromFilepath('PATH/TO/FILE');
 ```
 
-Customize User Agent
+**Change API endpoint:**
+
+browser
 
 ```javascript
-import { Config } from 'qingstor-sdk';
-let userConfig = new Config().loadDefaultConfig();
-userConfig.additional_user_agent = "UserExample";
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-browser';
+
+const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+config.loadConfig({
+  protocol: 'https',
+  host: 'api.private.com',
+  port: 4433,
+});
+```
+
+Node.js
+
+```javascript
+import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
+
+const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
+config.loadConfig({
+  protocol: https,
+  host: api.private.com,
+  port: 4433,
+  additional_user_agent: 'UserExample',
+});
 ```
