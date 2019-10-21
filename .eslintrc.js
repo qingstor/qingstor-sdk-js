@@ -24,6 +24,7 @@ module.exports = {
     semi: 'error',
     'semi-spacing': 'error',
     'comma-spacing': 'error',
-    'comma-style': ["error", "last"],
+    'comma-style': ['error', 'last'],
+    'prefer-const': 'error',
   },
 };

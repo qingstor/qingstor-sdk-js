@@ -36,7 +36,7 @@ class Bucket {
    * @return Signer
    */
   deleteRequest() {
-    let operation = {
+    const operation = {
       api: 'DeleteBucket',
       method: 'DELETE',
       uri: '/<bucket-name>',
@@ -71,7 +71,7 @@ class Bucket {
    * @return Signer
    */
   deleteCORSRequest() {
-    let operation = {
+    const operation = {
       api: 'DeleteBucketCORS',
       method: 'DELETE',
       uri: '/<bucket-name>?cors',
@@ -106,7 +106,7 @@ class Bucket {
    * @return Signer
    */
   deleteExternalMirrorRequest() {
-    let operation = {
+    const operation = {
       api: 'DeleteBucketExternalMirror',
       method: 'DELETE',
       uri: '/<bucket-name>?mirror',
@@ -141,7 +141,7 @@ class Bucket {
    * @return Signer
    */
   deleteLifecycleRequest() {
-    let operation = {
+    const operation = {
       api: 'DeleteBucketLifecycle',
       method: 'DELETE',
       uri: '/<bucket-name>?lifecycle',
@@ -176,7 +176,7 @@ class Bucket {
    * @return Signer
    */
   deleteNotificationRequest() {
-    let operation = {
+    const operation = {
       api: 'DeleteBucketNotification',
       method: 'DELETE',
       uri: '/<bucket-name>?notification',
@@ -211,7 +211,7 @@ class Bucket {
    * @return Signer
    */
   deletePolicyRequest() {
-    let operation = {
+    const operation = {
       api: 'DeleteBucketPolicy',
       method: 'DELETE',
       uri: '/<bucket-name>?policy',
@@ -250,7 +250,7 @@ class Bucket {
    * @return Signer
    */
   deleteMultipleObjectsRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'DeleteMultipleObjects',
       method: 'POST',
       uri: '/<bucket-name>?delete',
@@ -299,7 +299,7 @@ class Bucket {
    * @return Signer
    */
   getACLRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketACL',
       method: 'GET',
       uri: '/<bucket-name>?acl',
@@ -334,7 +334,7 @@ class Bucket {
    * @return Signer
    */
   getCORSRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketCORS',
       method: 'GET',
       uri: '/<bucket-name>?cors',
@@ -369,7 +369,7 @@ class Bucket {
    * @return Signer
    */
   getExternalMirrorRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketExternalMirror',
       method: 'GET',
       uri: '/<bucket-name>?mirror',
@@ -404,7 +404,7 @@ class Bucket {
    * @return Signer
    */
   getLifecycleRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketLifecycle',
       method: 'GET',
       uri: '/<bucket-name>?lifecycle',
@@ -439,7 +439,7 @@ class Bucket {
    * @return Signer
    */
   getNotificationRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketNotification',
       method: 'GET',
       uri: '/<bucket-name>?notification',
@@ -474,7 +474,7 @@ class Bucket {
    * @return Signer
    */
   getPolicyRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketPolicy',
       method: 'GET',
       uri: '/<bucket-name>?policy',
@@ -509,7 +509,7 @@ class Bucket {
    * @return Signer
    */
   getStatisticsRequest() {
-    let operation = {
+    const operation = {
       api: 'GetBucketStatistics',
       method: 'GET',
       uri: '/<bucket-name>?stats',
@@ -544,7 +544,7 @@ class Bucket {
    * @return Signer
    */
   headRequest() {
-    let operation = {
+    const operation = {
       api: 'HeadBucket',
       method: 'HEAD',
       uri: '/<bucket-name>',
@@ -585,7 +585,7 @@ class Bucket {
    * @return Signer
    */
   listMultipartUploadsRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'ListMultipartUploads',
       method: 'GET',
       uri: '/<bucket-name>?uploads',
@@ -638,7 +638,7 @@ class Bucket {
    * @return Signer
    */
   listObjectsRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'ListObjects',
       method: 'GET',
       uri: '/<bucket-name>',
@@ -684,7 +684,7 @@ class Bucket {
    * @return Signer
    */
   putRequest() {
-    let operation = {
+    const operation = {
       api: 'PutBucket',
       method: 'PUT',
       uri: '/<bucket-name>',
@@ -721,7 +721,7 @@ class Bucket {
    * @return Signer
    */
   putACLRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutBucketACL',
       method: 'PUT',
       uri: '/<bucket-name>?acl',
@@ -762,7 +762,7 @@ class Bucket {
           throw new SDKError.ParameterRequired('type', 'grantee');
         }
         if (value['grantee'] !== undefined && value['grantee']['type'] !== undefined && value['grantee']['type'].toString() !== '') {
-          let type_valid_values = ['user', 'group'];
+          const type_valid_values = ['user', 'group'];
           if (type_valid_values.indexOf(value['grantee']['type']) === -1) {
             throw new SDKError.ParameterValueNotAllowed(
               'type',
@@ -779,7 +779,7 @@ class Bucket {
         throw new SDKError.ParameterRequired('permission', 'acl');
       }
       if (value !== undefined && value['permission'] !== undefined && value['permission'].toString() !== '') {
-        let permission_valid_values = ['READ', 'WRITE', 'FULL_CONTROL'];
+        const permission_valid_values = ['READ', 'WRITE', 'FULL_CONTROL'];
         if (permission_valid_values.indexOf(value['permission']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
             'permission',
@@ -800,7 +800,7 @@ class Bucket {
    * @return Signer
    */
   putCORSRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutBucketCORS',
       method: 'PUT',
       uri: '/<bucket-name>?cors',
@@ -854,7 +854,7 @@ class Bucket {
    * @return Signer
    */
   putExternalMirrorRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutBucketExternalMirror',
       method: 'PUT',
       uri: '/<bucket-name>?mirror',
@@ -900,7 +900,7 @@ class Bucket {
    * @return Signer
    */
   putLifecycleRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutBucketLifecycle',
       method: 'PUT',
       uri: '/<bucket-name>?lifecycle',
@@ -957,7 +957,7 @@ class Bucket {
         throw new SDKError.ParameterRequired('status', 'rule');
       }
       if (value !== undefined && value['status'] !== undefined && value['status'].toString() !== '') {
-        let status_valid_values = ['enabled', 'disabled'];
+        const status_valid_values = ['enabled', 'disabled'];
         if (status_valid_values.indexOf(value['status']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
             'status',
@@ -983,7 +983,7 @@ class Bucket {
    * @return Signer
    */
   putNotificationRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutBucketNotification',
       method: 'PUT',
       uri: '/<bucket-name>?notification',
@@ -1023,7 +1023,7 @@ class Bucket {
         throw new SDKError.ParameterRequired('cloudfunc', 'notification');
       }
       if (value !== undefined && value['cloudfunc'] !== undefined && value['cloudfunc'].toString() !== '') {
-        let cloudfunc_valid_values = ['tupu-porn', 'notifier', 'image'];
+        const cloudfunc_valid_values = ['tupu-porn', 'notifier', 'image'];
         if (cloudfunc_valid_values.indexOf(value['cloudfunc']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
             'cloudfunc',
@@ -1055,7 +1055,7 @@ class Bucket {
    * @return Signer
    */
   putPolicyRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutBucketPolicy',
       method: 'PUT',
       uri: '/<bucket-name>?policy',
@@ -1105,7 +1105,7 @@ class Bucket {
         throw new SDKError.ParameterRequired('effect', 'statement');
       }
       if (value !== undefined && value['effect'] !== undefined && value['effect'].toString() !== '') {
-        let effect_valid_values = ['allow', 'deny'];
+        const effect_valid_values = ['allow', 'deny'];
         if (effect_valid_values.indexOf(value['effect']) === -1) {
           throw new SDKError.ParameterValueNotAllowed(
             'effect',
@@ -1133,7 +1133,7 @@ class Bucket {
    * @return Signer
    */
   abortMultipartUploadRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'AbortMultipartUpload',
       method: 'DELETE',
       uri: '/<bucket-name>/<object-key>',
@@ -1187,7 +1187,7 @@ class Bucket {
    * @return Signer
    */
   completeMultipartUploadRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'CompleteMultipartUpload',
       method: 'POST',
       uri: '/<bucket-name>/<object-key>',
@@ -1253,7 +1253,7 @@ class Bucket {
    * @return Signer
    */
   deleteObjectRequest(object_key) {
-    let operation = {
+    const operation = {
       api: 'DeleteObject',
       method: 'DELETE',
       uri: '/<bucket-name>/<object-key>',
@@ -1306,7 +1306,7 @@ class Bucket {
    * @return Signer
    */
   getObjectRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'GetObject',
       method: 'GET',
       uri: '/<bucket-name>/<object-key>',
@@ -1383,7 +1383,7 @@ class Bucket {
    * @return Signer
    */
   headObjectRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'HeadObject',
       method: 'HEAD',
       uri: '/<bucket-name>/<object-key>',
@@ -1446,7 +1446,7 @@ class Bucket {
    * @return Signer
    */
   imageProcessRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'ImageProcess',
       method: 'GET',
       uri: '/<bucket-name>/<object-key>?image',
@@ -1513,7 +1513,7 @@ class Bucket {
    * @return Signer
    */
   initiateMultipartUploadRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'InitiateMultipartUpload',
       method: 'POST',
       uri: '/<bucket-name>/<object-key>?uploads',
@@ -1555,7 +1555,7 @@ class Bucket {
 
   initiateMultipartUploadValidate(operation) {
     if (operation['headers'] !== undefined && operation['headers']['X-QS-Storage-Class'] !== undefined && operation['headers']['X-QS-Storage-Class'].toString() !== '') {
-      let x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
+      const x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
       if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
         throw new SDKError.ParameterValueNotAllowed(
           'X-QS-Storage-Class',
@@ -1578,7 +1578,7 @@ class Bucket {
    * @return Signer
    */
   listMultipartRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'ListMultipart',
       method: 'GET',
       uri: '/<bucket-name>/<object-key>',
@@ -1633,7 +1633,7 @@ class Bucket {
    * @return Signer
    */
   optionsObjectRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'OptionsObject',
       method: 'OPTIONS',
       uri: '/<bucket-name>/<object-key>',
@@ -1708,7 +1708,7 @@ class Bucket {
    * @return Signer
    */
   putObjectRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'PutObject',
       method: 'PUT',
       uri: '/<bucket-name>/<object-key>',
@@ -1782,7 +1782,7 @@ class Bucket {
 
   putObjectValidate(operation) {
     if (operation['headers'] !== undefined && operation['headers']['X-QS-Storage-Class'] !== undefined && operation['headers']['X-QS-Storage-Class'].toString() !== '') {
-      let x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
+      const x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
       if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
         throw new SDKError.ParameterValueNotAllowed(
           'X-QS-Storage-Class',
@@ -1818,7 +1818,7 @@ class Bucket {
    * @return Signer
    */
   uploadMultipartRequest(object_key, options = {}) {
-    let operation = {
+    const operation = {
       api: 'UploadMultipart',
       method: 'PUT',
       uri: '/<bucket-name>/<object-key>',

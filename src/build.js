@@ -34,7 +34,7 @@ class Builder {
   }
 
   parse() {
-    let parsedOperation = this.parseRequestURI(this.operation);
+    const parsedOperation = this.parseRequestURI(this.operation);
     parsedOperation.method = this.operation.method;
     parsedOperation.params = this.parseRequestParams(this.operation);
     parsedOperation.headers = this.parseRequestHeaders(this.operation);
@@ -46,8 +46,8 @@ class Builder {
   }
 
   parseRequestParams(operation) {
-    let parsedParams = {};
-    for (let i of Object.keys(operation.params)) {
+    const parsedParams = {};
+    for (const i of Object.keys(operation.params)) {
       if (operation.params[i] !== undefined && operation.params[i].toString() !== '') {
         parsedParams[i] = operation.params[i].toString();
       }
@@ -56,8 +56,8 @@ class Builder {
   }
 
   parseRequestHeaders(operation) {
-    let parsedHeaders = {};
-    for (let i of Object.keys(operation.headers)) {
+    const parsedHeaders = {};
+    for (const i of Object.keys(operation.headers)) {
       if (operation.headers[i] !== undefined && operation.headers[i].toString() !== '') {
         parsedHeaders[i] = encodeURI(operation.headers[i]);
       }
@@ -76,9 +76,9 @@ class Builder {
     }
 
     // Add content-length header
-    let parsedBody = this.parseRequestBody(operation);
+    const parsedBody = this.parseRequestBody(operation);
     if (!operation.headers['content-length'] && parsedBody) {
-      let l = getStreamSize(parsedBody);
+      const l = getStreamSize(parsedBody);
       if (l !== void 0) {
         parsedHeaders['content-length'] = l;
       }
@@ -114,8 +114,8 @@ class Builder {
   }
 
   parseRequestProperties(operation) {
-    let parsedProperties = {};
-    for (let i of Object.keys(operation.properties)) {
+    const parsedProperties = {};
+    for (const i of Object.keys(operation.properties)) {
       if (operation.properties[i] !== undefined && operation.properties[i].toString() !== '') {
         parsedProperties[i] = fixedEncodeURIComponent(operation.properties[i]);
       }
@@ -126,7 +126,7 @@ class Builder {
   parseRequestURI(operation) {
     let path = operation.uri;
     let endpoint = '';
-    let parsedProperties = this.parseRequestProperties(operation);
+    const parsedProperties = this.parseRequestProperties(operation);
 
     if (parsedProperties['zone']) {
       endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}:${this.config.port}`;
@@ -134,12 +134,12 @@ class Builder {
       endpoint = `${this.config.protocol}://${this.config.host}:${this.config.port}`;
     }
 
-    for (let key of Object.keys(parsedProperties)) {
+    for (const key of Object.keys(parsedProperties)) {
       path = path.replace(`<${key}>`, parsedProperties[key]);
     }
 
-    let parsedParams = this.parseRequestParams(operation);
-    let parsedUri = buildUri(endpoint, path, parsedParams);
+    const parsedParams = this.parseRequestParams(operation);
+    const parsedUri = buildUri(endpoint, path, parsedParams);
 
     return {
       endpoint,

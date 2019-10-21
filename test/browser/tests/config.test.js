@@ -18,8 +18,8 @@
 
 describe('Config test', function() {
   it('loadConfig test', function() {
-    let Config = qingstor_sdk.Config;
-    let test_config = new Config().loadConfig(qingstor_config);
+    const Config = qingstor_sdk.Config;
+    const test_config = new Config().loadConfig(qingstor_config);
     test_config.should.to.contain.all.keys([
       'access_key_id',
       'secret_access_key',

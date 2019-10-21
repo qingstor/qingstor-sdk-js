@@ -16,17 +16,17 @@
 
 import Image from '../src/client/image';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 describe('Image test', function() {
   it('info test', function() {
-    let test = new Image();
+    const test = new Image();
     test.info();
     test.input.action.should.equal('info');
   });
 
   it('crop test', function() {
-    let test = new Image();
+    const test = new Image();
     const data = {
       width: '0'
     };
@@ -35,7 +35,7 @@ describe('Image test', function() {
   });
 
   it('rotate test', function() {
-    let test = new Image();
+    const test = new Image();
     const data = {
       angle: 90
     };
@@ -44,7 +44,7 @@ describe('Image test', function() {
   });
 
   it('resize test', function() {
-    let test = new Image();
+    const test = new Image();
     const data = {
       mode: '1'
     };
@@ -53,7 +53,7 @@ describe('Image test', function() {
   });
 
   it('waterMark test', function() {
-    let test = new Image();
+    const test = new Image();
     const data = {
       text: '5rC05Y2w5paH5a2X'
     };
@@ -62,7 +62,7 @@ describe('Image test', function() {
   });
 
   it('waterMarkImage test', function() {
-    let test = new Image();
+    const test = new Image();
     const data = {
       url: 'aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc'
     };
@@ -72,7 +72,7 @@ describe('Image test', function() {
   });
 
   it('format test', function() {
-    let test = new Image();
+    const test = new Image();
     const data = {
       type: 'png'
     };
@@ -81,7 +81,7 @@ describe('Image test', function() {
   });
 
   it('pipe test', function() {
-    let test = new Image();
+    const test = new Image();
     const rotateParam = {
       angle: '90'
     };

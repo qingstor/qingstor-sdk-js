@@ -17,11 +17,11 @@
 import yaml from 'js-yaml';
 import Config from '../src/config/node';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 describe('Config test', function() {
   it('loadDefaultConfig test', function() {
-    let test = new Config();
+    const test = new Config();
     test.access_key_id.should.equal('');
     test.secret_access_key.should.equal('');
     test.host.should.equal('qingstor.com');
@@ -32,7 +32,7 @@ describe('Config test', function() {
   });
 
   it('loadDefaultConfig with access key test', function() {
-    let test = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+    const test = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 
     test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
     test.secret_access_key.should.equal('SECRET_ACCESS_KEY_EXAMPLE');
@@ -44,7 +44,7 @@ describe('Config test', function() {
   });
 
   it('loadUserConfig test', function() {
-    let test = new Config();
+    const test = new Config();
 
     test.loadUserConfig()
       .should
@@ -63,8 +63,8 @@ describe('Config test', function() {
   });
 
   it('loadConfig test', function() {
-    let test = new Config();
-    let defaultConfigFileContent = '# QingStor Services Configuration\n' +
+    const test = new Config();
+    const defaultConfigFileContent = '# QingStor Services Configuration\n' +
       '\n' +
       'access_key_id: \'ACCESS_KEY_ID_1\'\n' +
       'secret_access_key: \'SECRET_ACCESS_KEY_1\'\n' +
@@ -87,8 +87,8 @@ describe('Config test', function() {
   });
 
   it('checkConfig test', function() {
-    let test = new Config();
-    let notAllowedConfigFileContent = '# QingStor Services Configuration\n' +
+    const test = new Config();
+    const notAllowedConfigFileContent = '# QingStor Services Configuration\n' +
       '\n' +
       'access_key_id: \'ACCESS_KEY_ID_1\'\n' +
       'secret_access_key: \'SECRET_ACCESS_KEY_1\'\n' +

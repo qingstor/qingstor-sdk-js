@@ -21,15 +21,15 @@ import {
   QingStor
 } from '../../dist/node/qingstor-sdk';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
-  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
-  let test = new QingStor(config);
-  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  const config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  const test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
+  const test = new QingStor(config);
+  const test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
   let test_data = undefined;
   test_bucket.put();
 
@@ -54,7 +54,7 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get bucket CORS should have allowed origin "([^"]*)"$/, function(arg1, callback) {
-    let ok = test_data.cors_rules.some(function(item) {
+    const ok = test_data.cors_rules.some(function(item) {
       return item.allowed_origin === arg1;
     });
     callback(null, ok.should.eql(true));

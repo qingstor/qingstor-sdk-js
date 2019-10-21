@@ -18,13 +18,13 @@ import process from 'process';
 import Builder from '../src/build';
 import Config from '../src/config/node';
 
-let pjson = require('../package.json');
-let should = require('chai').should();
+const pjson = require('../package.json');
+const should = require('chai').should();
 
 describe('Builder test', function() {
-  let config = new Config('test_access_key', 'test_secret_key');
+  const config = new Config('test_access_key', 'test_secret_key');
   config.additional_user_agent = 'UserExample';
-  let operation = {
+  const operation = {
     method: 'PUT',
     uri: '/<bucket-name>/<object-key>?acl',
     headers: {
@@ -45,7 +45,7 @@ describe('Builder test', function() {
     },
     body: 'test string'
   };
-  let test = new Builder(config, operation);
+  const test = new Builder(config, operation);
 
   it('parseRequestParams test', function() {
     test.parseRequestParams(operation).should.eql({

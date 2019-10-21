@@ -23,15 +23,15 @@ import {
   QingStor
 } from '../../dist/node/qingstor-sdk';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
-  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
-  let test = new QingStor(config);
-  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  const config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  const test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
+  const test = new QingStor(config);
+  const test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
   test_bucket.put();
 
   let test_data = undefined;
@@ -57,7 +57,7 @@ module.exports = function() {
     })();
   });
   this.Then(/^put object status code is (\d+)$/, function(arg1, callback) {
-    for (let v of test_data) {
+    for (const v of test_data) {
       if (!v.statusCode.toString().should.eql(arg1)) {
         callback(null, false);
       }
@@ -103,7 +103,7 @@ module.exports = function() {
   });
 
   this.When(/^get object "(.*)" with query signature$/, function(arg1, callback) {
-    let expires = Math.floor(Date.now(), 1000) + 1000;
+    const expires = Math.floor(Date.now(), 1000) + 1000;
     fetch(test_bucket.getObjectRequest(arg1).signQuery(expires).operation.uri)
       .then(function(data) {
         test_data = data;
@@ -161,7 +161,7 @@ module.exports = function() {
     })();
   });
   this.Then(/^delete object status code is (\d+)$/, function(arg1, callback) {
-    for (let v of test_data) {
+    for (const v of test_data) {
       if (!v.statusCode.toString().should.eql(arg1)) {
         callback(null, false);
       }

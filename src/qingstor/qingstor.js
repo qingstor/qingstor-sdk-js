@@ -32,7 +32,7 @@ class QingStor {
    * @return Signer
    */
   listBucketsRequest(options = {}) {
-    let operation = {
+    const operation = {
       api: 'ListBuckets',
       method: 'GET',
       uri: '/',

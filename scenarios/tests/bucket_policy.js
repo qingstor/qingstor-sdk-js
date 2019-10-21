@@ -21,20 +21,20 @@ import {
   QingStor
 } from '../../dist/node/qingstor-sdk';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
-  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
-  let test = new QingStor(config);
-  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  const config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  const test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
+  const test = new QingStor(config);
+  const test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
   let test_data = undefined;
   test_bucket.put();
 
   this.When(/^put bucket policy:$/, function(string, callback) {
-    let test_string = JSON.parse(string);
+    const test_string = JSON.parse(string);
     if (test_string['statement'].length) {
       test_string['statement'][0]['resource'] = [test_config['bucket_name'] + '/*'];
     }
@@ -58,7 +58,7 @@ module.exports = function() {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
   this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function(arg1, callback) {
-    let ok = test_data.statement.some(function(statement) {
+    const ok = test_data.statement.some(function(statement) {
       return statement.condition.string_like.Referer.some(function(item) {
         return item === arg1;
       });

@@ -17,11 +17,11 @@
 import process from 'process';
 import Signer from '../src/sign';
 
-let pjson = require('../package.json');
-let should = require('chai').should();
+const pjson = require('../package.json');
+const should = require('chai').should();
 
 describe('Signer test', function() {
-  let operation = {
+  const operation = {
     method: 'PUT',
     path: '/test_bucket/test_object.jpg?acl',
     params: {
@@ -40,7 +40,7 @@ describe('Signer test', function() {
       'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
     }
   };
-  let test = new Signer(operation, 'test_key', 'test_secret');
+  const test = new Signer(operation, 'test_key', 'test_secret');
 
   it('getCanonicalizedResource test', function() {
     test.getCanonicalizedResource().should.eql(

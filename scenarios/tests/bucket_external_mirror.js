@@ -21,15 +21,15 @@ import {
   QingStor
 } from '../../dist/node/qingstor-sdk';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
-  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
-  let test = new QingStor(config);
-  let test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
+  const config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  const test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
+  const test = new QingStor(config);
+  const test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
   let test_data = undefined;
   test_bucket.put();
 

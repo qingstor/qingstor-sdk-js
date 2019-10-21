@@ -21,13 +21,13 @@ import {
   QingStor
 } from '../../dist/node/qingstor-sdk';
 
-let should = require('chai').should();
+const should = require('chai').should();
 
 module.exports = function() {
   this.setDefaultTimeout(10 * 1000);
 
-  let config = new Config().loadConfigFromFilepath('tests/config.yaml');
-  let test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
+  const config = new Config().loadConfigFromFilepath('tests/config.yaml');
+  const test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
   let test = undefined;
   let test_res = undefined;
   this.When(/^initialize QingStor service$/, function(callback) {
