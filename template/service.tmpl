@@ -18,25 +18,24 @@
 {{- $customizedTypes := .Data.CustomizedTypes -}}
 import Request from '../request';
 import Bucket from './bucket';
-import {isFunction} from '../utils';
 
 class {{$service.Name | camelCase}} {
 
-    constructor(config){
-      this.config = config;
-    }
+  constructor(config){
+    this.config = config;
+  }
 
-    {{- range $_, $operation := $service.Operations}}
-      {{- template "RenderOperation" passThrough $service.Name $operation $customizedTypes}}
-    {{- end}}
+  {{- range $_, $operation := $service.Operations}}
+    {{- template "RenderOperation" passThrough $service.Name $operation $customizedTypes}}
+  {{- end}}
 
-    Bucket(bucket_name, zone) {
-        let properties = {
-            'bucket-name': bucket_name,
-            'zone': zone
-        };
-        return new Bucket(this.config, properties)
-    }
+  Bucket(bucket_name, zone) {
+    const properties = {
+        'bucket-name': bucket_name,
+        'zone': zone
+    };
+    return new Bucket(this.config, properties)
+  }
 }
 
 export default {{$service.Name | camelCase}};

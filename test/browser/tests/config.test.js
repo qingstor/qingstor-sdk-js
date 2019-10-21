@@ -14,8 +14,7 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
-
+'use strict';
 
 describe('Config test', function() {
   it('loadConfig test', function() {

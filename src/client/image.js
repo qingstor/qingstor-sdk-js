@@ -22,70 +22,78 @@ class Image {
   }
 
   info() {
-    let prefix = this.getPrefix();
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}info`
+      action: `${prefix}info`,
     };
     return this;
   }
 
   crop(data) {
-    const {width=0, height=0, gravity=0} = data
-    let prefix = this.getPrefix();
+    const {
+      width = 0, height = 0, gravity = 0
+    } = data;
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}crop:w_${width},h_${height},g_${gravity}`
+      action: `${prefix}crop:w_${width},h_${height},g_${gravity}`,
     };
     return this;
   }
 
   rotate(data) {
-    let prefix = this.getPrefix();
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}rotate:a_${data.angle}`
+      action: `${prefix}rotate:a_${data.angle}`,
     };
     return this;
   }
 
   resize(data) {
-    const {width=0, height=0, mode=0} = data;
-    let prefix = this.getPrefix();
+    const {
+      width = 0, height = 0, mode = 0
+    } = data;
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}resize:w_${width},h_${height},m_${mode}`
+      action: `${prefix}resize:w_${width},h_${height},m_${mode}`,
     };
     return this;
   }
 
   waterMark(data) {
-    const {dpi=150, opacity=0.25, color=''} = data;
-    let prefix = this.getPrefix();
+    const {
+      dpi = 150, opacity = 0.25, color = ''
+    } = data;
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}watermark:d_${dpi},p_${opacity},t_${data.text},c_${color}`
+      action: `${prefix}watermark:d_${dpi},p_${opacity},t_${data.text},c_${color}`,
     };
     return this;
   }
 
   waterMarkImage(data) {
-    const {left=0, top=0, opacity=0.25} = data;
-    let prefix = this.getPrefix();
+    const {
+      left = 0, top = 0, opacity = 0.25
+    } = data;
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}watermark_image:l_${left},t_${top},p_${opacity},u_${data.url}`
+      action: `${prefix}watermark_image:l_${left},t_${top},p_${opacity},u_${data.url}`,
     };
     return this;
   }
 
   format(data) {
-    let prefix = this.getPrefix();
+    const prefix = this.getPrefix();
     this.input = {
-      'action': `${prefix}format:t_${data.type}`
+      action: `${prefix}format:t_${data.type}`,
     };
     return this;
   }
 
   getPrefix() {
     if (this.input == null) {
-      return ""
+      return '';
     }
-    return `${this.input.action}|`
+    return `${this.input.action}|`;
   }
 
   imageProcess(callback) {

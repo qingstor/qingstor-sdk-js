@@ -25,45 +25,41 @@ describe('Builder test', function() {
   let config = new Config('test_access_key', 'test_secret_key');
   config.additional_user_agent = 'UserExample';
   let operation = {
-    "method": "PUT",
-    "uri": "/<bucket-name>/<object-key>?acl",
-    "headers": {
-      "host": 'qingstor.com',
+    method: 'PUT',
+    uri: '/<bucket-name>/<object-key>?acl',
+    headers: {
+      host: 'qingstor.com',
       'x-qs-date': 'test time',
       'content-type': 'image/jpeg',
       'empty-header': ''
     },
-    "params": {
-      "upload_id": 'test_upload_id',
+    params: {
+      upload_id: 'test_upload_id',
       'empty-param': ''
     },
-    "properties": {
-      "zone": 'pek3a',
-      "bucket-name": 'test_bucket',
-      "object-key": 'test_object.jpg',
-      "empty-property": ''
+    properties: {
+      zone: 'pek3a',
+      'bucket-name': 'test_bucket',
+      'object-key': 'test_object.jpg',
+      'empty-property': ''
     },
-    'body': 'test string'
+    body: 'test string'
   };
   let test = new Builder(config, operation);
 
   it('parseRequestParams test', function() {
-    test.parseRequestParams(operation).should.eql(
-      {
-        "upload_id": 'test_upload_id'
-      }
-    );
+    test.parseRequestParams(operation).should.eql({
+      upload_id: 'test_upload_id'
+    });
   });
 
   it('parseRequestHeaders test', function() {
-    test.parseRequestHeaders(operation).should.eql(
-      {
-        "host": 'qingstor.com',
-        'x-qs-date': 'test time',
-        'content-type': 'image/jpeg',
-        'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
-      }
-    );
+    test.parseRequestHeaders(operation).should.eql({
+      host: 'qingstor.com',
+      'x-qs-date': 'test time',
+      'content-type': 'image/jpeg',
+      'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
+    });
   });
 
   it('parseRequestBody test', function() {
@@ -73,42 +69,38 @@ describe('Builder test', function() {
   });
 
   it('parseRequestProperties test', function() {
-    test.parseRequestProperties(operation).should.eql(
-      {
-        "zone": 'pek3a',
-        "bucket-name": 'test_bucket',
-        "object-key": 'test_object.jpg'
-      }
-    );
+    test.parseRequestProperties(operation).should.eql({
+      zone: 'pek3a',
+      'bucket-name': 'test_bucket',
+      'object-key': 'test_object.jpg'
+    });
   });
 
   it('parseRequestUri test', function() {
-    test.parseRequestURI(operation).should.eql(
-      {
-        'endpoint': 'https://pek3a.qingstor.com:443',
-        'path': '/test_bucket/test_object.jpg?acl',
-        "uri": "https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id"
-      }
-    );
+    test.parseRequestURI(operation).should.eql({
+      endpoint: 'https://pek3a.qingstor.com:443',
+      path: '/test_bucket/test_object.jpg?acl',
+      uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id'
+    });
   });
 
   it('parse test', function() {
     test.parse().should.eql({
-      'method': 'PUT',
-      'endpoint': 'https://pek3a.qingstor.com:443',
-      'path': '/test_bucket/test_object.jpg?acl',
-      'uri': 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
-      'body': 'test string',
-      "params": {
-        "upload_id": "test_upload_id"
+      method: 'PUT',
+      endpoint: 'https://pek3a.qingstor.com:443',
+      path: '/test_bucket/test_object.jpg?acl',
+      uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
+      body: 'test string',
+      params: {
+        upload_id: 'test_upload_id'
       },
-      'headers': {
-        'host': 'qingstor.com',
+      headers: {
+        host: 'qingstor.com',
         'x-qs-date': 'test time',
-        "content-type": "image/jpeg",
+        'content-type': 'image/jpeg',
         'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample'
       }
-    })
+    });
   });
 
 });

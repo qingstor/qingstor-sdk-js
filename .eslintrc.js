@@ -1,0 +1,29 @@
+module.exports = {
+  extends: ['eslint:recommended'],
+  parserOptions: {
+    ecmaVersion: 8,
+    sourceType: 'module',
+    ecmaFeatures: {
+      impliedStrict: true,
+      modules: true,
+    },
+  },
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+  },
+  rules: {
+    'max-len': [1, {code: 150}],
+    indent: ['error', 2],
+    'no-multiple-empty-lines': ['error', { max: 1 }],
+    'eol-last': ['error', 'always'],
+    'quote-props': ['error', 'as-needed'],
+    quotes: ['error', 'single'],
+    semi: 'error',
+    'semi-spacing': 'error',
+    'comma-spacing': 'error',
+    'comma-style': ["error", "last"],
+  },
+};

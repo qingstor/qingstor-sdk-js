@@ -19,9 +19,8 @@
 {{- $customizedTypes := .Data.CustomizedTypes -}}
 import Request from '../request';
 import SDKError from '../error';
-import {isFunction} from '../utils';
 
-class Bucket{
+class Bucket {
 
   constructor(config, properties){
     // Zone should be forced to lower case

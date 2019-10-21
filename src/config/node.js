@@ -17,7 +17,7 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-import logger from 'loglevel'
+import logger from 'loglevel';
 
 const defaultConfigFileContent = ['# QingStor Services Configuration',
   '',
@@ -31,7 +31,8 @@ const defaultConfigFileContent = ['# QingStor Services Configuration',
   '# Additional User-Agent',
   'additional_user_agent: ""',
   '# Valid levels are "debug", "info", "warn", "error", and "fatal".',
-  'log_level: "warn"'].join('\n');
+  'log_level: "warn"'
+].join('\n');
 
 const defaultConfigFile = '~/.qingstor/config.yaml';
 
@@ -43,21 +44,21 @@ class Config {
   }
 
   getUserConfigFilePath() {
-    let home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+    const home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
     return `${home}${defaultConfigFile.replace('~', '')}`;
   }
 
   installDefaultUserConfig() {
-    let filePath = this.getUserConfigFilePath();
+    const filePath = this.getUserConfigFilePath();
     this.mkdirParentSync(path.dirname(filePath));
     fs.writeFileSync(filePath, defaultConfigFileContent);
   }
 
   checkConfig() {
-    for (let key of Object.keys(this)) {
+    for (const key of Object.keys(this)) {
       if (key === 'additional_user_agent') {
-        for (let v of this[key]) {
-          let x = v.charCodeAt();
+        for (const v of this[key]) {
+          const x = v.charCodeAt();
           // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
           if (x < 32 || x > 126 || x === 32 || x === 34) {
             throw new RangeError(`additional_user_agent has not allowed value ${x}.`);
@@ -68,7 +69,7 @@ class Config {
   }
 
   loadConfig(data) {
-    for (let key of Object.keys(data)) {
+    for (const key of Object.keys(data)) {
       this[key] = data[key];
     }
     logger.setLevel(this['log_level']);
@@ -77,16 +78,16 @@ class Config {
   }
 
   loadDefaultConfig() {
-    let defaultUserConfig = yaml.safeLoad(defaultConfigFileContent);
+    const defaultUserConfig = yaml.safeLoad(defaultConfigFileContent);
     return this.loadConfig(defaultUserConfig);
   }
 
   loadUserConfig() {
-    let filePath = this.getUserConfigFilePath();
+    const filePath = this.getUserConfigFilePath();
     if (!fs.existsSync(filePath)) {
       this.installDefaultUserConfig();
     }
-    return this.loadConfigFromFilepath(filePath)
+    return this.loadConfigFromFilepath(filePath);
   }
 
   loadConfigFromFilepath(filePath) {
@@ -97,7 +98,7 @@ class Config {
     mode = typeof mode !== 'undefined' ? mode : '0755';
 
     if (!fs.existsSync(dirPath)) {
-      let parentDir = path.dirname(dirPath);
+      const parentDir = path.dirname(dirPath);
       if (!fs.existsSync(parentDir)) {
         this.mkdirParentSync(parentDir);
       }

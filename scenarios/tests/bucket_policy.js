@@ -14,9 +14,12 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import fs from "fs";
-import yaml from "js-yaml";
-import { Config, QingStor } from "../../dist/node/qingstor-sdk";
+import fs from 'fs';
+import yaml from 'js-yaml';
+import {
+  Config,
+  QingStor
+} from '../../dist/node/qingstor-sdk';
 
 let should = require('chai').should();
 
@@ -33,10 +36,10 @@ module.exports = function() {
   this.When(/^put bucket policy:$/, function(string, callback) {
     let test_string = JSON.parse(string);
     if (test_string['statement'].length) {
-      test_string['statement'][0]['resource'] = [test_config['bucket_name'] + "/*"];
+      test_string['statement'][0]['resource'] = [test_config['bucket_name'] + '/*'];
     }
     test_bucket.putPolicy({
-      'statement': test_string['statement']
+      statement: test_string['statement']
     }, function(err, data) {
       test_data = data;
       callback();
@@ -57,8 +60,8 @@ module.exports = function() {
   this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function(arg1, callback) {
     let ok = test_data.statement.some(function(statement) {
       return statement.condition.string_like.Referer.some(function(item) {
-        return item === arg1
-      })
+        return item === arg1;
+      });
     });
     callback(null, ok.should.eql(true));
   });

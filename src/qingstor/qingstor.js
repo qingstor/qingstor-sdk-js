@@ -16,14 +16,12 @@
 
 import Request from '../request';
 import Bucket from './bucket';
-import { isFunction } from '../utils';
 
 class QingStor {
 
   constructor(config) {
     this.config = config;
   }
-
 
   /**
    * listBucketsRequest: Build ListBuckets's request
@@ -35,25 +33,21 @@ class QingStor {
    */
   listBucketsRequest(options = {}) {
     let operation = {
-      'api': 'ListBuckets',
-      'method': 'GET',
-      'uri': '/',
-      'params': {
+      api: 'ListBuckets',
+      method: 'GET',
+      uri: '/',
+      params: {},
+      headers: {
+        host: this.config.host,
+        location: options['location'] || options['Location'] || undefined,
       },
-      'headers': {
-        'host': this.config.host,
-        'location': options['location'] || options['Location'] || undefined,
-      },
-      'elements': {
-      },
-      'properties': {},
-      'body': undefined
+      elements: {},
+      properties: {},
+      body: undefined
     };
     this.listBucketsValidate(operation);
     return new Request(this.config, operation).build();
   }
-
-
 
   /**
    * listBuckets: Retrieve the bucket list.
@@ -68,23 +62,15 @@ class QingStor {
     return this.listBucketsRequest(options).sign().send();
   }
 
-
   listBucketsValidate(operation) {}
 
-
   Bucket(bucket_name, zone) {
-    let properties = {
+    const properties = {
       'bucket-name': bucket_name,
-      'zone': zone
+      zone: zone
     };
-    return new Bucket(this.config, properties)
+    return new Bucket(this.config, properties);
   }
 }
 
 export default QingStor;
-
-
-
-
-
-

@@ -14,13 +14,16 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import fs from "fs";
-import yaml from "js-yaml";
-import { Config, QingStor } from "../../dist/node/qingstor-sdk";
+import fs from 'fs';
+import yaml from 'js-yaml';
+import {
+  Config,
+  QingStor
+} from '../../dist/node/qingstor-sdk';
 
 let should = require('chai').should();
 
-export default function () {
+export default function() {
   this.setDefaultTimeout(10 * 1000);
 
   let config = new Config().loadConfigFromFilepath('tests/config.yaml');
@@ -84,8 +87,8 @@ export default function () {
 
     let test_string = JSON.parse(string);
     test_bucket.deleteMultipleObjects({
-      'objects': test_string['objects'],
-      'quiet': test_string['quiet']
+      objects: test_string['objects'],
+      quiet: test_string['quiet']
     }, (err, data) => {
       should.not.exist(err);
       test_data = data;
@@ -135,7 +138,7 @@ export default function () {
   });
   this.When(/^list multipart uploads with prefix$/, (callback) => {
     test_bucket.listMultipartUploads({
-      prefix: "list_multipart_uploads"
+      prefix: 'list_multipart_uploads'
     }, (err, data) => {
       should.not.exist(err);
       test_data = data;

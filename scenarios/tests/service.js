@@ -14,9 +14,12 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import fs from "fs";
-import yaml from "js-yaml";
-import { Config, QingStor } from "../../dist/node/qingstor-sdk";
+import fs from 'fs';
+import yaml from 'js-yaml';
+import {
+  Config,
+  QingStor
+} from '../../dist/node/qingstor-sdk';
 
 let should = require('chai').should();
 
@@ -37,7 +40,7 @@ module.exports = function() {
   });
   this.When(/^list buckets$/, function(callback) {
     test.listBuckets({
-      'location': test_config.zone
+      location: test_config.zone
     }, function(err, res) {
       test_res = res;
       callback();

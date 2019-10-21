@@ -26,4 +26,4 @@ export default {
   Request,
   Signer,
   Client,
-}
+};

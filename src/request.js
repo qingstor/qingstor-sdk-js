@@ -19,7 +19,9 @@ import axios from 'axios';
 
 import Signer from './sign';
 import Builder from './build';
-import { isFunction } from './utils';
+import {
+  isFunction
+} from './utils';
 
 class Request {
   constructor(config, operation) {
@@ -77,7 +79,7 @@ class Request {
       url: this.operation.uri,
       method: this.operation.method,
       headers: this.operation.headers,
-      data: this.operation.body
+      data: this.operation.body,
     });
   }
 }

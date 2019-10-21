@@ -41,10 +41,10 @@ class Config {
   }
 
   checkConfig() {
-    for (let key of Object.keys(this)) {
+    for (const key of Object.keys(this)) {
       if (key === 'additional_user_agent') {
-        for (let v of this[key]) {
-          let x = v.charCodeAt();
+        for (const v of this[key]) {
+          const x = v.charCodeAt();
           // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
           if (x < 32 || x > 126 || x === 32 || x === 34) {
             throw new RangeError(`additional_user_agent has not allowed value ${x}.`);
@@ -55,7 +55,7 @@ class Config {
   }
 
   loadConfig(data) {
-    for (let key of Object.keys(data)) {
+    for (const key of Object.keys(data)) {
       this[key] = data[key];
     }
     logger.setLevel(this['log_level']);

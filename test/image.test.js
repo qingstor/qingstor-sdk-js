@@ -28,7 +28,7 @@ describe('Image test', function() {
   it('crop test', function() {
     let test = new Image();
     const data = {
-      'width': '0'
+      width: '0'
     };
     test.crop(data);
     test.input.action.should.equal('crop:w_0,h_0,g_0');
@@ -37,7 +37,7 @@ describe('Image test', function() {
   it('rotate test', function() {
     let test = new Image();
     const data = {
-      'angle': 90
+      angle: 90
     };
     test.rotate(data);
     test.input.action.should.equal('rotate:a_90');
@@ -46,7 +46,7 @@ describe('Image test', function() {
   it('resize test', function() {
     let test = new Image();
     const data = {
-      'mode': '1'
+      mode: '1'
     };
     test.resize(data);
     test.input.action.should.equal('resize:w_0,h_0,m_1');
@@ -55,7 +55,7 @@ describe('Image test', function() {
   it('waterMark test', function() {
     let test = new Image();
     const data = {
-      'text': '5rC05Y2w5paH5a2X'
+      text: '5rC05Y2w5paH5a2X'
     };
     test.waterMark(data);
     test.input.action.should.equal('watermark:d_150,p_0.25,t_5rC05Y2w5paH5a2X,c_');
@@ -64,17 +64,17 @@ describe('Image test', function() {
   it('waterMarkImage test', function() {
     let test = new Image();
     const data = {
-      'url': 'aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc'
+      url: 'aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc'
     };
     test.waterMarkImage(data);
-    test.input.action.should.equal('watermark_image:l_0,t_0,p_0.25,u_aHR0cHM6Ly9w'
-      + 'ZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc');
+    test.input.action.should.equal('watermark_image:l_0,t_0,p_0.25,u_aHR0cHM6Ly9w' +
+      'ZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc');
   });
 
   it('format test', function() {
     let test = new Image();
     const data = {
-      'type': 'png'
+      type: 'png'
     };
     test.format(data);
     test.input.action.should.equal('format:t_png');
@@ -83,26 +83,26 @@ describe('Image test', function() {
   it('pipe test', function() {
     let test = new Image();
     const rotateParam = {
-      'angle': '90'
+      angle: '90'
     };
     const cropParam = {
-      'width': '300',
-      'height': '400',
-      'gravity': '0'
+      width: '300',
+      height: '400',
+      gravity: '0'
     };
     const resizeParam = {
-      'width': '500',
-      'height': '500',
-      'mode': '1'
+      width: '500',
+      height: '500',
+      mode: '1'
     };
     const formatParam = {
-      'type': 'png'
+      type: 'png'
     };
     const waterMarkParam = {
-      'text': '5rC05Y2w5paH5a2X'
+      text: '5rC05Y2w5paH5a2X'
     };
     const waterMarkImageParam = {
-      'url': 'aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc'
+      url: 'aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc'
     };
     test.rotate(rotateParam)
       .crop(cropParam)

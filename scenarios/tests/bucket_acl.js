@@ -14,9 +14,12 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import fs from "fs";
-import yaml from "js-yaml";
-import { Config, QingStor } from "../../dist/node/qingstor-sdk";
+import fs from 'fs';
+import yaml from 'js-yaml';
+import {
+  Config,
+  QingStor
+} from '../../dist/node/qingstor-sdk';
 
 let should = require('chai').should();
 
@@ -33,7 +36,7 @@ module.exports = function() {
   this.When(/^put bucket ACL:$/, function(string, callback) {
     console.log(JSON.parse(string)['acl']);
     test_bucket.putACL({
-      'acl': JSON.parse(string)['acl']
+      acl: JSON.parse(string)['acl']
     }, function(err, data) {
       test_data = data;
       callback();

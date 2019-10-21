@@ -14,9 +14,12 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import fs from "fs";
-import yaml from "js-yaml";
-import { Config, QingStor } from "../../dist/node/qingstor-sdk";
+import fs from 'fs';
+import yaml from 'js-yaml';
+import {
+  Config,
+  QingStor
+} from '../../dist/node/qingstor-sdk';
 
 let should = require('chai').should();
 
@@ -32,7 +35,7 @@ module.exports = function() {
 
   this.When(/^put bucket CORS:$/, function(string, callback) {
     test_bucket.putCORS({
-      'cors_rules': JSON.parse(string)['cors_rules']
+      cors_rules: JSON.parse(string)['cors_rules']
     }, function(err, res) {
       test_data = res;
       callback();

@@ -20,7 +20,12 @@ import logger from 'loglevel';
 import md5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 
-import { fixedEncodeURIComponent, buildUri, getStreamSize, filterUnsafeHeaders } from './utils';
+import {
+  fixedEncodeURIComponent,
+  buildUri,
+  getStreamSize,
+  filterUnsafeHeaders
+} from './utils';
 
 class Builder {
   constructor(config, operation) {
@@ -70,7 +75,6 @@ class Builder {
       parsedHeaders['content-type'] = 'application/json';
     }
 
-
     // Add content-length header
     let parsedBody = this.parseRequestBody(operation);
     if (!operation.headers['content-length'] && parsedBody) {
@@ -88,12 +92,12 @@ class Builder {
       global.version, process.version, process.platform, process.arch,
     );
     if (this.config.hasOwnProperty('additional_user_agent') && this.config.additional_user_agent) {
-      parsedHeaders['user-agent'] += util.format(' %s', this.config.additional_user_agent)
+      parsedHeaders['user-agent'] += util.format(' %s', this.config.additional_user_agent);
     }
 
     // Add helper for DeleteMultipleObjects
     if (operation.api === 'DeleteMultipleObjects') {
-      parsedHeaders['content-md5'] = Base64.stringify(md5(this.parseRequestBody(operation)))
+      parsedHeaders['content-md5'] = Base64.stringify(md5(this.parseRequestBody(operation)));
     }
 
     return filterUnsafeHeaders(parsedHeaders);
@@ -121,11 +125,11 @@ class Builder {
 
   parseRequestURI(operation) {
     let path = operation.uri;
-    let endpoint = "";
+    let endpoint = '';
     let parsedProperties = this.parseRequestProperties(operation);
 
     if (parsedProperties['zone']) {
-      endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}:${this.config.port}`
+      endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}:${this.config.port}`;
     } else {
       endpoint = `${this.config.protocol}://${this.config.host}:${this.config.port}`;
     }
@@ -144,6 +148,5 @@ class Builder {
     };
   }
 }
-
 
 export default Builder;

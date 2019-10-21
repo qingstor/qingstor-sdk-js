@@ -14,11 +14,14 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import fs from "fs";
-import yaml from "js-yaml";
-import fetch from "node-fetch";
-import child_process from "child_process";
-import { Config, QingStor } from "../../dist/node/qingstor-sdk";
+import fs from 'fs';
+import yaml from 'js-yaml';
+import fetch from 'node-fetch';
+import child_process from 'child_process';
+import {
+  Config,
+  QingStor
+} from '../../dist/node/qingstor-sdk';
 
 let should = require('chai').should();
 
@@ -39,19 +42,19 @@ module.exports = function() {
 
     (async () => {
       test_data[0] = await test_bucket.putObject(arg1, {
-        'body': fs.readFileSync("/tmp/sdk_bin")
+        body: fs.readFileSync('/tmp/sdk_bin')
       });
       test_data[1] = await test_bucket.putObject(arg1 + 's', {
-        'body': fs.createReadStream("/tmp/sdk_bin")
+        body: fs.createReadStream('/tmp/sdk_bin')
       });
       test_data[2] = await test_bucket.putObject(arg1 + 'sp', {
-        'body': fs.createReadStream("/tmp/sdk_bin", {
+        body: fs.createReadStream('/tmp/sdk_bin', {
           start: 0,
           end: 100
         })
       });
       callback();
-    })()
+    })();
   });
   this.Then(/^put object status code is (\d+)$/, function(arg1, callback) {
     for (let v of test_data) {
@@ -105,7 +108,7 @@ module.exports = function() {
       .then(function(data) {
         test_data = data;
         callback();
-      })
+      });
   });
   this.Then(/^get object with query signature content length is (\d+)$/, function(arg1, callback) {
     callback(null, (test_data.body.read().length * 1024).toString().should.eql(arg1));
@@ -117,7 +120,7 @@ module.exports = function() {
     }, function(err, data) {
       test_data = data;
       callback();
-    })
+    });
   });
 
   this.Then(/^get object content type is "(.*)"$/, function(arg1, callback) {
@@ -137,7 +140,7 @@ module.exports = function() {
   this.When(/^options object "(.*)" with method "(.*)" and origin "(.*)"$/, function(arg1, arg2, arg3, callback) {
     test_bucket.optionsObject(arg1, {
       'Access-Control-Request-Method': arg2,
-      'Origin': arg3
+      Origin: arg3
     }, function(err, data) {
       test_data = data;
       callback();
@@ -151,11 +154,11 @@ module.exports = function() {
     test_data = [];
 
     (async () => {
-      test_data[0] = await  test_bucket.deleteObject(arg1);
-      test_data[1] = await test_bucket.deleteObject(arg1 + "s");
-      test_data[2] = await test_bucket.deleteObject(arg1 + "sp");
+      test_data[0] = await test_bucket.deleteObject(arg1);
+      test_data[1] = await test_bucket.deleteObject(arg1 + 's');
+      test_data[2] = await test_bucket.deleteObject(arg1 + 'sp');
       callback();
-    })()
+    })();
   });
   this.Then(/^delete object status code is (\d+)$/, function(arg1, callback) {
     for (let v of test_data) {

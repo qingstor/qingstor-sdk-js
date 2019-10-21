@@ -16,19 +16,19 @@
 
 class ParameterRequiredError extends Error {
   constructor(parameter_name, parent_name) {
-    let msg = `${parameter_name} is required in ${parent_name}.`;
+    const msg = `${parameter_name} is required in ${parent_name}.`;
     super(msg);
   }
 }
 
 class ParameterValueNotAllowedError extends Error {
   constructor(parameter_name, parameter_value, allowed_values) {
-    let msg = `${parameter_name} value ${parameter_value} is not allowed, should be one of ${allowed_values.join(', ')}`;
+    const msg = `${parameter_name} value ${parameter_value} is not allowed, should be one of ${allowed_values.join(', ')}`;
     super(msg);
   }
 }
 
 export default {
   ParameterRequired: ParameterRequiredError,
-  ParameterValueNotAllowed: ParameterValueNotAllowedError
-}
+  ParameterValueNotAllowed: ParameterValueNotAllowedError,
+};

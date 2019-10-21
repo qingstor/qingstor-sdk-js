@@ -14,7 +14,7 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 
 describe('QingStor test', function() {
   let Config = qingstor_sdk.Config;
@@ -28,45 +28,41 @@ describe('QingStor test', function() {
   });
   it('ListObjects test', () => {
     test.listObjects().then((res) => {
-      console.log(res.keys)
-    }
-    )
+      console.log(res.keys);
+    });
   });
   it('PutObject test', () => {
-    test.putObject("test_key", {
-      body: "aaaaaaaaaaaaaaaaa"
+    test.putObject('test_key', {
+      body: 'aaaaaaaaaaaaaaaaa'
     }).then((res) => {
-      console.log(res.statusCode)
-    }
-    )
+      console.log(res.statusCode);
+    });
   });
   it('DeleteMultipleObject test', () => {
     test.deleteMultipleObjects({
-      objects: [
-        {
-          "key": "aaa"
-        },
-        {
-          "key": "bbb"
-        },
+      objects: [{
+        key: 'aaa'
+      },
+      {
+        key: 'bbb'
+      }
       ]
     }).then((res) => {
-      console.log(res.statusCode)
-    })
+      console.log(res.statusCode);
+    });
   });
-  it("CompleteMultipart test", () => {
-    test.completeMultipartUpload("test", {
-      object_parts: [
-        {
-          "part_number": "0"
-        },
-        {
-          "part_number": "1"
-        },
+  it('CompleteMultipart test', () => {
+    test.completeMultipartUpload('test', {
+      object_parts: [{
+        part_number: '0'
+      },
+      {
+        part_number: '1'
+      },
       ],
-      upload_id: "xxx"
+      upload_id: 'xxx'
     }).then((res) => {
-      console.log(res.statusCode)
-    })
+      console.log(res.statusCode);
+    });
   });
 });

@@ -17,7 +17,9 @@
 import logger from 'loglevel';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import Base64 from 'crypto-js/enc-base64';
-import { buildUri } from './utils';
+import {
+  buildUri
+} from './utils';
 
 class Signer {
   constructor(operation, access_key_id, secret_access_key) {
@@ -41,7 +43,7 @@ class Signer {
     const data = {
       signature: this.getQuerySignature(expires),
       access_key_id: this.access_key_id,
-      expires: expires
+      expires: expires,
     };
 
     this.operation.params = Object.assign(this.operation.params, data);
@@ -72,12 +74,13 @@ class Signer {
   }
 
   getCanonicalizedHeaders(hasDate) {
-    if (!hasDate)
+    if (!hasDate) {
       hasDate = true;
+    }
     let canonicalizedHeaders = '';
-    let headers = {};
+    const headers = {};
 
-    for (let i of Object.keys(this.operation.headers)) {
+    for (const i of Object.keys(this.operation.headers)) {
       if (i.toLowerCase().indexOf('x-qs-') !== -1) {
         if (hasDate || i.toLowerCase().trim() !== 'x-qs-date') {
           headers[i.toLowerCase()] = this.operation.headers[i];
@@ -85,9 +88,9 @@ class Signer {
       }
     }
 
-    let keys = Object.keys(headers).sort();
+    const keys = Object.keys(headers).sort();
     if (keys.length > 0) {
-      for (let i of keys) {
+      for (const i of keys) {
         canonicalizedHeaders += `${i.toLowerCase().trim()}:${headers[i].trim()}
 `;
       }
@@ -97,22 +100,22 @@ class Signer {
 
   getCanonicalizedResource() {
     let canonicalizedResource = this.operation.path;
-    let parsedParams = this.operation.params;
-    let query = [];
+    const parsedParams = this.operation.params;
+    const query = [];
     if (Object.keys(parsedParams).length !== 0) {
-      for (let i of Object.keys(parsedParams)) {
+      for (const i of Object.keys(parsedParams)) {
         if (this.isSubResource(i)) {
           if (parsedParams[i] !== '') {
             query.push(`${i}=${parsedParams[i]}`);
           } else {
-            query.push(i)
+            query.push(i);
           }
         }
       }
     }
-    let joinedKeys = query.sort().join('&');
+    const joinedKeys = query.sort().join('&');
     if (joinedKeys) {
-      let separator = canonicalizedResource.includes('?') ? '&' : '?';
+      const separator = canonicalizedResource.includes('?') ? '&' : '?';
       canonicalizedResource += separator + joinedKeys;
     }
     return canonicalizedResource;
@@ -127,11 +130,11 @@ class Signer {
   }
 
   getStringToSign() {
-    let stringToSign = this.operation.method + '\n' +
-    this.getContentMD5() + '\n' +
-    this.getContentType() + '\n' + '\n' +
-    this.getCanonicalizedHeaders() +
-    this.getCanonicalizedResource();
+    const stringToSign = this.operation.method + '\n' +
+      this.getContentMD5() + '\n' +
+      this.getContentType() + '\n' + '\n' +
+      this.getCanonicalizedHeaders() +
+      this.getCanonicalizedResource();
 
     logger.debug(`QingStor request string to sign: 
 ${stringToSign}`);
@@ -139,12 +142,12 @@ ${stringToSign}`);
   }
 
   getQueryStringToSign(expires) {
-    let stringToSign = this.operation.method + '\n' +
-    this.getContentMD5() + '\n' +
-    this.getContentType() + '\n' +
-    expires + '\n' +
-    this.getCanonicalizedHeaders(false) +
-    this.getCanonicalizedResource();
+    const stringToSign = this.operation.method + '\n' +
+      this.getContentMD5() + '\n' +
+      this.getContentType() + '\n' +
+      expires + '\n' +
+      this.getCanonicalizedHeaders(false) +
+      this.getCanonicalizedResource();
 
     logger.debug(`QingStor query request string to sign:
 ${stringToSign}`);
@@ -176,7 +179,7 @@ ${stringToSign}`);
       'response-content-type',
       'response-content-language',
       'response-content-encoding',
-      'response-content-disposition'
+      'response-content-disposition',
     ].includes(key);
   }
 }
