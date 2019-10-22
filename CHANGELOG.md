@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0-beta.0] - 2019-10-18
+
+### Changed
+
+- Alter callback style methods to promise style
+- Module import path, please refer to [README.md](./README.md) for more details
+
 ## [2.2.16] - 2018-10-17
 
 ### Added
@@ -205,7 +212,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
-[2.2.16]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.15...2.2.16
+[3.0.0-beta.0]: https://github.com/yunify/qingstor-sdk-js/compare/v2.2.16...3.0.0-beta.0
+[2.2.16]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.15...v2.2.16
 [2.2.15]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.14...2.2.15
 [2.2.14]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.13...2.2.14
 [2.2.13]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.12...2.2.13
