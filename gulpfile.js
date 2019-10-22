@@ -35,7 +35,7 @@ function clean(cb) {
 }
 
 function bundle(cb) {
-  webpack(webpackConfig, function(err, stats) {
+  webpack(webpackConfig).run(function(err, stats) {
     if (err) {
       throw err;
     }

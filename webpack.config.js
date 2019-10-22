@@ -1,11 +1,27 @@
 const path = require('path');
-const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const nodeConfig = {
+const baseConfig = {
+  bail: true,
   mode: 'development',
   devtool: false,
   entry: './index.js',
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+        }
+      },
+    ]
+  },
+}
+
+const nodeConfig = {
+  ...baseConfig,
   target: 'node',
 
   output: {
@@ -20,24 +36,11 @@ const nodeConfig = {
       config: path.resolve(__dirname, './src/config/node.js'),
     }
   },
-
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-    ]
-  }
 };
 
 const browserConfig = {
-  mode: 'development',
-  devtool: false,
-  entry: './index.js',
+  ...baseConfig,
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'qingstor-sdk-browser.js',
@@ -89,18 +92,6 @@ const browserConfig = {
     fs: 'empty',
     process: 'mock'
   },
-
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-        }
-      },
-    ]
-  }
 };
 
 module.exports = [
