@@ -22,6 +22,11 @@
     "doc": "docs",
     "test": "test"
   },
+  "files": [
+    "dist/**/*.js",
+    "src",
+    "index.js"
+  ],
   "scripts": {
     "cucumber": "cd scenarios; npm install; ./node_modules/cucumber/bin/cucumber.js  features/*.feature --require tests --compiler es6:@babel/register;",
     "dist": "gulp compress",
