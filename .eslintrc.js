@@ -1,5 +1,7 @@
 module.exports = {
+  root: true,
   extends: ['eslint:recommended'],
+
   parserOptions: {
     ecmaVersion: 8,
     sourceType: 'module',
@@ -8,12 +10,13 @@ module.exports = {
       modules: true,
     },
   },
-  root: true,
+
   env: {
     browser: true,
     node: true,
     es6: true,
   },
+
   rules: {
     'max-len': [1, {code: 150}],
     indent: ['error', 2],
