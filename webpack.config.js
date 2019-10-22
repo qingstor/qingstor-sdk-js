@@ -11,8 +11,8 @@ const nodeConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'qingstor-sdk-node.js',
-    libraryTarget: "umd",
-    library: "qingstor_sdk"
+    libraryTarget: 'umd',
+    library: 'qingstor_sdk'
   },
 
   resolve: {
@@ -41,8 +41,8 @@ const browserConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'qingstor-sdk-browser.js',
-    libraryTarget: "umd",
-    library: "qingstor_sdk",
+    libraryTarget: 'umd',
+    library: 'qingstor_sdk',
   },
 
   resolve: {
@@ -86,8 +86,8 @@ const browserConfig = {
   ],
 
   node: {
-    "fs": "empty",
-    "process": "mock"
+    fs: 'empty',
+    process: 'mock'
   },
 
   module: {

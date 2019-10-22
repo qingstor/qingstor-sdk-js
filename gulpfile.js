@@ -14,7 +14,7 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-"use strict";
+'use strict';
 require('./src/version');
 
 const path = require('path');
@@ -41,12 +41,12 @@ function bundle(cb) {
     }
 
     process.stdout.write(stats.toString({
-        colors: true,
-        modules: false,
-        children: false,
-        chunks: false,
-        chunkModules: false
-      }) + '\n\n');
+      colors: true,
+      modules: false,
+      children: false,
+      chunks: false,
+      chunkModules: false
+    }) + '\n\n');
 
     cb();
   });
@@ -62,38 +62,8 @@ function minify() {
 }
 
 function compress(cb) {
-  // exec('ls ./dist/**/*.js').then(({stdout, stderr}) => {
-  //   if (stderr) {
-  //     return Promise.reject(stderr);
-  //   }
-
-  //   return stdout.split('\n').filter((filePath) => !!filePath).reduce((assets, filePath) => {
-  //     const {dir, base, name, ext} = path.parse(filePath);
-  //     if (!assets[dir]) {
-  //       assets[dir] = [base];
-  //     } else {
-  //       assets[dir].push(base);
-  //     }
-
-  //     return assets;
-  //   }, {});
-  // }).then((assets) => {
-  //   return Promise.all(Object.keys(assets).map((dir) => {
-  //     const zipFileName = dir.endsWith('node') ?
-  //       `qingstor-sdk-nodejs-${global.version}` : `qingstor-sdk-javascript-${global.version}`;
-
-  //     return exec([
-  //       `cd ${dir}`,
-  //       `zip ${zipFileName}.zip ${assets[dir].join(' ')}`,
-  //       `tar -czvf ${zipFileName}.tar.gz ${assets[dir].join(' ')}`,
-  //     ].join(' && '));
-  //   }));
-  // }).then(() => cb())
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
   exec([
-    `cd ./dist`,
+    'cd ./dist',
     `zip qingstor-sdk-${global.version}.zip *.js`,
     `tar -czvf qingstor-sdk-${global.version}.tar.gz *.js`,
   ].join(' && ')).then(() => {
