@@ -30,9 +30,7 @@ class Image {
   }
 
   crop(data) {
-    const {
-      width = 0, height = 0, gravity = 0
-    } = data;
+    const { width = 0, height = 0, gravity = 0 } = data;
     const prefix = this.getPrefix();
     this.input = {
       action: `${prefix}crop:w_${width},h_${height},g_${gravity}`,
@@ -49,9 +47,7 @@ class Image {
   }
 
   resize(data) {
-    const {
-      width = 0, height = 0, mode = 0
-    } = data;
+    const { width = 0, height = 0, mode = 0 } = data;
     const prefix = this.getPrefix();
     this.input = {
       action: `${prefix}resize:w_${width},h_${height},m_${mode}`,
@@ -60,9 +56,7 @@ class Image {
   }
 
   waterMark(data) {
-    const {
-      dpi = 150, opacity = 0.25, color = ''
-    } = data;
+    const { dpi = 150, opacity = 0.25, color = '' } = data;
     const prefix = this.getPrefix();
     this.input = {
       action: `${prefix}watermark:d_${dpi},p_${opacity},t_${data.text},c_${color}`,
@@ -71,9 +65,7 @@ class Image {
   }
 
   waterMarkImage(data) {
-    const {
-      left = 0, top = 0, opacity = 0.25
-    } = data;
+    const { left = 0, top = 0, opacity = 0.25 } = data;
     const prefix = this.getPrefix();
     this.input = {
       action: `${prefix}watermark_image:l_${left},t_${top},p_${opacity},u_${data.url}`,

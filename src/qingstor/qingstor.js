@@ -18,7 +18,6 @@ import Request from '../request';
 import Bucket from './bucket';
 
 class QingStor {
-
   constructor(config) {
     this.config = config;
   }
@@ -43,7 +42,7 @@ class QingStor {
       },
       elements: {},
       properties: {},
-      body: undefined
+      body: undefined,
     };
     this.listBucketsValidate(operation);
     return new Request(this.config, operation).build();
@@ -59,7 +58,9 @@ class QingStor {
    */
   listBuckets(options) {
     options = options || {};
-    return this.listBucketsRequest(options).sign().send();
+    return this.listBucketsRequest(options)
+      .sign()
+      .send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -68,7 +69,7 @@ class QingStor {
   Bucket(bucket_name, zone) {
     const properties = {
       'bucket-name': bucket_name,
-      zone: zone
+      zone: zone,
     };
     return new Bucket(this.config, properties);
   }

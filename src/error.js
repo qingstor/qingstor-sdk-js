@@ -23,7 +23,9 @@ class ParameterRequiredError extends Error {
 
 class ParameterValueNotAllowedError extends Error {
   constructor(parameter_name, parameter_value, allowed_values) {
-    const msg = `${parameter_name} value ${parameter_value} is not allowed, should be one of ${allowed_values.join(', ')}`;
+    const msg = `${parameter_name} value ${parameter_value} is not allowed, should be one of ${allowed_values.join(
+      ', '
+    )}`;
     super(msg);
   }
 }

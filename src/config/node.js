@@ -19,7 +19,8 @@ import path from 'path';
 import yaml from 'js-yaml';
 import logger from 'loglevel';
 
-const defaultConfigFileContent = ['# QingStor Services Configuration',
+const defaultConfigFileContent = [
+  '# QingStor Services Configuration',
   '',
   'access_key_id: ""',
   'secret_access_key: ""',
@@ -31,7 +32,7 @@ const defaultConfigFileContent = ['# QingStor Services Configuration',
   '# Additional User-Agent',
   'additional_user_agent: ""',
   '# Valid levels are "debug", "info", "warn", "error", and "fatal".',
-  'log_level: "warn"'
+  'log_level: "warn"',
 ].join('\n');
 
 const defaultConfigFile = '~/.qingstor/config.yaml';
@@ -44,7 +45,7 @@ class Config {
   }
 
   getUserConfigFilePath() {
-    const home = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+    const home = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
     return `${home}${defaultConfigFile.replace('~', '')}`;
   }
 

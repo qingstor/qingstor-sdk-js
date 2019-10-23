@@ -31,29 +31,25 @@ class Request {
   }
 
   sign() {
-    this.operation = new Signer(
-      this.operation, this.config.access_key_id, this.config.secret_access_key,
-    ).sign();
+    this.operation = new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).sign();
     return this;
   }
 
   signQuery(expires) {
-    this.operation = new Signer(
-      this.operation, this.config.access_key_id, this.config.secret_access_key,
-    ).signQuery(expires);
+    this.operation = new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).signQuery(
+      expires
+    );
     return this;
   }
 
   getStringToSign() {
-    return new Signer(
-      this.operation, this.config.access_key_id, this.config.secret_access_key,
-    ).getStringToSign();
+    return new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).getStringToSign();
   }
 
   getQueryStringToSign(expires) {
-    return new Signer(
-      this.operation, this.config.access_key_id, this.config.secret_access_key,
-    ).getQueryStringToSign(expires);
+    return new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).getQueryStringToSign(
+      expires
+    );
   }
 
   applySignature(signature) {

@@ -17,9 +17,7 @@
 import logger from 'loglevel';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import Base64 from 'crypto-js/enc-base64';
-import {
-  buildUri
-} from './utils';
+import { buildUri } from './utils';
 
 class Signer {
   constructor(operation, access_key_id, secret_access_key) {
@@ -47,11 +45,7 @@ class Signer {
     };
 
     this.operation.params = Object.assign(this.operation.params, data);
-    this.operation.uri = buildUri(
-      this.operation.endpoint,
-      this.operation.path,
-      this.operation.params
-    );
+    this.operation.uri = buildUri(this.operation.endpoint, this.operation.path, this.operation.params);
 
     logger.debug(`QingStor query request url: ${this.operation.uri}`);
     return this.operation;
@@ -130,9 +124,14 @@ class Signer {
   }
 
   getStringToSign() {
-    const stringToSign = this.operation.method + '\n' +
-      this.getContentMD5() + '\n' +
-      this.getContentType() + '\n' + '\n' +
+    const stringToSign =
+      this.operation.method +
+      '\n' +
+      this.getContentMD5() +
+      '\n' +
+      this.getContentType() +
+      '\n' +
+      '\n' +
       this.getCanonicalizedHeaders() +
       this.getCanonicalizedResource();
 
@@ -142,10 +141,15 @@ ${stringToSign}`);
   }
 
   getQueryStringToSign(expires) {
-    const stringToSign = this.operation.method + '\n' +
-      this.getContentMD5() + '\n' +
-      this.getContentType() + '\n' +
-      expires + '\n' +
+    const stringToSign =
+      this.operation.method +
+      '\n' +
+      this.getContentMD5() +
+      '\n' +
+      this.getContentType() +
+      '\n' +
+      expires +
+      '\n' +
       this.getCanonicalizedHeaders(false) +
       this.getCanonicalizedResource();
 

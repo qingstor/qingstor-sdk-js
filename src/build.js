@@ -20,12 +20,7 @@ import logger from 'loglevel';
 import md5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 
-import {
-  fixedEncodeURIComponent,
-  buildUri,
-  getStreamSize,
-  filterUnsafeHeaders
-} from './utils';
+import { fixedEncodeURIComponent, buildUri, getStreamSize, filterUnsafeHeaders } from './utils';
 
 class Builder {
   constructor(config, operation) {
@@ -89,7 +84,10 @@ class Builder {
     // Add user-agent header
     parsedHeaders['user-agent'] = util.format(
       'qingstor-sdk-js/%s (Node.js %s; %s %s)',
-      global.version, process.version, process.platform, process.arch,
+      global.version,
+      process.version,
+      process.platform,
+      process.arch
     );
 
     if (this.config.additional_user_agent) {
@@ -145,7 +143,7 @@ class Builder {
     return {
       endpoint,
       path,
-      uri: parsedUri
+      uri: parsedUri,
     };
   }
 }
