@@ -5,6 +5,7 @@
     {{- $customizedTypes := index . 2}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
     {{- if ne $belongs "QingStor"}}
+    // eslint-disable-next-line no-unused-vars
     {{$opID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
     {{- if eq $belongs "QingStor"}}
