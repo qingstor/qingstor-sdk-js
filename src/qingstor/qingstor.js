@@ -62,6 +62,7 @@ class QingStor {
     return this.listBucketsRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   listBucketsValidate(operation) {}
 
   Bucket(bucket_name, zone) {

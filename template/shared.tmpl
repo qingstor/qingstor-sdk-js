@@ -9,6 +9,7 @@
     {{$opID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
     {{- if eq $belongs "QingStor"}}
+    // eslint-disable-next-line no-unused-vars
     {{$operation.ID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
     {{- $i := passThrough "operation['params']" $request.Query $customizedTypes}}

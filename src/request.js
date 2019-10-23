@@ -14,14 +14,10 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import logger from 'loglevel';
 import axios from 'axios';
 
 import Signer from './sign';
 import Builder from './build';
-import {
-  isFunction
-} from './utils';
 
 class Request {
   constructor(config, operation) {

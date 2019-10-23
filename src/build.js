@@ -91,7 +91,8 @@ class Builder {
       'qingstor-sdk-js/%s (Node.js %s; %s %s)',
       global.version, process.version, process.platform, process.arch,
     );
-    if (this.config.hasOwnProperty('additional_user_agent') && this.config.additional_user_agent) {
+
+    if (this.config.additional_user_agent) {
       parsedHeaders['user-agent'] += util.format(' %s', this.config.additional_user_agent);
     }
 

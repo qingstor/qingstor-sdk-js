@@ -62,6 +62,7 @@ class Bucket {
     return this.deleteRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteValidate(operation) {}
 
   /**
@@ -97,6 +98,7 @@ class Bucket {
     return this.deleteCORSRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteCORSValidate(operation) {}
 
   /**
@@ -132,6 +134,7 @@ class Bucket {
     return this.deleteExternalMirrorRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteExternalMirrorValidate(operation) {}
 
   /**
@@ -167,6 +170,7 @@ class Bucket {
     return this.deleteLifecycleRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteLifecycleValidate(operation) {}
 
   /**
@@ -202,6 +206,7 @@ class Bucket {
     return this.deleteNotificationRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteNotificationValidate(operation) {}
 
   /**
@@ -237,6 +242,7 @@ class Bucket {
     return this.deletePolicyRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deletePolicyValidate(operation) {}
 
   /**
@@ -285,6 +291,7 @@ class Bucket {
     return this.deleteMultipleObjectsRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteMultipleObjectsValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['objects'] === undefined || operation['elements']['objects'].toString() === '') {
       throw new SDKError.ParameterRequired('objects', 'DeleteMultipleObjectsInput');
@@ -325,6 +332,7 @@ class Bucket {
     return this.getACLRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getACLValidate(operation) {}
 
   /**
@@ -360,6 +368,7 @@ class Bucket {
     return this.getCORSRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getCORSValidate(operation) {}
 
   /**
@@ -395,6 +404,7 @@ class Bucket {
     return this.getExternalMirrorRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getExternalMirrorValidate(operation) {}
 
   /**
@@ -430,6 +440,7 @@ class Bucket {
     return this.getLifecycleRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getLifecycleValidate(operation) {}
 
   /**
@@ -465,6 +476,7 @@ class Bucket {
     return this.getNotificationRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getNotificationValidate(operation) {}
 
   /**
@@ -500,6 +512,7 @@ class Bucket {
     return this.getPolicyRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getPolicyValidate(operation) {}
 
   /**
@@ -535,6 +548,7 @@ class Bucket {
     return this.getStatisticsRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getStatisticsValidate(operation) {}
 
   /**
@@ -570,6 +584,7 @@ class Bucket {
     return this.headRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   headValidate(operation) {}
 
   /**
@@ -624,6 +639,7 @@ class Bucket {
     return this.listMultipartUploadsRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   listMultipartUploadsValidate(operation) {}
 
   /**
@@ -675,6 +691,7 @@ class Bucket {
     return this.listObjectsRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   listObjectsValidate(operation) {}
 
   /**
@@ -710,6 +727,7 @@ class Bucket {
     return this.putRequest().sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putValidate(operation) {}
 
   /**
@@ -752,12 +770,13 @@ class Bucket {
     return this.putACLRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putACLValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['acl'] === undefined || operation['elements']['acl'].toString() === '') {
       throw new SDKError.ParameterRequired('acl', 'PutBucketACLInput');
     }
     operation['elements']['acl'].forEach(function(value) {
-      if (value.hasOwnProperty('grantee')) {
+      if ('grantee' in value) {
         if (value['grantee'] === undefined || value['grantee']['type'] === undefined || value['grantee']['type'].toString() === '') {
           throw new SDKError.ParameterRequired('type', 'grantee');
         }
@@ -831,6 +850,7 @@ class Bucket {
     return this.putCORSRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putCORSValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['cors_rules'] === undefined || operation['elements']['cors_rules'].toString() === '') {
       throw new SDKError.ParameterRequired('cors_rules', 'PutBucketCORSInput');
@@ -885,6 +905,7 @@ class Bucket {
     return this.putExternalMirrorRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putExternalMirrorValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['source_site'] === undefined || operation['elements']['source_site'].toString() === '') {
       throw new SDKError.ParameterRequired('source_site', 'PutBucketExternalMirrorInput');
@@ -931,18 +952,19 @@ class Bucket {
     return this.putLifecycleRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putLifecycleValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['rule'] === undefined || operation['elements']['rule'].toString() === '') {
       throw new SDKError.ParameterRequired('rule', 'PutBucketLifecycleInput');
     }
     operation['elements']['rule'].forEach(function(value) {
-      if (value.hasOwnProperty('abort_incomplete_multipart_upload')) {
+      if ('abort_incomplete_multipart_upload' in value) {
         if (value['abort_incomplete_multipart_upload'] === undefined || value['abort_incomplete_multipart_upload']['days_after_initiation'] === undefined || value['abort_incomplete_multipart_upload']['days_after_initiation'].toString() === '') {
           throw new SDKError.ParameterRequired('days_after_initiation', 'abort_incomplete_multipart_upload');
         }
       }
-      if (value.hasOwnProperty('expiration')) {}
-      if (value.hasOwnProperty('filter')) {
+      if ('expiration' in value) {}
+      if ('filter' in value) {
         if (value['filter'] === undefined || value['filter']['prefix'] === undefined || value['filter']['prefix'].toString() === '') {
           throw new SDKError.ParameterRequired('prefix', 'filter');
         }
@@ -966,7 +988,7 @@ class Bucket {
           );
         }
       }
-      if (value.hasOwnProperty('transition')) {
+      if ('transition' in value) {
         if (value['transition'] === undefined || value['transition']['storage_class'] === undefined || value['transition']['storage_class'].toString() === '') {
           throw new SDKError.ParameterRequired('storage_class', 'transition');
         }
@@ -1014,6 +1036,7 @@ class Bucket {
     return this.putNotificationRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putNotificationValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['notifications'] === undefined || operation['elements']['notifications'].toString() === '') {
       throw new SDKError.ParameterRequired('notifications', 'PutBucketNotificationInput');
@@ -1032,7 +1055,7 @@ class Bucket {
           );
         }
       }
-      if (value.hasOwnProperty('cloudfunc_args')) {
+      if ('cloudfunc_args' in value) {
         if (value['cloudfunc_args'] === undefined || value['cloudfunc_args']['action'] === undefined || value['cloudfunc_args']['action'].toString() === '') {
           throw new SDKError.ParameterRequired('action', 'cloudfunc_args');
         }
@@ -1086,6 +1109,7 @@ class Bucket {
     return this.putPolicyRequest(options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putPolicyValidate(operation) {
     if (operation['elements'] === undefined || operation['elements']['statement'] === undefined || operation['elements']['statement'].toString() === '') {
       throw new SDKError.ParameterRequired('statement', 'PutBucketPolicyInput');
@@ -1094,12 +1118,12 @@ class Bucket {
       if (value === undefined || value['action'] === undefined || value['action'].toString() === '') {
         throw new SDKError.ParameterRequired('action', 'statement');
       }
-      if (value.hasOwnProperty('condition')) {
-        if (value['condition'].hasOwnProperty('ip_address')) {}
-        if (value['condition'].hasOwnProperty('is_null')) {}
-        if (value['condition'].hasOwnProperty('not_ip_address')) {}
-        if (value['condition'].hasOwnProperty('string_like')) {}
-        if (value['condition'].hasOwnProperty('string_not_like')) {}
+      if ('condition' in value) {
+        if ('ip_address' in value['condition']) {}
+        if ('is_null' in value['condition']) {}
+        if ('not_ip_address' in value['condition']) {}
+        if ('string_like' in value['condition']) {}
+        if ('string_not_like' in value['condition']) {}
       }
       if (value === undefined || value['effect'] === undefined || value['effect'].toString() === '') {
         throw new SDKError.ParameterRequired('effect', 'statement');
@@ -1166,6 +1190,7 @@ class Bucket {
     return this.abortMultipartUploadRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   abortMultipartUploadValidate(operation) {
     if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'AbortMultipartUploadInput');
@@ -1231,6 +1256,7 @@ class Bucket {
     return this.completeMultipartUploadRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   completeMultipartUploadValidate(operation) {
     if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'CompleteMultipartUploadInput');
@@ -1281,6 +1307,7 @@ class Bucket {
     return this.deleteObjectRequest(object_key).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   deleteObjectValidate(operation) {}
 
   /**
@@ -1365,6 +1392,7 @@ class Bucket {
     return this.getObjectRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   getObjectValidate(operation) {}
 
   /**
@@ -1427,6 +1455,7 @@ class Bucket {
     return this.headObjectRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   headObjectValidate(operation) {}
 
   /**
@@ -1493,6 +1522,7 @@ class Bucket {
     return this.imageProcessRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   imageProcessValidate(operation) {
     if (operation['params'] === undefined || operation['params']['action'] === undefined || operation['params']['action'].toString() === '') {
       throw new SDKError.ParameterRequired('action', 'ImageProcessInput');
@@ -1553,6 +1583,7 @@ class Bucket {
     return this.initiateMultipartUploadRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   initiateMultipartUploadValidate(operation) {
     if (operation['headers'] !== undefined && operation['headers']['X-QS-Storage-Class'] !== undefined && operation['headers']['X-QS-Storage-Class'].toString() !== '') {
       const x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
@@ -1615,6 +1646,7 @@ class Bucket {
     return this.listMultipartRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   listMultipartValidate(operation) {
     if (operation['params'] === undefined || operation['params']['upload_id'] === undefined || operation['params']['upload_id'].toString() === '') {
       throw new SDKError.ParameterRequired('upload_id', 'ListMultipartInput');
@@ -1669,6 +1701,7 @@ class Bucket {
     return this.optionsObjectRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   optionsObjectValidate(operation) {
     if (operation['headers'] === undefined || operation['headers']['Access-Control-Request-Method'] === undefined || operation['headers']['Access-Control-Request-Method'].toString() === '') {
       throw new SDKError.ParameterRequired('Access-Control-Request-Method', 'OptionsObjectInput');
@@ -1780,6 +1813,7 @@ class Bucket {
     return this.putObjectRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   putObjectValidate(operation) {
     if (operation['headers'] !== undefined && operation['headers']['X-QS-Storage-Class'] !== undefined && operation['headers']['X-QS-Storage-Class'].toString() !== '') {
       const x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
@@ -1881,6 +1915,7 @@ class Bucket {
     return this.uploadMultipartRequest(object_key, options).sign().send();
   }
 
+  // eslint-disable-next-line no-unused-vars
   uploadMultipartValidate(operation) {
     if (operation['params'] === undefined || operation['params']['part_number'] === undefined || operation['params']['part_number'].toString() === '') {
       throw new SDKError.ParameterRequired('part_number', 'UploadMultipartInput');
