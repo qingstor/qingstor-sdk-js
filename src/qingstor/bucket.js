@@ -1537,6 +1537,7 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-MetaData - User-defined metadata
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
    *
@@ -1554,6 +1555,7 @@ class Bucket {
         'x-qs-encryption-customer-algorithm': options['x-qs-encryption-customer-algorithm'] || options['X-QS-Encryption-Customer-Algorithm'] || undefined,
         'x-qs-encryption-customer-key': options['x-qs-encryption-customer-key'] || options['X-QS-Encryption-Customer-Key'] || undefined,
         'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
+        'x-qs-metadata': options['x-qs-metadata'] || options['X-QS-MetaData'] || undefined,
         'x-qs-storage-class': options['x-qs-storage-class'] || options['X-QS-Storage-Class'] || undefined,
       },
       elements: {},
@@ -1573,6 +1575,7 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-MetaData - User-defined metadata
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
    *
@@ -1734,6 +1737,7 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
    * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
+   * @param options.X-QS-MetaData - User-defined metadata
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
@@ -1767,6 +1771,7 @@ class Bucket {
         'x-qs-encryption-customer-key-md5': options['x-qs-encryption-customer-key-md5'] || options['X-QS-Encryption-Customer-Key-MD5'] || undefined,
         'x-qs-fetch-if-unmodified-since': options['x-qs-fetch-if-unmodified-since'] || options['X-QS-Fetch-If-Unmodified-Since'] || undefined,
         'x-qs-fetch-source': options['x-qs-fetch-source'] || options['X-QS-Fetch-Source'] || undefined,
+        'x-qs-metadata': options['x-qs-metadata'] || options['X-QS-MetaData'] || undefined,
         'x-qs-move-source': options['x-qs-move-source'] || options['X-QS-Move-Source'] || undefined,
         'x-qs-storage-class': options['x-qs-storage-class'] || options['X-QS-Storage-Class'] || undefined,
       },
@@ -1802,6 +1807,7 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
    * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
+   * @param options.X-QS-MetaData - User-defined metadata
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    * @param object_key The object key
