@@ -30,4 +30,13 @@ module.exports = {
     'comma-style': ['error', 'last'],
     'prefer-const': 'error',
   },
+
+  globals: {
+    // globals in tests
+    it: "readonly",
+    describe: "readonly",
+    qingstor_sdk: "readonly",
+    qingstor_config: "readonly",
+    qingstor_test_config: "readonly",
+  }
 };
