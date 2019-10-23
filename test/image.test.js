@@ -111,6 +111,7 @@ describe('Image test', function() {
       .waterMark(waterMarkParam)
       .waterMarkImage(waterMarkImageParam)
       .info();
+    // eslint-disable-next-line max-len
     test.input.action.should.equal('rotate:a_90|crop:w_300,h_400,g_0|resize:w_500,h_500,m_1|format:t_png|watermark:d_150,p_0.25,t_5rC05Y2w5paH5a2X,c_|watermark_image:l_0,t_0,p_0.25,u_aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc|info');
   });
 });

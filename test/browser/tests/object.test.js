@@ -41,11 +41,11 @@ describe('QingStor test', function() {
   it('DeleteMultipleObject test', () => {
     test.deleteMultipleObjects({
       objects: [{
-        key: 'aaa'
-      },
-      {
-        key: 'bbb'
-      }
+          key: 'aaa'
+        },
+        {
+          key: 'bbb'
+        }
       ]
     }).then((res) => {
       console.log(res.statusCode);
@@ -54,11 +54,11 @@ describe('QingStor test', function() {
   it('CompleteMultipart test', () => {
     test.completeMultipartUpload('test', {
       object_parts: [{
-        part_number: '0'
-      },
-      {
-        part_number: '1'
-      },
+          part_number: '0'
+        },
+        {
+          part_number: '1'
+        },
       ],
       upload_id: 'xxx'
     }).then((res) => {

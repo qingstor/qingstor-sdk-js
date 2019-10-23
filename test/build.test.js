@@ -18,8 +18,21 @@ import process from 'process';
 import Builder from '../src/build';
 import Config from '../src/config/node';
 
-const pjson = require('../package.json');
 const should = require('chai').should();
+
+const packageVersion = require('../package.json').version;
+const userAgent = [
+  'qingstor-sdk-js/',
+  packageVersion,
+  ' (Node.js ',
+  process.version,
+  '; ',
+  process.platform,
+  ' ',
+  process.arch,
+  ') ',
+  'UserExample',
+].join('');
 
 describe('Builder test', function() {
   const config = new Config('test_access_key', 'test_secret_key');
@@ -58,7 +71,7 @@ describe('Builder test', function() {
       host: 'qingstor.com',
       'x-qs-date': 'test time',
       'content-type': 'image/jpeg',
-      'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample',
+      'user-agent': userAgent,
     });
   });
 
@@ -98,7 +111,7 @@ describe('Builder test', function() {
         host: 'qingstor.com',
         'x-qs-date': 'test time',
         'content-type': 'image/jpeg',
-        'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ' ' + process.arch + ') ' + 'UserExample'
+        'user-agent': userAgent
       }
     });
   });

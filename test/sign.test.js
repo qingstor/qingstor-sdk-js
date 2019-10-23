@@ -17,8 +17,20 @@
 import process from 'process';
 import Signer from '../src/sign';
 
-const pjson = require('../package.json');
 const should = require('chai').should();
+
+const packageVersion = require('../package.json').version;
+const userAgent = [
+  'qingstor-sdk-js/',
+  packageVersion,
+  ' (Node.js ',
+  process.version,
+  '; ',
+  process.platform,
+  ' ',
+  process.arch,
+  ')',
+].join('');
 
 describe('Signer test', function() {
   const operation = {
@@ -37,7 +49,7 @@ describe('Signer test', function() {
       'x-qs-z': 'test-z',
       'x-qs-a': 'test-a',
       'x-qs-a-abc': 'test-abc',
-      'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')'
+      'user-agent': userAgent
     }
   };
   const test = new Signer(operation, 'test_key', 'test_secret');
@@ -67,7 +79,7 @@ describe('Signer test', function() {
         host: 'qingstor.com',
         'x-qs-date': 'test time',
         'content-length': 11,
-        'user-agent': 'qingstor-sdk-js/' + pjson.version + ' (Node.js ' + process.version + '; ' + process.platform + ')',
+        'user-agent': userAgent,
         'x-qs-z': 'test-z',
         'x-qs-a': 'test-a',
         'x-qs-a-abc': 'test-abc',
