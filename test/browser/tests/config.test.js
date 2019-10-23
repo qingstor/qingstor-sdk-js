@@ -27,7 +27,7 @@ describe('Config test', function() {
       'port',
       'protocol',
       'connection_retries',
-      'log_level'
+      'log_level',
     ]);
   });
 });

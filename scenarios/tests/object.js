@@ -18,10 +18,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import fetch from 'node-fetch';
 import child_process from 'child_process';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -42,16 +39,16 @@ module.exports = function() {
 
     (async () => {
       test_data[0] = await test_bucket.putObject(arg1, {
-        body: fs.readFileSync('/tmp/sdk_bin')
+        body: fs.readFileSync('/tmp/sdk_bin'),
       });
       test_data[1] = await test_bucket.putObject(arg1 + 's', {
-        body: fs.createReadStream('/tmp/sdk_bin')
+        body: fs.createReadStream('/tmp/sdk_bin'),
       });
       test_data[2] = await test_bucket.putObject(arg1 + 'sp', {
         body: fs.createReadStream('/tmp/sdk_bin', {
           start: 0,
-          end: 100
-        })
+          end: 100,
+        }),
       });
       callback();
     })();
@@ -66,24 +63,32 @@ module.exports = function() {
   });
 
   this.When(/^copy object with key "(.*)"$/, function(arg1, callback) {
-    test_bucket.putObject(arg1 + 'copy', {
-      'X-QS-Copy-Source': '/' + test_config['bucket_name'] + '/' + arg1
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.putObject(
+      arg1 + 'copy',
+      {
+        'X-QS-Copy-Source': '/' + test_config['bucket_name'] + '/' + arg1,
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^copy object status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 
   this.When(/^move object with key "(.*)"$/, function(arg1, callback) {
-    test_bucket.putObject(arg1 + 'move', {
-      'X-QS-Move-Source': '/' + test_config['bucket_name'] + '/' + arg1 + 'copy'
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.putObject(
+      arg1 + 'move',
+      {
+        'X-QS-Move-Source': '/' + test_config['bucket_name'] + '/' + arg1 + 'copy',
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^move object status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
@@ -104,23 +109,26 @@ module.exports = function() {
 
   this.When(/^get object "(.*)" with query signature$/, function(arg1, callback) {
     const expires = Math.floor(Date.now(), 1000) + 1000;
-    fetch(test_bucket.getObjectRequest(arg1).signQuery(expires).operation.uri)
-      .then(function(data) {
-        test_data = data;
-        callback();
-      });
+    fetch(test_bucket.getObjectRequest(arg1).signQuery(expires).operation.uri).then(function(data) {
+      test_data = data;
+      callback();
+    });
   });
   this.Then(/^get object with query signature content length is (\d+)$/, function(arg1, callback) {
     callback(null, (test_data.body.read().length * 1024).toString().should.eql(arg1));
   });
 
   this.When(/^get object "(.*)" with content type "(.*)"$/, function(arg1, arg2, callback) {
-    test_bucket.getObject(arg1, {
-      'response-content-type': arg2
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.getObject(
+      arg1,
+      {
+        'response-content-type': arg2,
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
 
   this.Then(/^get object content type is "(.*)"$/, function(arg1, callback) {
@@ -138,13 +146,17 @@ module.exports = function() {
   });
 
   this.When(/^options object "(.*)" with method "(.*)" and origin "(.*)"$/, function(arg1, arg2, arg3, callback) {
-    test_bucket.optionsObject(arg1, {
-      'Access-Control-Request-Method': arg2,
-      Origin: arg3
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.optionsObject(
+      arg1,
+      {
+        'Access-Control-Request-Method': arg2,
+        Origin: arg3,
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^options object status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));

@@ -44,25 +44,25 @@ describe('Builder test', function() {
       host: 'qingstor.com',
       'x-qs-date': 'test time',
       'content-type': 'image/jpeg',
-      'empty-header': ''
+      'empty-header': '',
     },
     params: {
       upload_id: 'test_upload_id',
-      'empty-param': ''
+      'empty-param': '',
     },
     properties: {
       zone: 'pek3a',
       'bucket-name': 'test_bucket',
       'object-key': 'test_object.jpg',
-      'empty-property': ''
+      'empty-property': '',
     },
-    body: 'test string'
+    body: 'test string',
   };
   const test = new Builder(config, operation);
 
   it('parseRequestParams test', function() {
     test.parseRequestParams(operation).should.eql({
-      upload_id: 'test_upload_id'
+      upload_id: 'test_upload_id',
     });
   });
 
@@ -76,16 +76,14 @@ describe('Builder test', function() {
   });
 
   it('parseRequestBody test', function() {
-    test.parseRequestBody(operation).should.eql(
-      'test string'
-    );
+    test.parseRequestBody(operation).should.eql('test string');
   });
 
   it('parseRequestProperties test', function() {
     test.parseRequestProperties(operation).should.eql({
       zone: 'pek3a',
       'bucket-name': 'test_bucket',
-      'object-key': 'test_object.jpg'
+      'object-key': 'test_object.jpg',
     });
   });
 
@@ -93,7 +91,7 @@ describe('Builder test', function() {
     test.parseRequestURI(operation).should.eql({
       endpoint: 'https://pek3a.qingstor.com:443',
       path: '/test_bucket/test_object.jpg?acl',
-      uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id'
+      uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
     });
   });
 
@@ -105,15 +103,14 @@ describe('Builder test', function() {
       uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
       body: 'test string',
       params: {
-        upload_id: 'test_upload_id'
+        upload_id: 'test_upload_id',
       },
       headers: {
         host: 'qingstor.com',
         'x-qs-date': 'test time',
         'content-type': 'image/jpeg',
-        'user-agent': userAgent
-      }
+        'user-agent': userAgent,
+      },
     });
   });
-
 });

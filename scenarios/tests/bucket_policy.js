@@ -16,10 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -38,12 +35,15 @@ module.exports = function() {
     if (test_string['statement'].length) {
       test_string['statement'][0]['resource'] = [test_config['bucket_name'] + '/*'];
     }
-    test_bucket.putPolicy({
-      statement: test_string['statement']
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.putPolicy(
+      {
+        statement: test_string['statement'],
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^put bucket policy status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));

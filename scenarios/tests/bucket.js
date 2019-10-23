@@ -16,10 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -32,16 +29,16 @@ export default function() {
   let test_bucket = undefined;
   let test_data = undefined;
 
-  this.When(/^initialize the bucket$/, callback => {
+  this.When(/^initialize the bucket$/, (callback) => {
     test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
     test_bucket.put();
     callback();
   });
-  this.Then(/^the bucket is initialized$/, callback => {
+  this.Then(/^the bucket is initialized$/, (callback) => {
     callback(null, test_bucket.should.not.to.be.undefined);
   });
 
-  this.When(/^put bucket$/, callback => {
+  this.When(/^put bucket$/, (callback) => {
     callback();
   });
   this.Then(/^put bucket status code is (\d+)$/, (statusCode, callback) => {
@@ -57,7 +54,7 @@ export default function() {
 
   this.When(/^list objects$/, (callback) => {
     test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    test_bucket.listObjects().then(res => {
+    test_bucket.listObjects().then((res) => {
       test_data = res;
       callback();
     });
@@ -86,14 +83,17 @@ export default function() {
     test_bucket.putObject('object_2');
 
     const test_string = JSON.parse(string);
-    test_bucket.deleteMultipleObjects({
-      objects: test_string['objects'],
-      quiet: test_string['quiet']
-    }, (err, data) => {
-      should.not.exist(err);
-      test_data = data;
-      callback();
-    });
+    test_bucket.deleteMultipleObjects(
+      {
+        objects: test_string['objects'],
+        quiet: test_string['quiet'],
+      },
+      (err, data) => {
+        should.not.exist(err);
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^delete multiple objects code is (\d+)$/, (statusCode, callback) => {
     callback(null, test_data.statusCode.toString().should.eql(statusCode));
@@ -137,20 +137,27 @@ export default function() {
     callback(null, test_data.uploads.length.toString().should.eql(count));
   });
   this.When(/^list multipart uploads with prefix$/, (callback) => {
-    test_bucket.listMultipartUploads({
-      prefix: 'list_multipart_uploads'
-    }, (err, data) => {
-      should.not.exist(err);
-      test_data = data;
-      callback();
-    });
+    test_bucket.listMultipartUploads(
+      {
+        prefix: 'list_multipart_uploads',
+      },
+      (err, data) => {
+        should.not.exist(err);
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^list multipart uploads with prefix count is (\d+)$/, (count, callback) => {
-    test_bucket.abortMultipartUpload('list_multipart_uploads', {
-      upload_id: test_data.uploads[0].upload_id,
-    }, (err, _) => {
-      should.not.exist(err);
-      callback(null, test_data.uploads.length.toString().should.eql(count));
-    });
+    test_bucket.abortMultipartUpload(
+      'list_multipart_uploads',
+      {
+        upload_id: test_data.uploads[0].upload_id,
+      },
+      (err, _) => {
+        should.not.exist(err);
+        callback(null, test_data.uploads.length.toString().should.eql(count));
+      }
+    );
   });
 }

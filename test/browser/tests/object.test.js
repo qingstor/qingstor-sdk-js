@@ -32,37 +32,45 @@ describe('QingStor test', function() {
     });
   });
   it('PutObject test', () => {
-    test.putObject('test_key', {
-      body: 'aaaaaaaaaaaaaaaaa'
-    }).then((res) => {
-      console.log(res.statusCode);
-    });
+    test
+      .putObject('test_key', {
+        body: 'aaaaaaaaaaaaaaaaa',
+      })
+      .then((res) => {
+        console.log(res.statusCode);
+      });
   });
   it('DeleteMultipleObject test', () => {
-    test.deleteMultipleObjects({
-      objects: [{
-          key: 'aaa'
-        },
-        {
-          key: 'bbb'
-        }
-      ]
-    }).then((res) => {
-      console.log(res.statusCode);
-    });
+    test
+      .deleteMultipleObjects({
+        objects: [
+          {
+            key: 'aaa',
+          },
+          {
+            key: 'bbb',
+          },
+        ],
+      })
+      .then((res) => {
+        console.log(res.statusCode);
+      });
   });
   it('CompleteMultipart test', () => {
-    test.completeMultipartUpload('test', {
-      object_parts: [{
-          part_number: '0'
-        },
-        {
-          part_number: '1'
-        },
-      ],
-      upload_id: 'xxx'
-    }).then((res) => {
-      console.log(res.statusCode);
-    });
+    test
+      .completeMultipartUpload('test', {
+        object_parts: [
+          {
+            part_number: '0',
+          },
+          {
+            part_number: '1',
+          },
+        ],
+        upload_id: 'xxx',
+      })
+      .then((res) => {
+        console.log(res.statusCode);
+      });
   });
 });

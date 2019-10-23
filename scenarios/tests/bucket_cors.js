@@ -16,10 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -34,12 +31,15 @@ module.exports = function() {
   test_bucket.put();
 
   this.When(/^put bucket CORS:$/, function(string, callback) {
-    test_bucket.putCORS({
-      cors_rules: JSON.parse(string)['cors_rules']
-    }, function(err, res) {
-      test_data = res;
-      callback();
-    });
+    test_bucket.putCORS(
+      {
+        cors_rules: JSON.parse(string)['cors_rules'],
+      },
+      function(err, res) {
+        test_data = res;
+        callback();
+      }
+    );
   });
   this.Then(/^put bucket CORS status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));

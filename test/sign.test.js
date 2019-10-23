@@ -37,7 +37,7 @@ describe('Signer test', function() {
     method: 'PUT',
     path: '/test_bucket/test_object.jpg?acl',
     params: {
-      upload_id: 'test_upload_id'
+      upload_id: 'test_upload_id',
     },
     uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
     body: 'test string',
@@ -49,28 +49,24 @@ describe('Signer test', function() {
       'x-qs-z': 'test-z',
       'x-qs-a': 'test-a',
       'x-qs-a-abc': 'test-abc',
-      'user-agent': userAgent
-    }
+      'user-agent': userAgent,
+    },
   };
   const test = new Signer(operation, 'test_key', 'test_secret');
 
   it('getCanonicalizedResource test', function() {
-    test.getCanonicalizedResource().should.eql(
-      '/test_bucket/test_object.jpg?acl&upload_id=test_upload_id'
-    );
+    test.getCanonicalizedResource().should.eql('/test_bucket/test_object.jpg?acl&upload_id=test_upload_id');
   });
 
   it('getAuthorization test', function() {
-    test.getAuthorization().should.eql(
-      '80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4='
-    );
+    test.getAuthorization().should.eql('80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4=');
   });
 
   it('sign test', function() {
     test.sign().should.eql({
       method: 'PUT',
       params: {
-        upload_id: 'test_upload_id'
+        upload_id: 'test_upload_id',
       },
       path: '/test_bucket/test_object.jpg?acl',
       uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
@@ -84,9 +80,8 @@ describe('Signer test', function() {
         'x-qs-a': 'test-a',
         'x-qs-a-abc': 'test-abc',
         authorization: 'QS test_key:80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4=',
-        'content-type': 'image/jpeg'
-      }
+        'content-type': 'image/jpeg',
+      },
     });
   });
-
 });

@@ -46,35 +46,33 @@ describe('Config test', function() {
   it('loadUserConfig test', function() {
     const test = new Config();
 
-    test.loadUserConfig()
-      .should
-      .to
-      .contain
-      .all
-      .keys([
+    test
+      .loadUserConfig()
+      .should.to.contain.all.keys([
         'access_key_id',
         'connection_retries',
         'host',
         'log_level',
         'port',
         'protocol',
-        'secret_access_key'
+        'secret_access_key',
       ]);
   });
 
   it('loadConfig test', function() {
     const test = new Config();
-    const defaultConfigFileContent = '# QingStor Services Configuration\n' +
+    const defaultConfigFileContent =
+      '# QingStor Services Configuration\n' +
       '\n' +
-      'access_key_id: \'ACCESS_KEY_ID_1\'\n' +
-      'secret_access_key: \'SECRET_ACCESS_KEY_1\'\n' +
-      'host: \'private.com\'\n' +
+      "access_key_id: 'ACCESS_KEY_ID_1'\n" +
+      "secret_access_key: 'SECRET_ACCESS_KEY_1'\n" +
+      "host: 'private.com'\n" +
       'port: 80\n' +
-      'protocol: \'http\'\n' +
+      "protocol: 'http'\n" +
       'connection_retries: 1\n' +
       '\n' +
-      '# Valid levels are \'debug\', \'info\', \'warn\', \'error\', and \'fatal\'.\n' +
-      'log_level: \'info\'\n';
+      "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n" +
+      "log_level: 'info'\n";
     test.loadConfig(yaml.safeLoad(defaultConfigFileContent));
 
     test.access_key_id.should.equal('ACCESS_KEY_ID_1');
@@ -88,24 +86,24 @@ describe('Config test', function() {
 
   it('checkConfig test', function() {
     const test = new Config();
-    const notAllowedConfigFileContent = '# QingStor Services Configuration\n' +
+    const notAllowedConfigFileContent =
+      '# QingStor Services Configuration\n' +
       '\n' +
-      'access_key_id: \'ACCESS_KEY_ID_1\'\n' +
-      'secret_access_key: \'SECRET_ACCESS_KEY_1\'\n' +
-      'host: \'private.com\'\n' +
+      "access_key_id: 'ACCESS_KEY_ID_1'\n" +
+      "secret_access_key: 'SECRET_ACCESS_KEY_1'\n" +
+      "host: 'private.com'\n" +
       'port: 80\n' +
-      'protocol: \'http\'\n' +
+      "protocol: 'http'\n" +
       'connection_retries: 1\n' +
       '\n' +
       '# Additional User-Agent\n' +
       'additional_user_agent: "()abc"\n' +
-      '# Valid levels are \'debug\', \'info\', \'warn\', \'error\', and \'fatal\'.\n' +
-      'log_level: \'info\'\n';
+      "# Valid levels are 'debug', 'info', 'warn', 'error', and 'fatal'.\n" +
+      "log_level: 'info'\n";
     try {
       test.loadConfig(yaml.safeLoad(notAllowedConfigFileContent));
     } catch (err) {
       err.should.be.instanceof(RangeError);
     }
   });
-
 });

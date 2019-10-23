@@ -16,10 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -35,12 +32,15 @@ module.exports = function() {
 
   this.When(/^put bucket ACL:$/, function(string, callback) {
     console.log(JSON.parse(string)['acl']);
-    test_bucket.putACL({
-      acl: JSON.parse(string)['acl']
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.putACL(
+      {
+        acl: JSON.parse(string)['acl'],
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^put bucket ACL status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));

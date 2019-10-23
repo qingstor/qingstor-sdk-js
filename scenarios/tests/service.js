@@ -16,10 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -36,15 +33,17 @@ module.exports = function() {
   });
   this.Then(/^the QingStor service is initialized$/, function(callback) {
     callback(null, test.should.not.to.be.undefined);
-
   });
   this.When(/^list buckets$/, function(callback) {
-    test.listBuckets({
-      location: test_config.zone
-    }, function(err, res) {
-      test_res = res;
-      callback();
-    });
+    test.listBuckets(
+      {
+        location: test_config.zone,
+      },
+      function(err, res) {
+        test_res = res;
+        callback();
+      }
+    );
   });
   this.Then(/^list buckets status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_res.statusCode.toString().should.eql(arg1));

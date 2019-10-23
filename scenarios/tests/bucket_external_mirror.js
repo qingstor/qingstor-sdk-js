@@ -16,10 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import {
-  Config,
-  QingStor
-} from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/node/qingstor-sdk';
 
 const should = require('chai').should();
 
@@ -34,12 +31,15 @@ module.exports = function() {
   test_bucket.put();
 
   this.When(/^put bucket external mirror:$/, function(string, callback) {
-    test_bucket.putExternalMirror({
-      source_site: JSON.parse(string)['source_site']
-    }, function(err, data) {
-      test_data = data;
-      callback();
-    });
+    test_bucket.putExternalMirror(
+      {
+        source_site: JSON.parse(string)['source_site'],
+      },
+      function(err, data) {
+        test_data = data;
+        callback();
+      }
+    );
   });
   this.Then(/^put bucket external mirror status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
