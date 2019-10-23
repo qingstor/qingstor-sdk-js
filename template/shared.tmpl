@@ -30,7 +30,7 @@
 
     {{- range $_, $property := $customizedType.Properties}}
         {{- if eq $property.Type "object"}}
-        if({{$prefix}}.hasOwnProperty('{{$property.ID}}')){
+        if('{{$property.ID}}' in {{$prefix}}){
         {{- $nextPrefix := printf "%s[\"%s\"]" $prefix $property.ID}}
         {{- $nextCustomizedType := index $customizedTypes $property.ExtraType}}
         {{- $x := passThrough $nextPrefix $nextCustomizedType $customizedTypes}}

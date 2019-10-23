@@ -44,7 +44,7 @@ export const isFunction = (fn) => {
 
 export const getStreamSize = (stream) => {
   // If stream has property "fd", it could be a file read stream.
-  if (stream.hasOwnProperty('fd')) {
+  if (stream.fd) {
     if (stream.end !== void 0 && stream.end !== Infinity && stream.start !== void 0) {
       return stream.end + 1 - (stream.start || 0);
     }

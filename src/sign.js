@@ -59,7 +59,7 @@ class Signer {
 
   getContentMD5() {
     let parsedContentMD5 = '';
-    if (this.operation.headers.hasOwnProperty('content-md5')) {
+    if (this.operation.headers['content-md5']) {
       parsedContentMD5 = this.operation.headers['content-md5'];
     }
     return parsedContentMD5;
@@ -67,7 +67,7 @@ class Signer {
 
   getContentType() {
     let parsedContentType = '';
-    if (this.operation.headers.hasOwnProperty('content-type')) {
+    if (this.operation.headers['content-type']) {
       parsedContentType = this.operation.headers['content-type'];
     }
     return parsedContentType;
