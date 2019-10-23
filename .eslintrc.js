@@ -29,6 +29,7 @@ module.exports = {
     'comma-spacing': 'error',
     'comma-style': ['error', 'last'],
     'prefer-const': 'error',
+    'no-empty': 'off',
   },
 
   globals: {
