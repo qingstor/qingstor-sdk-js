@@ -18,7 +18,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import fetch from 'node-fetch';
 import child_process from 'child_process';
-import { Config, QingStor } from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/qingstor-sdk-node';
 
 const should = require('chai').should();
 

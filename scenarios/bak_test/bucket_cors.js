@@ -16,7 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { Config, QingStor } from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/qingstor-sdk-node';
 
 const should = require('chai').should();
 
@@ -30,39 +30,42 @@ module.exports = function() {
   let test_data = undefined;
   test_bucket.put();
 
-  this.When(/^put bucket external mirror:$/, function(string, callback) {
-    test_bucket.putExternalMirror(
+  this.When(/^put bucket CORS:$/, function(string, callback) {
+    test_bucket.putCORS(
       {
-        source_site: JSON.parse(string)['source_site'],
+        cors_rules: JSON.parse(string)['cors_rules'],
       },
-      function(err, data) {
-        test_data = data;
+      function(err, res) {
+        test_data = res;
         callback();
       }
     );
   });
-  this.Then(/^put bucket external mirror status code is (\d+)$/, function(arg1, callback) {
+  this.Then(/^put bucket CORS status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^get bucket external mirror$/, function(callback) {
-    test_bucket.getExternalMirror(function(err, data) {
-      test_data = data;
+  this.When(/^get bucket CORS$/, function(callback) {
+    test_bucket.getCORS(function(err, res) {
+      test_data = res;
       callback();
     });
   });
-  this.Then(/^get bucket external mirror status code is (\d+)$/, function(arg1, callback) {
+  this.Then(/^get bucket CORS status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.Then(/^get bucket external mirror should have source_site "([^"]*)"$/, function(arg1, callback) {
-    callback(null, test_data.source_site.toString().should.eql(arg1));
+  this.Then(/^get bucket CORS should have allowed origin "([^"]*)"$/, function(arg1, callback) {
+    const ok = test_data.cors_rules.some(function(item) {
+      return item.allowed_origin === arg1;
+    });
+    callback(null, ok.should.eql(true));
   });
-  this.When(/^delete bucket external mirror$/, function(callback) {
-    test_bucket.deleteExternalMirror(function(err, data) {
-      test_data = data;
+  this.When(/^delete bucket CORS$/, function(callback) {
+    test_bucket.deleteCORS(function(err, res) {
+      test_data = res;
       callback();
     });
   });
-  this.Then(/^delete bucket external mirror status code is (\d+)$/, function(arg1, callback) {
+  this.Then(/^delete bucket CORS status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 };
