@@ -15,149 +15,181 @@
 // +-------------------------------------------------------------------------
 
 import fs from 'fs';
+import path from 'path';
 import yaml from 'js-yaml';
-import { Config, QingStor } from '../../dist/node/qingstor-sdk';
+import assert from 'assert';
+import { Given, When, Then } from 'cucumber';
 
-const should = require('chai').should();
+import Config from '../../src/config/node';
+import QingStor from '../../src/qingstor/qingstor';
 
-export default function() {
-  this.setDefaultTimeout(10 * 1000);
+const { bucket_name: bucketName, zone } = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './test_config.yaml')));
+const config = new Config().loadConfigFromFilepath(path.join(__dirname, './config.yaml'));
+const qingstor = new QingStor(config);
 
-  const config = new Config().loadConfigFromFilepath('tests/config.yaml');
-  const test_config = yaml.safeLoad(fs.readFileSync('tests/test_config.yaml'));
-  const test = new QingStor(config);
-  let test_bucket = undefined;
-  let test_data = undefined;
+let bucket;
 
-  this.When(/^initialize the bucket$/, (callback) => {
-    test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    test_bucket.put();
-    callback();
-  });
-  this.Then(/^the bucket is initialized$/, (callback) => {
-    callback(null, test_bucket.should.not.to.be.undefined);
-  });
+When('initialize the bucket', function() {
+  bucket = qingstor.Bucket(bucketName, zone);
+});
 
-  this.When(/^put bucket$/, (callback) => {
-    callback();
-  });
-  this.Then(/^put bucket status code is (\d+)$/, (statusCode, callback) => {
-    callback(null, true);
-  });
+Then('the bucket is initialized', function() {
+  assert.equal(bucketName, bucket.properties['bucket-name']);
+  assert.equal(zone, bucket.properties.zone);
+});
 
-  this.When(/^put same bucket again$/, (callback) => {
-    callback();
-  });
-  this.Then(/^put same bucket again status code is (\d+)$/, (statusCode, callback) => {
-    callback(null, true);
-  });
-
-  this.When(/^list objects$/, (callback) => {
-    test_bucket = test.Bucket(test_config['bucket_name'], test_config['zone']);
-    test_bucket.listObjects().then((res) => {
-      test_data = res;
-      callback();
+When('put bucket', function() {
+  return bucket
+    .put()
+    .then(({ status }) => {
+      this.putResponseStatus = status;
+    })
+    .catch(({ response }) => {
+      console.error('put bucket error', response.data);
+      this.putResponseStatus = response.status;
     });
-  });
-  this.Then(/^list objects status code is (\d+)$/, (statusCode, callback) => {
-    callback(null, test_data.statusCode.toString().should.eql(statusCode));
-  });
-  this.Then(/^list objects keys count is (\d+)$/, (count, callback) => {
-    callback(null, test_data.keys.length.toString().should.least(count));
-  });
+});
 
-  this.When(/^head bucket$/, (callback) => {
-    test_bucket.head((err, data) => {
-      should.not.exist(err);
-      test_data = data;
-      callback();
+Then('put bucket status code is {int}', function(int) {
+  assert.equal(this.putResponseStatus, int);
+});
+
+When('put same bucket again', function() {
+  return bucket
+    .put()
+    .then(({ status }) => {
+      this.putResponseStatus = status;
+    })
+    .catch(({ response }) => {
+      this.putResponseStatus = response.status;
     });
-  });
-  this.Then(/^head bucket status code is (\d+)$/, (statusCode, callback) => {
-    callback(null, test_data.statusCode.toString().should.eql(statusCode));
-  });
+});
 
-  this.When(/^delete multiple objects:$/, (string, callback) => {
-    test_bucket.putObject('object_0');
-    test_bucket.putObject('object_1');
-    test_bucket.putObject('object_2');
+Then('put same bucket again status code is {int}', function(int) {
+  assert.equal(this.putResponseStatus, int);
+});
 
-    const test_string = JSON.parse(string);
-    test_bucket.deleteMultipleObjects(
-      {
-        objects: test_string['objects'],
-        quiet: test_string['quiet'],
-      },
-      (err, data) => {
-        should.not.exist(err);
-        test_data = data;
-        callback();
-      }
-    );
-  });
-  this.Then(/^delete multiple objects code is (\d+)$/, (statusCode, callback) => {
-    callback(null, test_data.statusCode.toString().should.eql(statusCode));
-  });
-
-  this.When(/^get bucket statistics$/, (callback) => {
-    test_bucket.getStatistics((err, data) => {
-      should.not.exist(err);
-      test_data = data;
-      callback();
+When('list objects', function() {
+  return bucket
+    .listObjects()
+    .then(({ status, data }) => {
+      this.listObjectsStatus = status;
+      this.ObjectCount = data.keys.length;
+    })
+    .catch(({ response }) => {
+      console.error('list bucket objects error', response.data);
+      this.listObjectsStatus = response.status;
     });
-  });
-  this.Then(/^get bucket statistics status code is (\d+)$/, (statusCode, callback) => {
-    callback(null, test_data.statusCode.toString().should.eql(statusCode));
-  });
-  this.Then(/^get bucket statistics status is "([^"]*)"$/, (status, callback) => {
-    callback(null, test_data.status.toString().should.eql(status));
-  });
+});
 
-  this.When(/^delete bucket$/, (callback) => {
-    callback();
-  });
-  this.Then(/^delete bucket status code is (\d+)$/, (statusCode, callback) => {
-    callback(null, true);
-  });
+Then('list objects status code is {int}', function(int) {
+  assert.equal(this.listObjectsStatus, int);
+});
 
-  this.Given(/^an object created by initiate multipart upload$/, (callback) => {
-    test_bucket.initiateMultipartUpload('list_multipart_uploads', (err, _) => {
-      should.not.exist(err);
-      callback();
+Then('list objects keys count is {int}', function(int) {
+  assert.equal(this.ObjectCount, int);
+});
+
+When('head bucket', function() {
+  return bucket
+    .head()
+    .then(({ status }) => {
+      this.headStatus = status;
+    })
+    .catch(({ response }) => {
+      console.error('head bucket error', response.data);
+      this.headStatus = response.status;
     });
-  });
-  this.When(/^list multipart uploads$/, (callback) => {
-    test_bucket.listMultipartUploads((err, data) => {
-      should.not.exist(err);
-      test_data = data;
-      callback();
+});
+
+Then('head bucket status code is {int}', function(int) {
+  assert.equal(this.headStatus, int);
+});
+
+When('delete multiple objects:', function(docString) {
+  const body = JSON.parse(docString);
+
+  return Promise.all(
+    body.objects.map(({ key }) => {
+      return bucket.putObject(key);
+    })
+  )
+    .then(() => {
+      return bucket.deleteMultipleObjects(body);
+    })
+    .then(({ status }) => {
+      this.deleteMultipleObjectsStatus = status;
+    })
+    .catch(({ response }) => {
+      console.error('delete multiple objects error', response.data);
+      this.deleteMultipleObjectsStatus = response.status;
     });
-  });
-  this.Then(/^list multipart uploads count is (\d+)$/, (count, callback) => {
-    callback(null, test_data.uploads.length.toString().should.eql(count));
-  });
-  this.When(/^list multipart uploads with prefix$/, (callback) => {
-    test_bucket.listMultipartUploads(
-      {
-        prefix: 'list_multipart_uploads',
-      },
-      (err, data) => {
-        should.not.exist(err);
-        test_data = data;
-        callback();
-      }
-    );
-  });
-  this.Then(/^list multipart uploads with prefix count is (\d+)$/, (count, callback) => {
-    test_bucket.abortMultipartUpload(
-      'list_multipart_uploads',
-      {
-        upload_id: test_data.uploads[0].upload_id,
-      },
-      (err, _) => {
-        should.not.exist(err);
-        callback(null, test_data.uploads.length.toString().should.eql(count));
-      }
-    );
-  });
-}
+});
+
+Then('delete multiple objects code is {int}', function(int) {
+  assert.equal(this.deleteMultipleObjectsStatus, int);
+});
+
+When('get bucket statistics', function() {
+  return bucket
+    .getStatistics()
+    .then(({ status, data }) => {
+      this.getBucketstatsStatus = status;
+      this.bucketStats = data.status;
+    })
+    .catch(({ response }) => {
+      console.error('get bucket statistics error', response.data);
+      this.getBucketstatsStatus = response.status;
+    });
+});
+
+Then('get bucket statistics status code is {int}', function(int) {
+  assert.equal(this.getBucketstatsStatus, int);
+});
+
+Then('get bucket statistics status is {string}', function(status) {
+  assert.equal(this.bucketStats, status);
+});
+
+When('delete bucket', function() {
+  return bucket
+    .delete()
+    .then(({ status }) => {
+      this.deleteBucketStatus = status;
+    })
+    .catch(({ response }) => {
+      console.error('delete bucket error', response.data);
+      this.deleteBucketStatus = response.status;
+    });
+});
+
+Then('delete bucket status code is {int}', function(int) {
+  assert.equal(this.deleteBucketStatus, int);
+});
+
+Given('an object created by initiate multipart upload', function() {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('list multipart uploads', function() {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('list multipart uploads count is {int}', function(int) {
+  // Then('list multipart uploads count is {float}', function (float) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('list multipart uploads with prefix', function() {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('list multipart uploads with prefix count is {int}', function(int) {
+  // Then('list multipart uploads with prefix count is {float}', function (float) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});

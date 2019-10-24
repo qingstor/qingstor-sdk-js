@@ -16,7 +16,7 @@
 
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { Config, QingStor } from '../../dist/node/qingstor-sdk';
+import { Config, QingStor } from '../../dist/qingstor-sdk-node';
 
 const should = require('chai').should();
 
@@ -30,14 +30,11 @@ module.exports = function() {
   let test_data = undefined;
   test_bucket.put();
 
-  this.When(/^put bucket policy:$/, function(string, callback) {
-    const test_string = JSON.parse(string);
-    if (test_string['statement'].length) {
-      test_string['statement'][0]['resource'] = [test_config['bucket_name'] + '/*'];
-    }
-    test_bucket.putPolicy(
+  this.When(/^put bucket ACL:$/, function(string, callback) {
+    console.log(JSON.parse(string)['acl']);
+    test_bucket.putACL(
       {
-        statement: test_string['statement'],
+        acl: JSON.parse(string)['acl'],
       },
       function(err, data) {
         test_data = data;
@@ -45,33 +42,22 @@ module.exports = function() {
       }
     );
   });
-  this.Then(/^put bucket policy status code is (\d+)$/, function(arg1, callback) {
+  this.Then(/^put bucket ACL status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.When(/^get bucket policy$/, function(callback) {
-    test_bucket.getPolicy(function(err, data) {
+  this.When(/^get bucket ACL$/, function(callback) {
+    test_bucket.getACL(function(err, data) {
       test_data = data;
       callback();
     });
   });
-  this.Then(/^get bucket policy status code is (\d+)$/, function(arg1, callback) {
+  this.Then(/^get bucket ACL status code is (\d+)$/, function(arg1, callback) {
     callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
-  this.Then(/^get bucket policy should have Referer "([^"]*)"$/, function(arg1, callback) {
-    const ok = test_data.statement.some(function(statement) {
-      return statement.condition.string_like.Referer.some(function(item) {
-        return item === arg1;
-      });
+  this.Then(/^get bucket ACL should have grantee name "([^"]*)"$/, function(arg1, callback) {
+    const ok = test_data.acl.some(function(item) {
+      return item.grantee.name === arg1;
     });
     callback(null, ok.should.eql(true));
-  });
-  this.When(/^delete bucket policy$/, function(callback) {
-    test_bucket.deletePolicy(function(err, data) {
-      test_data = data;
-      callback();
-    });
-  });
-  this.Then(/^delete bucket policy status code is (\d+)$/, function(arg1, callback) {
-    callback(null, test_data.statusCode.toString().should.eql(arg1));
   });
 };

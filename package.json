@@ -28,7 +28,7 @@
     "index.js"
   ],
   "scripts": {
-    "cucumber": "cd scenarios; npm install; ./node_modules/cucumber/bin/cucumber.js  features/*.feature --require tests --compiler es6:@babel/register;",
+    "cucumber": "cucumber-js --require-module @babel/register --require scenarios/tests/*.js scenarios/features/*.feature",
     "dist": "gulp compress",
     "eslint": "./node_modules/.bin/eslint src/**/*.js src/*.js ./index.js --fix",
     "format": "./node_modules/.bin/prettier --write src/**/*.js src/*.js test/**/*.js test/*.js scenarios/tests/*.js ./index.js",
@@ -54,6 +54,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "chai": "^3.5.0",
+    "cucumber": "^6.0.2",
     "eslint": "^6.5.1",
     "gulp": "^4.0.2",
     "gulp-exec": "^4.0.0",
