@@ -22,6 +22,8 @@ import Base64 from 'crypto-js/enc-base64';
 
 import { fixedEncodeURIComponent, buildUri, getStreamSize, filterUnsafeHeaders } from './utils';
 
+const METHODS_SHOULD_NOT_INCLUDE_BODY = ['GET', 'HEAD'];
+
 class Builder {
   constructor(config, operation) {
     this.config = config;
@@ -60,14 +62,16 @@ class Builder {
     //Add X-QS-Date header
     parsedHeaders['x-qs-date'] = operation.headers['x-qs-date'] || new Date().toUTCString();
 
-    // Add Content-Type header
-    if (operation.headers['content-type']) {
-      parsedHeaders['content-type'] = operation.headers['content-type'];
-    } else if (operation.body && operation.body.type) {
-      // get content-type from body
-      parsedHeaders['content-type'] = operation.body.type;
-    } else if (Object.keys(operation.elements).length) {
-      parsedHeaders['content-type'] = 'application/json';
+    if (!METHODS_SHOULD_NOT_INCLUDE_BODY.includes(operation.method)) {
+      // Add Content-Type header
+      if (operation.headers['content-type']) {
+        parsedHeaders['content-type'] = operation.headers['content-type'];
+      } else if (operation.body && operation.body.type) {
+        // get content-type from body
+        parsedHeaders['content-type'] = operation.body.type;
+      } else if (Object.keys(operation.elements).length) {
+        parsedHeaders['content-type'] = 'application/json';
+      }
     }
 
     // Add content-length header
