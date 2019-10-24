@@ -70,7 +70,9 @@ Then('put same bucket again status code is {int}', function(int) {
 });
 
 When('list objects', function() {
-  return bucket.listObjects().then(({ status, data }) => {
+  return bucket
+    .listObjects()
+    .then(({ status, data }) => {
       this.listObjectsStatus = status;
       this.ObjectCount = data.keys.length;
     })
@@ -89,7 +91,9 @@ Then('list objects keys count is {int}', function(int) {
 });
 
 When('head bucket', function() {
-  return bucket.head().then(({ status }) => {
+  return bucket
+    .head()
+    .then(({ status }) => {
       this.headStatus = status;
     })
     .catch(({ response }) => {
@@ -105,17 +109,21 @@ Then('head bucket status code is {int}', function(int) {
 When('delete multiple objects:', function(docString) {
   const body = JSON.parse(docString);
 
-  return Promise.all(body.objects.map(({ key }) => {
-    return bucket.putObject(key);
-  })).then(() => {
-    return bucket.deleteMultipleObjects(body);
-  }).then(({ status }) => {
-    this.deleteMultipleObjectsStatus = status;
-  })
-  .catch(({ response }) => {
-    console.error('delete multiple objects error', response.data);
-    this.deleteMultipleObjectsStatus = response.status;
-  });
+  return Promise.all(
+    body.objects.map(({ key }) => {
+      return bucket.putObject(key);
+    })
+  )
+    .then(() => {
+      return bucket.deleteMultipleObjects(body);
+    })
+    .then(({ status }) => {
+      this.deleteMultipleObjectsStatus = status;
+    })
+    .catch(({ response }) => {
+      console.error('delete multiple objects error', response.data);
+      this.deleteMultipleObjectsStatus = response.status;
+    });
 });
 
 Then('delete multiple objects code is {int}', function(int) {
@@ -123,14 +131,16 @@ Then('delete multiple objects code is {int}', function(int) {
 });
 
 When('get bucket statistics', function() {
-  return bucket.getStatistics().then(({ status, data }) => {
-    this.getBucketstatsStatus = status;
-    this.bucketStats = data.status;
-  })
-  .catch(({ response }) => {
-    console.error('get bucket statistics error', response.data);
-    this.getBucketstatsStatus = response.status;
-  });
+  return bucket
+    .getStatistics()
+    .then(({ status, data }) => {
+      this.getBucketstatsStatus = status;
+      this.bucketStats = data.status;
+    })
+    .catch(({ response }) => {
+      console.error('get bucket statistics error', response.data);
+      this.getBucketstatsStatus = response.status;
+    });
 });
 
 Then('get bucket statistics status code is {int}', function(int) {
@@ -142,12 +152,15 @@ Then('get bucket statistics status is {string}', function(status) {
 });
 
 When('delete bucket', function() {
-  return bucket.delete().then(({ status }) => {
-    this.deleteBucketStatus = status;
-  }).catch(({ response }) => {
-    console.error('delete bucket error', response.data);
-    this.deleteBucketStatus = response.status;
-  });
+  return bucket
+    .delete()
+    .then(({ status }) => {
+      this.deleteBucketStatus = status;
+    })
+    .catch(({ response }) => {
+      console.error('delete bucket error', response.data);
+      this.deleteBucketStatus = response.status;
+    });
 });
 
 Then('delete bucket status code is {int}', function(int) {
