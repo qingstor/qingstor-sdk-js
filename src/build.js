@@ -20,7 +20,7 @@ import logger from 'loglevel';
 import md5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 
-import { fixedEncodeURIComponent, buildUri, getStreamSize, filterUnsafeHeaders } from './utils';
+import { fixedEncodeURIComponent, buildUri, filterUnsafeHeaders } from './utils';
 
 const METHODS_SHOULD_NOT_INCLUDE_BODY = ['GET', 'HEAD'];
 
@@ -74,17 +74,6 @@ class Builder {
       } else {
         parsedHeaders['content-type'] = 'application/x-www-form-urlencoded';
       }
-    }
-
-    // Add content-length header
-    const parsedBody = this.parseRequestBody(operation);
-    if (!operation.headers['content-length'] && parsedBody) {
-      const l = getStreamSize(parsedBody);
-      if (l !== void 0) {
-        parsedHeaders['content-length'] = l;
-      }
-    } else {
-      parsedHeaders['content-length'] = operation.headers['content-length'] || 0;
     }
 
     // Add user-agent header
