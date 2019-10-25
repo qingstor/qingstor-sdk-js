@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0-beta.1] - 2019-10-25
+
+### Changed
+
+- Only bundle files for script-tag usage case
+- Export SDK through global namespace instead of different files in dist folder
+
 ## [3.0.0-beta.0] - 2019-10-18
 
 ### Changed
@@ -212,6 +219,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[3.0.0-beta.1]: https://github.com/yunify/qingstor-sdk-js/compare/3.0.0-beta.0...3.0.0-beta.1
 [3.0.0-beta.0]: https://github.com/yunify/qingstor-sdk-js/compare/v2.2.16...3.0.0-beta.0
 [2.2.16]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.15...v2.2.16
 [2.2.15]: https://github.com/yunify/qingstor-sdk-js/compare/2.2.14...2.2.15
