@@ -14,16 +14,8 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import QingStor from './src/qingstor/qingstor';
-import Config from './src/config';
-import Request from './src/request';
-import Signer from './src/sign';
-import Client from './src/client/all';
-
-export default {
-  QingStor,
-  Config,
-  Request,
-  Signer,
-  Client,
-};
+export { default as QingStor } from './src/qingstor/qingstor';
+export { default as Config } from './src/config';
+export { default as Request } from './src/request';
+export { default as Signer } from './src/sign';
+export { default as Client } from './src/client/all';
