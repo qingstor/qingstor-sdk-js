@@ -15,7 +15,7 @@
 // +-------------------------------------------------------------------------
 
 import yaml from 'js-yaml';
-import Config from '../src/config/node';
+import Config from '../src/config';
 
 const should = require('chai').should();
 

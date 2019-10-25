@@ -20,7 +20,7 @@ import yaml from 'js-yaml';
 import assert from 'assert';
 import { Given, When, Then } from 'cucumber';
 
-import Config from '../../src/config/node';
+import Config from '../../src/config';
 import QingStor from '../../src/qingstor/qingstor';
 
 const { bucket_name: bucketName, zone } = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './test_config.yaml')));

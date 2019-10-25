@@ -16,7 +16,7 @@
 
 import process from 'process';
 import Builder from '../src/build';
-import Config from '../src/config/node';
+import Config from '../src/config';
 
 const should = require('chai').should();
 
