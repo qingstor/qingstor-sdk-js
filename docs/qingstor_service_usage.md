@@ -5,11 +5,7 @@ Import the QingStor and initialize service with a config, and you are ready to u
 To use bucket related APIs, you need to initialize a bucket from service using "Bucket" function.
 
 ```javascript
-// in browser
-import { Config, QingStor } from 'qingstor-sdk/dist/qingstor-sdk-browser';
-
-// in Node.js
-import { Config, QingStor } from 'qingstor-sdk/dist/qingstor-sdk-node';
+import { Config, QingStor } from 'qingstor-sdk';
 ```
 
 ### Code Snippet

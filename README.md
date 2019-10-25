@@ -15,18 +15,6 @@ Install SDK into your project by NPM:
 npm install qingstor-sdk
 ```
 
-Import the **browser** version SDK:
-
-```javascript
-import { QingStor, Config, version } from 'qingstor-sdk/dist/qingstor-sdk-browser';
-```
-
-Import the **Node.js** version SDK:
-
-```javascript
-import { QingStor, Config, version } from 'qingstor-sdk/dist/qingstor-sdk-node';
-```
-
 Alternatively, you can also use SDK by script tag. Go to the [release](https://github.com/yunify/qingstor-sdk-js/releases) page, download and save the SDK into you project, then in your HTML:
 
 ```html
@@ -55,7 +43,7 @@ secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
 ### Usage
 
 ```javascript
-import { QingStor, Config, version } from 'qingstor-sdk/dist/qingstor-sdk-browser';
+import { QingStor, Config, version } from 'qingstor-sdk';
 
 const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
 const bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');

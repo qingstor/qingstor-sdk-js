@@ -29,28 +29,18 @@ log_level: 'warn'
 
 **Create configuration from Access Key:**
 
-browser
-
 ```javascript
-import { Config } from 'qingstor-sdk/dist/qingstor-sdk-browser';
-
-const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
-```
-
-Node.js
-
-```javascript
-import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
+import { Config } from 'qingstor-sdk';
 
 const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
 ```
 
 **Load current user default configuration:**
 
-Node.js
+Node.js only
 
 ```javascript
-import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
+import { Config } from 'qingstor-sdk';
 
 const config = new Config().loadDefaultConfig();
 config.access_key_id = "ACCESS_KEY_ID";
@@ -59,7 +49,7 @@ config.secret_access_key = "SECRET_ACCESS_KEY";
 
 **Create default configuration:**
 
-Node.js
+Node.js only
 
 ```javascript
 import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
@@ -70,7 +60,7 @@ const config = new Config().installDefaultUserConfig();
 
 **Load configuration from config file:**
 
-Node.js
+Node.js only
 
 ```javascript
 import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
@@ -80,21 +70,6 @@ const config = new Config().loadConfigFromFilepath('PATH/TO/FILE');
 
 **Change API endpoint:**
 
-browser
-
-```javascript
-import { Config } from 'qingstor-sdk/dist/qingstor-sdk-browser';
-
-const config = new Config("ACCESS_KEY_ID", "SECRET_ACCESS_KEY");
-config.loadConfig({
-  protocol: 'https',
-  host: 'api.private.com',
-  port: 4433,
-});
-```
-
-Node.js
-
 ```javascript
 import { Config } from 'qingstor-sdk/dist/qingstor-sdk-node';
 
@@ -103,6 +78,7 @@ config.loadConfig({
   protocol: https,
   host: api.private.com,
   port: 4433,
+  // Node.js only
   additional_user_agent: 'UserExample',
 });
 ```
