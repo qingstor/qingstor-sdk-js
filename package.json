@@ -17,16 +17,19 @@
   },
   "license": "Apache-2.0",
   "author": "Yunify SDK Group <sdk_group@yunify.com>",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs",
-    "test": "test"
-  },
   "files": [
     "dist/**/*.js",
     "src",
     "index.js"
   ],
+  "main": "index.js",
+  "browser": {
+    "./src/config/config-for-node": "./src/config/config-for-browser"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
   "scripts": {
     "cucumber": "cucumber-js --require-module @babel/register --require scenarios/tests/*.js scenarios/features/*.feature",
     "dist": "gulp compress",

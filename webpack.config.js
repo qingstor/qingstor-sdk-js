@@ -1,7 +1,7 @@
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const baseConfig = {
+module.exports = {
   bail: true,
   mode: 'development',
   devtool: false,
@@ -18,40 +18,12 @@ const baseConfig = {
       },
     ]
   },
-}
-
-const nodeConfig = {
-  ...baseConfig,
-  target: 'node',
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'qingstor-sdk-node.js',
-    libraryTarget: 'umd',
-    library: 'qingstor_sdk'
-  },
-
-  resolve: {
-    alias: {
-      config: path.resolve(__dirname, './src/config/node.js'),
-    }
-  },
-};
-
-const browserConfig = {
-  ...baseConfig,
-
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'qingstor-sdk-browser.js',
+    filename: 'qingstor-sdk.js',
     libraryTarget: 'umd',
     library: 'qingstor_sdk',
-  },
-
-  resolve: {
-    alias: {
-      config: path.resolve(__dirname, './src/config/browser.js'),
-    }
   },
 
   plugins: [
@@ -90,11 +62,6 @@ const browserConfig = {
 
   node: {
     fs: 'empty',
-    process: 'mock'
+    process: false
   },
 };
-
-module.exports = [
-  nodeConfig,
-  browserConfig,
-];
