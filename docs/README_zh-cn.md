@@ -3,9 +3,9 @@
 - [安装](#安装)
 - [快速开始](#快速开始)
 - [请求返回格式说明](#请求返回格式说明)
-- [SDK 完整功能列表以及参数说明](#SDK 完整功能列表以及参数说明)
-- [SDK 使用示例列表](#SDK 使用示例列表)
-- [Config 自定义设置](#Config 自定义设置)
+- [SDK 完整功能列表以及参数说明](./api_specification.md)
+- [SDK 使用示例列表](./examples)
+- [Config 自定义设置](./advanced_configuration-zh-cn.md)
 
 ## 安装
 
