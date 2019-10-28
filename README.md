@@ -7,6 +7,8 @@
 
 The official QingStor SDK for the JavaScript programming language.
 
+[中文文档](./docs/README_zh-cn.md)
+
 ## Installation
 
 Install SDK into your project by NPM:
