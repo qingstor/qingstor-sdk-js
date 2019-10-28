@@ -15,6 +15,12 @@ Install SDK into your project by NPM:
 npm install qingstor-sdk
 ```
 
+QingStor SDK is writen in ES6 snytax. If your code is running in browser, please make sure your have the right babel configs. If your code is running in node, we recommand your install [esm](https://github.com/standard-things/esm), and your code by `-r esm` option, for example:
+
+```
+node -r esm src/index.js
+```
+
 Alternatively, you can also use SDK by script tag. Go to the [release](https://github.com/yunify/qingstor-sdk-js/releases) page, download and save the SDK into you project, then in your HTML:
 
 ```html
