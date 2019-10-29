@@ -20,24 +20,21 @@ import { stringify } from 'querystring';
 
 // To be more stringent in adhering to RFC 3986 (which reserves !, ', (, ), and *),
 // even though these characters have no formalized URI delimiting uses
-export const fixedEncodeURIComponent = (str) => {
+export function fixedEncodeURIComponent(str) {
   return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
     return '%' + c.charCodeAt(0).toString(16);
   });
-};
+}
 
-export const buildUri = (endpoint, path, params) => {
-  let parsedUri = endpoint + path;
-  if (Object.keys(params).length !== 0) {
-    const separator = path.includes('?') ? '&' : '?';
-    parsedUri += separator + stringify(params);
-  }
-  return parsedUri;
-};
+export function buildUri(endpoint, path, params) {
+  const separator = path.includes('?') ? '&' : '?';
 
-export const isFunction = (fn) => {
+  return `${endpoint}${path}${separator}${stringify(params)}`;
+}
+
+export function isFunction(fn) {
   return (typeof fn !== 'undefined' ? Object.prototype.toString.call(fn) : 0) === '[object Function]';
-};
+}
 
 const UNSAFA_HEADERS = ['host', 'content-length', 'user-agent'];
 export function filterUnsafeHeaders(headers) {
