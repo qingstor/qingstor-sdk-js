@@ -14,7 +14,7 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import './version';
+import version from './version';
 import util from 'util';
 import logger from 'loglevel';
 import md5 from 'crypto-js/md5';
@@ -79,7 +79,7 @@ class Builder {
     // Add user-agent header
     parsedHeaders['user-agent'] = util.format(
       'qingstor-sdk-js/%s (Node.js %s; %s %s)',
-      global.version,
+      version,
       process.version,
       process.platform,
       process.arch
