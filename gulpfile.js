@@ -15,7 +15,7 @@
 // +-------------------------------------------------------------------------
 
 'use strict';
-require('./src/version');
+const { version } = require('./package.json')
 
 const path = require('path');
 const util = require('util');
@@ -64,8 +64,8 @@ function minify() {
 function compress(cb) {
   exec([
     'cd ./dist',
-    `zip qingstor-sdk-${global.version}.zip *.js`,
-    `tar -czvf qingstor-sdk-${global.version}.tar.gz *.js`,
+    `zip qingstor-sdk-${version}.zip *.js`,
+    `tar -czvf qingstor-sdk-${version}.tar.gz *.js`,
   ].join(' && ')).then(() => {
     cb();
   }).catch((err) => {
