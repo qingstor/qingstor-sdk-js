@@ -16,6 +16,8 @@
 
 import logger from 'loglevel';
 
+import common from './common';
+
 const DEFAULT_CONFIG = {
   host: 'qingstor.com',
   port: 443,
@@ -27,51 +29,16 @@ const DEFAULT_CONFIG = {
 
 class Config {
   constructor(access_key_id, secret_access_key) {
+    Object.assign(this, common(this));
+
     this.loadDefaultConfig();
     this.access_key_id = access_key_id === undefined ? '' : access_key_id;
     this.secret_access_key = secret_access_key === undefined ? '' : secret_access_key;
   }
 
-  getUserConfigFilePath() {
-    return null;
-  }
-
-  installDefaultUserConfig() {
-    return;
-  }
-
-  checkConfig() {
-    for (const key of Object.keys(this)) {
-      if (key === 'additional_user_agent') {
-        for (const v of this[key]) {
-          const x = v.charCodeAt();
-          // Allow space(32) to ~(126) in ASCII Table, exclude "(34).
-          if (x < 32 || x > 126 || x === 32 || x === 34) {
-            throw new RangeError(`additional_user_agent has not allowed value ${x}.`);
-          }
-        }
-      }
-    }
-  }
-
-  loadConfig(data) {
-    for (const key of Object.keys(data)) {
-      this[key] = data[key];
-    }
-    logger.setLevel(this['log_level']);
-    this.checkConfig();
-    return this;
-  }
-
   loadDefaultConfig() {
     this.loadConfig(DEFAULT_CONFIG);
   }
-
-  loadUserConfig() {}
-
-  loadConfigFromFilepath() {}
-
-  mkdirParentSync() {}
 }
 
 export default Config;
