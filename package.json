@@ -24,7 +24,7 @@
   ],
   "main": "index.js",
   "browser": {
-    "./src/config/config-for-node": "./src/config/config-for-browser"
+    "./src/config/node": "./src/config/browser"
   },
   "directories": {
     "doc": "docs",
