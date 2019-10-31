@@ -67,29 +67,16 @@ class Signer {
     return parsedContentType;
   }
 
-  getCanonicalizedHeaders(hasDate) {
-    if (!hasDate) {
-      hasDate = true;
-    }
-    let canonicalizedHeaders = '';
-    const headers = {};
-
-    for (const i of Object.keys(this.operation.headers)) {
-      if (i.toLowerCase().indexOf('x-qs-') !== -1) {
-        if (hasDate || i.toLowerCase().trim() !== 'x-qs-date') {
-          headers[i.toLowerCase()] = this.operation.headers[i];
-        }
-      }
-    }
-
-    const keys = Object.keys(headers).sort();
-    if (keys.length > 0) {
-      for (const i of keys) {
-        canonicalizedHeaders += `${i.toLowerCase().trim()}:${headers[i].trim()}
-`;
-      }
-    }
-    return canonicalizedHeaders;
+  getCanonicalizedHeaders() {
+    return Object.keys(this.operation.headers)
+      .filter((key) => {
+        return key.toLowerCase().startsWith('x-qs-');
+      })
+      .sort()
+      .map((key) => {
+        return `${key.toLowerCase().trim()}:${this.operation.headers[key].trim()}`;
+      })
+      .join('\n');
   }
 
   getCanonicalizedResource() {
