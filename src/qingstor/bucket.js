@@ -58,9 +58,7 @@ class Bucket {
    * @return none
    */
   delete() {
-    return this.deleteRequest()
-      .sign()
-      .send();
+    return this.deleteRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -96,9 +94,7 @@ class Bucket {
    * @return none
    */
   deleteCORS() {
-    return this.deleteCORSRequest()
-      .sign()
-      .send();
+    return this.deleteCORSRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -134,9 +130,7 @@ class Bucket {
    * @return none
    */
   deleteExternalMirror() {
-    return this.deleteExternalMirrorRequest()
-      .sign()
-      .send();
+    return this.deleteExternalMirrorRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -172,9 +166,7 @@ class Bucket {
    * @return none
    */
   deleteLifecycle() {
-    return this.deleteLifecycleRequest()
-      .sign()
-      .send();
+    return this.deleteLifecycleRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -210,9 +202,7 @@ class Bucket {
    * @return none
    */
   deleteNotification() {
-    return this.deleteNotificationRequest()
-      .sign()
-      .send();
+    return this.deleteNotificationRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -248,9 +238,7 @@ class Bucket {
    * @return none
    */
   deletePolicy() {
-    return this.deletePolicyRequest()
-      .sign()
-      .send();
+    return this.deletePolicyRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -299,9 +287,7 @@ class Bucket {
    */
   deleteMultipleObjects(options) {
     options = options || {};
-    return this.deleteMultipleObjectsRequest(options)
-      .sign()
-      .send();
+    return this.deleteMultipleObjectsRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -346,9 +332,7 @@ class Bucket {
    * @return none
    */
   getACL() {
-    return this.getACLRequest()
-      .sign()
-      .send();
+    return this.getACLRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -384,9 +368,7 @@ class Bucket {
    * @return none
    */
   getCORS() {
-    return this.getCORSRequest()
-      .sign()
-      .send();
+    return this.getCORSRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -422,9 +404,7 @@ class Bucket {
    * @return none
    */
   getExternalMirror() {
-    return this.getExternalMirrorRequest()
-      .sign()
-      .send();
+    return this.getExternalMirrorRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -460,9 +440,7 @@ class Bucket {
    * @return none
    */
   getLifecycle() {
-    return this.getLifecycleRequest()
-      .sign()
-      .send();
+    return this.getLifecycleRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -498,9 +476,7 @@ class Bucket {
    * @return none
    */
   getNotification() {
-    return this.getNotificationRequest()
-      .sign()
-      .send();
+    return this.getNotificationRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -536,9 +512,7 @@ class Bucket {
    * @return none
    */
   getPolicy() {
-    return this.getPolicyRequest()
-      .sign()
-      .send();
+    return this.getPolicyRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -574,9 +548,7 @@ class Bucket {
    * @return none
    */
   getStatistics() {
-    return this.getStatisticsRequest()
-      .sign()
-      .send();
+    return this.getStatisticsRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -612,9 +584,7 @@ class Bucket {
    * @return none
    */
   head() {
-    return this.headRequest()
-      .sign()
-      .send();
+    return this.headRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -669,9 +639,7 @@ class Bucket {
    */
   listMultipartUploads(options) {
     options = options || {};
-    return this.listMultipartUploadsRequest(options)
-      .sign()
-      .send();
+    return this.listMultipartUploadsRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -723,9 +691,7 @@ class Bucket {
    */
   listObjects(options) {
     options = options || {};
-    return this.listObjectsRequest(options)
-      .sign()
-      .send();
+    return this.listObjectsRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -761,9 +727,7 @@ class Bucket {
    * @return none
    */
   put() {
-    return this.putRequest()
-      .sign()
-      .send();
+    return this.putRequest().send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -806,9 +770,7 @@ class Bucket {
    */
   putACL(options) {
     options = options || {};
-    return this.putACLRequest(options)
-      .sign()
-      .send();
+    return this.putACLRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -892,9 +854,7 @@ class Bucket {
    */
   putCORS(options) {
     options = options || {};
-    return this.putCORSRequest(options)
-      .sign()
-      .send();
+    return this.putCORSRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -953,9 +913,7 @@ class Bucket {
    */
   putExternalMirror(options) {
     options = options || {};
-    return this.putExternalMirrorRequest(options)
-      .sign()
-      .send();
+    return this.putExternalMirrorRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1006,9 +964,7 @@ class Bucket {
    */
   putLifecycle(options) {
     options = options || {};
-    return this.putLifecycleRequest(options)
-      .sign()
-      .send();
+    return this.putLifecycleRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1105,9 +1061,7 @@ class Bucket {
    */
   putNotification(options) {
     options = options || {};
-    return this.putNotificationRequest(options)
-      .sign()
-      .send();
+    return this.putNotificationRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1184,9 +1138,7 @@ class Bucket {
    */
   putPolicy(options) {
     options = options || {};
-    return this.putPolicyRequest(options)
-      .sign()
-      .send();
+    return this.putPolicyRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1272,9 +1224,7 @@ class Bucket {
    */
   abortMultipartUpload(object_key, options) {
     options = options || {};
-    return this.abortMultipartUploadRequest(object_key, options)
-      .sign()
-      .send();
+    return this.abortMultipartUploadRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1347,9 +1297,7 @@ class Bucket {
    */
   completeMultipartUpload(object_key, options) {
     options = options || {};
-    return this.completeMultipartUploadRequest(object_key, options)
-      .sign()
-      .send();
+    return this.completeMultipartUploadRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1408,9 +1356,7 @@ class Bucket {
    * @return none
    */
   deleteObject(object_key) {
-    return this.deleteObjectRequest(object_key)
-      .sign()
-      .send();
+    return this.deleteObjectRequest(object_key).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1498,9 +1444,7 @@ class Bucket {
    */
   getObject(object_key, options) {
     options = options || {};
-    return this.getObjectRequest(object_key, options)
-      .sign()
-      .send();
+    return this.getObjectRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1566,9 +1510,7 @@ class Bucket {
    */
   headObject(object_key, options) {
     options = options || {};
-    return this.headObjectRequest(object_key, options)
-      .sign()
-      .send();
+    return this.headObjectRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1635,9 +1577,7 @@ class Bucket {
    */
   imageProcess(object_key, options) {
     options = options || {};
-    return this.imageProcessRequest(object_key, options)
-      .sign()
-      .send();
+    return this.imageProcessRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1708,9 +1648,7 @@ class Bucket {
    */
   initiateMultipartUpload(object_key, options) {
     options = options || {};
-    return this.initiateMultipartUploadRequest(object_key, options)
-      .sign()
-      .send();
+    return this.initiateMultipartUploadRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1777,9 +1715,7 @@ class Bucket {
    */
   listMultipart(object_key, options) {
     options = options || {};
-    return this.listMultipartRequest(object_key, options)
-      .sign()
-      .send();
+    return this.listMultipartRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1840,9 +1776,7 @@ class Bucket {
    */
   optionsObject(object_key, options) {
     options = options || {};
-    return this.optionsObjectRequest(object_key, options)
-      .sign()
-      .send();
+    return this.optionsObjectRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -1984,9 +1918,7 @@ class Bucket {
    */
   putObject(object_key, options) {
     options = options || {};
-    return this.putObjectRequest(object_key, options)
-      .sign()
-      .send();
+    return this.putObjectRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -2110,9 +2042,7 @@ class Bucket {
    */
   uploadMultipart(object_key, options) {
     options = options || {};
-    return this.uploadMultipartRequest(object_key, options)
-      .sign()
-      .send();
+    return this.uploadMultipartRequest(object_key, options).send();
   }
 
   // eslint-disable-next-line no-unused-vars

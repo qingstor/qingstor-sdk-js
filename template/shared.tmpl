@@ -239,7 +239,7 @@
         {{- end}}
             {{- if eq $belongs "Object"}}object_key{{end -}}
             {{- if and (eq $belongs "Object") $hasInput}},{{end -}}
-            {{- if $hasInput}}options{{end -}}).sign().send();
+            {{- if $hasInput}}options{{end -}}).send();
     }
 {{end}}
 

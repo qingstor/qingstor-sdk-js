@@ -58,9 +58,7 @@ class QingStor {
    */
   listBuckets(options) {
     options = options || {};
-    return this.listBucketsRequest(options)
-      .sign()
-      .send();
+    return this.listBucketsRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars
