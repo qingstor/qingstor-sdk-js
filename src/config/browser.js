@@ -18,6 +18,12 @@ import logger from 'loglevel';
 
 import common from './common';
 
+const USE_AK_SK_WARN = [
+  'It is highly recommended NOT to use access_key_id and secret_access_key ',
+  'on client scripts. Please deploy a signature server and get authorization from it, ',
+  'visit https://github.com/yunify/qingstor-sdk-js',
+].join('');
+
 const DEFAULT_CONFIG = {
   host: 'qingstor.com',
   port: 443,
@@ -28,12 +34,17 @@ const DEFAULT_CONFIG = {
 };
 
 class Config {
-  constructor(access_key_id, secret_access_key) {
+  constructor(options) {
     Object.assign(this, common(this));
 
     this.loadDefaultConfig();
-    this.access_key_id = access_key_id === undefined ? '' : access_key_id;
-    this.secret_access_key = secret_access_key === undefined ? '' : secret_access_key;
+    this.loadConfig(options);
+
+    const { signature_server, access_key_id } = options;
+
+    if (!signature_server && access_key_id) {
+      logger.warn(USE_AK_SK_WARN);
+    }
   }
 
   loadDefaultConfig() {
