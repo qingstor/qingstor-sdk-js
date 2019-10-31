@@ -20,18 +20,54 @@ import Base64 from 'crypto-js/enc-base64';
 import { buildUri } from './utils';
 
 class Signer {
-  constructor(operation, access_key_id, secret_access_key) {
-    this.operation = operation;
+  constructor(access_key_id, secret_access_key) {
     this.access_key_id = access_key_id;
     this.secret_access_key = secret_access_key;
   }
 
-  sign() {
+  getSignature(operation) {
+    this._setOperation(operation);
+
+    const originalHeaders = this.operation.headers;
+
+    const parsedHeaders = Object.keys(originalHeaders)
+      .filter((key) => {
+        const _key = key.toLowerCase();
+
+        return _key === 'x-qs-date' || _key === 'date';
+      })
+      .reduce((headers, key) => {
+        headers[key.toLowerCase()] = originalHeaders[key];
+        return headers;
+      }, {});
+
+    const signedDate = parsedHeaders['x-qs-date'] || parsedHeaders['date'] || new Date().toUTCString();
+
+    return {
+      authorization: `QS ${this.access_key_id}:${this.getAuthorization()}`,
+      signed_date: signedDate,
+    };
+  }
+
+  getQuerySignature(operation) {
+    this._setOperation(operation);
+
+    return {
+      signature: this.calculateSignature(this.getQueryStringToSign(operation.expires)),
+      access_key_id: this.access_key_id,
+      signed_date: new Date().toUTCString(),
+    };
+  }
+
+  sign(operation) {
+    this._setOperation(operation);
+
     this.operation.headers.authorization = `QS ${this.access_key_id}:${this.getAuthorization()}`;
     return this.operation;
   }
 
-  signQuery(expires) {
+  signQuery(operation) {
+    this._setOperation(operation);
     delete this.operation.headers['x-qs-date'];
     delete this.operation.headers['host'];
     delete this.operation.headers['content-length'];
@@ -39,9 +75,9 @@ class Signer {
     delete this.operation.headers['user-agent'];
 
     const data = {
-      signature: this.getQuerySignature(expires),
+      signature: this.getQuerySignature(operation.expires),
       access_key_id: this.access_key_id,
-      expires: expires,
+      expires: operation.expires,
     };
 
     this.operation.params = Object.assign(this.operation.params, data);
@@ -106,22 +142,17 @@ class Signer {
     return this.calculateSignature(this.getStringToSign());
   }
 
-  getQuerySignature(expires) {
-    return this.calculateSignature(this.getQueryStringToSign(expires));
-  }
-
   getStringToSign() {
     const stringToSign = [
       this.operation.method,
       this.getContentMD5(),
       this.getContentType(),
-      // Date
-      '',
+      this.operation.headers.date || '',
       this.getCanonicalizedHeaders(),
       this.getCanonicalizedResource(),
     ].join('\n');
 
-    logger.error(`QingStor request string to sign: ${stringToSign}`);
+    logger.debug(`QingStor request string to sign: ${stringToSign}`);
     return stringToSign;
   }
 
@@ -166,6 +197,13 @@ class Signer {
       'response-content-encoding',
       'response-content-disposition',
     ].includes(key);
+  }
+
+  _setOperation(operation) {
+    this.operation = {
+      headers: {},
+      ...operation,
+    };
   }
 }
 
