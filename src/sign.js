@@ -111,37 +111,31 @@ class Signer {
   }
 
   getStringToSign() {
-    const stringToSign =
-      this.operation.method +
-      '\n' +
-      this.getContentMD5() +
-      '\n' +
-      this.getContentType() +
-      '\n' +
-      '\n' +
-      this.getCanonicalizedHeaders() +
-      this.getCanonicalizedResource();
+    const stringToSign = [
+      this.operation.method,
+      this.getContentMD5(),
+      this.getContentType(),
+      // Date
+      '',
+      this.getCanonicalizedHeaders(),
+      this.getCanonicalizedResource(),
+    ].join('\n');
 
-    logger.debug(`QingStor request string to sign: 
-${stringToSign}`);
+    logger.error(`QingStor request string to sign: ${stringToSign}`);
     return stringToSign;
   }
 
   getQueryStringToSign(expires) {
-    const stringToSign =
-      this.operation.method +
-      '\n' +
-      this.getContentMD5() +
-      '\n' +
-      this.getContentType() +
-      '\n' +
-      expires +
-      '\n' +
-      this.getCanonicalizedHeaders(false) +
-      this.getCanonicalizedResource();
+    const stringToSign = [
+      this.operation.method,
+      this.getContentMD5(),
+      this.getContentType(),
+      expires,
+      this.getCanonicalizedHeaders(),
+      this.getCanonicalizedResource(),
+    ].join('\n');
 
-    logger.debug(`QingStor query request string to sign:
-${stringToSign}`);
+    logger.debug(`QingStor query request string to sign: ${stringToSign}`);
     return stringToSign;
   }
 
