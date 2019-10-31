@@ -31,25 +31,34 @@ class Request {
   }
 
   sign() {
-    this.operation = new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).sign();
-    return this;
+    if (this.config.signature_server) {
+      return axios({
+        url: this.config.signature_server,
+        method: 'POST',
+        body: this.operation,
+      }).then((res) => {
+        const { authorization } = res.data;
+
+        this.operation.headers.authorization = authorization;
+
+        return this;
+      });
+    }
+
+    this.operation = new Signer(this.config.access_key_id, this.config.secret_access_key).sign(this.operation);
+    return Promise.resolve(this);
   }
 
   signQuery(expires) {
-    this.operation = new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).signQuery(
-      expires
-    );
-    return this;
-  }
+    if (this.config.signature_server) {
+      return new Promise();
+    }
 
-  getStringToSign() {
-    return new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).getStringToSign();
-  }
-
-  getQueryStringToSign(expires) {
-    return new Signer(this.operation, this.config.access_key_id, this.config.secret_access_key).getQueryStringToSign(
-      expires
-    );
+    this.operation = new Signer(this.config.access_key_id, this.config.secret_access_key).signQuery({
+      ...this.operation,
+      expires,
+    });
+    return Promise.resolve(this);
   }
 
   applySignature(signature) {
@@ -67,11 +76,13 @@ class Request {
   }
 
   send() {
-    return axios({
-      url: this.operation.uri,
-      method: this.operation.method,
-      headers: this.operation.headers,
-      data: this.operation.body,
+    return this.sign().then(() => {
+      return axios({
+        url: this.operation.uri,
+        method: this.operation.method,
+        headers: this.operation.headers,
+        data: this.operation.body,
+      });
     });
   }
 }
