@@ -278,7 +278,7 @@ listObjects();
 
 QingStor SDK 使用 [axios](https://github.com/axios/axios) 作为 http 客户端，所有请求的返回都是一个 Promise。axios 的 response 结构如下:
 
-```js
+```javascript
 // copied from https://github.com/axios/axios/blob/master/README.md
 {
   // `data` is the response that was provided by the server

@@ -81,7 +81,7 @@ class Signer {
     delete this.operation.headers['user-agent'];
 
     const data = {
-      signature: this.getQuerySignature(operation),
+      signature: this.calculateSignature(this.getQueryStringToSign(operation.expires)),
       access_key_id: this.access_key_id,
       expires: operation.expires,
     };
