@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getAuthorization 1`] = `"L6q5iKoyWbQky0T5/MYELz5jAFecGbvLDyjLdz6fClw="`;
+
+exports[`getCanonicalizedResource 1`] = `"/test_bucket/test_object.jpg?acl&upload_id=test_upload_id"`;
+
+exports[`getQuerySignature 1`] = `
+Object {
+  "access_key_id": "test_key",
+  "expires": Any<Number>,
+  "signature": Any<String>,
+  "signed_date": Any<String>,
+}
+`;
+
+exports[`getSignature 1`] = `
+Object {
+  "authorization": "QS test_key:L6q5iKoyWbQky0T5/MYELz5jAFecGbvLDyjLdz6fClw=",
+  "signed_date": Any<String>,
+}
+`;
+
+exports[`sign on header 1`] = `
+Object {
+  "body": "test string",
+  "endpoint": "https://pek3a.qingstor.com:443",
+  "headers": Object {
+    "authorization": "QS test_key:ZwavbCq3ylBMlU3fb5EFOabtNyUYWzqi2e0rQBTHkcM=",
+    "content-length": 11,
+    "content-type": "image/jpeg",
+    "host": "qingstor.com",
+    "user-agent": StringContaining "qingstor-sdk-js",
+    "x-qs-a": "test-a",
+    "x-qs-a-abc": "test-abc",
+    "x-qs-date": "Fri, 01 Nov 2019 07:40:08 GMT",
+    "x-qs-z": "test-z",
+  },
+  "method": "PUT",
+  "params": Object {
+    "upload_id": "test_upload_id",
+  },
+  "path": "/test_bucket/test_object.jpg?acl",
+  "uri": "https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id",
+}
+`;
+
+exports[`sign on uri 1`] = `
+Object {
+  "body": "test string",
+  "endpoint": "https://pek3a.qingstor.com:443",
+  "expires": 1572592959,
+  "headers": Object {
+    "authorization": "QS test_key:ZwavbCq3ylBMlU3fb5EFOabtNyUYWzqi2e0rQBTHkcM=",
+    "x-qs-a": "test-a",
+    "x-qs-a-abc": "test-abc",
+    "x-qs-z": "test-z",
+  },
+  "method": "PUT",
+  "params": Object {
+    "access_key_id": "test_key",
+    "expires": 1572592959,
+    "signature": "HjroQB6ac19fmFt/1rOMHMco0eJ17gGAGexLYD98u88=",
+    "upload_id": "test_upload_id",
+  },
+  "path": "/test_bucket/test_object.jpg?acl",
+  "uri": "https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id&signature=HjroQB6ac19fmFt%2F1rOMHMco0eJ17gGAGexLYD98u88%3D&access_key_id=test_key&expires=1572592959",
+}
+`;
