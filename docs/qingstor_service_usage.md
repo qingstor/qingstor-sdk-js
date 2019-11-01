@@ -13,7 +13,10 @@ import { Config, QingStor } from 'qingstor-sdk';
 Initialize the QingStor service with a configuration
 
 ```javascript
-const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+const config = new Config({
+  access_key_id: 'ACCESS_KEY_ID_EXAMPLE',
+  secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE',
+});
 const service = new QingStor(config);
 ```
 

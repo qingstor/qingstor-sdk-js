@@ -57,7 +57,15 @@ secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
 ```javascript
 import { QingStor, Config, version } from 'qingstor-sdk';
 
-const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+const config = new Config({
+  access_key_id: 'ACCESS_KEY_ID_EXAMPLE',
+  secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE',
+});
+// or
+const config = new Config({
+  signature_server: 'https://your.signserver.com/some_path',
+});
+
 const bucket = new QingStor(config).Bucket('example_bucket', 'pek3a');
 
 // list objects under perfix '/images'

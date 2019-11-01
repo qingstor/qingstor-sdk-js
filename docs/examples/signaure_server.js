@@ -12,6 +12,10 @@ app.use(express.json()); // for parsing application/json
 
 app.post('/', (req, res) => {
   const operation = req.body;
+
+  // your can write some validation in here
+  // such as: check user login, whether user has permission to do this request
+
   // if there is expiresTTL in operation, means sign request in query style
   if (operation.expiresTTL) {
     res.json(signer.getQuerySignature(operation));

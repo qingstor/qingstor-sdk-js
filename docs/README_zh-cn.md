@@ -4,7 +4,7 @@
 - [快速开始](#快速开始)
 - [请求返回格式说明](#请求返回格式说明)
 - [SDK 完整功能列表以及参数说明](./api_specification.md)
-- [SDK 使用示例列表](./examples)
+- [SDK 使用示例列表](./examples/index.md)
 - [Config 自定义设置](./advanced_configuration-zh-cn.md)
 
 ### 3.0.0 版本中的不兼容变更
@@ -122,13 +122,36 @@ npm install esm
 node -r esm index.js
 ```
 
-### Access Key 和 Secret Key
+### 请求签名
 
 发往 QingStor 对象存储的请求需要使用 Access Key 和 Secret Key 对请求签名，请前往 [青云控制台 Console](https://console.qingcloud.com/access_keys/) 创建和下载。下载到的密钥文件格式如下，请妥善保存你的密钥:
 
 ```
 access_key_id: 'ACCESS_KEY_ID_EXAMPLE'
 secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE'
+```
+
+如果在 Node.js 环境中使用 SDK，在初始化配置 Config 对象时，可以直接采用如下方式:
+
+```
+import { Config } from 'qingstor-sdk';
+
+const config = new Config({
+  access_key_id: 'ACCESS_KEY_ID_EXAMPLE',
+  secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE',
+});
+```
+
+如果在浏览器 Browser 环境中使用 SDK，我们强烈建议部署一个签名服务器，专门用来对请求做签名，这样的好处是不会将 access_key_id 和 secret_access_key 暴露在客户端。
+
+签名服务器的代码非常简单，请参考[这里的 Express 示例](./examples/signaure_server.js)。签名服务器部署好之后，请采用如下方式初始化 Config 对象:
+
+```javascript
+import { Config } from 'qingstor-sdk';
+
+const config = new Config({
+  signature_server: 'https://your.signserver.com/some_path',
+});
 ```
 
 ### 获取 Bucket 列表
@@ -142,7 +165,15 @@ import { QingStor, Config } from 'qingstor-sdk';
 
 // 修改这里的 ACCESS_KEY_ID_EXAMPLE 和 SECRET_ACCESS_KEY_EXAMPLE 为前
 // 一步中得到的 access_key_id 和 secret_access_key
-const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+const config = new Config({
+  access_key_id: 'ACCESS_KEY_ID_EXAMPLE',
+  secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE',
+});
+// or
+const config = new Config({
+  signature_server: 'https://your.signserver.com/some_path',
+});
+
 const qingstor = new QingStor(config);
 
 function listBuckets() {
@@ -181,7 +212,15 @@ import { QingStor, Config } from 'qingstor-sdk';
 
 // 修改这里的 ACCESS_KEY_ID_EXAMPLE 和 SECRET_ACCESS_KEY_EXAMPLE 为前
 // 一步中得到的 access_key_id 和 secret_access_key
-const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+const config = new Config({
+  access_key_id: 'ACCESS_KEY_ID_EXAMPLE',
+  secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE',
+});
+// or
+const config = new Config({
+  signature_server: 'https://your.signserver.com/some_path',
+});
+
 const qingstor = new QingStor(config);
 
 function createBucket() {
@@ -206,7 +245,15 @@ import { QingStor, Config } from 'qingstor-sdk';
 
 // 修改这里的 ACCESS_KEY_ID_EXAMPLE 和 SECRET_ACCESS_KEY_EXAMPLE 为前
 // 一步中得到的 access_key_id 和 secret_access_key
-const config = new Config('ACCESS_KEY_ID_EXAMPLE', 'SECRET_ACCESS_KEY_EXAMPLE');
+const config = new Config({
+  access_key_id: 'ACCESS_KEY_ID_EXAMPLE',
+  secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE',
+});
+// or
+const config = new Config({
+  signature_server: 'https://your.signserver.com/some_path',
+});
+
 const bucket = new QingStor(config).Bucket('example-bucket', 'sh1a');
 
 function listObjects() {
