@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildUri 1`] = `"https://qingstor.com/test_bucet?foo=bar"`;
+
+exports[`buildUri 2`] = `"https://qingstor.com/test_bucet?cors&foo=bar"`;
+
+exports[`filterUnsafeHeaders 1`] = `
+Object {
+  "content-type": "image/jpeg",
+  "x-qs-a": "test-a",
+  "x-qs-a-abc": "test-abc",
+  "x-qs-date": "Fri, 01 Nov 2019 07:40:08 GMT",
+  "x-qs-z": "test-z",
+}
+`;
+
+exports[`fixedEncodeURIComponent 1`] = `"test_object"`;
+
+exports[`fixedEncodeURIComponent 2`] = `"%E4%B8%AD%E6%96%87%E6%B5%8B%E8%AF%95"`;
+
+exports[`fixedEncodeURIComponent 3`] = `"%E7%94%B0%E4%B8%AD%E3%81%95%E3%82%93%E3%81%AB%E3%81%82%E3%81%92%E3%81%A6%E4%B8%8B%E3%81%95%E3%81%84"`;
+
+exports[`fixedEncodeURIComponent 4`] = `"%E3%83%91%E3%83%BC%E3%83%86%E3%82%A3%E3%83%BC%E3%81%B8%E8%A1%8C%E3%81%8B%E3%81%AA%E3%81%84%E3%81%8B"`;
+
+exports[`fixedEncodeURIComponent 5`] = `"%E5%92%8C%E8%A3%BD%E6%BC%A2%E8%AA%9E"`;
+
+exports[`fixedEncodeURIComponent 6`] = `"%EC%82%AC%ED%9A%8C%EA%B3%BC%ED%95%99%EC%9B%90%20%EC%96%B4%ED%95%99%EC%97%B0%EA%B5%AC%EC%86%8C"`;
+
+exports[`fixedEncodeURIComponent 7`] = `"%EC%B0%A6%EC%B0%A8%EB%A5%BC%20%ED%83%80%EA%B3%A0%20%EC%98%A8%20%ED%8E%B2%EC%8B%9C%EB%A7%A8%EA%B3%BC%20%EC%91%9B%EB%8B%A4%EB%A6%AC%20%EB%98%A0%EB%B0%A9%EA%B0%81%ED%95%98"`;
+
+exports[`fixedEncodeURIComponent 8`] = `"%E7%A4%BE%E6%9C%83%E7%A7%91%E5%AD%B8%E9%99%A2%E8%AA%9E%E5%AD%B8%E7%A0%94%E7%A9%B6%E6%89%80"`;
+
+exports[`fixedEncodeURIComponent 9`] = `"%EC%9A%B8%EB%9E%80%EB%B0%94%ED%86%A0%EB%A5%B4"`;
+
+exports[`fixedEncodeURIComponent 10`] = `"%F0%A0%9C%8E%F0%A0%9C%B1%F0%A0%9D%B9%F0%A0%B1%93%F0%A0%B1%B8%F0%A0%B2%96%F0%A0%B3%8F"`;
+
+exports[`fixedEncodeURIComponent 11`] = `"%2C.%2F%3B%27%5B%5D-%3D"`;
+
+exports[`fixedEncodeURIComponent 12`] = `"%3C%3E%3F%3A%22%7B%7D%7C_%2B"`;
+
+exports[`fixedEncodeURIComponent 13`] = `"%21%40%23%24%25%5E%26%2a%28%29%60~"`;
+
+exports[`fixedEncodeURIComponent 14`] = `"%27"`;
+
+exports[`fixedEncodeURIComponent 15`] = `"%22"`;
+
+exports[`fixedEncodeURIComponent 16`] = `"%27%27"`;
+
+exports[`fixedEncodeURIComponent 17`] = `"%22%22"`;
+
+exports[`fixedEncodeURIComponent 18`] = `"%27%22%27"`;
+
+exports[`fixedEncodeURIComponent 19`] = `"%22%27%27%27%27%22%27%22"`;
+
+exports[`fixedEncodeURIComponent 20`] = `"%22%27%22%27%22%27%27%27%27%22"`;
+
+exports[`fixedEncodeURIComponent 21`] = `"%F0%9F%98%8D"`;
+
+exports[`fixedEncodeURIComponent 22`] = `"%F0%9F%91%A9%F0%9F%8F%BD"`;
+
+exports[`fixedEncodeURIComponent 23`] = `"%F0%9F%91%BE%20%F0%9F%99%87%20%F0%9F%92%81%20%F0%9F%99%85%20%F0%9F%99%86%20%F0%9F%99%8B%20%F0%9F%99%8E%20%F0%9F%99%8D"`;
+
+exports[`fixedEncodeURIComponent 24`] = `"%F0%9F%90%B5%20%F0%9F%99%88%20%F0%9F%99%89%20%F0%9F%99%8A"`;
+
+exports[`fixedEncodeURIComponent 25`] = `"%E2%9C%8B%F0%9F%8F%BF%20%F0%9F%92%AA%F0%9F%8F%BF%20%F0%9F%91%90%F0%9F%8F%BF%20%F0%9F%99%8C%F0%9F%8F%BF%20%F0%9F%91%8F%F0%9F%8F%BF%20%F0%9F%99%8F%F0%9F%8F%BF"`;
+
+exports[`fixedEncodeURIComponent 26`] = `"%F0%9F%9A%BE%20%F0%9F%86%92%20%F0%9F%86%93%20%F0%9F%86%95%20%F0%9F%86%96%20%F0%9F%86%97%20%F0%9F%86%99%20%F0%9F%8F%A7"`;
+
+exports[`fixedEncodeURIComponent 27`] = `"0%EF%B8%8F%E2%83%A3%201%EF%B8%8F%E2%83%A3%202%EF%B8%8F%E2%83%A3%203%EF%B8%8F%E2%83%A3%204%EF%B8%8F%E2%83%A3%205%EF%B8%8F%E2%83%A3%206%EF%B8%8F%E2%83%A3%207%EF%B8%8F%E2%83%A3%208%EF%B8%8F%E2%83%A3%209%EF%B8%8F%E2%83%A3%20%F0%9F%94%9F"`;
+
+exports[`fixedEncodeURIComponent 28`] = `"%E2%9D%A4%EF%B8%8F%20%F0%9F%92%94%20%F0%9F%92%8C%20%F0%9F%92%95%20%F0%9F%92%9E%20%F0%9F%92%93%20%F0%9F%92%97%20%F0%9F%92%96%20%F0%9F%92%98%20%F0%9F%92%9D%20%F0%9F%92%9F%20%F0%9F%92%9C%20%F0%9F%92%9B%20%F0%9F%92%9A%20%F0%9F%92%99"`;
+
+exports[`fixedEncodeURIComponent 29`] = `"%EF%BC%91%EF%BC%92%EF%BC%93"`;
+
+exports[`fixedEncodeURIComponent 30`] = `"%D9%A1%D9%A2%D9%A3"`;
+
+exports[`fixedEncodeURIComponent 31`] = `"%D8%AB%D9%85%20%D9%86%D9%81%D8%B3%20%D8%B3%D9%82%D8%B7%D8%AA%20%D9%88%D8%A8%D8%A7%D9%84%D8%AA%D8%AD%D8%AF%D9%8A%D8%AF%D8%8C%2F%2C%20%D8%AC%D8%B2%D9%8A%D8%B1%D8%AA%D9%8A%20%D8%A8%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85%20%D8%A3%D9%86%20%D8%AF%D9%86%D9%88.%20%D8%A5%D8%B0%20%D9%87%D9%86%D8%A7%D8%9F%20%D8%A7%D9%84%D8%B3%D8%AA%D8%A7%D8%B1%20%D9%88%D8%AA%D9%86%D8%B5%D9%8A%D8%A8%20%D9%83%D8%A7%D9%86.%20%D8%A3%D9%87%D9%91%D9%84%20%D8%A7%D9%8A%D8%B7%D8%A7%D9%84%D9%8A%D8%A7%D8%8C%2F%20%D8%A8%D8%B1%D9%8A%D8%B7%D8%A7%D9%86%D9%8A%D8%A7-%D9%81%D8%B1%D9%86%D8%B3%D8%A7%20%D9%82%D8%AF%20%D8%A3%D8%AE%D8%B0.%20%D8%B3%D9%84%D9%8A%D9%85%D8%A7%D9%86%D8%8C%20%D8%A5%D8%AA%D9%81%D8%A7%D9%82%D9%8A%D8%A9%20%D8%A8%D9%8A%D9%86%20%D9%85%D8%A7%2F%2C%20%D9%8A%D8%B0%D9%83%D8%B1%20%D8%A7%D9%84%D8%AD%D8%AF%D9%88%D8%AF%20%D8%A3%D9%8A%20%D8%A8%D8%B9%D8%AF%2C%20%D9%85%D8%B9%D8%A7%D9%85%D9%84%D8%A9%20%D8%A8%D9%88%D9%84%D9%86%D8%AF%D8%A7%D8%8C%20%D8%A7%D9%84%D8%A5%D8%B7%D9%84%D8%A7%D9%82%20%D8%B9%D9%84%20%D8%A5%D9%8A%D9%88."`;
+
+exports[`fixedEncodeURIComponent 32`] = `"%D7%91%D6%B0%D6%BC%D7%A8%D6%B5%D7%90%D7%A9%D6%B4%D7%81%D7%99%D7%AA%2C%20%D7%91%D6%B8%D6%BC%D7%A8%D6%B8%D7%90%20%D7%90%D6%B1%D7%9C%D6%B9%D7%94%D6%B4%D7%99%D7%9D%2C%20%D7%90%D6%B5%D7%AA%20%D7%94%D6%B7%D7%A9%D6%B8%D6%BC%D7%81%D7%9E%D6%B7%D7%99%D6%B4%D7%9D%2C%20%D7%95%D6%B0%D7%90%D6%B5%D7%AA%20%D7%94%D6%B8%D7%90%D6%B8%D7%A8%D6%B6%D7%A5"`;
+
+exports[`fixedEncodeURIComponent 33`] = `"%D7%94%D6%B8%D7%99%D6%B0%D7%AA%D6%B8%D7%94test%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AA%D9%91%D8%AD%D9%88%D9%84"`;
+
+exports[`fixedEncodeURIComponent 34`] = `"%EF%B7%BD"`;
+
+exports[`fixedEncodeURIComponent 35`] = `"%EF%B7%BA"`;
+
+exports[`fixedEncodeURIComponent 36`] = `"%D9%85%D9%8F%D9%86%D9%8E%D8%A7%D9%82%D9%8E%D8%B4%D9%8E%D8%A9%D9%8F%20%D8%B3%D9%8F%D8%A8%D9%8F%D9%84%D9%90%20%D8%A7%D9%90%D8%B3%D9%92%D8%AA%D9%90%D8%AE%D9%92%D8%AF%D9%8E%D8%A7%D9%85%D9%90%20%D8%A7%D9%84%D9%84%D9%91%D9%8F%D8%BA%D9%8E%D8%A9%D9%90%20%D9%81%D9%90%D9%8A%20%D8%A7%D9%84%D9%86%D9%91%D9%8F%D8%B8%D9%8F%D9%85%D9%90%20%D8%A7%D9%84%D9%92%D9%82%D9%8E%D8%A7%D8%A6%D9%90%D9%85%D9%8E%D8%A9%D9%90%20%D9%88%D9%8E%D9%81%D9%90%D9%8A%D9%85%20%D9%8A%D9%8E%D8%AE%D9%8F%D8%B5%D9%91%D9%8E%20%D8%A7%D9%84%D8%AA%D9%91%D9%8E%D8%B7%D9%92%D8%A8%D9%90%D9%8A%D9%82%D9%8E%D8%A7%D8%AA%D9%8F%20%D8%A7%D9%84%D9%92%D8%AD%D8%A7%D8%B3%D9%8F%D9%88%D8%A8%D9%90%D9%8A%D9%91%D9%8E%D8%A9%D9%8F%D8%8C"`;
