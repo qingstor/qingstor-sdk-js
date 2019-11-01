@@ -1,4 +1,8 @@
 import express from 'express';
+import cors from 'cors';
+import logger from 'loglevel';
+
+logger.setLevel('debug');
 
 // replace this line by: import { Signer } from 'qingstor-sdk';
 import Signer from '../../src/sign';
@@ -8,6 +12,7 @@ const port = 3000;
 
 const signer = new Signer('test_key', 'test_secret');
 
+app.use(cors());
 app.use(express.json()); // for parsing application/json
 
 app.post('/', (req, res) => {

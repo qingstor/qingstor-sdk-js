@@ -57,6 +57,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "chai": "^3.5.0",
+    "cors": "^2.8.5",
     "cucumber": "^6.0.2",
     "eslint": "^6.5.1",
     "esm": "^3.2.25",
