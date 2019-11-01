@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse 1`] = `
+Object {
+  "body": "test string",
+  "endpoint": "https://pek3a.qingstor.com:443",
+  "headers": Object {
+    "content-type": "image/jpeg",
+    "x-qs-date": "test time",
+  },
+  "method": "PUT",
+  "params": Object {
+    "upload_id": "test_upload_id",
+  },
+  "path": "/test_bucket/test_object.jpg?acl",
+  "uri": "https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id",
+}
+`;
+
+exports[`parseRequestBody 1`] = `"test string"`;
+
+exports[`parseRequestHeaders 1`] = `
+Object {
+  "content-type": "image/jpeg",
+  "x-qs-date": "test time",
+}
+`;
+
+exports[`parseRequestParams 1`] = `
+Object {
+  "upload_id": "test_upload_id",
+}
+`;
+
+exports[`parseRequestProperties 1`] = `
+Object {
+  "bucket-name": "test_bucket",
+  "object-key": "test_object.jpg",
+  "zone": "pek3a",
+}
+`;
+
+exports[`parseRequestURI 1`] = `
+Object {
+  "endpoint": "https://pek3a.qingstor.com:443",
+  "path": "/test_bucket/test_object.jpg?acl",
+  "uri": "https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id",
+}
+`;
