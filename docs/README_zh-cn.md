@@ -154,6 +154,8 @@ const config = new Config({
 });
 ```
 
+注意：如果签名服务器的域名和用户当前所在域名不同，需要配置相应的 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) 规则。
+
 ### 获取 Bucket 列表
 
 在项目中根目录下新建一个 `index.js` 文件，复制以下内容到文件中:
