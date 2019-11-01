@@ -10,3 +10,4 @@ script:
   - yarn add --dev esformatter
   - yarn run dist
   - yarn test
+  - yarn run jest
