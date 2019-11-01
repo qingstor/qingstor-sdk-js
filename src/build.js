@@ -59,7 +59,8 @@ class Builder {
         parsedHeaders[i] = encodeURI(operation.headers[i]);
       }
     }
-    //Add X-QS-Date header
+
+    // always use x-qs-date instead of date for compatibility
     parsedHeaders['x-qs-date'] = operation.headers['x-qs-date'] || new Date().toUTCString();
 
     if (!METHODS_SHOULD_NOT_INCLUDE_BODY.includes(operation.method)) {

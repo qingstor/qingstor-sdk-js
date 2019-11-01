@@ -9,6 +9,10 @@ The official QingStor SDK for the JavaScript programming language.
 
 [中文文档](./docs/README_zh-cn.md)
 
+### Break Changes in 3.0.0
+
+- Config should be initialized like this: `const config = new Config({ access_key_id, secret_access_key })`
+
 ## Installation
 
 Install SDK into your project by NPM:

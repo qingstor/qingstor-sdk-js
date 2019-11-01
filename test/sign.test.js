@@ -52,7 +52,8 @@ describe('Signer test', function() {
       'user-agent': userAgent,
     },
   };
-  const test = new Signer(operation, 'test_key', 'test_secret');
+  const test = new Signer('test_key', 'test_secret');
+  test.operation = operation;
 
   it('getCanonicalizedResource test', function() {
     test.getCanonicalizedResource().should.eql('/test_bucket/test_object.jpg?acl&upload_id=test_upload_id');
@@ -63,7 +64,8 @@ describe('Signer test', function() {
   });
 
   it('sign test', function() {
-    test.sign().should.eql({
+    // todo refactor
+    test.sign(operation).should.eql({
       method: 'PUT',
       params: {
         upload_id: 'test_upload_id',

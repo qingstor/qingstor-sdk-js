@@ -7,6 +7,10 @@
 - [SDK 使用示例列表](./examples)
 - [Config 自定义设置](./advanced_configuration-zh-cn.md)
 
+### 3.0.0 版本中的不兼容变更
+
+- Config 对象应该采用这样的方式初始化: `const config = new Config({ access_key_id, secret_access_key })`
+
 ## 安装
 
 使用 npm 或者 [yarn](https://yarnpkg.com) 安装 SDK
