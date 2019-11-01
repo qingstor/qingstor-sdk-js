@@ -34,7 +34,7 @@
     "cucumber": "cucumber-js --require-module @babel/register --require scenarios/tests/*.js scenarios/features/*.feature",
     "dist": "gulp compress",
     "eslint": "./node_modules/.bin/eslint src/**/*.js src/*.js ./index.js --fix",
-    "format": "./node_modules/.bin/prettier --write src/**/*.js src/*.js test/**/*.js test/*.js scenarios/tests/*.js ./index.js",
+    "format": "./node_modules/.bin/prettier --write 'src/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js' './docs/**/*.js' ./index.js",
     "generate": "snips -f='./specs/qingstor/2016-01-06/swagger/api_v2.0.json' -t='./template' -o='./src/qingstor'",
     "postgenerate": "rm ./src/qingstor/object.js && npm run format && npm run eslint",
     "test": "mocha --require @babel/register -t 10000"
@@ -60,6 +60,7 @@
     "cucumber": "^6.0.2",
     "eslint": "^6.5.1",
     "esm": "^3.2.25",
+    "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-exec": "^4.0.0",
     "gulp-rename": "^1.4.0",
