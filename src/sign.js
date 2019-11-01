@@ -123,7 +123,7 @@ class Signer {
 
   getCanonicalizedResource() {
     let canonicalizedResource = this.operation.path;
-    const parsedParams = this.operation.params;
+    const parsedParams = this.operation.params || {};
     const query = [];
     if (Object.keys(parsedParams).length !== 0) {
       for (const i of Object.keys(parsedParams)) {

@@ -36,7 +36,7 @@ class Request {
       return axios({
         url: this.config.signature_server,
         method: 'POST',
-        body: this.operation,
+        data: this.operation,
       }).then((res) => {
         const { authorization } = res.data;
 
@@ -55,7 +55,7 @@ class Request {
       return axios({
         url: this.config.signature_server,
         method: 'POST',
-        body: { ...this.operation, expiresTTL: expiresTTL },
+        data: { ...this.operation, expiresTTL: expiresTTL },
       }).then((res) => {
         const { access_key_id, signature, expires } = res.data;
 
