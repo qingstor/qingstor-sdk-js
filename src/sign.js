@@ -52,10 +52,16 @@ class Signer {
   getQuerySignature(operation) {
     this._setOperation(operation);
 
+    const now = Date.now();
+    // todo throw error if expiresTTL is invaild
+    const expiresTTL = parseInt(operation.expiresTTL);
+    const expires = parseInt(now / 1000 + expiresTTL);
+
     return {
-      signature: this.calculateSignature(this.getQueryStringToSign(operation.expires)),
+      expires,
+      signature: this.calculateSignature(this.getQueryStringToSign(expires)),
       access_key_id: this.access_key_id,
-      signed_date: new Date().toUTCString(),
+      signed_date: new Date(now).toUTCString(),
     };
   }
 
@@ -75,7 +81,7 @@ class Signer {
     delete this.operation.headers['user-agent'];
 
     const data = {
-      signature: this.getQuerySignature(operation.expires),
+      signature: this.getQuerySignature(operation),
       access_key_id: this.access_key_id,
       expires: operation.expires,
     };

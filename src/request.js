@@ -50,15 +50,14 @@ class Request {
     return Promise.resolve(this);
   }
 
-  signQuery(expires) {
+  signQuery(expiresTTL) {
     if (this.config.signature_server) {
       return axios({
         url: this.config.signature_server,
-        params: { sign_query: true },
         method: 'POST',
-        body: this.operation,
+        body: { ...this.operation, expiresTTL: expiresTTL },
       }).then((res) => {
-        const { access_key_id, signature } = res.data;
+        const { access_key_id, signature, expires } = res.data;
 
         this.operation.uri = buildUri(this.operation.endpoint, this.operation.path, {
           ...this.operation.params,
@@ -73,7 +72,7 @@ class Request {
 
     this.operation = new Signer(this.config.access_key_id, this.config.secret_access_key).signQuery({
       ...this.operation,
-      expires,
+      expires: parseInt(now / 1000 + operation.expiresTTL),
     });
     return Promise.resolve(this);
   }
