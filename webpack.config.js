@@ -62,6 +62,6 @@ module.exports = {
 
   node: {
     fs: 'empty',
-    process: false
+    process: 'mock'
   },
 };

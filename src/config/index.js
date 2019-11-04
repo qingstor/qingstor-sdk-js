@@ -4,7 +4,7 @@ function getDefaultConfig() {
   if (typeof process !== 'undefined' && Object.prototype.toString.call(process) === '[object process]') {
     // For node use HTTP adapter
     adapter = require('./node');
-  } else if (typeof XMLHttpRequest !== 'undefined') {
+  } else {
     // For browsers use XHR adapter
     adapter = require('./browser');
   }
