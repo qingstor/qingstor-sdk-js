@@ -35,18 +35,12 @@ function clean(cb) {
 }
 
 function bundle(cb) {
-  webpack(webpackConfig).run(function(err, stats) {
-    if (err) {
-      throw err;
-    }
+  webpack(webpackConfig, (err, stats) => {
+    console.log(stats.toString({colors: true}));
 
-    process.stdout.write(stats.toString({
-      colors: true,
-      modules: false,
-      children: false,
-      chunks: false,
-      chunkModules: false
-    }) + '\n\n');
+    if (err || stats.hasErrors()) {
+      throw 'webpack bundle error';
+    }
 
     cb();
   });
