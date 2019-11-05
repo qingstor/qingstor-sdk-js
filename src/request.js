@@ -14,10 +14,10 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-import axios from 'axios';
 
 import Signer from './sign';
 import Builder from './build';
+import axios from './http_client';
 import { buildUri } from './utils';
 
 class Request {
