@@ -35,6 +35,27 @@ yarn add qingstor-sdk
 ```
 我们建议你在开发时使用未压缩的版本，好处是方便调试，在生产环境中再使用 `qingstor-sdk.min.js` 版本
 
+如果在小程序环境中使用 SDK，请前往 [release](https://github.com/yunify/qingstor-sdk-js/releases) 页面下载打包好的文件，然后将 `qingstor-sdk-miniprogram.js` 复制到你的项目里，使用时参考如下代码:
+
+```javascript
+const sdk = require('./qingstor-sdk-miniprogram.js')
+
+const Config = sdk.Config;
+const QingStor =  sdk.QingStor;
+
+const config = new Config({
+  access_key_id: 'your_ak',
+  secret_access_key: 'your_sk',
+});
+
+const bucket = new QingStor(config).Bucket('your-bucket-name', 'pek3a');
+bucket.listObjects().then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.log(error);
+});
+```
+
 ## 快速开始
 
 QingStor SDK 使用 ES6 的语法编写，所以使用前请确保你配置了合适的构建环境。
