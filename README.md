@@ -7,7 +7,7 @@
 
 The official QingStor SDK for the JavaScript programming language.
 
-[中文文档](./docs/README_zh-cn.md)
+[中文文档](https://github.com/yunify/qingstor-sdk-js/blob/master/docs/README_zh-cn.md)
 
 - [Install](#install)
 - [Quick Start](#quick-start)

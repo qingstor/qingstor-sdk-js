@@ -17,14 +17,31 @@
 import Request from '../request';
 import Bucket from './bucket';
 
+/**
+ * QingStor Module
+ * @param {Object} config object
+ */
 class QingStor {
   constructor(config) {
     this.config = config;
   }
 
   /**
-   * listBucketsRequest: Build ListBuckets's request
-   * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
+   * Retrieve the bucket list. [Documentation URL](https://docs.qingcloud.com/qingstor/api/service/get.html)
+   * @param {Object} options - User input options;
+   * @param options.Location - Limits results to buckets that in the location
+   *
+   * @return {Promise} axios response
+   */
+  listBuckets(options) {
+    options = options || {};
+    return this.listBucketsRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build ListBuckets's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/service/get.html)
    * @param {Object} options - User input options;
    * @param options.Location - Limits results to buckets that in the location
    *
@@ -46,19 +63,6 @@ class QingStor {
     };
     this.listBucketsValidate(operation);
     return new Request(this.config, operation).build();
-  }
-
-  /**
-   * listBuckets: Retrieve the bucket list.
-   * @link https://docs.qingcloud.com/qingstor/api/service/get.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Location - Limits results to buckets that in the location
-   *
-   * @return none
-   */
-  listBuckets(options) {
-    options = options || {};
-    return this.listBucketsRequest(options).send();
   }
 
   // eslint-disable-next-line no-unused-vars

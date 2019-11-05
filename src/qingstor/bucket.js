@@ -17,6 +17,11 @@
 import Request from '../request';
 import SDKError from '../error';
 
+/**
+ * Bucket Module
+ * @param {Object} config object
+ * @param {Object} properties
+ */
 class Bucket {
   constructor(config, properties) {
     // Zone should be forced to lower case
@@ -29,8 +34,18 @@ class Bucket {
   }
 
   /**
-   * deleteRequest: Build Delete's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/delete.html Documentation URL
+   * Delete a bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/delete.html)
+   *
+   * @return {Promise} axios response
+   */
+  delete() {
+    return this.deleteRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build Delete's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/delete.html)
    *
    * @return Signer
    */
@@ -52,21 +67,24 @@ class Bucket {
   }
 
   /**
-   * delete: Delete a bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/delete.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  delete() {
-    return this.deleteRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteValidate(operation) {}
 
   /**
-   * deleteCORSRequest: Build DeleteCORS's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html Documentation URL
+   * Delete CORS information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html)
+   *
+   * @return {Promise} axios response
+   */
+  deleteCORS() {
+    return this.deleteCORSRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteCORS's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html)
    *
    * @return Signer
    */
@@ -88,21 +106,24 @@ class Bucket {
   }
 
   /**
-   * deleteCORS: Delete CORS information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  deleteCORS() {
-    return this.deleteCORSRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteCORSValidate(operation) {}
 
   /**
-   * deleteExternalMirrorRequest: Build DeleteExternalMirror's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html Documentation URL
+   * Delete external mirror of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html)
+   *
+   * @return {Promise} axios response
+   */
+  deleteExternalMirror() {
+    return this.deleteExternalMirrorRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteExternalMirror's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html)
    *
    * @return Signer
    */
@@ -124,21 +145,24 @@ class Bucket {
   }
 
   /**
-   * deleteExternalMirror: Delete external mirror of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  deleteExternalMirror() {
-    return this.deleteExternalMirrorRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteExternalMirrorValidate(operation) {}
 
   /**
-   * deleteLifecycleRequest: Build DeleteLifecycle's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html Documentation URL
+   * Delete Lifecycle information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html)
+   *
+   * @return {Promise} axios response
+   */
+  deleteLifecycle() {
+    return this.deleteLifecycleRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteLifecycle's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html)
    *
    * @return Signer
    */
@@ -160,21 +184,24 @@ class Bucket {
   }
 
   /**
-   * deleteLifecycle: Delete Lifecycle information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  deleteLifecycle() {
-    return this.deleteLifecycleRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteLifecycleValidate(operation) {}
 
   /**
-   * deleteNotificationRequest: Build DeleteNotification's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html Documentation URL
+   * Delete Notification information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html)
+   *
+   * @return {Promise} axios response
+   */
+  deleteNotification() {
+    return this.deleteNotificationRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteNotification's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html)
    *
    * @return Signer
    */
@@ -196,21 +223,24 @@ class Bucket {
   }
 
   /**
-   * deleteNotification: Delete Notification information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  deleteNotification() {
-    return this.deleteNotificationRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteNotificationValidate(operation) {}
 
   /**
-   * deletePolicyRequest: Build DeletePolicy's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html Documentation URL
+   * Delete policy information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html)
+   *
+   * @return {Promise} axios response
+   */
+  deletePolicy() {
+    return this.deletePolicyRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeletePolicy's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html)
    *
    * @return Signer
    */
@@ -232,21 +262,29 @@ class Bucket {
   }
 
   /**
-   * deletePolicy: Delete policy information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  deletePolicy() {
-    return this.deletePolicyRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deletePolicyValidate(operation) {}
 
   /**
-   * deleteMultipleObjectsRequest: Build DeleteMultipleObjects's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html Documentation URL
+   * Delete multiple objects from the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html)
+   * @param {Object} options - User input options;
+   * @param options.Content-MD5 - Object MD5sum
+   * @param options.objects - A list of keys to delete
+   * @param options.quiet - Whether to return the list of deleted objects
+   *
+   * @return {Promise} axios response
+   */
+  deleteMultipleObjects(options) {
+    options = options || {};
+    return this.deleteMultipleObjectsRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteMultipleObjects's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html)
    * @param {Object} options - User input options;
    * @param options.Content-MD5 - Object MD5sum
    * @param options.objects - A list of keys to delete
@@ -276,20 +314,8 @@ class Bucket {
   }
 
   /**
-   * deleteMultipleObjects: Delete multiple objects from the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Content-MD5 - Object MD5sum
-   * @param options.objects - A list of keys to delete
-   * @param options.quiet - Whether to return the list of deleted objects
-   *
-   * @return none
+   * @ignore
    */
-  deleteMultipleObjects(options) {
-    options = options || {};
-    return this.deleteMultipleObjectsRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteMultipleObjectsValidate(operation) {
     if (
@@ -303,8 +329,18 @@ class Bucket {
   }
 
   /**
-   * getACLRequest: Build GetACL's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html Documentation URL
+   * Get ACL information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html)
+   *
+   * @return {Promise} axios response
+   */
+  getACL() {
+    return this.getACLRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetACL's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html)
    *
    * @return Signer
    */
@@ -326,21 +362,24 @@ class Bucket {
   }
 
   /**
-   * getACL: Get ACL information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getACL() {
-    return this.getACLRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getACLValidate(operation) {}
 
   /**
-   * getCORSRequest: Build GetCORS's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html Documentation URL
+   * Get CORS information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html)
+   *
+   * @return {Promise} axios response
+   */
+  getCORS() {
+    return this.getCORSRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetCORS's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html)
    *
    * @return Signer
    */
@@ -362,21 +401,24 @@ class Bucket {
   }
 
   /**
-   * getCORS: Get CORS information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getCORS() {
-    return this.getCORSRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getCORSValidate(operation) {}
 
   /**
-   * getExternalMirrorRequest: Build GetExternalMirror's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html Documentation URL
+   * Get external mirror of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html)
+   *
+   * @return {Promise} axios response
+   */
+  getExternalMirror() {
+    return this.getExternalMirrorRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetExternalMirror's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html)
    *
    * @return Signer
    */
@@ -398,21 +440,24 @@ class Bucket {
   }
 
   /**
-   * getExternalMirror: Get external mirror of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getExternalMirror() {
-    return this.getExternalMirrorRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getExternalMirrorValidate(operation) {}
 
   /**
-   * getLifecycleRequest: Build GetLifecycle's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html Documentation URL
+   * Get Lifecycle information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html)
+   *
+   * @return {Promise} axios response
+   */
+  getLifecycle() {
+    return this.getLifecycleRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetLifecycle's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html)
    *
    * @return Signer
    */
@@ -434,21 +479,24 @@ class Bucket {
   }
 
   /**
-   * getLifecycle: Get Lifecycle information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getLifecycle() {
-    return this.getLifecycleRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getLifecycleValidate(operation) {}
 
   /**
-   * getNotificationRequest: Build GetNotification's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html Documentation URL
+   * Get Notification information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html)
+   *
+   * @return {Promise} axios response
+   */
+  getNotification() {
+    return this.getNotificationRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetNotification's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html)
    *
    * @return Signer
    */
@@ -470,21 +518,24 @@ class Bucket {
   }
 
   /**
-   * getNotification: Get Notification information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getNotification() {
-    return this.getNotificationRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getNotificationValidate(operation) {}
 
   /**
-   * getPolicyRequest: Build GetPolicy's request
-   * @link https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html Documentation URL
+   * Get policy information of the bucket. [Documentation URL](https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html)
+   *
+   * @return {Promise} axios response
+   */
+  getPolicy() {
+    return this.getPolicyRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetPolicy's request
+   * [Documentation URL](https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html)
    *
    * @return Signer
    */
@@ -506,21 +557,24 @@ class Bucket {
   }
 
   /**
-   * getPolicy: Get policy information of the bucket.
-   * @link https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getPolicy() {
-    return this.getPolicyRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getPolicyValidate(operation) {}
 
   /**
-   * getStatisticsRequest: Build GetStatistics's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html Documentation URL
+   * Get statistics information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html)
+   *
+   * @return {Promise} axios response
+   */
+  getStatistics() {
+    return this.getStatisticsRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetStatistics's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html)
    *
    * @return Signer
    */
@@ -542,21 +596,24 @@ class Bucket {
   }
 
   /**
-   * getStatistics: Get statistics information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  getStatistics() {
-    return this.getStatisticsRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getStatisticsValidate(operation) {}
 
   /**
-   * headRequest: Build Head's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/head.html Documentation URL
+   * Check whether the bucket exists and available. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/head.html)
+   *
+   * @return {Promise} axios response
+   */
+  head() {
+    return this.headRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build Head's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/head.html)
    *
    * @return Signer
    */
@@ -578,21 +635,31 @@ class Bucket {
   }
 
   /**
-   * head: Check whether the bucket exists and available.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/head.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  head() {
-    return this.headRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   headValidate(operation) {}
 
   /**
-   * listMultipartUploadsRequest: Build ListMultipartUploads's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html Documentation URL
+   * List multipart uploads in the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html)
+   * @param {Object} options - User input options;
+   * @param options.delimiter - Put all keys that share a common prefix into a list
+   * @param options.key_marker - Limit results returned from the first key after key_marker sorted by alphabetical order
+   * @param options.limit - Results count limit
+   * @param options.prefix - Limits results to keys that begin with the prefix
+   * @param options.upload_id_marker - Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
+   *
+   * @return {Promise} axios response
+   */
+  listMultipartUploads(options) {
+    options = options || {};
+    return this.listMultipartUploadsRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build ListMultipartUploads's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html)
    * @param {Object} options - User input options;
    * @param options.delimiter - Put all keys that share a common prefix into a list
    * @param options.key_marker - Limit results returned from the first key after key_marker sorted by alphabetical order
@@ -626,28 +693,30 @@ class Bucket {
   }
 
   /**
-   * listMultipartUploads: List multipart uploads in the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.delimiter - Put all keys that share a common prefix into a list
-   * @param options.key_marker - Limit results returned from the first key after key_marker sorted by alphabetical order
-   * @param options.limit - Results count limit
-   * @param options.prefix - Limits results to keys that begin with the prefix
-   * @param options.upload_id_marker - Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
-   *
-   * @return none
+   * @ignore
    */
-  listMultipartUploads(options) {
-    options = options || {};
-    return this.listMultipartUploadsRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   listMultipartUploadsValidate(operation) {}
 
   /**
-   * listObjectsRequest: Build ListObjects's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/get.html Documentation URL
+   * Retrieve the object list in a bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get.html)
+   * @param {Object} options - User input options;
+   * @param options.delimiter - Put all keys that share a common prefix into a list
+   * @param options.limit - Results count limit
+   * @param options.marker - Limit results to keys that start at this marker
+   * @param options.prefix - Limits results to keys that begin with the prefix
+   *
+   * @return {Promise} axios response
+   */
+  listObjects(options) {
+    options = options || {};
+    return this.listObjectsRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build ListObjects's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get.html)
    * @param {Object} options - User input options;
    * @param options.delimiter - Put all keys that share a common prefix into a list
    * @param options.limit - Results count limit
@@ -679,27 +748,24 @@ class Bucket {
   }
 
   /**
-   * listObjects: Retrieve the object list in a bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/get.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.delimiter - Put all keys that share a common prefix into a list
-   * @param options.limit - Results count limit
-   * @param options.marker - Limit results to keys that start at this marker
-   * @param options.prefix - Limits results to keys that begin with the prefix
-   *
-   * @return none
+   * @ignore
    */
-  listObjects(options) {
-    options = options || {};
-    return this.listObjectsRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   listObjectsValidate(operation) {}
 
   /**
-   * putRequest: Build Put's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/put.html Documentation URL
+   * Create a new bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/put.html)
+   *
+   * @return {Promise} axios response
+   */
+  put() {
+    return this.putRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build Put's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/put.html)
    *
    * @return Signer
    */
@@ -721,21 +787,27 @@ class Bucket {
   }
 
   /**
-   * put: Create a new bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/put.html Documentation URL
-   *
-   * @return none
+   * @ignore
    */
-  put() {
-    return this.putRequest().send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putValidate(operation) {}
 
   /**
-   * putACLRequest: Build PutACL's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html Documentation URL
+   * Set ACL information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html)
+   * @param {Object} options - User input options;
+   * @param options.acl - Bucket ACL rules
+   *
+   * @return {Promise} axios response
+   */
+  putACL(options) {
+    options = options || {};
+    return this.putACLRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutACL's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html)
    * @param {Object} options - User input options;
    * @param options.acl - Bucket ACL rules
    *
@@ -761,18 +833,8 @@ class Bucket {
   }
 
   /**
-   * putACL: Set ACL information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.acl - Bucket ACL rules
-   *
-   * @return none
+   * @ignore
    */
-  putACL(options) {
-    options = options || {};
-    return this.putACLRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putACLValidate(operation) {
     if (
@@ -818,8 +880,21 @@ class Bucket {
   }
 
   /**
-   * putCORSRequest: Build PutCORS's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html Documentation URL
+   * Set CORS information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html)
+   * @param {Object} options - User input options;
+   * @param options.cors_rules - Bucket CORS rules
+   *
+   * @return {Promise} axios response
+   */
+  putCORS(options) {
+    options = options || {};
+    return this.putCORSRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutCORS's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html)
    * @param {Object} options - User input options;
    * @param options.cors_rules - Bucket CORS rules
    *
@@ -845,18 +920,8 @@ class Bucket {
   }
 
   /**
-   * putCORS: Set CORS information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.cors_rules - Bucket CORS rules
-   *
-   * @return none
+   * @ignore
    */
-  putCORS(options) {
-    options = options || {};
-    return this.putCORSRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putCORSValidate(operation) {
     if (
@@ -877,8 +942,21 @@ class Bucket {
   }
 
   /**
-   * putExternalMirrorRequest: Build PutExternalMirror's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html Documentation URL
+   * Set external mirror of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html)
+   * @param {Object} options - User input options;
+   * @param options.source_site - Source site url
+   *
+   * @return {Promise} axios response
+   */
+  putExternalMirror(options) {
+    options = options || {};
+    return this.putExternalMirrorRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutExternalMirror's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html)
    * @param {Object} options - User input options;
    * @param options.source_site - Source site url
    *
@@ -904,18 +982,8 @@ class Bucket {
   }
 
   /**
-   * putExternalMirror: Set external mirror of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.source_site - Source site url
-   *
-   * @return none
+   * @ignore
    */
-  putExternalMirror(options) {
-    options = options || {};
-    return this.putExternalMirrorRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putExternalMirrorValidate(operation) {
     if (
@@ -928,8 +996,21 @@ class Bucket {
   }
 
   /**
-   * putLifecycleRequest: Build PutLifecycle's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html Documentation URL
+   * Set Lifecycle information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html)
+   * @param {Object} options - User input options;
+   * @param options.rule - Bucket Lifecycle rule
+   *
+   * @return {Promise} axios response
+   */
+  putLifecycle(options) {
+    options = options || {};
+    return this.putLifecycleRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutLifecycle's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html)
    * @param {Object} options - User input options;
    * @param options.rule - Bucket Lifecycle rule
    *
@@ -955,18 +1036,8 @@ class Bucket {
   }
 
   /**
-   * putLifecycle: Set Lifecycle information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.rule - Bucket Lifecycle rule
-   *
-   * @return none
+   * @ignore
    */
-  putLifecycle(options) {
-    options = options || {};
-    return this.putLifecycleRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putLifecycleValidate(operation) {
     if (
@@ -1025,8 +1096,21 @@ class Bucket {
   }
 
   /**
-   * putNotificationRequest: Build PutNotification's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html Documentation URL
+   * Set Notification information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html)
+   * @param {Object} options - User input options;
+   * @param options.notifications - Bucket Notification
+   *
+   * @return {Promise} axios response
+   */
+  putNotification(options) {
+    options = options || {};
+    return this.putNotificationRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutNotification's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html)
    * @param {Object} options - User input options;
    * @param options.notifications - Bucket Notification
    *
@@ -1052,18 +1136,8 @@ class Bucket {
   }
 
   /**
-   * putNotification: Set Notification information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.notifications - Bucket Notification
-   *
-   * @return none
+   * @ignore
    */
-  putNotification(options) {
-    options = options || {};
-    return this.putNotificationRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putNotificationValidate(operation) {
     if (
@@ -1102,8 +1176,21 @@ class Bucket {
   }
 
   /**
-   * putPolicyRequest: Build PutPolicy's request
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html Documentation URL
+   * Set policy information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html)
+   * @param {Object} options - User input options;
+   * @param options.statement - Bucket policy statement
+   *
+   * @return {Promise} axios response
+   */
+  putPolicy(options) {
+    options = options || {};
+    return this.putPolicyRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutPolicy's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html)
    * @param {Object} options - User input options;
    * @param options.statement - Bucket policy statement
    *
@@ -1129,18 +1216,8 @@ class Bucket {
   }
 
   /**
-   * putPolicy: Set policy information of the bucket.
-   * @link https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.statement - Bucket policy statement
-   *
-   * @return none
+   * @ignore
    */
-  putPolicy(options) {
-    options = options || {};
-    return this.putPolicyRequest(options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putPolicyValidate(operation) {
     if (
@@ -1185,11 +1262,25 @@ class Bucket {
   }
 
   /**
-   * abortMultipartUploadRequest: Build AbortMultipartUpload's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html Documentation URL
+   * Abort multipart upload. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.upload_id - Object multipart upload ID
+   *
+   * @return {Promise} axios response
+   */
+  abortMultipartUpload(object_key, options) {
+    options = options || {};
+    return this.abortMultipartUploadRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build AbortMultipartUpload's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.upload_id - Object multipart upload ID
    *
    * @return Signer
    */
@@ -1214,19 +1305,8 @@ class Bucket {
   }
 
   /**
-   * abortMultipartUpload: Abort multipart upload.
-   * @link https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.upload_id - Object multipart upload ID
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  abortMultipartUpload(object_key, options) {
-    options = options || {};
-    return this.abortMultipartUploadRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   abortMultipartUploadValidate(operation) {
     if (
@@ -1239,8 +1319,8 @@ class Bucket {
   }
 
   /**
-   * completeMultipartUploadRequest: Build CompleteMultipartUpload's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html Documentation URL
+   * Complete multipart upload. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.ETag - MD5sum of the object part
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
@@ -1248,7 +1328,26 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param options.upload_id - Object multipart upload ID
    * @param options.object_parts - Object parts
+   *
+   * @return {Promise} axios response
+   */
+  completeMultipartUpload(object_key, options) {
+    options = options || {};
+    return this.completeMultipartUploadRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build CompleteMultipartUpload's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.ETag - MD5sum of the object part
+   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.upload_id - Object multipart upload ID
+   * @param options.object_parts - Object parts
    *
    * @return Signer
    */
@@ -1282,24 +1381,8 @@ class Bucket {
   }
 
   /**
-   * completeMultipartUpload: Complete multipart upload.
-   * @link https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.ETag - MD5sum of the object part
-   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.upload_id - Object multipart upload ID
-   * @param options.object_parts - Object parts
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  completeMultipartUpload(object_key, options) {
-    options = options || {};
-    return this.completeMultipartUploadRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   completeMultipartUploadValidate(operation) {
     if (
@@ -1324,8 +1407,19 @@ class Bucket {
   }
 
   /**
-   * deleteObjectRequest: Build DeleteObject's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/delete.html Documentation URL
+   * Delete the object. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/delete.html)
+   * @param {string} object_key The object key
+   *
+   * @return {Promise} axios response
+   */
+  deleteObject(object_key) {
+    return this.deleteObjectRequest(object_key).send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteObject's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/delete.html)
    * @param object_key The object key
    *
    * @return Signer
@@ -1349,22 +1443,14 @@ class Bucket {
   }
 
   /**
-   * deleteObject: Delete the object.
-   * @link https://docs.qingcloud.com/qingstor/api/object/delete.html Documentation URL
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  deleteObject(object_key) {
-    return this.deleteObjectRequest(object_key).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   deleteObjectValidate(operation) {}
 
   /**
-   * getObjectRequest: Build GetObject's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/get.html Documentation URL
+   * Retrieve the object. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/get.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.If-Match - Check whether the ETag matches
    * @param options.If-Modified-Since - Check whether the object has been modified
@@ -1380,7 +1466,34 @@ class Bucket {
    * @param options.response-content-language - Specified the Content-Language response header
    * @param options.response-content-type - Specified the Content-Type response header
    * @param options.response-expires - Specified the Expires response header
+   *
+   * @return {Promise} axios response
+   */
+  getObject(object_key, options) {
+    options = options || {};
+    return this.getObjectRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build GetObject's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/get.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.If-Match - Check whether the ETag matches
+   * @param options.If-Modified-Since - Check whether the object has been modified
+   * @param options.If-None-Match - Check whether the ETag does not match
+   * @param options.If-Unmodified-Since - Check whether the object has not been modified
+   * @param options.Range - Specified range of the object
+   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.response-cache-control - Specified the Cache-Control response header
+   * @param options.response-content-disposition - Specified the Content-Disposition response header
+   * @param options.response-content-encoding - Specified the Content-Encoding response header
+   * @param options.response-content-language - Specified the Content-Language response header
+   * @param options.response-content-type - Specified the Content-Type response header
+   * @param options.response-expires - Specified the Expires response header
    *
    * @return Signer
    */
@@ -1421,38 +1534,14 @@ class Bucket {
   }
 
   /**
-   * getObject: Retrieve the object.
-   * @link https://docs.qingcloud.com/qingstor/api/object/get.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.If-Match - Check whether the ETag matches
-   * @param options.If-Modified-Since - Check whether the object has been modified
-   * @param options.If-None-Match - Check whether the ETag does not match
-   * @param options.If-Unmodified-Since - Check whether the object has not been modified
-   * @param options.Range - Specified range of the object
-   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.response-cache-control - Specified the Cache-Control response header
-   * @param options.response-content-disposition - Specified the Content-Disposition response header
-   * @param options.response-content-encoding - Specified the Content-Encoding response header
-   * @param options.response-content-language - Specified the Content-Language response header
-   * @param options.response-content-type - Specified the Content-Type response header
-   * @param options.response-expires - Specified the Expires response header
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  getObject(object_key, options) {
-    options = options || {};
-    return this.getObjectRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   getObjectValidate(operation) {}
 
   /**
-   * headObjectRequest: Build HeadObject's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/head.html Documentation URL
+   * Check whether the object exists and available. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/head.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.If-Match - Check whether the ETag matches
    * @param options.If-Modified-Since - Check whether the object has been modified
@@ -1461,7 +1550,27 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
    * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   *
+   * @return {Promise} axios response
+   */
+  headObject(object_key, options) {
+    options = options || {};
+    return this.headObjectRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build HeadObject's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/head.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.If-Match - Check whether the ETag matches
+   * @param options.If-Modified-Since - Check whether the object has been modified
+   * @param options.If-None-Match - Check whether the ETag does not match
+   * @param options.If-Unmodified-Since - Check whether the object has not been modified
+   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    *
    * @return Signer
    */
@@ -1494,31 +1603,14 @@ class Bucket {
   }
 
   /**
-   * headObject: Check whether the object exists and available.
-   * @link https://docs.qingcloud.com/qingstor/api/object/head.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.If-Match - Check whether the ETag matches
-   * @param options.If-Modified-Since - Check whether the object has been modified
-   * @param options.If-None-Match - Check whether the ETag does not match
-   * @param options.If-Unmodified-Since - Check whether the object has not been modified
-   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  headObject(object_key, options) {
-    options = options || {};
-    return this.headObjectRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   headObjectValidate(operation) {}
 
   /**
-   * imageProcessRequest: Build ImageProcess's request
-   * @link https://docs.qingcloud.com/qingstor/data_process/image_process/index.html Documentation URL
+   * Image process with the action on the object [Documentation URL](https://docs.qingcloud.com/qingstor/data_process/image_process/index.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.If-Modified-Since - Check whether the object has been modified
    * @param options.action - Image process action
@@ -1528,7 +1620,28 @@ class Bucket {
    * @param options.response-content-language - Specified the Content-Language response header
    * @param options.response-content-type - Specified the Content-Type response header
    * @param options.response-expires - Specified the Expires response header
+   *
+   * @return {Promise} axios response
+   */
+  imageProcess(object_key, options) {
+    options = options || {};
+    return this.imageProcessRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build ImageProcess's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/data_process/image_process/index.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.If-Modified-Since - Check whether the object has been modified
+   * @param options.action - Image process action
+   * @param options.response-cache-control - Specified the Cache-Control response header
+   * @param options.response-content-disposition - Specified the Content-Disposition response header
+   * @param options.response-content-encoding - Specified the Content-Encoding response header
+   * @param options.response-content-language - Specified the Content-Language response header
+   * @param options.response-content-type - Specified the Content-Type response header
+   * @param options.response-expires - Specified the Expires response header
    *
    * @return Signer
    */
@@ -1560,26 +1673,8 @@ class Bucket {
   }
 
   /**
-   * imageProcess: Image process with the action on the object
-   * @link https://docs.qingcloud.com/qingstor/data_process/image_process/index.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.If-Modified-Since - Check whether the object has been modified
-   * @param options.action - Image process action
-   * @param options.response-cache-control - Specified the Cache-Control response header
-   * @param options.response-content-disposition - Specified the Content-Disposition response header
-   * @param options.response-content-encoding - Specified the Content-Encoding response header
-   * @param options.response-content-language - Specified the Content-Language response header
-   * @param options.response-content-type - Specified the Content-Type response header
-   * @param options.response-expires - Specified the Expires response header
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  imageProcess(object_key, options) {
-    options = options || {};
-    return this.imageProcessRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   imageProcessValidate(operation) {
     if (
@@ -1592,8 +1687,8 @@ class Bucket {
   }
 
   /**
-   * initiateMultipartUploadRequest: Build InitiateMultipartUpload's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html Documentation URL
+   * Initial multipart upload on the object. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.Content-Type - Object content type
    * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
@@ -1601,7 +1696,26 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param options.X-QS-MetaData - User-defined metadata
    * @param options.X-QS-Storage-Class - Specify the storage class for object
+   *
+   * @return {Promise} axios response
+   */
+  initiateMultipartUpload(object_key, options) {
+    options = options || {};
+    return this.initiateMultipartUploadRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build InitiateMultipartUpload's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.Content-Type - Object content type
+   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-MetaData - User-defined metadata
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
    *
    * @return Signer
    */
@@ -1633,24 +1747,8 @@ class Bucket {
   }
 
   /**
-   * initiateMultipartUpload: Initial multipart upload on the object.
-   * @link https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Content-Type - Object content type
-   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.X-QS-MetaData - User-defined metadata
-   * @param options.X-QS-Storage-Class - Specify the storage class for object
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  initiateMultipartUpload(object_key, options) {
-    options = options || {};
-    return this.initiateMultipartUploadRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   initiateMultipartUploadValidate(operation) {
     if (
@@ -1670,13 +1768,29 @@ class Bucket {
   }
 
   /**
-   * listMultipartRequest: Build ListMultipart's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/list_multipart.html Documentation URL
+   * List object parts. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/list_multipart.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.limit - Limit results count
    * @param options.part_number_marker - Object multipart upload part number
    * @param options.upload_id - Object multipart upload ID
+   *
+   * @return {Promise} axios response
+   */
+  listMultipart(object_key, options) {
+    options = options || {};
+    return this.listMultipartRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build ListMultipart's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/list_multipart.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.limit - Limit results count
+   * @param options.part_number_marker - Object multipart upload part number
+   * @param options.upload_id - Object multipart upload ID
    *
    * @return Signer
    */
@@ -1703,21 +1817,8 @@ class Bucket {
   }
 
   /**
-   * listMultipart: List object parts.
-   * @link https://docs.qingcloud.com/qingstor/api/object/list_multipart.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.limit - Limit results count
-   * @param options.part_number_marker - Object multipart upload part number
-   * @param options.upload_id - Object multipart upload ID
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  listMultipart(object_key, options) {
-    options = options || {};
-    return this.listMultipartRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   listMultipartValidate(operation) {
     if (
@@ -1730,13 +1831,29 @@ class Bucket {
   }
 
   /**
-   * optionsObjectRequest: Build OptionsObject's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/options.html Documentation URL
+   * Check whether the object accepts a origin with method and header. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/options.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.Access-Control-Request-Headers - Request headers
    * @param options.Access-Control-Request-Method - Request method
    * @param options.Origin - Request origin
+   *
+   * @return {Promise} axios response
+   */
+  optionsObject(object_key, options) {
+    options = options || {};
+    return this.optionsObjectRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build OptionsObject's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/options.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.Access-Control-Request-Headers - Request headers
+   * @param options.Access-Control-Request-Method - Request method
+   * @param options.Origin - Request origin
    *
    * @return Signer
    */
@@ -1764,21 +1881,8 @@ class Bucket {
   }
 
   /**
-   * optionsObject: Check whether the object accepts a origin with method and header.
-   * @link https://docs.qingcloud.com/qingstor/api/object/options.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Access-Control-Request-Headers - Request headers
-   * @param options.Access-Control-Request-Method - Request method
-   * @param options.Origin - Request origin
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  optionsObject(object_key, options) {
-    options = options || {};
-    return this.optionsObjectRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   optionsObjectValidate(operation) {
     if (
@@ -1798,8 +1902,8 @@ class Bucket {
   }
 
   /**
-   * putObjectRequest: Build PutObject's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/put.html Documentation URL
+   * Upload the object. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/put.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.Cache-Control - Object cache control
    * @param options.Content-Encoding - Object content encoding
@@ -1823,7 +1927,42 @@ class Bucket {
    * @param options.X-QS-MetaData - User-defined metadata
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
    * @param options.X-QS-Storage-Class - Specify the storage class for object
+   *
+   * @return {Promise} axios response
+   */
+  putObject(object_key, options) {
+    options = options || {};
+    return this.putObjectRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutObject's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/put.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.Cache-Control - Object cache control
+   * @param options.Content-Encoding - Object content encoding
+   * @param options.Content-Length - Object content size
+   * @param options.Content-MD5 - Object MD5sum
+   * @param options.Content-Type - Object content type
+   * @param options.Expect - Used to indicate that particular server behaviors are required by the client
+   * @param options.X-QS-Copy-Source - Copy source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Copy-Source-If-Match - Check whether the copy source matches
+   * @param options.X-QS-Copy-Source-If-Modified-Since - Check whether the copy source has been modified
+   * @param options.X-QS-Copy-Source-If-None-Match - Check whether the copy source does not match
+   * @param options.X-QS-Copy-Source-If-Unmodified-Since - Check whether the copy source has not been modified
+   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
+   * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
+   * @param options.X-QS-MetaData - User-defined metadata
+   * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
    *
    * @return Signer
    */
@@ -1887,40 +2026,8 @@ class Bucket {
   }
 
   /**
-   * putObject: Upload the object.
-   * @link https://docs.qingcloud.com/qingstor/api/object/put.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Cache-Control - Object cache control
-   * @param options.Content-Encoding - Object content encoding
-   * @param options.Content-Length - Object content size
-   * @param options.Content-MD5 - Object MD5sum
-   * @param options.Content-Type - Object content type
-   * @param options.Expect - Used to indicate that particular server behaviors are required by the client
-   * @param options.X-QS-Copy-Source - Copy source, format (/<bucket-name>/<object-key>)
-   * @param options.X-QS-Copy-Source-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Copy-Source-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Copy-Source-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.X-QS-Copy-Source-If-Match - Check whether the copy source matches
-   * @param options.X-QS-Copy-Source-If-Modified-Since - Check whether the copy source has been modified
-   * @param options.X-QS-Copy-Source-If-None-Match - Check whether the copy source does not match
-   * @param options.X-QS-Copy-Source-If-Unmodified-Since - Check whether the copy source has not been modified
-   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
-   * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
-   * @param options.X-QS-MetaData - User-defined metadata
-   * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
-   * @param options.X-QS-Storage-Class - Specify the storage class for object
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  putObject(object_key, options) {
-    options = options || {};
-    return this.putObjectRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   putObjectValidate(operation) {
     if (
@@ -1940,8 +2047,8 @@ class Bucket {
   }
 
   /**
-   * uploadMultipartRequest: Build UploadMultipart's request
-   * @link https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html Documentation URL
+   * Upload object multipart. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html)
+   * @param {string} object_key The object key
    * @param {Object} options - User input options;
    * @param options.Content-Length - Object multipart content length
    * @param options.Content-MD5 - Object multipart content MD5sum
@@ -1959,7 +2066,36 @@ class Bucket {
    * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
    * @param options.part_number - Object multipart upload part number
    * @param options.upload_id - Object multipart upload ID
+   *
+   * @return {Promise} axios response
+   */
+  uploadMultipart(object_key, options) {
+    options = options || {};
+    return this.uploadMultipartRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build UploadMultipart's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html)
    * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.Content-Length - Object multipart content length
+   * @param options.Content-MD5 - Object multipart content MD5sum
+   * @param options.X-QS-Copy-Range - Specify range of the source object
+   * @param options.X-QS-Copy-Source - Copy source, format (/<bucket-name>/<object-key>)
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Copy-Source-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.X-QS-Copy-Source-If-Match - Check whether the Etag of copy source matches the specified value
+   * @param options.X-QS-Copy-Source-If-Modified-Since - Check whether the copy source has been modified since the specified date
+   * @param options.X-QS-Copy-Source-If-None-Match - Check whether the Etag of copy source does not matches the specified value
+   * @param options.X-QS-Copy-Source-If-Unmodified-Since - Check whether the copy source has not been unmodified since the specified date
+   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
+   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
+   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
+   * @param options.part_number - Object multipart upload part number
+   * @param options.upload_id - Object multipart upload ID
    *
    * @return Signer
    */
@@ -2017,34 +2153,8 @@ class Bucket {
   }
 
   /**
-   * uploadMultipart: Upload object multipart.
-   * @link https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html Documentation URL
-   * @param {Object} options - User input options;
-   * @param options.Content-Length - Object multipart content length
-   * @param options.Content-MD5 - Object multipart content MD5sum
-   * @param options.X-QS-Copy-Range - Specify range of the source object
-   * @param options.X-QS-Copy-Source - Copy source, format (/<bucket-name>/<object-key>)
-   * @param options.X-QS-Copy-Source-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Copy-Source-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Copy-Source-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.X-QS-Copy-Source-If-Match - Check whether the Etag of copy source matches the specified value
-   * @param options.X-QS-Copy-Source-If-Modified-Since - Check whether the copy source has been modified since the specified date
-   * @param options.X-QS-Copy-Source-If-None-Match - Check whether the Etag of copy source does not matches the specified value
-   * @param options.X-QS-Copy-Source-If-Unmodified-Since - Check whether the copy source has not been unmodified since the specified date
-   * @param options.X-QS-Encryption-Customer-Algorithm - Encryption algorithm of the object
-   * @param options.X-QS-Encryption-Customer-Key - Encryption key of the object
-   * @param options.X-QS-Encryption-Customer-Key-MD5 - MD5sum of encryption key
-   * @param options.part_number - Object multipart upload part number
-   * @param options.upload_id - Object multipart upload ID
-   * @param object_key The object key
-   *
-   * @return none
+   * @ignore
    */
-  uploadMultipart(object_key, options) {
-    options = options || {};
-    return this.uploadMultipartRequest(object_key, options).send();
-  }
-
   // eslint-disable-next-line no-unused-vars
   uploadMultipartValidate(operation) {
     if (

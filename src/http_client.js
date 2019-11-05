@@ -5,4 +5,4 @@ if (process.env.MINIPROGRAM) {
   axios.defaults.adapter = mpAdapter.default;
 }
 
-module.exports = axios
+module.exports = axios;

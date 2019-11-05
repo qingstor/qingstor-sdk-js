@@ -14,7 +14,6 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-
 import Signer from './sign';
 import Builder from './build';
 import axios from './http_client';

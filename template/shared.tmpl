@@ -5,6 +5,9 @@
     {{- $customizedTypes := index . 2}}
     {{$opID := replace $operation.ID "Bucket" "" -1}}
     {{- if ne $belongs "QingStor"}}
+    /**
+     * @ignore
+     */
     // eslint-disable-next-line no-unused-vars
     {{$opID | camelCase | lowerFirst}}Validate(operation){
     {{- end}}
@@ -96,14 +99,18 @@
     {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
 
     /**
+     * @ignore
      {{- if ne $belongs "QingStor"}}
-     * {{$opID | camelCase | lowerFirst}}Request: Build {{$opID}}'s request
+     * Build {{$opID}}'s request
      {{- end}}
      {{- if eq $belongs "QingStor"}}
-     * {{$operation.ID | camelCase | lowerFirst}}Request: Build {{$operation.ID}}'s request
+     * Build {{$operation.ID}}'s request
      {{- end}}
      {{- if $operation.DocumentationURL}}
-     * @link {{$operation.DocumentationURL}} Documentation URL
+     * [Documentation URL]({{$operation.DocumentationURL}})
+     {{- end}}
+     {{- if eq $belongs "Object"}}
+     * @param object_key The object key
      {{- end}}
      {{- if $hasInput}}
      * @param {Object} options - User input options;
@@ -116,9 +123,6 @@
      {{- end}}
      {{- range $id, $property := $operation.Request.Elements.Properties}}
      * @param options.{{$property.ID}} - {{$property.Description}}
-     {{- end}}
-     {{- if eq $belongs "Object"}}
-     * @param object_key The object key
      {{- end}}
      *
      * @return Signer
@@ -193,14 +197,9 @@
     {{- $hasInput := or $hasParams $hasHeaders $hasElements $hasStringBody $hasBinaryBody}}
 
     /**
-     {{- if ne $belongs "QingStor"}}
-     * {{$opID | camelCase | lowerFirst}}: {{$operation.Description}}
-     {{- end}}
-     {{- if eq $belongs "QingStor"}}
-     * {{$operation.ID | camelCase | lowerFirst}}: {{$operation.Description}}
-     {{- end}}
-     {{- if $operation.DocumentationURL}}
-     * @link {{$operation.DocumentationURL}} Documentation URL
+     * {{$operation.Description}} {{if $operation.DocumentationURL}}[Documentation URL]({{$operation.DocumentationURL}}){{- end}}
+     {{- if eq $belongs "Object"}}
+     * @param {string} object_key The object key
      {{- end}}
      {{- if $hasInput}}
      * @param {Object} options - User input options;
@@ -214,11 +213,8 @@
      {{- range $id, $property := $operation.Request.Elements.Properties}}
      * @param options.{{$property.ID}} - {{$property.Description}}
      {{- end}}
-     {{- if eq $belongs "Object"}}
-     * @param object_key The object key
-     {{- end}}
      *
-     * @return none
+     * @return {Promise} axios response
      */
     {{- if ne $belongs "QingStor"}}
     {{$opID | camelCase | lowerFirst}}(
@@ -247,7 +243,7 @@
 {{- $belongs := index . 0}}
 {{- $operation := index . 1}}
 {{- $customizedTypes := index . 2}}
-{{- template "BuildRequest" passThrough $belongs $operation}}
 {{- template "BuildOperation" passThrough $belongs $operation}}
+{{- template "BuildRequest" passThrough $belongs $operation}}
 {{- template "RenderInputValidation" passThrough $belongs $operation $customizedTypes}}
 {{end}}
