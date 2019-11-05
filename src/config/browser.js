@@ -40,9 +40,7 @@ class Config {
     this.loadDefaultConfig();
     this.loadConfig(options);
 
-    const { signature_server, access_key_id } = options;
-
-    if (!signature_server && access_key_id) {
+    if (!this.signature_server) {
       logger.warn(USE_AK_SK_WARN);
     }
   }

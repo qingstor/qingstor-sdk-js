@@ -39,12 +39,11 @@ const defaultConfigFileContent = [
 const defaultConfigFile = '~/.qingstor/config.yaml';
 
 class Config {
-  constructor({ access_key_id, secret_access_key }) {
+  constructor(options) {
     Object.assign(this, common(this));
 
     this.loadDefaultConfig();
-    this.access_key_id = access_key_id === undefined ? '' : access_key_id;
-    this.secret_access_key = secret_access_key === undefined ? '' : secret_access_key;
+    this.loadConfig(options);
   }
 
   getUserConfigFilePath() {
