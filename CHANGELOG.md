@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0-beta.7] - 2019-11-05
+
+### Added
+
+- support get authorization from sign server
+- support miniprogram environment
+- API specification
+
 ## [3.0.0-beta.3] - 2019-10-29
 
 ### Added
@@ -226,6 +234,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Provide Official Qingstor SDK for Javascript
 
+[3.0.0-beta.7]: https://github.com/yunify/qingstor-sdk-js/compare/3.0.0-beta.3...3.0.0-beta.7
 [3.0.0-beta.3]: https://github.com/yunify/qingstor-sdk-js/compare/3.0.0-beta.2...3.0.0-beta.3
 [3.0.0-beta.2]: https://github.com/yunify/qingstor-sdk-js/compare/3.0.0-beta.0...3.0.0-beta.2
 [3.0.0-beta.0]: https://github.com/yunify/qingstor-sdk-js/compare/v2.2.16...3.0.0-beta.0
