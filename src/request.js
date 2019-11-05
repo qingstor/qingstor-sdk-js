@@ -17,7 +17,7 @@
 import Signer from './sign';
 import Builder from './build';
 import axios from './http_client';
-import { buildUri } from './utils';
+import { buildUri, isFunction } from './utils';
 
 class Request {
   constructor(config, operation) {
@@ -92,7 +92,10 @@ class Request {
 
   send() {
     return this.sign().then(() => {
+      const axiosConfig = isFunction(this.config.getAxiosConfig) ? this.config.getAxiosConfig(this.operation) : {};
+
       return axios({
+        ...axiosConfig,
         url: this.operation.uri,
         method: this.operation.method,
         headers: this.operation.headers,
