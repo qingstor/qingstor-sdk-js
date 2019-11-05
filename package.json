@@ -38,7 +38,8 @@
     "generate": "snips -f='./specs/qingstor/2016-01-06/swagger/api_v2.0.json' -t='./template' -o='./src/qingstor'",
     "postgenerate": "rm ./src/qingstor/object.js && npm run format && npm run eslint",
     "test": "mocha --require @babel/register -t 10000",
-    "jest": "jest --collect-coverage src"
+    "jest": "jest --collect-coverage src",
+    "docs": "documentation build src/qingstor/*.js -f md -o docs/api_specification.md"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -61,6 +62,7 @@
     "chai": "^3.5.0",
     "cors": "^2.8.5",
     "cucumber": "^6.0.2",
+    "documentation": "^12.1.3",
     "eslint": "^6.5.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",
