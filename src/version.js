@@ -14,4 +14,4 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-export default '3.0.0-beta.5';
+export default '3.0.0-beta.6';
