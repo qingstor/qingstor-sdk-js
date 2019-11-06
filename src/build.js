@@ -73,7 +73,7 @@ class Builder {
       } else if (Object.keys(operation.elements).length) {
         parsedHeaders['content-type'] = 'application/json';
       } else {
-        parsedHeaders['content-type'] = 'application/x-www-form-urlencoded';
+        parsedHeaders['content-type'] = 'application/octet-stream';
       }
     }
 
