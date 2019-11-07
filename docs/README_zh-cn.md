@@ -125,7 +125,7 @@ module.exports = {
 }
 ```
 
-之后就可以在 terminal 中输入 `./node_module/.bin/webpack -w` 来开发了，关于 Babel 和 Webpack 配置与使用的更多细节，请参考其官方文档。
+之后就可以在 terminal 中输入 `./node_modules/.bin/webpack -w` 来开发了，关于 Babel 和 Webpack 配置与使用的更多细节，请参考其官方文档。
 
 ### Node 环境
 

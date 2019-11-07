@@ -114,7 +114,7 @@ module.exports = {
 }
 ```
 
-open your terminal and input `./node_module/.bin/webpack -w` for developing. For more details on the configuration and use of Babel and Webpack, please refer to its official documentation.
+open your terminal and input `./node_modules/.bin/webpack -w` for developing. For more details on the configuration and use of Babel and Webpack, please refer to its official documentation.
 
 ### Node Environment
 
