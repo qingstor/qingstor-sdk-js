@@ -42,6 +42,7 @@ bucket.putObject('/path/to/some_object', {
 上传到 Bucket 中的文件类型其实由上传请求 header 中的 `content-type` 决定。SDK 默认使用的 `content-type` 是 `application/octet-stream`。在浏览器环境下上传一个 File 时，如果**不指定** `content-type`，那 SDK 会默认使用此 File 的 `type` 属性值作为请求 header 中的 `content-type` 值，例如上传的一个 png 格式的图片，则请求 header 中的 `content-type` 值为 `image/png`。
 
 `putObject` 方法的第二个参数是一个 Object，除了 `body` 属性表示要上传的文件外，还有如下可选参数:
+
 | 名称               | 类型     | 描述                                                                                                                                                                                                            |
 | ------------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | cache-control      | `string` | 指定请求和响应遵循的缓存机制，例如 `max-age=3600`。 参考 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-ControlObject)                                                              |
