@@ -45,12 +45,12 @@ bucket.putObject('/path/to/some_object', {
 
 | 名称               | 类型     | 描述                                                                                                                                                                                                            |
 | ------------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| cache-control      | `string` | 指定请求和响应遵循的缓存机制，例如 `max-age=3600`。 参考 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-ControlObject)                                                              |
-| content-encoding   | `string` | 指定对象的内容编码类型，例如 `gzip`。                                                                                                                                                                             |
+| cache-control      | `string` | 指定请求和响应遵循的缓存机制，例如 `max-age=3600`。 参考 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control)                                                                    |
+| content-encoding   | `string` | 指定对象的内容编码类型，例如 `gzip`。                                                                                                                                                                           |
 | content-md5        | `string` | 对象实体的 MD5 值，用于检查对象在传输过程中字符是否出错或被篡改。                                                                                                                                               |
 | content-type       | `string` | 指定上传文件的 MIME 类型，例如 `image/png`。参考 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)                                                                             |
 | expect             | `string` | 如果请求头附加这个参数，不需要附带 request body，对象存储服务端判断可以接受此请求，则返回 100 CONTINUE，例如 `100-continue`。 参考 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect) |
-| x-qs-storage-class | `string` | 指定该对象的存储级别，支持的存储级别为 “STANDARD” 和 “STANDARD_IA”，默认存储级别为”STANDARD”。存储级别错误将返回 `400 INVALID_REQUEST`。                                                                            |
+| x-qs-storage-class | `string` | 指定该对象的存储级别，支持的存储级别为 “STANDARD” 和 “STANDARD_IA”，默认存储级别为”STANDARD”。存储级别错误将返回 `400 INVALID_REQUEST`。                                                                        |
 
 ### API 文档
 
