@@ -31,7 +31,7 @@
     "test": "test"
   },
   "scripts": {
-    "cucumber": "cucumber-js --require-module @babel/register --require scenarios/tests/*.js scenarios/features/*.feature",
+    "cucumber": "cucumber-js --require-module @babel/register --require 'scenarios/tests/*.js' 'scenarios/features/*.feature'",
     "dist": "gulp compress",
     "eslint": "./node_modules/.bin/eslint src/**/*.js src/*.js ./index.js --fix",
     "format": "./node_modules/.bin/prettier --write 'src/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js' './docs/**/*.js' ./index.js",
