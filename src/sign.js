@@ -168,12 +168,18 @@ class Signer {
       this.getContentMD5(),
       this.getContentType(),
       expires,
-      this.getCanonicalizedHeaders(),
-      this.getCanonicalizedResource(),
-    ].join('\n');
+    ];
 
-    logger.debug(`QingStor query request string to sign: ${stringToSign}`);
-    return stringToSign;
+    const stringToHeaders = this.getCanonicalizedHeaders();
+
+    if (stringToHeaders) {
+      stringToSign.push(stringToHeaders);
+    }
+
+    stringToSign.push(this.getCanonicalizedResource());
+
+    logger.debug(`QingStor query request string to sign: ${stringToSign.join('\n')}`);
+    return stringToSign.join('\n');
   }
 
   calculateSignature(stringToSign) {
