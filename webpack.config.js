@@ -5,7 +5,6 @@ const webpack = require('webpack');
 function getConfig(isMiniprogram) {
   return {
     bail: true,
-    mode: 'development',
     devtool: false,
     entry: './index.js',
 
@@ -13,7 +12,7 @@ function getConfig(isMiniprogram) {
       rules: [
         {
           test: /\.js$/,
-          exclude: /(node_modules)/,
+          // exclude: /(node_modules)/,
           use: ['babel-loader']
         },
       ]

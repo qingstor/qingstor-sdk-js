@@ -99,7 +99,7 @@ class Request {
         url: this.operation.uri,
         method: this.operation.method,
         headers: this.operation.headers,
-        data: this.operation.body,
+        data: this.operation.body || '',
       });
     });
   }
