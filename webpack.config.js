@@ -5,6 +5,7 @@ const webpack = require('webpack');
 function getConfig(isMiniprogram) {
   return {
     bail: true,
+    mode: 'development',
     devtool: false,
     entry: './index.js',
 
