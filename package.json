@@ -1,6 +1,6 @@
 {
   "name": "qingstor-sdk",
-  "version": "3.0.0-beta.10",
+  "version": "3.0.0-beta.11",
   "description": "Official QingStor SDK for JavaScript",
   "keywords": [
     "object storage",
@@ -20,9 +20,9 @@
   "files": [
     "dist/**/*.js",
     "src",
-    "index.js"
+    "lib/**/*.js"
   ],
-  "main": "index.js",
+  "main": "./lib/index.js",
   "browser": {
     "./src/config/node": "./src/config/browser"
   },

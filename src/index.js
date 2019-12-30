@@ -14,4 +14,25 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-export default '3.0.0-beta.11';
+import _version from './version';
+import _QingStor from './qingstor/qingstor';
+import _Config from './config';
+import _Request from './request';
+import _Signer from './sign';
+import _Client from './client/all';
+
+export const version = _version;
+export const QingStor = _QingStor;
+export const Config = _Config;
+export const Request = _Request;
+export const Signer = _Signer;
+export const Client = _Client;
+
+export default {
+  version: _version,
+  QingStor: _QingStor,
+  Config: _Config,
+  Request: _Request,
+  Signer: _Signer,
+  Client: _Client,
+};
