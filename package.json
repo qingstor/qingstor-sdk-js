@@ -1,6 +1,6 @@
 {
   "name": "qingstor-sdk",
-  "version": "3.0.0-beta.11",
+  "version": "3.0.0-beta.12",
   "description": "Official QingStor SDK for JavaScript",
   "keywords": [
     "object storage",
