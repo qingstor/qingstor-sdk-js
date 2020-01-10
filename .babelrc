@@ -7,11 +7,13 @@
           "browsers": "> 5%",
           "node": "10"
         },
-        "modules": "umd"
+        "modules": "umd",
+        "useBuiltIns": "entry"
       }
     ]
   ],
   "plugins": [
-    "add-module-exports"
+    "add-module-exports",
+    "@babel/plugin-proposal-object-rest-spread"
   ]
 }

@@ -39,7 +39,8 @@
     "postgenerate": "rm ./src/qingstor/object.js && npm run format && npm run eslint",
     "test": "mocha --require @babel/register -t 10000",
     "jest": "jest --collect-coverage src",
-    "docs": "documentation build src/qingstor/*.js -f md -o docs/api_specification.md"
+    "docs": "documentation build src/qingstor/*.js -f md -o docs/api_specification.md",
+    "babel": "babel src -d lib"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -52,6 +53,7 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.0.0",
