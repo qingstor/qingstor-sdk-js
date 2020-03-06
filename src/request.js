@@ -71,7 +71,7 @@ class Request {
 
     this.operation = new Signer(this.config.access_key_id, this.config.secret_access_key).signQuery({
       ...this.operation,
-      expires: parseInt(now / 1000 + operation.expiresTTL),
+      expires: parseInt(Date.now() / 1000 + expiresTTL),
     });
     return Promise.resolve(this);
   }
