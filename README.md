@@ -1,5 +1,5 @@
 # QingStor SDK for JavaScript
-[![github-actions](https://github.com/qingstor/qingstor-sdk-js/workflows/Unit%20Test/badge.svg)](https://travis-ci.org/yunify/qingstor-sdk-js)
+[![github-actions](https://github.com/qingstor/qingstor-sdk-js/workflows/Unit%20Test/badge.svg)](https://github.com/qingstor/qingstor-sdk-js/actions?query=branch%3Amaster+workflow%3A%22Unit+Test%22)
 [![api-reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor)
 [![license](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-js/blob/master/LICENSE)
 
