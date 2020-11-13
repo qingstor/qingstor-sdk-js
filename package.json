@@ -31,16 +31,16 @@
     "test": "test"
   },
   "scripts": {
+    "babel": "babel src -d lib",
     "cucumber": "cucumber-js --require-module @babel/register --require 'scenarios/tests/*.js' 'scenarios/features/*.feature'",
     "dist": "gulp compress",
+    "docs": "documentation build src/qingstor/*.js -f md -o docs/api_specification.md",
     "eslint": "./node_modules/.bin/eslint src/**/*.js src/*.js ./index.js --fix",
     "format": "./node_modules/.bin/prettier --write 'src/**/*.js' 'test/**/*.js' 'scenarios/tests/*.js' './docs/**/*.js' ./index.js",
     "generate": "snips -f='./specs/qingstor/2016-01-06/swagger/api_v2.0.json' -t='./template' -o='./src/qingstor'",
     "postgenerate": "rm ./src/qingstor/object.js && npm run format && npm run eslint",
-    "test": "mocha --require @babel/register -t 10000",
     "jest": "jest --collect-coverage src",
-    "docs": "documentation build src/qingstor/*.js -f md -o docs/api_specification.md",
-    "babel": "babel src -d lib"
+    "test": "mocha --require @babel/register -t 10000"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -80,6 +80,6 @@
     "webpack-cli": "^3.3.9"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   }
 }
