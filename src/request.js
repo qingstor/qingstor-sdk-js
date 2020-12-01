@@ -31,6 +31,9 @@ class Request {
   }
 
   sign() {
+    if (this.operation.headers.Authorization) {
+      return Promise.resolve(this)
+    }
     if (this.config.signature_server) {
       return axios({
         url: this.config.signature_server,
