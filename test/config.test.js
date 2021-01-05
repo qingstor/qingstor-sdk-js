@@ -19,8 +19,8 @@ import Config from '../src/config';
 
 const should = require('chai').should();
 
-describe('Config test', function() {
-  it('loadDefaultConfig test', function() {
+describe('Config test', function () {
+  it('loadDefaultConfig test', function () {
     const test = new Config({});
     test.access_key_id.should.equal('');
     test.secret_access_key.should.equal('');
@@ -31,7 +31,7 @@ describe('Config test', function() {
     test.log_level.should.equal('warn');
   });
 
-  it('loadDefaultConfig with access key test', function() {
+  it('loadDefaultConfig with access key test', function () {
     const test = new Config({ access_key_id: 'ACCESS_KEY_ID_EXAMPLE', secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE' });
 
     test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
@@ -43,7 +43,7 @@ describe('Config test', function() {
     test.log_level.should.equal('warn');
   });
 
-  it('loadUserConfig test', function() {
+  it('loadUserConfig test', function () {
     const test = new Config({});
 
     test
@@ -59,7 +59,7 @@ describe('Config test', function() {
       ]);
   });
 
-  it('loadConfig test', function() {
+  it('loadConfig test', function () {
     const test = new Config({});
     const defaultConfigFileContent =
       '# QingStor Services Configuration\n' +
@@ -84,7 +84,7 @@ describe('Config test', function() {
     test.log_level.should.equal('info');
   });
 
-  it('checkConfig test', function() {
+  it('checkConfig test', function () {
     const test = new Config({});
     const notAllowedConfigFileContent =
       '# QingStor Services Configuration\n' +

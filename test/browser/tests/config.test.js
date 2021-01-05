@@ -16,8 +16,8 @@
 
 'use strict';
 
-describe('Config test', function() {
-  it('loadConfig test', function() {
+describe('Config test', function () {
+  it('loadConfig test', function () {
     const Config = qingstor_sdk.Config;
     const test_config = new Config().loadConfig(qingstor_config);
     test_config.should.to.contain.all.keys([

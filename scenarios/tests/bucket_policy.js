@@ -30,7 +30,7 @@ const bucket = qingstor.Bucket(bucketName, zone);
 
 bucket.put();
 
-When('put bucket policy:', function(string) {
+When('put bucket policy:', function (string) {
   const policy = JSON.parse(string);
   if (policy['statement'].length) {
     policy['statement'][0]['resource'] = [bucketName + '/*'];
@@ -47,33 +47,31 @@ When('put bucket policy:', function(string) {
     });
 });
 
-Then('put bucket policy status code is {int}', function(int) {
+Then('put bucket policy status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('get bucket policy', function() {
-  return bucket
-    .getPolicy()
-    .then(({ status, data }) => {
-      this.getResponseStatus = status;
-      this.bucketPolicy = data;
-    });
+When('get bucket policy', function () {
+  return bucket.getPolicy().then(({ status, data }) => {
+    this.getResponseStatus = status;
+    this.bucketPolicy = data;
+  });
 });
 
-Then('get bucket policy status code is {int}', function(int) {
+Then('get bucket policy status code is {int}', function (int) {
   assert.equal(this.getResponseStatus, int);
 });
 
-Then('get bucket policy should have Referer {string}', function(string) {
+Then('get bucket policy should have Referer {string}', function (string) {
   const isInclude = this.bucketPolicy.statement.some((statement) => {
-    return statement.condition.string_like.Referer.some(function(item) {
+    return statement.condition.string_like.Referer.some(function (item) {
       return item === string;
     });
   });
   assert(isInclude);
 });
 
-When('delete bucket policy', function() {
+When('delete bucket policy', function () {
   return bucket
     .deletePolicy()
     .then(({ status }) => {
@@ -85,6 +83,6 @@ When('delete bucket policy', function() {
     });
 });
 
-Then('delete bucket policy status code is {int}', function(int) {
+Then('delete bucket policy status code is {int}', function (int) {
   assert.equal(this.deleteResponseStatus, int);
 });

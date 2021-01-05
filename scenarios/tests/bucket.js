@@ -29,16 +29,16 @@ const qingstor = new QingStor(config);
 
 let bucket;
 
-When('initialize the bucket', function() {
+When('initialize the bucket', function () {
   bucket = qingstor.Bucket(bucketName, zone);
 });
 
-Then('the bucket is initialized', function() {
+Then('the bucket is initialized', function () {
   assert.equal(bucketName, bucket.properties['bucket-name']);
   assert.equal(zone, bucket.properties.zone);
 });
 
-When('put bucket', function() {
+When('put bucket', function () {
   return bucket
     .put()
     .then(({ status }) => {
@@ -50,11 +50,11 @@ When('put bucket', function() {
     });
 });
 
-Then('put bucket status code is {int}', function(int) {
+Then('put bucket status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('put same bucket again', function() {
+When('put same bucket again', function () {
   return bucket
     .put()
     .then(({ status }) => {
@@ -65,11 +65,11 @@ When('put same bucket again', function() {
     });
 });
 
-Then('put same bucket again status code is {int}', function(int) {
+Then('put same bucket again status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('list objects', function() {
+When('list objects', function () {
   return bucket
     .listObjects()
     .then(({ status, data }) => {
@@ -82,15 +82,15 @@ When('list objects', function() {
     });
 });
 
-Then('list objects status code is {int}', function(int) {
+Then('list objects status code is {int}', function (int) {
   assert.equal(this.listObjectsStatus, int);
 });
 
-Then('list objects keys count is {int}', function(int) {
+Then('list objects keys count is {int}', function (int) {
   assert.equal(this.ObjectCount, int);
 });
 
-When('head bucket', function() {
+When('head bucket', function () {
   return bucket
     .head()
     .then(({ status }) => {
@@ -102,11 +102,11 @@ When('head bucket', function() {
     });
 });
 
-Then('head bucket status code is {int}', function(int) {
+Then('head bucket status code is {int}', function (int) {
   assert.equal(this.headStatus, int);
 });
 
-When('delete multiple objects:', function(docString) {
+When('delete multiple objects:', function (docString) {
   const body = JSON.parse(docString);
 
   return Promise.all(
@@ -126,11 +126,11 @@ When('delete multiple objects:', function(docString) {
     });
 });
 
-Then('delete multiple objects code is {int}', function(int) {
+Then('delete multiple objects code is {int}', function (int) {
   assert.equal(this.deleteMultipleObjectsStatus, int);
 });
 
-When('get bucket statistics', function() {
+When('get bucket statistics', function () {
   return bucket
     .getStatistics()
     .then(({ status, data }) => {
@@ -143,15 +143,15 @@ When('get bucket statistics', function() {
     });
 });
 
-Then('get bucket statistics status code is {int}', function(int) {
+Then('get bucket statistics status code is {int}', function (int) {
   assert.equal(this.getBucketstatsStatus, int);
 });
 
-Then('get bucket statistics status is {string}', function(status) {
+Then('get bucket statistics status is {string}', function (status) {
   assert.equal(this.bucketStats, status);
 });
 
-When('delete bucket', function() {
+When('delete bucket', function () {
   return bucket
     .delete()
     .then(({ status }) => {
@@ -163,32 +163,32 @@ When('delete bucket', function() {
     });
 });
 
-Then('delete bucket status code is {int}', function(int) {
+Then('delete bucket status code is {int}', function (int) {
   assert.equal(this.deleteBucketStatus, int);
 });
 
-Given('an object created by initiate multipart upload', function() {
+Given('an object created by initiate multipart upload', function () {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-When('list multipart uploads', function() {
+When('list multipart uploads', function () {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-Then('list multipart uploads count is {int}', function(int) {
+Then('list multipart uploads count is {int}', function (int) {
   // Then('list multipart uploads count is {float}', function (float) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-When('list multipart uploads with prefix', function() {
+When('list multipart uploads with prefix', function () {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-Then('list multipart uploads with prefix count is {int}', function(int) {
+Then('list multipart uploads with prefix count is {int}', function (int) {
   // Then('list multipart uploads with prefix count is {float}', function (float) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';

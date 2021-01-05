@@ -30,7 +30,7 @@ const bucket = qingstor.Bucket(bucketName, zone);
 
 bucket.put();
 
-When('put bucket ACL:', function(string) {
+When('put bucket ACL:', function (string) {
   return bucket
     .putACL(JSON.parse(string))
     .then(({ status }) => {
@@ -42,24 +42,22 @@ When('put bucket ACL:', function(string) {
     });
 });
 
-Then('put bucket ACL status code is {int}', function(int) {
+Then('put bucket ACL status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('get bucket ACL', function() {
-  return bucket
-    .getACL()
-    .then(({ status, data }) => {
-      this.getResponseStatus = status;
-      this.bucketACL = data.acl;
-    });
+When('get bucket ACL', function () {
+  return bucket.getACL().then(({ status, data }) => {
+    this.getResponseStatus = status;
+    this.bucketACL = data.acl;
+  });
 });
 
-Then('get bucket ACL status code is {int}', function(int) {
+Then('get bucket ACL status code is {int}', function (int) {
   assert.equal(this.getResponseStatus, int);
 });
 
-Then('get bucket ACL should have grantee name {string}', function(string) {
+Then('get bucket ACL should have grantee name {string}', function (string) {
   const isInclude = this.bucketACL.some((acl) => {
     return acl.grantee.name === string;
   });

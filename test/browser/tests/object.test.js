@@ -16,12 +16,12 @@
 
 'use strict';
 
-describe('QingStor test', function() {
+describe('QingStor test', function () {
   const Config = qingstor_sdk.Config;
   const QingStor = qingstor_sdk.QingStor;
   const test_config = new Config().loadConfig(qingstor_config);
   const test = new QingStor(test_config).Bucket(qingstor_test_config['bucket'], qingstor_test_config['zone']);
-  it('GetObjectQuery test', function() {
+  it('GetObjectQuery test', function () {
     const expires = Math.floor(Date.now(), 1000) + 1000;
     const testUri = test.getObjectRequest('test_key').signQuery(expires).operation.uri;
     console.log(testUri);

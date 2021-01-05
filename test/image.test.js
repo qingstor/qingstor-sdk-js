@@ -18,14 +18,14 @@ import Image from '../src/client/image';
 
 const should = require('chai').should();
 
-describe('Image test', function() {
-  it('info test', function() {
+describe('Image test', function () {
+  it('info test', function () {
     const test = new Image();
     test.info();
     test.input.action.should.equal('info');
   });
 
-  it('crop test', function() {
+  it('crop test', function () {
     const test = new Image();
     const data = {
       width: '0',
@@ -34,7 +34,7 @@ describe('Image test', function() {
     test.input.action.should.equal('crop:w_0,h_0,g_0');
   });
 
-  it('rotate test', function() {
+  it('rotate test', function () {
     const test = new Image();
     const data = {
       angle: 90,
@@ -43,7 +43,7 @@ describe('Image test', function() {
     test.input.action.should.equal('rotate:a_90');
   });
 
-  it('resize test', function() {
+  it('resize test', function () {
     const test = new Image();
     const data = {
       mode: '1',
@@ -52,7 +52,7 @@ describe('Image test', function() {
     test.input.action.should.equal('resize:w_0,h_0,m_1');
   });
 
-  it('waterMark test', function() {
+  it('waterMark test', function () {
     const test = new Image();
     const data = {
       text: '5rC05Y2w5paH5a2X',
@@ -61,7 +61,7 @@ describe('Image test', function() {
     test.input.action.should.equal('watermark:d_150,p_0.25,t_5rC05Y2w5paH5a2X,c_');
   });
 
-  it('waterMarkImage test', function() {
+  it('waterMarkImage test', function () {
     const test = new Image();
     const data = {
       url: 'aHR0cHM6Ly9wZWszYS5xaW5nc3Rvci5jb20vaW1nLWRvYy1lZy9xaW5jbG91ZC5wbmc',
@@ -72,7 +72,7 @@ describe('Image test', function() {
     );
   });
 
-  it('format test', function() {
+  it('format test', function () {
     const test = new Image();
     const data = {
       type: 'png',
@@ -81,7 +81,7 @@ describe('Image test', function() {
     test.input.action.should.equal('format:t_png');
   });
 
-  it('pipe test', function() {
+  it('pipe test', function () {
     const test = new Image();
     const rotateParam = {
       angle: '90',

@@ -30,7 +30,7 @@ const bucket = qingstor.Bucket(bucketName, zone);
 
 bucket.put();
 
-When('put bucket lifecycle:', function(string) {
+When('put bucket lifecycle:', function (string) {
   return bucket
     .putLifecycle(JSON.parse(string))
     .then(({ status }) => {
@@ -42,31 +42,29 @@ When('put bucket lifecycle:', function(string) {
     });
 });
 
-Then('put bucket lifecycle status code is {int}', function(int) {
+Then('put bucket lifecycle status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('get bucket lifecycle', function() {
-  return bucket
-    .getLifecycle()
-    .then(({ status, data }) => {
-      this.getResponseStatus = status;
-      this.bucketLifecycle = data;
-    });
+When('get bucket lifecycle', function () {
+  return bucket.getLifecycle().then(({ status, data }) => {
+    this.getResponseStatus = status;
+    this.bucketLifecycle = data;
+  });
 });
 
-Then('get bucket lifecycle status code is {int}', function(int) {
+Then('get bucket lifecycle status code is {int}', function (int) {
   assert.equal(this.getResponseStatus, int);
 });
 
-Then('get bucket lifecycle id should have {string}', function(string) {
+Then('get bucket lifecycle id should have {string}', function (string) {
   const isInclude = this.bucketLifecycle.rule.some((rule) => {
     return rule.id === string;
   });
   assert(isInclude);
 });
 
-When('delete bucket lifecycle', function() {
+When('delete bucket lifecycle', function () {
   return bucket
     .deleteLifecycle()
     .then(({ status }) => {
@@ -78,6 +76,6 @@ When('delete bucket lifecycle', function() {
     });
 });
 
-Then('delete bucket lifecycle status code is {int}', function(int) {
+Then('delete bucket lifecycle status code is {int}', function (int) {
   assert.equal(this.deleteResponseStatus, int);
 });

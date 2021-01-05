@@ -34,7 +34,7 @@ const userAgent = [
   'UserExample',
 ].join('');
 
-describe('Builder test', function() {
+describe('Builder test', function () {
   const config = new Config('test_access_key', 'test_secret_key');
   config.additional_user_agent = 'UserExample';
   const operation = {
@@ -60,13 +60,13 @@ describe('Builder test', function() {
   };
   const test = new Builder(config, operation);
 
-  it('parseRequestParams test', function() {
+  it('parseRequestParams test', function () {
     test.parseRequestParams(operation).should.eql({
       upload_id: 'test_upload_id',
     });
   });
 
-  it('parseRequestHeaders test', function() {
+  it('parseRequestHeaders test', function () {
     test.parseRequestHeaders(operation).should.eql({
       host: 'qingstor.com',
       'x-qs-date': 'test time',
@@ -75,11 +75,11 @@ describe('Builder test', function() {
     });
   });
 
-  it('parseRequestBody test', function() {
+  it('parseRequestBody test', function () {
     test.parseRequestBody(operation).should.eql('test string');
   });
 
-  it('parseRequestProperties test', function() {
+  it('parseRequestProperties test', function () {
     test.parseRequestProperties(operation).should.eql({
       zone: 'pek3a',
       'bucket-name': 'test_bucket',
@@ -87,7 +87,7 @@ describe('Builder test', function() {
     });
   });
 
-  it('parseRequestUri test', function() {
+  it('parseRequestUri test', function () {
     test.parseRequestURI(operation).should.eql({
       endpoint: 'https://pek3a.qingstor.com:443',
       path: '/test_bucket/test_object.jpg?acl',
@@ -95,7 +95,7 @@ describe('Builder test', function() {
     });
   });
 
-  it('parse test', function() {
+  it('parse test', function () {
     test.parse().should.eql({
       method: 'PUT',
       endpoint: 'https://pek3a.qingstor.com:443',

@@ -32,7 +32,7 @@ const userAgent = [
   ')',
 ].join('');
 
-describe('Signer test', function() {
+describe('Signer test', function () {
   const operation = {
     method: 'PUT',
     path: '/test_bucket/test_object.jpg?acl',
@@ -55,15 +55,15 @@ describe('Signer test', function() {
   const test = new Signer('test_key', 'test_secret');
   test.operation = operation;
 
-  it('getCanonicalizedResource test', function() {
+  it('getCanonicalizedResource test', function () {
     test.getCanonicalizedResource().should.eql('/test_bucket/test_object.jpg?acl&upload_id=test_upload_id');
   });
 
-  it('getAuthorization test', function() {
+  it('getAuthorization test', function () {
     test.getAuthorization().should.eql('80srP9B+LVMlu9OktjkQh9w0m4eO+AYuOaiX2t3SYg4=');
   });
 
-  it('sign test', function() {
+  it('sign test', function () {
     // todo refactor
     test.sign(operation).should.eql({
       method: 'PUT',

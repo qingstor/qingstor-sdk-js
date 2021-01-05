@@ -30,7 +30,7 @@ const bucket = qingstor.Bucket(bucketName, zone);
 
 bucket.put();
 
-When('put bucket notification:', function(string) {
+When('put bucket notification:', function (string) {
   return bucket
     .putNotification(JSON.parse(string))
     .then(({ status }) => {
@@ -42,31 +42,29 @@ When('put bucket notification:', function(string) {
     });
 });
 
-Then('put bucket notification status code is {int}', function(int) {
+Then('put bucket notification status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('get bucket notification', function() {
-  return bucket
-    .getNotification()
-    .then(({ status, data }) => {
-      this.getResponseStatus = status;
-      this.bucketNotification = data;
-    });
+When('get bucket notification', function () {
+  return bucket.getNotification().then(({ status, data }) => {
+    this.getResponseStatus = status;
+    this.bucketNotification = data;
+  });
 });
 
-Then('get bucket notification status code is {int}', function(int) {
+Then('get bucket notification status code is {int}', function (int) {
   assert.equal(this.getResponseStatus, int);
 });
 
-Then('get bucket notification notify url should have {string}', function(string) {
+Then('get bucket notification notify url should have {string}', function (string) {
   const isInclude = this.bucketNotification.notifications.some((item) => {
     return item.notify_url === string;
   });
   assert(isInclude);
 });
 
-When('delete bucket notification', function() {
+When('delete bucket notification', function () {
   return bucket
     .deleteNotification()
     .then(({ status }) => {
@@ -78,6 +76,6 @@ When('delete bucket notification', function() {
     });
 });
 
-Then('delete bucket notification status code is {int}', function(int) {
+Then('delete bucket notification status code is {int}', function (int) {
   assert.equal(this.deleteResponseStatus, int);
 });

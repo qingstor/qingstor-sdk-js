@@ -30,7 +30,7 @@ const bucket = qingstor.Bucket(bucketName, zone);
 
 bucket.put();
 
-When('put bucket CORS:', function(string) {
+When('put bucket CORS:', function (string) {
   return bucket
     .putCORS(JSON.parse(string))
     .then(({ status }) => {
@@ -42,31 +42,29 @@ When('put bucket CORS:', function(string) {
     });
 });
 
-Then('put bucket CORS status code is {int}', function(int) {
+Then('put bucket CORS status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('get bucket CORS', function() {
-  return bucket
-    .getCORS()
-    .then(({ status, data }) => {
-      this.getResponseStatus = status;
-      this.bucketCORS = data;
-    });
+When('get bucket CORS', function () {
+  return bucket.getCORS().then(({ status, data }) => {
+    this.getResponseStatus = status;
+    this.bucketCORS = data;
+  });
 });
 
-Then('get bucket CORS status code is {int}', function(int) {
+Then('get bucket CORS status code is {int}', function (int) {
   assert.equal(this.getResponseStatus, int);
 });
 
-Then('get bucket CORS should have allowed origin {string}', function(string) {
+Then('get bucket CORS should have allowed origin {string}', function (string) {
   const isInclude = this.bucketCORS.cors_rules.some((rule) => {
     return rule.allowed_origin === string;
   });
   assert(isInclude);
 });
 
-When('delete bucket CORS', function() {
+When('delete bucket CORS', function () {
   return bucket
     .deleteCORS()
     .then(({ status }) => {
@@ -78,6 +76,6 @@ When('delete bucket CORS', function() {
     });
 });
 
-Then('delete bucket CORS status code is {int}', function(int) {
+Then('delete bucket CORS status code is {int}', function (int) {
   assert.equal(this.deleteResponseStatus, int);
 });

@@ -30,7 +30,7 @@ const bucket = qingstor.Bucket(bucketName, zone);
 
 bucket.put();
 
-When('put bucket external mirror:', function(string) {
+When('put bucket external mirror:', function (string) {
   return bucket
     .putExternalMirror(JSON.parse(string))
     .then(({ status }) => {
@@ -42,28 +42,26 @@ When('put bucket external mirror:', function(string) {
     });
 });
 
-Then('put bucket external mirror status code is {int}', function(int) {
+Then('put bucket external mirror status code is {int}', function (int) {
   assert.equal(this.putResponseStatus, int);
 });
 
-When('get bucket external mirror', function() {
-  return bucket
-    .getExternalMirror()
-    .then(({ status, data }) => {
-      this.getResponseStatus = status;
-      this.bucketExternalMirror = data;
-    });
+When('get bucket external mirror', function () {
+  return bucket.getExternalMirror().then(({ status, data }) => {
+    this.getResponseStatus = status;
+    this.bucketExternalMirror = data;
+  });
 });
 
-Then('get bucket external mirror status code is {int}', function(int) {
+Then('get bucket external mirror status code is {int}', function (int) {
   assert.equal(this.getResponseStatus, int);
 });
 
-Then('get bucket external mirror should have source_site {string}', function(string) {
+Then('get bucket external mirror should have source_site {string}', function (string) {
   assert(this.bucketExternalMirror.source_site.toString(), string);
 });
 
-When('delete bucket external mirror', function() {
+When('delete bucket external mirror', function () {
   return bucket
     .deleteExternalMirror()
     .then(({ status }) => {
@@ -75,6 +73,6 @@ When('delete bucket external mirror', function() {
     });
 });
 
-Then('delete bucket external mirror status code is {int}', function(int) {
+Then('delete bucket external mirror status code is {int}', function (int) {
   assert.equal(this.deleteResponseStatus, int);
 });
