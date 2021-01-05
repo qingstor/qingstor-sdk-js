@@ -73,6 +73,60 @@ class Bucket {
   deleteValidate(operation) {}
 
   /**
+   * Delete bucket CNAME setting of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html)
+   * @param {Object} options - User input options;
+   * @param options.domain - domain name
+   *
+   * @return {Promise} axios response
+   */
+  deleteCNAME(options) {
+    options = options || {};
+    return this.deleteCNAMERequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteCNAME's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html)
+   * @param {Object} options - User input options;
+   * @param options.domain - domain name
+   *
+   * @return Signer
+   */
+  deleteCNAMERequest(options = {}) {
+    const operation = {
+      api: 'DeleteBucketCNAME',
+      method: 'DELETE',
+      uri: '/<bucket-name>?cname',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {
+        domain: options['domain'] || undefined,
+      },
+      properties: this.properties,
+      body: options['body'] || undefined,
+    };
+    this.deleteCNAMEValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  deleteCNAMEValidate(operation) {
+    if (
+      operation['elements'] === undefined ||
+      operation['elements']['domain'] === undefined ||
+      operation['elements']['domain'].toString() === ''
+    ) {
+      throw new SDKError.ParameterRequired('domain', 'DeleteBucketCNAMEInput');
+    }
+  }
+
+  /**
    * Delete CORS information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html)
    *
    * @return {Promise} axios response
@@ -190,6 +244,45 @@ class Bucket {
   deleteLifecycleValidate(operation) {}
 
   /**
+   * Delete bucket logging setting of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html)
+   *
+   * @return {Promise} axios response
+   */
+  deleteLogging() {
+    return this.deleteLoggingRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteLogging's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html)
+   *
+   * @return Signer
+   */
+  deleteLoggingRequest() {
+    const operation = {
+      api: 'DeleteBucketLogging',
+      method: 'DELETE',
+      uri: '/<bucket-name>?logging',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {},
+      properties: this.properties,
+      body: undefined,
+    };
+    this.deleteLoggingValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  deleteLoggingValidate(operation) {}
+
+  /**
    * Delete Notification information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html)
    *
    * @return {Promise} axios response
@@ -268,6 +361,45 @@ class Bucket {
   deletePolicyValidate(operation) {}
 
   /**
+   * Delete Replication information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html)
+   *
+   * @return {Promise} axios response
+   */
+  deleteReplication() {
+    return this.deleteReplicationRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build DeleteReplication's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html)
+   *
+   * @return Signer
+   */
+  deleteReplicationRequest() {
+    const operation = {
+      api: 'DeleteBucketReplication',
+      method: 'DELETE',
+      uri: '/<bucket-name>?replication',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {},
+      properties: this.properties,
+      body: undefined,
+    };
+    this.deleteReplicationValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  deleteReplicationValidate(operation) {}
+
+  /**
    * Delete multiple objects from the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html)
    * @param {Object} options - User input options;
    * @param options.Content-MD5 - Object MD5sum
@@ -325,7 +457,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('objects', 'DeleteMultipleObjectsInput');
     }
-    operation['elements']['objects'].forEach(function(value) {});
+    operation['elements']['objects'].forEach(function (value) {});
   }
 
   /**
@@ -366,6 +498,63 @@ class Bucket {
    */
   // eslint-disable-next-line no-unused-vars
   getACLValidate(operation) {}
+
+  /**
+   * Get bucket CNAME setting of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html)
+   * @param {Object} options - User input options;
+   * @param options.type - Limit the type used for query, normal will be recognized if empty.
+   *
+   * @return {Promise} axios response
+   */
+  getCNAME(options) {
+    options = options || {};
+    return this.getCNAMERequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build GetCNAME's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html)
+   * @param {Object} options - User input options;
+   * @param options.type - Limit the type used for query, normal will be recognized if empty.
+   *
+   * @return Signer
+   */
+  getCNAMERequest(options = {}) {
+    const operation = {
+      api: 'GetBucketCNAME',
+      method: 'GET',
+      uri: '/<bucket-name>?cname',
+      params: {
+        type: options['type'] || undefined,
+      },
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {},
+      properties: this.properties,
+      body: undefined,
+    };
+    this.getCNAMEValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  getCNAMEValidate(operation) {
+    if (
+      operation['params'] !== undefined &&
+      operation['params']['type'] !== undefined &&
+      operation['params']['type'].toString() !== ''
+    ) {
+      const type_valid_values = ['website', 'normal'];
+      if (type_valid_values.indexOf(operation['params']['type']) === -1) {
+        throw new SDKError.ParameterValueNotAllowed('type', operation['params']['type'], type_valid_values);
+      }
+    }
+  }
 
   /**
    * Get CORS information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html)
@@ -485,6 +674,45 @@ class Bucket {
   getLifecycleValidate(operation) {}
 
   /**
+   * Get bucket logging setting of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html)
+   *
+   * @return {Promise} axios response
+   */
+  getLogging() {
+    return this.getLoggingRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetLogging's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html)
+   *
+   * @return Signer
+   */
+  getLoggingRequest() {
+    const operation = {
+      api: 'GetBucketLogging',
+      method: 'GET',
+      uri: '/<bucket-name>?logging',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {},
+      properties: this.properties,
+      body: undefined,
+    };
+    this.getLoggingValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  getLoggingValidate(operation) {}
+
+  /**
    * Get Notification information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html)
    *
    * @return {Promise} axios response
@@ -561,6 +789,45 @@ class Bucket {
    */
   // eslint-disable-next-line no-unused-vars
   getPolicyValidate(operation) {}
+
+  /**
+   * Get Replication information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html)
+   *
+   * @return {Promise} axios response
+   */
+  getReplication() {
+    return this.getReplicationRequest().send();
+  }
+
+  /**
+   * @ignore
+   * Build GetReplication's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html)
+   *
+   * @return Signer
+   */
+  getReplicationRequest() {
+    const operation = {
+      api: 'GetBucketReplication',
+      method: 'GET',
+      uri: '/<bucket-name>?replication',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {},
+      properties: this.properties,
+      body: undefined,
+    };
+    this.getReplicationValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  getReplicationValidate(operation) {}
 
   /**
    * Get statistics information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html)
@@ -844,7 +1111,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('acl', 'PutBucketACLInput');
     }
-    operation['elements']['acl'].forEach(function(value) {
+    operation['elements']['acl'].forEach(function (value) {
       if ('grantee' in value) {
         if (
           value['grantee'] === undefined ||
@@ -877,6 +1144,73 @@ class Bucket {
         }
       }
     });
+  }
+
+  /**
+   * Set bucket CNAME of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html)
+   * @param {Object} options - User input options;
+   * @param options.domain - The domain name to be bound to the bucket. The domain name must have been registered and not bound to another bucket.
+   * @param options.type - The purpose of the domain name to be bound. Currently supports two types, normal and website.
+   *
+   * @return {Promise} axios response
+   */
+  putCNAME(options) {
+    options = options || {};
+    return this.putCNAMERequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutCNAME's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html)
+   * @param {Object} options - User input options;
+   * @param options.domain - The domain name to be bound to the bucket. The domain name must have been registered and not bound to another bucket.
+   * @param options.type - The purpose of the domain name to be bound. Currently supports two types, normal and website.
+   *
+   * @return Signer
+   */
+  putCNAMERequest(options = {}) {
+    const operation = {
+      api: 'PutBucketCNAME',
+      method: 'PUT',
+      uri: '/<bucket-name>?cname',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {
+        domain: options['domain'] || undefined,
+        type: options['type'] || undefined,
+      },
+      properties: this.properties,
+      body: options['body'] || undefined,
+    };
+    this.putCNAMEValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  putCNAMEValidate(operation) {
+    if (
+      operation['elements'] === undefined ||
+      operation['elements']['domain'] === undefined ||
+      operation['elements']['domain'].toString() === ''
+    ) {
+      throw new SDKError.ParameterRequired('domain', 'PutBucketCNAMEInput');
+    }
+    if (
+      operation['elements'] !== undefined &&
+      operation['elements']['type'] !== undefined &&
+      operation['elements']['type'].toString() !== ''
+    ) {
+      const type_valid_values = ['normal', 'website'];
+      if (type_valid_values.indexOf(operation['elements']['type']) === -1) {
+        throw new SDKError.ParameterValueNotAllowed('type', operation['elements']['type'], type_valid_values);
+      }
+    }
   }
 
   /**
@@ -931,7 +1265,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('cors_rules', 'PutBucketCORSInput');
     }
-    operation['elements']['cors_rules'].forEach(function(value) {
+    operation['elements']['cors_rules'].forEach(function (value) {
       if (value === undefined || value['allowed_methods'] === undefined || value['allowed_methods'].toString() === '') {
         throw new SDKError.ParameterRequired('allowed_methods', 'cors_rule');
       }
@@ -1047,7 +1381,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('rule', 'PutBucketLifecycleInput');
     }
-    operation['elements']['rule'].forEach(function(value) {
+    operation['elements']['rule'].forEach(function (value) {
       if ('abort_incomplete_multipart_upload' in value) {
         if (
           value['abort_incomplete_multipart_upload'] === undefined ||
@@ -1093,6 +1427,70 @@ class Bucket {
         }
       }
     });
+  }
+
+  /**
+   * Set bucket logging of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html)
+   * @param {Object} options - User input options;
+   * @param options.target_bucket - The name of the bucket used to store logs. The user must be the owner of the bucket.
+   * @param options.target_prefix - generated log files' common prefix
+   *
+   * @return {Promise} axios response
+   */
+  putLogging(options) {
+    options = options || {};
+    return this.putLoggingRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutLogging's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html)
+   * @param {Object} options - User input options;
+   * @param options.target_bucket - The name of the bucket used to store logs. The user must be the owner of the bucket.
+   * @param options.target_prefix - generated log files' common prefix
+   *
+   * @return Signer
+   */
+  putLoggingRequest(options = {}) {
+    const operation = {
+      api: 'PutBucketLogging',
+      method: 'PUT',
+      uri: '/<bucket-name>?logging',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {
+        target_bucket: options['target_bucket'] || undefined,
+        target_prefix: options['target_prefix'] || undefined,
+      },
+      properties: this.properties,
+      body: options['body'] || undefined,
+    };
+    this.putLoggingValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  putLoggingValidate(operation) {
+    if (
+      operation['elements'] === undefined ||
+      operation['elements']['target_bucket'] === undefined ||
+      operation['elements']['target_bucket'].toString() === ''
+    ) {
+      throw new SDKError.ParameterRequired('target_bucket', 'PutBucketLoggingInput');
+    }
+    if (
+      operation['elements'] === undefined ||
+      operation['elements']['target_prefix'] === undefined ||
+      operation['elements']['target_prefix'].toString() === ''
+    ) {
+      throw new SDKError.ParameterRequired('target_prefix', 'PutBucketLoggingInput');
+    }
   }
 
   /**
@@ -1147,7 +1545,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('notifications', 'PutBucketNotificationInput');
     }
-    operation['elements']['notifications'].forEach(function(value) {
+    operation['elements']['notifications'].forEach(function (value) {
       if (value === undefined || value['cloudfunc'] === undefined || value['cloudfunc'].toString() === '') {
         throw new SDKError.ParameterRequired('cloudfunc', 'notification');
       }
@@ -1227,7 +1625,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('statement', 'PutBucketPolicyInput');
     }
-    operation['elements']['statement'].forEach(function(value) {
+    operation['elements']['statement'].forEach(function (value) {
       if (value === undefined || value['action'] === undefined || value['action'].toString() === '') {
         throw new SDKError.ParameterRequired('action', 'statement');
       }
@@ -1257,6 +1655,104 @@ class Bucket {
       }
       if (value === undefined || value['user'] === undefined || value['user'].toString() === '') {
         throw new SDKError.ParameterRequired('user', 'statement');
+      }
+    });
+  }
+
+  /**
+   * Set Replication information of the bucket. [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html)
+   * @param {Object} options - User input options;
+   * @param options.rules - Bucket Replication rules
+   *
+   * @return {Promise} axios response
+   */
+  putReplication(options) {
+    options = options || {};
+    return this.putReplicationRequest(options).send();
+  }
+
+  /**
+   * @ignore
+   * Build PutReplication's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html)
+   * @param {Object} options - User input options;
+   * @param options.rules - Bucket Replication rules
+   *
+   * @return Signer
+   */
+  putReplicationRequest(options = {}) {
+    const operation = {
+      api: 'PutBucketReplication',
+      method: 'PUT',
+      uri: '/<bucket-name>?replication',
+      params: {},
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+      },
+      elements: {
+        rules: options['rules'] || undefined,
+      },
+      properties: this.properties,
+      body: options['body'] || undefined,
+    };
+    this.putReplicationValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  putReplicationValidate(operation) {
+    if (
+      operation['elements'] === undefined ||
+      operation['elements']['rules'] === undefined ||
+      operation['elements']['rules'].toString() === ''
+    ) {
+      throw new SDKError.ParameterRequired('rules', 'PutBucketReplicationInput');
+    }
+    operation['elements']['rules'].forEach(function (value) {
+      if (value !== undefined && value['delete_marker'] !== undefined && value['delete_marker'].toString() !== '') {
+        const delete_marker_valid_values = ['enabled', 'disabled'];
+        if (delete_marker_valid_values.indexOf(value['delete_marker']) === -1) {
+          throw new SDKError.ParameterValueNotAllowed(
+            'delete_marker',
+            value['delete_marker'],
+            delete_marker_valid_values
+          );
+        }
+      }
+      if ('destination' in value) {
+        if (
+          value['destination'] === undefined ||
+          value['destination']['bucket'] === undefined ||
+          value['destination']['bucket'].toString() === ''
+        ) {
+          throw new SDKError.ParameterRequired('bucket', 'destination');
+        }
+      }
+      if (value === undefined || value.toString() === '') {
+        throw new SDKError.ParameterRequired('destination', 'rules');
+      }
+      if ('filters' in value) {
+      }
+      if (value === undefined || value.toString() === '') {
+        throw new SDKError.ParameterRequired('filters', 'rules');
+      }
+      if (value === undefined || value['id'] === undefined || value['id'].toString() === '') {
+        throw new SDKError.ParameterRequired('id', 'rules');
+      }
+      if (value !== undefined && value['status'] !== undefined && value['status'].toString() !== '') {
+        const status_valid_values = ['enabled', 'disabled'];
+        if (status_valid_values.indexOf(value['status']) === -1) {
+          throw new SDKError.ParameterValueNotAllowed('status', value['status'], status_valid_values);
+        }
+      }
+      if (value !== undefined && value['sync_marker'] !== undefined && value['sync_marker'].toString() !== '') {
+        const sync_marker_valid_values = ['enabled', 'disabled'];
+        if (sync_marker_valid_values.indexOf(value['sync_marker']) === -1) {
+          throw new SDKError.ParameterValueNotAllowed('sync_marker', value['sync_marker'], sync_marker_valid_values);
+        }
       }
     });
   }
@@ -1315,6 +1811,89 @@ class Bucket {
       operation['params']['upload_id'].toString() === ''
     ) {
       throw new SDKError.ParameterRequired('upload_id', 'AbortMultipartUploadInput');
+    }
+  }
+
+  /**
+   * Append the Object. [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/append.html)
+   * @param {string} object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.Content-Length - Object content size
+   * @param options.Content-MD5 - Object MD5sum
+   * @param options.Content-Type - Object content type
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
+   * @param options.position - Object append position
+   *
+   * @return {Promise} axios response
+   */
+  appendObject(object_key, options) {
+    options = options || {};
+    return this.appendObjectRequest(object_key, options).send();
+  }
+
+  /**
+   * @ignore
+   * Build AppendObject's request
+   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/object/append.html)
+   * @param object_key The object key
+   * @param {Object} options - User input options;
+   * @param options.Content-Length - Object content size
+   * @param options.Content-MD5 - Object MD5sum
+   * @param options.Content-Type - Object content type
+   * @param options.X-QS-Storage-Class - Specify the storage class for object
+   * @param options.position - Object append position
+   *
+   * @return Signer
+   */
+  appendObjectRequest(object_key, options = {}) {
+    const operation = {
+      api: 'AppendObject',
+      method: 'POST',
+      uri: '/<bucket-name>/<object-key>?append',
+      params: {
+        position: options['position'] || undefined,
+      },
+      headers: {
+        host: this.properties.zone + '.' + this.config.host,
+        'content-length': options['content-length'] || options['Content-Length'] || undefined,
+        'content-md5': options['content-md5'] || options['Content-MD5'] || undefined,
+        'content-type': options['content-type'] || options['Content-Type'] || undefined,
+        'x-qs-storage-class': options['x-qs-storage-class'] || options['X-QS-Storage-Class'] || undefined,
+      },
+      elements: {},
+      properties: this.properties,
+      body: options['body'] || undefined,
+    };
+    operation.properties['object-key'] = object_key;
+    this.appendObjectValidate(operation);
+    return new Request(this.config, operation).build();
+  }
+
+  /**
+   * @ignore
+   */
+  // eslint-disable-next-line no-unused-vars
+  appendObjectValidate(operation) {
+    if (
+      operation['params'] === undefined ||
+      operation['params']['position'] === undefined ||
+      operation['params']['position'].toString() === ''
+    ) {
+      throw new SDKError.ParameterRequired('position', 'AppendObjectInput');
+    }
+    if (
+      operation['headers'] !== undefined &&
+      operation['headers']['X-QS-Storage-Class'] !== undefined &&
+      operation['headers']['X-QS-Storage-Class'].toString() !== ''
+    ) {
+      const x_qs_storage_class_valid_values = ['STANDARD', 'STANDARD_IA'];
+      if (x_qs_storage_class_valid_values.indexOf(operation['headers']['X-QS-Storage-Class']) === -1) {
+        throw new SDKError.ParameterValueNotAllowed(
+          'X-QS-Storage-Class',
+          operation['headers']['X-QS-Storage-Class'],
+          x_qs_storage_class_valid_values
+        );
+      }
     }
   }
 
@@ -1399,7 +1978,7 @@ class Bucket {
     ) {
       throw new SDKError.ParameterRequired('object_parts', 'CompleteMultipartUploadInput');
     }
-    operation['elements']['object_parts'].forEach(function(value) {
+    operation['elements']['object_parts'].forEach(function (value) {
       if (value === undefined || value['part_number'] === undefined || value['part_number'].toString() === '') {
         throw new SDKError.ParameterRequired('part_number', 'object_part');
       }
@@ -1925,6 +2504,7 @@ class Bucket {
    * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
    * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
    * @param options.X-QS-MetaData - User-defined metadata
+   * @param options.X-QS-Metadata-Directive - Use for modified metadata, valid (COPY/REPLACE)
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    *
@@ -1961,6 +2541,7 @@ class Bucket {
    * @param options.X-QS-Fetch-If-Unmodified-Since - Check whether fetch target object has not been modified
    * @param options.X-QS-Fetch-Source - Fetch source, should be a valid url
    * @param options.X-QS-MetaData - User-defined metadata
+   * @param options.X-QS-Metadata-Directive - Use for modified metadata, valid (COPY/REPLACE)
    * @param options.X-QS-Move-Source - Move source, format (/<bucket-name>/<object-key>)
    * @param options.X-QS-Storage-Class - Specify the storage class for object
    *
@@ -2013,6 +2594,8 @@ class Bucket {
           options['x-qs-fetch-if-unmodified-since'] || options['X-QS-Fetch-If-Unmodified-Since'] || undefined,
         'x-qs-fetch-source': options['x-qs-fetch-source'] || options['X-QS-Fetch-Source'] || undefined,
         'x-qs-metadata': options['x-qs-metadata'] || options['X-QS-MetaData'] || undefined,
+        'x-qs-metadata-directive':
+          options['x-qs-metadata-directive'] || options['X-QS-Metadata-Directive'] || undefined,
         'x-qs-move-source': options['x-qs-move-source'] || options['X-QS-Move-Source'] || undefined,
         'x-qs-storage-class': options['x-qs-storage-class'] || options['X-QS-Storage-Class'] || undefined,
       },
@@ -2030,6 +2613,20 @@ class Bucket {
    */
   // eslint-disable-next-line no-unused-vars
   putObjectValidate(operation) {
+    if (
+      operation['headers'] !== undefined &&
+      operation['headers']['X-QS-Metadata-Directive'] !== undefined &&
+      operation['headers']['X-QS-Metadata-Directive'].toString() !== ''
+    ) {
+      const x_qs_metadata_directive_valid_values = ['COPY', 'REPLACE'];
+      if (x_qs_metadata_directive_valid_values.indexOf(operation['headers']['X-QS-Metadata-Directive']) === -1) {
+        throw new SDKError.ParameterValueNotAllowed(
+          'X-QS-Metadata-Directive',
+          operation['headers']['X-QS-Metadata-Directive'],
+          x_qs_metadata_directive_valid_values
+        );
+      }
+    }
     if (
       operation['headers'] !== undefined &&
       operation['headers']['X-QS-Storage-Class'] !== undefined &&

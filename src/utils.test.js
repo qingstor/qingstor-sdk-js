@@ -65,7 +65,7 @@ test('buildUri', () => {
 });
 
 test('isFunction', () => {
-  expect(isFunction(function() {})).toBe(true);
+  expect(isFunction(function () {})).toBe(true);
   expect(isFunction({ foo: 'bar' })).toBe(false);
 });
 

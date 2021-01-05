@@ -168,12 +168,7 @@ class Signer {
   }
 
   getQueryStringToSign(expires) {
-    const stringToSign = [
-      this.operation.method,
-      this.getContentMD5(),
-      this.getContentType(),
-      expires,
-    ];
+    const stringToSign = [this.operation.method, this.getContentMD5(), this.getContentType(), expires];
 
     const stringToHeaders = this.getCanonicalizedHeaders();
 

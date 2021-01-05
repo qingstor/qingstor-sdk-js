@@ -30,6 +30,8 @@ class QingStor {
    * Retrieve the bucket list. [Documentation URL](https://docs.qingcloud.com/qingstor/api/service/get.html)
    * @param {Object} options - User input options;
    * @param options.Location - Limits results to buckets that in the location
+   * @param options.limit - Results count limit
+   * @param options.offset - Limit results to keys that start at this offset
    *
    * @return {Promise} axios response
    */
@@ -44,6 +46,8 @@ class QingStor {
    * [Documentation URL](https://docs.qingcloud.com/qingstor/api/service/get.html)
    * @param {Object} options - User input options;
    * @param options.Location - Limits results to buckets that in the location
+   * @param options.limit - Results count limit
+   * @param options.offset - Limit results to keys that start at this offset
    *
    * @return Signer
    */
@@ -52,7 +56,10 @@ class QingStor {
       api: 'ListBuckets',
       method: 'GET',
       uri: '/',
-      params: {},
+      params: {
+        limit: options['limit'] || undefined,
+        offset: options['offset'] || undefined,
+      },
       headers: {
         host: this.config.host,
         location: options['location'] || options['Location'] || undefined,

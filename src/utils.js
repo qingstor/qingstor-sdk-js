@@ -21,7 +21,7 @@ import { stringify } from 'querystring';
 // To be more stringent in adhering to RFC 3986 (which reserves !, ', (, ), and *),
 // even though these characters have no formalized URI delimiting uses
 export function fixedEncodeURIComponent(str) {
-  return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
+  return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
     return '%' + c.charCodeAt(0).toString(16);
   });
 }

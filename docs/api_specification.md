@@ -5,64 +5,80 @@
 -   [Bucket][1]
     -   [Parameters][2]
     -   [delete][3]
-    -   [deleteCORS][4]
-    -   [deleteExternalMirror][5]
-    -   [deleteLifecycle][6]
-    -   [deleteNotification][7]
-    -   [deletePolicy][8]
-    -   [deleteMultipleObjects][9]
-        -   [Parameters][10]
-    -   [getACL][11]
-    -   [getCORS][12]
-    -   [getExternalMirror][13]
-    -   [getLifecycle][14]
-    -   [getNotification][15]
-    -   [getPolicy][16]
-    -   [getStatistics][17]
-    -   [head][18]
-    -   [listMultipartUploads][19]
-        -   [Parameters][20]
-    -   [listObjects][21]
-        -   [Parameters][22]
-    -   [put][23]
-    -   [putACL][24]
-        -   [Parameters][25]
-    -   [putCORS][26]
-        -   [Parameters][27]
-    -   [putExternalMirror][28]
-        -   [Parameters][29]
-    -   [putLifecycle][30]
-        -   [Parameters][31]
-    -   [putNotification][32]
+    -   [deleteCNAME][4]
+        -   [Parameters][5]
+    -   [deleteCORS][6]
+    -   [deleteExternalMirror][7]
+    -   [deleteLifecycle][8]
+    -   [deleteLogging][9]
+    -   [deleteNotification][10]
+    -   [deletePolicy][11]
+    -   [deleteReplication][12]
+    -   [deleteMultipleObjects][13]
+        -   [Parameters][14]
+    -   [getACL][15]
+    -   [getCNAME][16]
+        -   [Parameters][17]
+    -   [getCORS][18]
+    -   [getExternalMirror][19]
+    -   [getLifecycle][20]
+    -   [getLogging][21]
+    -   [getNotification][22]
+    -   [getPolicy][23]
+    -   [getReplication][24]
+    -   [getStatistics][25]
+    -   [head][26]
+    -   [listMultipartUploads][27]
+        -   [Parameters][28]
+    -   [listObjects][29]
+        -   [Parameters][30]
+    -   [put][31]
+    -   [putACL][32]
         -   [Parameters][33]
-    -   [putPolicy][34]
+    -   [putCNAME][34]
         -   [Parameters][35]
-    -   [abortMultipartUpload][36]
+    -   [putCORS][36]
         -   [Parameters][37]
-    -   [completeMultipartUpload][38]
+    -   [putExternalMirror][38]
         -   [Parameters][39]
-    -   [deleteObject][40]
+    -   [putLifecycle][40]
         -   [Parameters][41]
-    -   [getObject][42]
+    -   [putLogging][42]
         -   [Parameters][43]
-    -   [headObject][44]
+    -   [putNotification][44]
         -   [Parameters][45]
-    -   [imageProcess][46]
+    -   [putPolicy][46]
         -   [Parameters][47]
-    -   [initiateMultipartUpload][48]
+    -   [putReplication][48]
         -   [Parameters][49]
-    -   [listMultipart][50]
+    -   [abortMultipartUpload][50]
         -   [Parameters][51]
-    -   [optionsObject][52]
+    -   [appendObject][52]
         -   [Parameters][53]
-    -   [putObject][54]
+    -   [completeMultipartUpload][54]
         -   [Parameters][55]
-    -   [uploadMultipart][56]
+    -   [deleteObject][56]
         -   [Parameters][57]
--   [QingStor][58]
-    -   [Parameters][59]
-    -   [listBuckets][60]
+    -   [getObject][58]
+        -   [Parameters][59]
+    -   [headObject][60]
         -   [Parameters][61]
+    -   [imageProcess][62]
+        -   [Parameters][63]
+    -   [initiateMultipartUpload][64]
+        -   [Parameters][65]
+    -   [listMultipart][66]
+        -   [Parameters][67]
+    -   [optionsObject][68]
+        -   [Parameters][69]
+    -   [putObject][70]
+        -   [Parameters][71]
+    -   [uploadMultipart][72]
+        -   [Parameters][73]
+-   [QingStor][74]
+    -   [Parameters][75]
+    -   [listBuckets][76]
+        -   [Parameters][77]
 
 ## Bucket
 
@@ -70,227 +86,324 @@ Bucket Module
 
 ### Parameters
 
--   `config` **[Object][62]** object
--   `properties` **[Object][62]** 
+-   `config` **[Object][78]** object
+-   `properties` **[Object][78]** 
 
 ### delete
 
-Delete a bucket. [Documentation URL][63]
+Delete a bucket. [Documentation URL][79]
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
-### deleteCORS
+### deleteCNAME
 
-Delete CORS information of the bucket. [Documentation URL][65]
-
-Returns **[Promise][64]** axios response
-
-### deleteExternalMirror
-
-Delete external mirror of the bucket. [Documentation URL][66]
-
-Returns **[Promise][64]** axios response
-
-### deleteLifecycle
-
-Delete Lifecycle information of the bucket. [Documentation URL][67]
-
-Returns **[Promise][64]** axios response
-
-### deleteNotification
-
-Delete Notification information of the bucket. [Documentation URL][68]
-
-Returns **[Promise][64]** axios response
-
-### deletePolicy
-
-Delete policy information of the bucket. [Documentation URL][69]
-
-Returns **[Promise][64]** axios response
-
-### deleteMultipleObjects
-
-Delete multiple objects from the bucket. [Documentation URL][70]
+Delete bucket CNAME setting of the bucket. [Documentation URL][81]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
+    -   `options.domain`  domain name
+
+Returns **[Promise][80]** axios response
+
+### deleteCORS
+
+Delete CORS information of the bucket. [Documentation URL][82]
+
+Returns **[Promise][80]** axios response
+
+### deleteExternalMirror
+
+Delete external mirror of the bucket. [Documentation URL][83]
+
+Returns **[Promise][80]** axios response
+
+### deleteLifecycle
+
+Delete Lifecycle information of the bucket. [Documentation URL][84]
+
+Returns **[Promise][80]** axios response
+
+### deleteLogging
+
+Delete bucket logging setting of the bucket. [Documentation URL][85]
+
+Returns **[Promise][80]** axios response
+
+### deleteNotification
+
+Delete Notification information of the bucket. [Documentation URL][86]
+
+Returns **[Promise][80]** axios response
+
+### deletePolicy
+
+Delete policy information of the bucket. [Documentation URL][87]
+
+Returns **[Promise][80]** axios response
+
+### deleteReplication
+
+Delete Replication information of the bucket. [Documentation URL][88]
+
+Returns **[Promise][80]** axios response
+
+### deleteMultipleObjects
+
+Delete multiple objects from the bucket. [Documentation URL][89]
+
+#### Parameters
+
+-   `options` **[Object][78]** User input options;
     -   `options.Content-MD5`  Object MD5sum
     -   `options.objects`  A list of keys to delete
     -   `options.quiet`  Whether to return the list of deleted objects
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### getACL
 
-Get ACL information of the bucket. [Documentation URL][71]
+Get ACL information of the bucket. [Documentation URL][90]
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
-### getCORS
+### getCNAME
 
-Get CORS information of the bucket. [Documentation URL][72]
-
-Returns **[Promise][64]** axios response
-
-### getExternalMirror
-
-Get external mirror of the bucket. [Documentation URL][73]
-
-Returns **[Promise][64]** axios response
-
-### getLifecycle
-
-Get Lifecycle information of the bucket. [Documentation URL][74]
-
-Returns **[Promise][64]** axios response
-
-### getNotification
-
-Get Notification information of the bucket. [Documentation URL][75]
-
-Returns **[Promise][64]** axios response
-
-### getPolicy
-
-Get policy information of the bucket. [Documentation URL][76]
-
-Returns **[Promise][64]** axios response
-
-### getStatistics
-
-Get statistics information of the bucket. [Documentation URL][77]
-
-Returns **[Promise][64]** axios response
-
-### head
-
-Check whether the bucket exists and available. [Documentation URL][78]
-
-Returns **[Promise][64]** axios response
-
-### listMultipartUploads
-
-List multipart uploads in the bucket. [Documentation URL][79]
+Get bucket CNAME setting of the bucket. [Documentation URL][91]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
+    -   `options.type`  Limit the type used for query, normal will be recognized if empty.
+
+Returns **[Promise][80]** axios response
+
+### getCORS
+
+Get CORS information of the bucket. [Documentation URL][92]
+
+Returns **[Promise][80]** axios response
+
+### getExternalMirror
+
+Get external mirror of the bucket. [Documentation URL][93]
+
+Returns **[Promise][80]** axios response
+
+### getLifecycle
+
+Get Lifecycle information of the bucket. [Documentation URL][94]
+
+Returns **[Promise][80]** axios response
+
+### getLogging
+
+Get bucket logging setting of the bucket. [Documentation URL][95]
+
+Returns **[Promise][80]** axios response
+
+### getNotification
+
+Get Notification information of the bucket. [Documentation URL][96]
+
+Returns **[Promise][80]** axios response
+
+### getPolicy
+
+Get policy information of the bucket. [Documentation URL][97]
+
+Returns **[Promise][80]** axios response
+
+### getReplication
+
+Get Replication information of the bucket. [Documentation URL][98]
+
+Returns **[Promise][80]** axios response
+
+### getStatistics
+
+Get statistics information of the bucket. [Documentation URL][99]
+
+Returns **[Promise][80]** axios response
+
+### head
+
+Check whether the bucket exists and available. [Documentation URL][100]
+
+Returns **[Promise][80]** axios response
+
+### listMultipartUploads
+
+List multipart uploads in the bucket. [Documentation URL][101]
+
+#### Parameters
+
+-   `options` **[Object][78]** User input options;
     -   `options.delimiter`  Put all keys that share a common prefix into a list
     -   `options.key_marker`  Limit results returned from the first key after key_marker sorted by alphabetical order
     -   `options.limit`  Results count limit
     -   `options.prefix`  Limits results to keys that begin with the prefix
     -   `options.upload_id_marker`  Limit results returned from the first uploading segment after upload_id_marker sorted by the time of upload_id
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### listObjects
 
-Retrieve the object list in a bucket. [Documentation URL][80]
+Retrieve the object list in a bucket. [Documentation URL][102]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.delimiter`  Put all keys that share a common prefix into a list
     -   `options.limit`  Results count limit
     -   `options.marker`  Limit results to keys that start at this marker
     -   `options.prefix`  Limits results to keys that begin with the prefix
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### put
 
-Create a new bucket. [Documentation URL][81]
+Create a new bucket. [Documentation URL][103]
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### putACL
 
-Set ACL information of the bucket. [Documentation URL][82]
+Set ACL information of the bucket. [Documentation URL][104]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.acl`  Bucket ACL rules
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
+
+### putCNAME
+
+Set bucket CNAME of the bucket. [Documentation URL][105]
+
+#### Parameters
+
+-   `options` **[Object][78]** User input options;
+    -   `options.domain`  The domain name to be bound to the bucket. The domain name must have been registered and not bound to another bucket.
+    -   `options.type`  The purpose of the domain name to be bound. Currently supports two types, normal and website.
+
+Returns **[Promise][80]** axios response
 
 ### putCORS
 
-Set CORS information of the bucket. [Documentation URL][83]
+Set CORS information of the bucket. [Documentation URL][106]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.cors_rules`  Bucket CORS rules
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### putExternalMirror
 
-Set external mirror of the bucket. [Documentation URL][84]
+Set external mirror of the bucket. [Documentation URL][107]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.source_site`  Source site url
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### putLifecycle
 
-Set Lifecycle information of the bucket. [Documentation URL][85]
+Set Lifecycle information of the bucket. [Documentation URL][108]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.rule`  Bucket Lifecycle rule
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
+
+### putLogging
+
+Set bucket logging of the bucket. [Documentation URL][109]
+
+#### Parameters
+
+-   `options` **[Object][78]** User input options;
+    -   `options.target_bucket`  The name of the bucket used to store logs. The user must be the owner of the bucket.
+    -   `options.target_prefix`  generated log files' common prefix
+
+Returns **[Promise][80]** axios response
 
 ### putNotification
 
-Set Notification information of the bucket. [Documentation URL][86]
+Set Notification information of the bucket. [Documentation URL][110]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.notifications`  Bucket Notification
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### putPolicy
 
-Set policy information of the bucket. [Documentation URL][87]
+Set policy information of the bucket. [Documentation URL][111]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.statement`  Bucket policy statement
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
+
+### putReplication
+
+Set Replication information of the bucket. [Documentation URL][112]
+
+#### Parameters
+
+-   `options` **[Object][78]** User input options;
+    -   `options.rules`  Bucket Replication rules
+
+Returns **[Promise][80]** axios response
 
 ### abortMultipartUpload
 
-Abort multipart upload. [Documentation URL][88]
+Abort multipart upload. [Documentation URL][113]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.upload_id`  Object multipart upload ID
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
+
+### appendObject
+
+Append the Object. [Documentation URL][115]
+
+#### Parameters
+
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
+    -   `options.Content-Length`  Object content size
+    -   `options.Content-MD5`  Object MD5sum
+    -   `options.Content-Type`  Object content type
+    -   `options.X-QS-Storage-Class`  Specify the storage class for object
+    -   `options.position`  Object append position
+
+Returns **[Promise][80]** axios response
 
 ### completeMultipartUpload
 
-Complete multipart upload. [Documentation URL][90]
+Complete multipart upload. [Documentation URL][116]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.ETag`  MD5sum of the object part
     -   `options.X-QS-Encryption-Customer-Algorithm`  Encryption algorithm of the object
     -   `options.X-QS-Encryption-Customer-Key`  Encryption key of the object
@@ -298,26 +411,26 @@ Complete multipart upload. [Documentation URL][90]
     -   `options.upload_id`  Object multipart upload ID
     -   `options.object_parts`  Object parts
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### deleteObject
 
-Delete the object. [Documentation URL][91]
+Delete the object. [Documentation URL][117]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
+-   `object_key` **[string][114]** The object key
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### getObject
 
-Retrieve the object. [Documentation URL][92]
+Retrieve the object. [Documentation URL][118]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.If-Match`  Check whether the ETag matches
     -   `options.If-Modified-Since`  Check whether the object has been modified
     -   `options.If-None-Match`  Check whether the ETag does not match
@@ -333,16 +446,16 @@ Retrieve the object. [Documentation URL][92]
     -   `options.response-content-type`  Specified the Content-Type response header
     -   `options.response-expires`  Specified the Expires response header
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### headObject
 
-Check whether the object exists and available. [Documentation URL][93]
+Check whether the object exists and available. [Documentation URL][119]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.If-Match`  Check whether the ETag matches
     -   `options.If-Modified-Since`  Check whether the object has been modified
     -   `options.If-None-Match`  Check whether the ETag does not match
@@ -351,16 +464,16 @@ Check whether the object exists and available. [Documentation URL][93]
     -   `options.X-QS-Encryption-Customer-Key`  Encryption key of the object
     -   `options.X-QS-Encryption-Customer-Key-MD5`  MD5sum of encryption key
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### imageProcess
 
-Image process with the action on the object [Documentation URL][94]
+Image process with the action on the object [Documentation URL][120]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.If-Modified-Since`  Check whether the object has been modified
     -   `options.action`  Image process action
     -   `options.response-cache-control`  Specified the Cache-Control response header
@@ -370,16 +483,16 @@ Image process with the action on the object [Documentation URL][94]
     -   `options.response-content-type`  Specified the Content-Type response header
     -   `options.response-expires`  Specified the Expires response header
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### initiateMultipartUpload
 
-Initial multipart upload on the object. [Documentation URL][95]
+Initial multipart upload on the object. [Documentation URL][121]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.Content-Type`  Object content type
     -   `options.X-QS-Encryption-Customer-Algorithm`  Encryption algorithm of the object
     -   `options.X-QS-Encryption-Customer-Key`  Encryption key of the object
@@ -387,44 +500,44 @@ Initial multipart upload on the object. [Documentation URL][95]
     -   `options.X-QS-MetaData`  User-defined metadata
     -   `options.X-QS-Storage-Class`  Specify the storage class for object
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### listMultipart
 
-List object parts. [Documentation URL][96]
+List object parts. [Documentation URL][122]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.limit`  Limit results count
     -   `options.part_number_marker`  Object multipart upload part number
     -   `options.upload_id`  Object multipart upload ID
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### optionsObject
 
-Check whether the object accepts a origin with method and header. [Documentation URL][97]
+Check whether the object accepts a origin with method and header. [Documentation URL][123]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.Access-Control-Request-Headers`  Request headers
     -   `options.Access-Control-Request-Method`  Request method
     -   `options.Origin`  Request origin
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### putObject
 
-Upload the object. [Documentation URL][98]
+Upload the object. [Documentation URL][124]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.Cache-Control`  Object cache control
     -   `options.Content-Encoding`  Object content encoding
     -   `options.Content-Length`  Object content size
@@ -445,19 +558,20 @@ Upload the object. [Documentation URL][98]
     -   `options.X-QS-Fetch-If-Unmodified-Since`  Check whether fetch target object has not been modified
     -   `options.X-QS-Fetch-Source`  Fetch source, should be a valid url
     -   `options.X-QS-MetaData`  User-defined metadata
+    -   `options.X-QS-Metadata-Directive`  Use for modified metadata, valid (COPY/REPLACE)
     -   `options.X-QS-Move-Source`  Move source, format (/<bucket-name>/<object-key>)
     -   `options.X-QS-Storage-Class`  Specify the storage class for object
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ### uploadMultipart
 
-Upload object multipart. [Documentation URL][99]
+Upload object multipart. [Documentation URL][125]
 
 #### Parameters
 
--   `object_key` **[string][89]** The object key
--   `options` **[Object][62]** User input options;
+-   `object_key` **[string][114]** The object key
+-   `options` **[Object][78]** User input options;
     -   `options.Content-Length`  Object multipart content length
     -   `options.Content-MD5`  Object multipart content MD5sum
     -   `options.X-QS-Copy-Range`  Specify range of the source object
@@ -475,7 +589,7 @@ Upload object multipart. [Documentation URL][99]
     -   `options.part_number`  Object multipart upload part number
     -   `options.upload_id`  Object multipart upload ID
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 ## QingStor
 
@@ -483,18 +597,20 @@ QingStor Module
 
 ### Parameters
 
--   `config` **[Object][62]** object
+-   `config` **[Object][78]** object
 
 ### listBuckets
 
-Retrieve the bucket list. [Documentation URL][100]
+Retrieve the bucket list. [Documentation URL][126]
 
 #### Parameters
 
--   `options` **[Object][62]** User input options;
+-   `options` **[Object][78]** User input options;
     -   `options.Location`  Limits results to buckets that in the location
+    -   `options.limit`  Results count limit
+    -   `options.offset`  Limit results to keys that start at this offset
 
-Returns **[Promise][64]** axios response
+Returns **[Promise][80]** axios response
 
 [1]: #bucket
 
@@ -502,196 +618,248 @@ Returns **[Promise][64]** axios response
 
 [3]: #delete
 
-[4]: #deletecors
+[4]: #deletecname
 
-[5]: #deleteexternalmirror
+[5]: #parameters-1
 
-[6]: #deletelifecycle
+[6]: #deletecors
 
-[7]: #deletenotification
+[7]: #deleteexternalmirror
 
-[8]: #deletepolicy
+[8]: #deletelifecycle
 
-[9]: #deletemultipleobjects
+[9]: #deletelogging
 
-[10]: #parameters-1
+[10]: #deletenotification
 
-[11]: #getacl
+[11]: #deletepolicy
 
-[12]: #getcors
+[12]: #deletereplication
 
-[13]: #getexternalmirror
+[13]: #deletemultipleobjects
 
-[14]: #getlifecycle
+[14]: #parameters-2
 
-[15]: #getnotification
+[15]: #getacl
 
-[16]: #getpolicy
+[16]: #getcname
 
-[17]: #getstatistics
+[17]: #parameters-3
 
-[18]: #head
+[18]: #getcors
 
-[19]: #listmultipartuploads
+[19]: #getexternalmirror
 
-[20]: #parameters-2
+[20]: #getlifecycle
 
-[21]: #listobjects
+[21]: #getlogging
 
-[22]: #parameters-3
+[22]: #getnotification
 
-[23]: #put
+[23]: #getpolicy
 
-[24]: #putacl
+[24]: #getreplication
 
-[25]: #parameters-4
+[25]: #getstatistics
 
-[26]: #putcors
+[26]: #head
 
-[27]: #parameters-5
+[27]: #listmultipartuploads
 
-[28]: #putexternalmirror
+[28]: #parameters-4
 
-[29]: #parameters-6
+[29]: #listobjects
 
-[30]: #putlifecycle
+[30]: #parameters-5
 
-[31]: #parameters-7
+[31]: #put
 
-[32]: #putnotification
+[32]: #putacl
 
-[33]: #parameters-8
+[33]: #parameters-6
 
-[34]: #putpolicy
+[34]: #putcname
 
-[35]: #parameters-9
+[35]: #parameters-7
 
-[36]: #abortmultipartupload
+[36]: #putcors
 
-[37]: #parameters-10
+[37]: #parameters-8
 
-[38]: #completemultipartupload
+[38]: #putexternalmirror
 
-[39]: #parameters-11
+[39]: #parameters-9
 
-[40]: #deleteobject
+[40]: #putlifecycle
 
-[41]: #parameters-12
+[41]: #parameters-10
 
-[42]: #getobject
+[42]: #putlogging
 
-[43]: #parameters-13
+[43]: #parameters-11
 
-[44]: #headobject
+[44]: #putnotification
 
-[45]: #parameters-14
+[45]: #parameters-12
 
-[46]: #imageprocess
+[46]: #putpolicy
 
-[47]: #parameters-15
+[47]: #parameters-13
 
-[48]: #initiatemultipartupload
+[48]: #putreplication
 
-[49]: #parameters-16
+[49]: #parameters-14
 
-[50]: #listmultipart
+[50]: #abortmultipartupload
 
-[51]: #parameters-17
+[51]: #parameters-15
 
-[52]: #optionsobject
+[52]: #appendobject
 
-[53]: #parameters-18
+[53]: #parameters-16
 
-[54]: #putobject
+[54]: #completemultipartupload
 
-[55]: #parameters-19
+[55]: #parameters-17
 
-[56]: #uploadmultipart
+[56]: #deleteobject
 
-[57]: #parameters-20
+[57]: #parameters-18
 
-[58]: #qingstor
+[58]: #getobject
 
-[59]: #parameters-21
+[59]: #parameters-19
 
-[60]: #listbuckets
+[60]: #headobject
 
-[61]: #parameters-22
+[61]: #parameters-20
 
-[62]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[62]: #imageprocess
 
-[63]: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
+[63]: #parameters-21
 
-[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[64]: #initiatemultipartupload
 
-[65]: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
+[65]: #parameters-22
 
-[66]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+[66]: #listmultipart
 
-[67]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html
+[67]: #parameters-23
 
-[68]: https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html
+[68]: #optionsobject
 
-[69]: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
+[69]: #parameters-24
 
-[70]: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
+[70]: #putobject
 
-[71]: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
+[71]: #parameters-25
 
-[72]: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
+[72]: #uploadmultipart
 
-[73]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+[73]: #parameters-26
 
-[74]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html
+[74]: #qingstor
 
-[75]: https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html
+[75]: #parameters-27
 
-[76]: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
+[76]: #listbuckets
 
-[77]: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
+[77]: #parameters-28
 
-[78]: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+[78]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[79]: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+[79]: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
 
-[80]: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+[80]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[81]: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+[81]: https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html
 
-[82]: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+[82]: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
 
-[83]: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+[83]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
 
-[84]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+[84]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html
 
-[85]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html
+[85]: https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html
 
-[86]: https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html
+[86]: https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html
 
-[87]: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+[87]: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
 
-[88]: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+[88]: https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html
 
-[89]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[89]: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
 
-[90]: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+[90]: https://docs.qingcloud.com/qingstor/api/bucket/get_acl.html
 
-[91]: https://docs.qingcloud.com/qingstor/api/object/delete.html
+[91]: https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html
 
-[92]: https://docs.qingcloud.com/qingstor/api/object/get.html
+[92]: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
 
-[93]: https://docs.qingcloud.com/qingstor/api/object/head.html
+[93]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
 
-[94]: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+[94]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html
 
-[95]: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+[95]: https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html
 
-[96]: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+[96]: https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html
 
-[97]: https://docs.qingcloud.com/qingstor/api/object/options.html
+[97]: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
 
-[98]: https://docs.qingcloud.com/qingstor/api/object/put.html
+[98]: https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html
 
-[99]: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+[99]: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
 
-[100]: https://docs.qingcloud.com/qingstor/api/service/get.html
+[100]: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+
+[101]: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+
+[102]: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+
+[103]: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+
+[104]: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+
+[105]: https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html
+
+[106]: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+
+[107]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+
+[108]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html
+
+[109]: https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html
+
+[110]: https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html
+
+[111]: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+
+[112]: https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html
+
+[113]: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+
+[114]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[115]: https://docs.qingcloud.com/qingstor/api/object/append.html
+
+[116]: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+
+[117]: https://docs.qingcloud.com/qingstor/api/object/delete.html
+
+[118]: https://docs.qingcloud.com/qingstor/api/object/get.html
+
+[119]: https://docs.qingcloud.com/qingstor/api/object/head.html
+
+[120]: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+
+[121]: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+
+[122]: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+
+[123]: https://docs.qingcloud.com/qingstor/api/object/options.html
+
+[124]: https://docs.qingcloud.com/qingstor/api/object/put.html
+
+[125]: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+
+[126]: https://docs.qingcloud.com/qingstor/api/service/get.html
