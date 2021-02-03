@@ -37,41 +37,58 @@ const defaultConfigFileContent = [
 ].join('\n');
 
 const defaultConfigFile = '~/.qingstor/config.yaml';
+const configPathEnvName = 'QINGSTOR_CONFIG_PATH';
+const accessKeyIdEnvName = 'QINGSTOR_ACCESS_KEY_ID';
+const secretAccessKeyEnvName = 'QINGSTOR_SECRET_ACCESS_KEY';
 
 class Config {
   constructor(options) {
     Object.assign(this, common(this));
 
     this.loadDefaultConfig();
-    this.loadConfig(options);
-  }
 
-  getUserConfigFilePath() {
-    const home = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'];
-    return `${home}${defaultConfigFile.replace('~', '')}`;
-  }
-
-  installDefaultUserConfig() {
-    const filePath = this.getUserConfigFilePath();
-    this.mkdirParentSync(path.dirname(filePath));
-    fs.writeFileSync(filePath, defaultConfigFileContent);
+    this.overrideConfigByFile();
+    this.overrideConfigByENV();
+    this.overrideConfigByOptions(options);
   }
 
   loadDefaultConfig() {
     const defaultUserConfig = yaml.safeLoad(defaultConfigFileContent);
+
     return this.loadConfig(defaultUserConfig);
   }
 
-  loadUserConfig() {
-    const filePath = this.getUserConfigFilePath();
-    if (!fs.existsSync(filePath)) {
-      this.installDefaultUserConfig();
+  getUserConfigFilePath() {
+    let configFile = defaultConfigFile;
+
+    if (process.env[configPathEnvName]) {
+      configFile = process.env[configPathEnvName];
     }
-    return this.loadConfigFromFilepath(filePath);
+
+    return configFile.replace('~/', `${process.env.HOME || process.env.USERPROFILE}/`);
+  }
+
+  installDefaultUserConfig() {
+    const filePath = this.getUserConfigFilePath();
+
+    this.mkdirParentSync(path.dirname(filePath));
+    fs.writeFileSync(filePath, defaultConfigFileContent);
   }
 
   loadConfigFromFilepath(filePath) {
-    return this.loadConfig(yaml.safeLoad(fs.readFileSync(filePath)));
+    const configs = yaml.safeLoad(fs.readFileSync(filePath));
+
+    return this.loadConfig(configs);
+  }
+
+  overrideConfigByFile() {
+    const filePath = this.getUserConfigFilePath();
+
+    if (!fs.existsSync(filePath)) {
+      this.installDefaultUserConfig();
+    }
+
+    return this.loadConfigFromFilepath(filePath);
   }
 
   mkdirParentSync(dirPath, mode) {
@@ -79,11 +96,31 @@ class Config {
 
     if (!fs.existsSync(dirPath)) {
       const parentDir = path.dirname(dirPath);
+
       if (!fs.existsSync(parentDir)) {
         this.mkdirParentSync(parentDir);
       }
+
       fs.mkdirSync(dirPath, mode);
     }
+  }
+
+  overrideConfigByENV() {
+    const config = {};
+
+    if (process.env[accessKeyIdEnvName]) {
+      config.access_key_id = process.env[accessKeyIdEnvName];
+    }
+
+    if (process.env[secretAccessKeyEnvName]) {
+      config.secret_access_key = process.env[secretAccessKeyEnvName];
+    }
+
+    return this.loadConfig(config);
+  }
+
+  overrideConfigByOptions(options) {
+    return this.loadConfig(options);
   }
 }
 

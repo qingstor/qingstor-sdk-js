@@ -22,32 +22,36 @@ const should = require('chai').should();
 describe('Config test', function () {
   it('loadDefaultConfig test', function () {
     const test = new Config({});
-    test.access_key_id.should.equal('');
-    test.secret_access_key.should.equal('');
-    test.host.should.equal('qingstor.com');
-    test.port.should.equal(443);
-    test.protocol.should.equal('https');
-    test.connection_retries.should.equal(3);
-    test.log_level.should.equal('warn');
+    const config = test.loadDefaultConfig();
+
+    config.access_key_id.should.equal('');
+    config.secret_access_key.should.equal('');
+    config.host.should.equal('qingstor.com');
+    config.port.should.equal(443);
+    config.protocol.should.equal('https');
+    config.connection_retries.should.equal(3);
+    config.log_level.should.equal('warn');
   });
 
-  it('loadDefaultConfig with access key test', function () {
-    const test = new Config({ access_key_id: 'ACCESS_KEY_ID_EXAMPLE', secret_access_key: 'SECRET_ACCESS_KEY_EXAMPLE' });
+  it('getUserConfigFilePath test', function() {
+    const test = new Config();
 
-    test.access_key_id.should.equal('ACCESS_KEY_ID_EXAMPLE');
-    test.secret_access_key.should.equal('SECRET_ACCESS_KEY_EXAMPLE');
-    test.host.should.equal('qingstor.com');
-    test.port.should.equal(443);
-    test.protocol.should.equal('https');
-    test.connection_retries.should.equal(3);
-    test.log_level.should.equal('warn');
+    test.getUserConfigFilePath().should.to.contain('.qingstor/config.yaml');
   });
 
-  it('loadUserConfig test', function () {
+  it('getUserConfigFilePath with ENV test', function() {
+    process.env.QINGSTOR_CONFIG_PATH = '/tmp/config.yaml';
+
+    const test = new Config();
+
+    test.getUserConfigFilePath().should.equal('/tmp/config.yaml');
+  });
+
+  it('overrideConfigByFile test', function () {
     const test = new Config({});
 
     test
-      .loadUserConfig()
+      .overrideConfigByFile()
       .should.to.contain.all.keys([
         'access_key_id',
         'connection_retries',
@@ -57,6 +61,28 @@ describe('Config test', function () {
         'protocol',
         'secret_access_key',
       ]);
+  });
+
+  it('overrideConfigByENV test', function() {
+    process.env.QINGSTOR_ACCESS_KEY_ID = 'example_access_key_id';
+    process.env.QINGSTOR_SECRET_ACCESS_KEY = 'example_secret_access_key';
+
+    const test = new Config();
+
+    test.access_key_id.should.equal('example_access_key_id');
+    test.secret_access_key.should.equal('example_secret_access_key');
+  });
+
+  it('overrideConfigByOptions with access key test', function () {
+    const test = new Config({ access_key_id: 'example_access_key_id', secret_access_key: 'example_secret_access_key' });
+
+    test.access_key_id.should.equal('example_access_key_id');
+    test.secret_access_key.should.equal('example_secret_access_key');
+    test.host.should.equal('qingstor.com');
+    test.port.should.equal(443);
+    test.protocol.should.equal('https');
+    test.connection_retries.should.equal(3);
+    test.log_level.should.equal('warn');
   });
 
   it('loadConfig test', function () {
