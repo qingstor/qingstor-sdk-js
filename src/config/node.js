@@ -25,6 +25,7 @@ const defaultConfigFileContent = [
   '',
   'access_key_id: ""',
   'secret_access_key: ""',
+  'endpoint: ""',
   'host: "qingstor.com"',
   'port: 443',
   'protocol: "https"',

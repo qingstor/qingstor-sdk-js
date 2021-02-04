@@ -113,4 +113,17 @@ describe('Builder test', function () {
       },
     });
   });
+
+  it('parseRequestURIWithEndpoint test', function () {
+    const endpointTest = new Builder({
+      ...config,
+      endpoint: 'https://qingstor.com:443',
+    }, operation);
+
+    endpointTest.parseRequestURI(operation).should.eql({
+      endpoint: 'https://qingstor.com:443',
+      path: '/test_bucket/test_object.jpg?acl',
+      uri: 'https://qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
+    });
+  });
 });
