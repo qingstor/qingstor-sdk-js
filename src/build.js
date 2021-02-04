@@ -123,7 +123,9 @@ class Builder {
     let endpoint = '';
     const parsedProperties = this.parseRequestProperties(operation);
 
-    if (parsedProperties['zone']) {
+    if (this.config.endpoint) {
+      endpoint = this.config.endpoint;
+    } else if (parsedProperties['zone']) {
       endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}:${this.config.port}`;
     } else {
       endpoint = `${this.config.protocol}://${this.config.host}:${this.config.port}`;
