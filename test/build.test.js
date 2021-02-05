@@ -89,18 +89,18 @@ describe('Builder test', function () {
 
   it('parseRequestUri test', function () {
     test.parseRequestURI(operation).should.eql({
-      endpoint: 'https://pek3a.qingstor.com:443',
+      endpoint: 'https://pek3a.qingstor.com',
       path: '/test_bucket/test_object.jpg?acl',
-      uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
+      uri: 'https://pek3a.qingstor.com/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
     });
   });
 
   it('parse test', function () {
     test.parse().should.eql({
       method: 'PUT',
-      endpoint: 'https://pek3a.qingstor.com:443',
+      endpoint: 'https://pek3a.qingstor.com',
       path: '/test_bucket/test_object.jpg?acl',
-      uri: 'https://pek3a.qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
+      uri: 'https://pek3a.qingstor.com/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
       body: 'test string',
       params: {
         upload_id: 'test_upload_id',
@@ -111,19 +111,6 @@ describe('Builder test', function () {
         'content-type': 'image/jpeg',
         'user-agent': userAgent,
       },
-    });
-  });
-
-  it('parseRequestURIWithEndpoint test', function () {
-    const endpointTest = new Builder({
-      ...config,
-      endpoint: 'https://qingstor.com:443',
-    }, operation);
-
-    endpointTest.parseRequestURI(operation).should.eql({
-      endpoint: 'https://qingstor.com:443',
-      path: '/test_bucket/test_object.jpg?acl',
-      uri: 'https://qingstor.com:443/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
     });
   });
 });

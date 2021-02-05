@@ -25,6 +25,7 @@ const USE_AK_SK_WARN = [
 ].join('');
 
 const DEFAULT_CONFIG = {
+  endpoint: 'https://qingstor.com',
   host: 'qingstor.com',
   port: 443,
   protocol: 'https',
@@ -43,6 +44,8 @@ class Config {
     if (!this.signature_server) {
       logger.warn(USE_AK_SK_WARN);
     }
+
+    this.parseEndpoint();
   }
 
   loadDefaultConfig() {

@@ -1,4 +1,5 @@
 import logger from 'loglevel';
+import urlParse from 'urlparse';
 
 export default function common(self) {
   return {
@@ -21,5 +22,22 @@ export default function common(self) {
 
       return self;
     },
+
+    parseEndpoint: () => {
+      if (!self.endpoint) {
+        return self;
+      }
+
+      const { scheme: protocol, host, port = '' } = urlParse(self.endpoint);
+
+      if (protocol && host) {
+        Object.assign(self, { protocol, host, port });
+      } else {
+        // endpoint without protocol, for example qingstor.com
+        Object.assign(self, { host: self.endpoint });
+      }
+
+      return self;
+    }
   };
 }

@@ -30,4 +30,21 @@ describe('Config test', function () {
       'log_level',
     ]);
   });
+
+  it('parseEndpoint test', function() {
+    const tests = [
+      ['http://qingstor.com', 'http', 'qingstor.com', ''],
+      ['https://qingstor.com', 'https', 'qingstor.com', ''],
+      ['https://qingstor.com:443', 'https', 'qingstor.com', '443'],
+      ['qingstor.com', 'https', 'qingstor.com', 443],
+    ];
+
+    tests.map(function([endpoint, protocol, host, port]) {
+      const test = new Config({ endpoint });
+
+      test.protocol.should.equal(protocol);
+      test.host.should.equal(host);
+      test.port.should.equal(port);
+    });
+  });
 });
