@@ -25,7 +25,7 @@ const defaultConfigFileContent = [
   '',
   'access_key_id: ""',
   'secret_access_key: ""',
-  'endpoint: ""',
+  'endpoint: "https://qingstor.com"',
   'host: "qingstor.com"',
   'port: 443',
   'protocol: "https"',
@@ -51,6 +51,8 @@ class Config {
     this.overrideConfigByFile();
     this.overrideConfigByENV();
     this.overrideConfigByOptions(options);
+
+    this.parseEndpoint();
   }
 
   loadDefaultConfig() {

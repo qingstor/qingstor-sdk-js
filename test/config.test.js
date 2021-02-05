@@ -74,15 +74,35 @@ describe('Config test', function () {
   });
 
   it('overrideConfigByOptions with access key test', function () {
-    const test = new Config({ access_key_id: 'example_access_key_id', secret_access_key: 'example_secret_access_key' });
+    const test = new Config({
+      access_key_id: 'example_access_key_id',
+      secret_access_key: 'example_secret_access_key',
+    });
 
     test.access_key_id.should.equal('example_access_key_id');
     test.secret_access_key.should.equal('example_secret_access_key');
     test.host.should.equal('qingstor.com');
-    test.port.should.equal(443);
+    test.port.should.equal('');
     test.protocol.should.equal('https');
     test.connection_retries.should.equal(3);
     test.log_level.should.equal('warn');
+  });
+
+  it('parseEndpoint test', function() {
+    const tests = [
+      ['http://qingstor.com', 'http', 'qingstor.com', ''],
+      ['https://qingstor.com', 'https', 'qingstor.com', ''],
+      ['https://qingstor.com:443', 'https', 'qingstor.com', '443'],
+      ['qingstor.com', 'https', 'qingstor.com', 443],
+    ];
+
+    tests.map(function([endpoint, protocol, host, port]) {
+      const test = new Config({ endpoint });
+
+      test.protocol.should.equal(protocol);
+      test.host.should.equal(host);
+      test.port.should.equal(port);
+    });
   });
 
   it('loadConfig test', function () {
