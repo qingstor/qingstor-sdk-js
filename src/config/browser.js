@@ -32,6 +32,7 @@ const DEFAULT_CONFIG = {
   connection_retries: 3,
   // Valid levels are "debug", "info", "warn", "error", and "fatal"
   log_level: 'warn',
+  enable_virtual_host_style: false,
 };
 
 class Config {

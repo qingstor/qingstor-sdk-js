@@ -15,14 +15,16 @@
 // +-------------------------------------------------------------------------
 
 import logger from 'loglevel';
+import urlParse from 'urlparse';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import Base64 from 'crypto-js/enc-base64';
 import { buildUri } from './utils';
 
 class Signer {
-  constructor(access_key_id, secret_access_key) {
+  constructor(access_key_id, secret_access_key, enable_virtual_host_style) {
     this.access_key_id = access_key_id;
     this.secret_access_key = secret_access_key;
+    this.enable_virtual_host_style = enable_virtual_host_style;
   }
 
   getSignature(operation) {
@@ -128,8 +130,18 @@ class Signer {
 
   getCanonicalizedResource() {
     let canonicalizedResource = this.operation.path;
-    const parsedParams = this.operation.params || {};
+
+    if (this.enable_virtual_host_style) {
+      canonicalizedResource = canonicalizedResource || '/';
+
+      const { host } = urlParse(this.operation.endpoint);
+      const [bucket,] = host.split('.');
+
+      canonicalizedResource = `/${bucket}${canonicalizedResource}`;
+    }
+
     const query = [];
+    const parsedParams = this.operation.params || {};
     if (Object.keys(parsedParams).length !== 0) {
       for (const i of Object.keys(parsedParams)) {
         if (this.isSubResource(i)) {

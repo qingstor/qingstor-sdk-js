@@ -45,7 +45,12 @@ class Request {
       });
     }
 
-    this.operation = new Signer(this.config.access_key_id, this.config.secret_access_key).sign(this.operation);
+    this.operation = new Signer(
+      this.config.access_key_id,
+      this.config.secret_access_key,
+      this.config.enable_virtual_host_style,
+    ).sign(this.operation);
+
     return Promise.resolve(this);
   }
 

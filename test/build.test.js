@@ -35,7 +35,7 @@ const userAgent = [
 ].join('');
 
 describe('Builder test', function () {
-  const config = new Config('test_access_key', 'test_secret_key');
+  const config = new Config();
   config.additional_user_agent = 'UserExample';
   const operation = {
     method: 'PUT',
@@ -92,6 +92,18 @@ describe('Builder test', function () {
       endpoint: 'https://pek3a.qingstor.com',
       path: '/test_bucket/test_object.jpg?acl',
       uri: 'https://pek3a.qingstor.com/test_bucket/test_object.jpg?acl&upload_id=test_upload_id',
+    });
+  });
+
+  it('parseVirtualHostRequestUri test', function() {
+    process.env.QINGSTOR_ENABLE_VIRTUAL_HOST_STYLE = true;
+    const _config = new Config();
+    const _test = new Builder(_config, operation);
+
+    _test.parseRequestURI(operation).should.eql({
+      endpoint: 'https://test_bucket.pek3a.qingstor.com',
+      path: '/test_object.jpg?acl',
+      uri: 'https://test_bucket.pek3a.qingstor.com/test_object.jpg?acl&upload_id=test_upload_id',
     });
   });
 

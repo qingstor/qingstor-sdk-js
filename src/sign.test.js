@@ -91,6 +91,19 @@ test('getCanonicalizedResource', () => {
   expect(signer.getCanonicalizedResource()).toMatchSnapshot();
 });
 
+test('getCanonicalizedResource by virtual host', () => {
+  const _operation = {
+    ...operation,
+    path: '/test_object.jpg?acl',
+    endpoint: 'https://test_bucket.pek3a.qingstor.com',
+    uri: 'https://test_bucket.pek3a.qingstor.com/test_object.jpg?acl&upload_id=test_upload_id',
+  };
+  const vHostSigner = new Signer('test_key', 'test_secret', true);
+
+  vHostSigner._setOperation(_operation);
+  expect(vHostSigner.getCanonicalizedResource()).toMatchSnapshot();
+});
+
 test('getAuthorization', () => {
   signer._setOperation(operation);
   expect(signer.getAuthorization()).toMatchSnapshot();
