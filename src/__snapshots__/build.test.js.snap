@@ -47,3 +47,11 @@ Object {
   "uri": "https://pek3a.qingstor.com/test_bucket/test_object.jpg?acl&upload_id=test_upload_id",
 }
 `;
+
+exports[`parseVirtualHostRequestURI 1`] = `
+Object {
+  "endpoint": "https://test_bucket.pek3a.qingstor.com",
+  "path": "/test_object.jpg?acl",
+  "uri": "https://test_bucket.pek3a.qingstor.com/test_object.jpg?acl&upload_id=test_upload_id",
+}
+`;

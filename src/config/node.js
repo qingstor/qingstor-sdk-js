@@ -30,6 +30,7 @@ const defaultConfigFileContent = [
   'port: 443',
   'protocol: "https"',
   'connection_retries: 3',
+  'enable_virtual_host_style: false',
   '',
   '# Additional User-Agent',
   'additional_user_agent: ""',
@@ -41,6 +42,7 @@ const defaultConfigFile = '~/.qingstor/config.yaml';
 const configPathEnvName = 'QINGSTOR_CONFIG_PATH';
 const accessKeyIdEnvName = 'QINGSTOR_ACCESS_KEY_ID';
 const secretAccessKeyEnvName = 'QINGSTOR_SECRET_ACCESS_KEY';
+const enableVirtualHostEnvName = 'QINGSTOR_ENABLE_VIRTUAL_HOST_STYLE';
 
 class Config {
   constructor(options) {
@@ -111,12 +113,16 @@ class Config {
   overrideConfigByENV() {
     const config = {};
 
-    if (process.env[accessKeyIdEnvName]) {
+    if (accessKeyIdEnvName in process.env) {
       config.access_key_id = process.env[accessKeyIdEnvName];
     }
 
-    if (process.env[secretAccessKeyEnvName]) {
+    if (secretAccessKeyEnvName in process.env) {
       config.secret_access_key = process.env[secretAccessKeyEnvName];
+    }
+
+    if (enableVirtualHostEnvName in process.env) {
+      config.enable_virtual_host_style = process.env[enableVirtualHostEnvName] === 'true';
     }
 
     return this.loadConfig(config);

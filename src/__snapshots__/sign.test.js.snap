@@ -4,6 +4,8 @@ exports[`getAuthorization 1`] = `"L6q5iKoyWbQky0T5/MYELz5jAFecGbvLDyjLdz6fClw="`
 
 exports[`getCanonicalizedResource 1`] = `"/test_bucket/test_object.jpg?acl&upload_id=test_upload_id"`;
 
+exports[`getCanonicalizedResource by virtual host 1`] = `"/test_bucket/test_object.jpg?acl&upload_id=test_upload_id"`;
+
 exports[`getQuerySignature 1`] = `
 Object {
   "access_key_id": "test_key",

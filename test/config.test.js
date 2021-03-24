@@ -31,6 +31,7 @@ describe('Config test', function () {
     config.protocol.should.equal('https');
     config.connection_retries.should.equal(3);
     config.log_level.should.equal('warn');
+    config.enable_virtual_host_style.should.equal(false);
   });
 
   it('getUserConfigFilePath test', function() {
@@ -66,11 +67,13 @@ describe('Config test', function () {
   it('overrideConfigByENV test', function() {
     process.env.QINGSTOR_ACCESS_KEY_ID = 'example_access_key_id';
     process.env.QINGSTOR_SECRET_ACCESS_KEY = 'example_secret_access_key';
+    process.env.QINGSTOR_ENABLE_VIRTUAL_HOST_STYLE = true;
 
     const test = new Config();
 
     test.access_key_id.should.equal('example_access_key_id');
     test.secret_access_key.should.equal('example_secret_access_key');
+    test.enable_virtual_host_style.should.equal(true);
   });
 
   it('overrideConfigByOptions with access key test', function () {

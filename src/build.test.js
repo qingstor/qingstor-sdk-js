@@ -81,3 +81,11 @@ test('parseRequestProperties', () => {
 test('parseRequestURI', () => {
   expect(builder.parseRequestURI(operation)).toMatchSnapshot();
 });
+
+test('parseVirtualHostRequestURI', () => {
+  process.env.QINGSTOR_ENABLE_VIRTUAL_HOST_STYLE = true;
+
+  const virtualHostBuilder = new Builder(new Config(), operation);
+
+  expect(virtualHostBuilder.parseRequestURI(operation)).toMatchSnapshot();
+});

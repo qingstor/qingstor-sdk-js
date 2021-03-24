@@ -119,32 +119,40 @@ class Builder {
   }
 
   parseRequestURI(operation) {
-    let path = operation.uri;
     let endpoint = '';
+    let path = operation.uri;
     const parsedProperties = this.parseRequestProperties(operation);
 
     if (parsedProperties['zone']) {
-      endpoint = `${this.config.protocol}://${parsedProperties.zone}.${this.config.host}`;
+      endpoint = `${parsedProperties.zone}.${this.config.host}`;
     } else {
-      endpoint = `${this.config.protocol}://${this.config.host}`;
+      endpoint = this.config.host;
+    }
+
+    if (this.config.enable_virtual_host_style) {
+      const bucketKey = 'bucket-name';
+      const prefix = `/<${bucketKey}>`;
+
+      if (path.startsWith(prefix) && parsedProperties[bucketKey]) {
+        path = path.slice(prefix.length);
+        endpoint = `${parsedProperties[bucketKey]}.${endpoint}`;
+      }
     }
 
     if (this.config.port) {
       endpoint += `:${this.config.port}`;
     }
 
+    endpoint = `${this.config.protocol}://${endpoint}`;
+
     for (const key of Object.keys(parsedProperties)) {
       path = path.replace(`<${key}>`, parsedProperties[key]);
     }
 
     const parsedParams = this.parseRequestParams(operation);
-    const parsedUri = buildUri(endpoint, path, parsedParams);
+    const uri = buildUri(endpoint, path, parsedParams);
 
-    return {
-      endpoint,
-      path,
-      uri: parsedUri,
-    };
+    return { endpoint, path, uri };
   }
 }
 
