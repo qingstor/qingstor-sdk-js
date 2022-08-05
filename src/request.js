@@ -100,6 +100,8 @@ class Request {
       const axiosConfig = isFunction(this.config.getAxiosConfig) ? this.config.getAxiosConfig(this.operation) : {};
 
       return axios({
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
         ...axiosConfig,
         url: this.operation.uri,
         method: this.operation.method,
