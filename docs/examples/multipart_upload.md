@@ -29,7 +29,7 @@ bucket.initiateMultipartUpload('/path/to/some_object').then((response) => {
   //   key: '/path/to/some_object',
   //   upload_id: <upload-ID>,
   // }
-  console.log(response.status);
+  console.log(response.data);
 }).catch((error) => {
   console.log(error);
 });

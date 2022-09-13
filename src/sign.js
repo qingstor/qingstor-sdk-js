@@ -109,7 +109,7 @@ class Signer {
       parsedContentType = this.operation.headers['content-type'];
     }
 
-    if (process.env.MINIPROGRAM && !parsedContentType) {
+    if (typeof process !== 'undefined' && process.env.MINIPROGRAM && !parsedContentType) {
       parsedContentType = 'application/json';
     }
 
