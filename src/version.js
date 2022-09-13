@@ -14,4 +14,4 @@
 // | limitations under the License.
 // +-------------------------------------------------------------------------
 
-export default '3.1.3';
+export default '3.1.4';
