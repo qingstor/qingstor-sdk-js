@@ -78,16 +78,20 @@ class Builder {
     }
 
     // Add user-agent header
-    parsedHeaders['user-agent'] = util.format(
-      'qingstor-sdk-js/%s (Node.js %s; %s %s)',
-      version,
-      process.version,
-      process.platform,
-      process.arch
-    );
+    if (typeof process !== 'undefined') {
+      parsedHeaders['user-agent'] = util.format(
+        'qingstor-sdk-js/%s (Node.js %s; %s %s)',
+        version,
+        process.version,
+        process.platform,
+        process.arch
+      );
+    } else {
+      parsedHeaders['user-agent'] = 'qingstor-sdk-js/' + version;
+    }
 
     if (this.config.additional_user_agent) {
-      parsedHeaders['user-agent'] += util.format(' %s', this.config.additional_user_agent);
+      parsedHeaders['user-agent'] += ' ' + this.config.additional_user_agent;
     }
 
     // Add helper for DeleteMultipleObjects

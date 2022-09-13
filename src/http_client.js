@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-if (process.env.MINIPROGRAM) {
+if (typeof process !== 'undefined' && process.env.MINIPROGRAM) {
   const mpAdapter = require('axios-miniprogram-adapter');
   axios.defaults.adapter = mpAdapter.default;
 }
