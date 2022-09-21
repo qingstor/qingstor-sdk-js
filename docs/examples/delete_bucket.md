@@ -41,4 +41,4 @@ bucket.delete().then(({ status }) => {
 });
 ```
 
-For more information, please refer to our [API documentation](https://docs.qingcloud.com/qingstor/api/bucket/delete.html)
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/basic_opt/delete/)

@@ -38,6 +38,4 @@ bucket.listMultipartUploads(options).then((response) => {
 
 Please set the corresponding CORS rule for this bucket when accessing the bucket subresource in a browser, otherwise the request will be blocked.
 
-### API Doc
-
-List Multipart Uploads API: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/basic_opt/list_multipart_uploads/)

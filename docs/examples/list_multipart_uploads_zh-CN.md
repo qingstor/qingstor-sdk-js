@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-在列取分段上传之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在列取分段上传之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 ## 代码片段
 
@@ -37,6 +37,4 @@ bucket.listMultipartUploads(options).then((response) => {
 ### 浏览器环境
 在浏览器中访问 Bucket 子资源时，请为此 Bucker 设置相应的 CORS 规则，否则该请求将被阻止。
 
-### API 文档
-
-列取分段上传 API 文档: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/basic_opt/list_multipart_uploads/)

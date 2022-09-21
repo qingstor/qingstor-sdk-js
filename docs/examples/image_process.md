@@ -114,6 +114,4 @@ Other optional properties are as follow:
 | response-content-type | `string` | Specified the Content-Type response header. |
 | response-expires | `string` | Specified the Expires response header. |
 
-### API Doc
-
-Image Processing API: https://docs.qingcloud.com/qingstor/data_process/image_process
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/object/image_process/)

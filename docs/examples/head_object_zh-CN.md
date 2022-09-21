@@ -1,8 +1,8 @@
-# 获取文件的元数据 
+# 获取文件的元数据
 
 ## 准备工作
 
-在获取文件的元数据之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在获取文件的元数据之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 ## 代码片段
 
@@ -43,6 +43,4 @@ bucket.headObject(object_key).then((response) => {
 ### 浏览器环境
 在浏览器中访问 Bucket 子资源时，请为此 Bucker 设置相应的 CORS 规则，否则该请求将被阻止。
 
-### API 文档
-
-获取元数据  API 文档: https://docs.qingcloud.com/qingstor/api/object/head
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/object/basic_opt/head/)

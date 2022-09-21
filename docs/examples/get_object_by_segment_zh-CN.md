@@ -2,7 +2,7 @@
 
 ## 准备工作
 
-在下载对象之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。 在 QingStor 对象初始化的时候您还应该设置 `responseType`。
+在下载对象之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。 在 QingStor 对象初始化的时候您还应该设置 `responseType`。
 
 - `json`
 - `text`
@@ -36,7 +36,7 @@ import fs from 'fs';
 const getObjectBySegment = async (object_key, options) => {
   const partSize = (1024 ** 2) * 5;
 
-  let i = 0; 
+  let i = 0;
   let response = {};
 
   do {
@@ -98,10 +98,10 @@ const downloadArrayBuffer = (object_key, arraybuffer) => {
 
 const getObjectBySegment = async (object_key, options) => {
   const partSize = (1024 ** 2) * 5;
-  
-  let i = 0; 
-  let response = {}; 
-  let arrayBuffer = new Uint8Array(0); 
+
+  let i = 0;
+  let response = {};
+  let arrayBuffer = new Uint8Array(0);
 
   do {
     /**

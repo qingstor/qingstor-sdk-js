@@ -23,6 +23,4 @@ qingstor.listBuckets(options).then((response) => {
 });
 ```
 
-### API Doc
-
-List Buckets API: https://docs.qingcloud.com/qingstor/api/service/get
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/service/get/)

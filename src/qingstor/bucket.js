@@ -2466,15 +2466,15 @@ class Bucket {
   optionsObjectValidate(operation) {
     if (
       operation['headers'] === undefined ||
-      operation['headers']['Access-Control-Request-Method'] === undefined ||
-      operation['headers']['Access-Control-Request-Method'].toString() === ''
+      operation['headers']['access-control-request-method'] === undefined ||
+      operation['headers']['access-control-request-method'].toString() === ''
     ) {
       throw new SDKError.ParameterRequired('Access-Control-Request-Method', 'OptionsObjectInput');
     }
     if (
       operation['headers'] === undefined ||
-      operation['headers']['Origin'] === undefined ||
-      operation['headers']['Origin'].toString() === ''
+      operation['headers']['origin'] === undefined ||
+      operation['headers']['origin'].toString() === ''
     ) {
       throw new SDKError.ParameterRequired('Origin', 'OptionsObjectInput');
     }

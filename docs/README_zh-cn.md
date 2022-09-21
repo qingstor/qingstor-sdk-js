@@ -4,7 +4,7 @@
 - [快速开始](#快速开始)
 - [请求返回格式说明](#请求返回格式说明)
 - [SDK 完整功能列表以及参数说明](./api_specification.md)
-- [SDK 使用示例列表](./examples/index.md)
+- [SDK 使用示例列表](./examples/index_zh-CN.md)
 - [Config 自定义设置](./advanced_configuration-zh-cn.md)
 
 ### 3.0.0 版本中的不兼容变更

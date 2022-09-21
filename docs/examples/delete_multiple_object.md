@@ -70,4 +70,4 @@ bucket.deleteMultipleObjects(options).then(({ status }) => {
 });
 ```
 
-For more information, please refer to our [API documentation](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html)
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/basic_opt/delete_multiple/)

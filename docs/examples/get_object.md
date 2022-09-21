@@ -111,6 +111,4 @@ The second parameter is a Object, optional properties are as follow:
 | response-content-type | `string` | Specified the Content-Type response header. |
 | response-expires | `string` | Specified the Expires response header. |
 
-### API Doc
-
-Get Object API: https://docs.qingcloud.com/qingstor/api/object/get
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/object/basic_opt/get/)

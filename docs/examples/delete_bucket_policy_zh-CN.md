@@ -4,7 +4,7 @@
 
 ## 准备工作
 
-在删除 Policy 之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在删除 Policy 之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 ## 代码片段
 
@@ -45,5 +45,4 @@ bucket.deletePolicy().then(({ status }) => {
 });
 ```
 
-### API 文档
-删除 Policy API 文档: [https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html](https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html)
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/policy/delete_policy/)

@@ -34,7 +34,4 @@ bucket.listObjects().then((response) => {
 ### Browser Environment
 Set Bucket CORS before use to allow the current domain name to access your resources.
 
-### API Doc
-
-List Objects API: https://docs.qingcloud.com/qingstor/api/bucket/get
-
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/basic_opt/get/)
