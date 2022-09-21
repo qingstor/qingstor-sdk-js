@@ -2,7 +2,7 @@
 
 ## 准备工作
 
-在下载对象之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。在 QingStor 对象初始化的时候您还应该设置 `responseType`。
+在下载对象之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。在 QingStor 对象初始化的时候您还应该设置 `responseType`。
 
 - `json`
 - `text`
@@ -111,6 +111,4 @@ bucket.getObject(object_key).then((response) => {
 | response-content-type | `string` | 设置响应头中的 Content-Type 字段。 |
 | response-expires | `string` | 设置响应头中的 Expires 字段。 |
 
-### API 文档
-
-下载对象 API 文档: https://docs.qingcloud.com/qingstor/api/object/get
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/object/basic_opt/get/)

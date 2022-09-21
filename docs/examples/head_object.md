@@ -43,6 +43,4 @@ The second parameter is a Object, optional properties are as follow:
 ### Browser Environment
 Please set the corresponding CORS rule for this bucket when accessing the bucket subresource in a browser, otherwise the request will be blocked.
 
-### API Doc
-
-Head Object API: https://docs.qingcloud.com/qingstor/api/object/head
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/object/basic_opt/head/)

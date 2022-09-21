@@ -5,7 +5,7 @@
 上传时可对数据进行加密。访问该链接 [https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers](https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers).
 以更好的理解数据加密解密的过程。
 
-在对文件进行加密或解密之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在对文件进行加密或解密之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 ## 代码片段
 

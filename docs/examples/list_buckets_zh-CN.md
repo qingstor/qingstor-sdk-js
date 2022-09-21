@@ -2,7 +2,7 @@
 
 ## 准备工作
 
-在获取 Buckets 之前需要先初始化 QingStor 对象，初始化 QingStor 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在获取 Buckets 之前需要先初始化 QingStor 对象，初始化 QingStor 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 ## 代码片段
 
@@ -23,6 +23,4 @@ qingstor.listBuckets(options).then((response) => {
 });
 ```
 
-### API 文档
-
-获取 Buckets API 文档: https://docs.qingcloud.com/qingstor/api/service/get
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/service/get/)

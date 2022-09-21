@@ -51,7 +51,4 @@ Other optional properties are as follow:
 | content-type       | `string` | Specify file MIME type, such as `image/png`. Refer to [MDN Doc](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)                                                                              |
 | expect             | `string` | Indicates expectations that need to be fulfilled by the server in order to properly handle the request, such as `100-continue`. Refer to [MDN Doc](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect) |
 | x-qs-storage-class | `string` | Specify the file storage class, includes STANDARD and STANDARD_IA.                                                                                                                                                   |
-
-### API Doc
-
-Put Object API: https://docs.qingcloud.com/qingstor/api/object/put
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/object/basic_opt/put/)

@@ -25,6 +25,4 @@ bucket.getLifecycle().then((response) => {
 ### Browser Environment
 Please set the corresponding CORS rule for this bucket when accessing the bucket subresource in a browser, otherwise the request will be blocked.
 
-### API Doc
-
-GET Bucket Lifecycle API: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/lifecycle/get_lifecycle/)

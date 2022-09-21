@@ -5,7 +5,7 @@
 
 ## 准备工作
 
-在删除对象之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在删除对象之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 ## 代码片段
 
@@ -49,5 +49,4 @@ bucket.deleteObject(objectKey).then(({ status }) => {
 });
 ```
 
-### API 文档
-删除单个对象 API 文档: [https://docs.qingcloud.com/qingstor/api/object/delete.html](https://docs.qingcloud.com/qingstor/api/object/delete.html)
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/object/basic_opt/delete/)

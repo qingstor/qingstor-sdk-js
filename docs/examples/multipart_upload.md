@@ -79,7 +79,7 @@ console.log(chunks);
 The file data is read in sequence according to the object content offset, and each segment is marked with an integer identifier greater than or equal to 0, and then uploadMultipart is called to complete the upload.
 
 ```javascript
-chunks.map((chunk, index) => {
+Promise.all(chunks.map((chunk, index) => {
   /**
    * @param {string} object_key The object key
    * @param {Object} options - User input options;
@@ -102,17 +102,29 @@ chunks.map((chunk, index) => {
    *
    * @return {Promise} axios response
    */
-  bucket.uploadMultipart('/path/to/some_object', {
+  return bucket.uploadMultipart('/path/to/some_object', {
     body: chunk,
     upload_id: '<upload-ID>',
     part_number: index.toString(),
-  }).then((response) => {
-    // If the upload is successful, the status code should be 201.
-    console.log(response.status);
+  });
+})).then((responseList) => {
+    const errors = responseList.filter((res) => {
+      // If the upload is successful, the status code should be 201.
+      return res.status !== 201;
+    });
+
+    // You need to wait for all segments to be uploaded successfully before merging object segments.
+    if (errors.length === 0) {
+      bucket.completeMultipartUpload('/path/to/some_object', {
+        upload_id: '<upload-ID>',
+        object_parts: chunks.map((chunk, i) => {
+          return { part_number: i };
+        }),
+      })
+    }
   }).catch((error) => {
     console.log(error);
   });
-});
 ```
 
 
@@ -169,7 +181,27 @@ bucket.abortMultipartUpload('/path/to/some_object', {
 });
 ```
 
+## List Multipart Upload
 
-### API Doc
+This API interface is used to list uploaded segment information. This request requires read permission on the Bucket.
 
-Put Object API: https://docsv3.qingcloud.com/storage/object-storage/api/object/multipart/
+```javascript
+/**
+ * @param {string} object_key The object key
+ * @param {Object} options - User input options;
+ * @param options.limit - Limit results count
+ * @param options.part_number_marker - Object multipart upload part number
+ * @param options.upload_id - Object multipart upload ID
+ *
+ * @return {Promise} axios response
+ */
+bucket.listMultipart('/path/to/some_object', {
+  upload_id: '<upload-ID>',
+}).then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.log(error);
+});
+```
+
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/object/multipart/)

@@ -2,7 +2,7 @@
 
 ## 准备工作
 
-在向 Bucket 上传文件之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。
+在向 Bucket 上传文件之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。
 
 
 ## 初始化分段上传
@@ -79,7 +79,7 @@ console.log(chunks);
 根据 Object 内容偏移依次读取文件数据，并为每个分段标上大于等于 0 的整数标识后，调用 uploadMultipart 完成上传。
 
 ```javascript
-chunks.map((chunk, index) => {
+Promise.all(chunks.map((chunk, index) => {
   /**
    * @param {string} object_key The object key
    * @param {Object} options - User input options;
@@ -102,17 +102,29 @@ chunks.map((chunk, index) => {
    *
    * @return {Promise} axios response
    */
-  bucket.uploadMultipart('/path/to/some_object', {
+  return bucket.uploadMultipart('/path/to/some_object', {
     body: chunk,
     upload_id: '<upload-ID>',
     part_number: index.toString(),
-  }).then((response) => {
-    // 如果上传成功，得到的 status 应该是 201
-    console.log(response.status);
-  }).catch((error) => {
-    console.log(error);
   });
-});
+})).then((responseList) => {
+    const errors = responseList.filter((res) => {
+      // 如果上传成功，得到的 status 应该是 201
+      return res.status !== 201;
+    });
+
+    // 需要等待分段全部上传成功以后，才可以合并对象分段
+    if (errors.length === 0) {
+      bucket.completeMultipartUpload('/path/to/some_object', {
+        upload_id: '<upload-ID>',
+        object_parts: chunks.map((chunk, i) => {
+          return { part_number: i };
+        }),
+      })
+    }
+  }).catch((error) => {
+    console.log(error.response.data);
+  });
 ```
 
 
@@ -169,7 +181,27 @@ bucket.abortMultipartUpload('/path/to/some_object', {
 });
 ```
 
+## 列取对象分段
 
-### API 文档
+该 API 接口用于列出已经上传的分段信息。该请求需要对 Bucket 有可读权限。
 
-上传文件 API 文档: https://docsv3.qingcloud.com/storage/object-storage/api/object/multipart/
+```javascript
+/**
+ * @param {string} object_key The object key
+ * @param {Object} options - User input options;
+ * @param options.limit - Limit results count
+ * @param options.part_number_marker - Object multipart upload part number
+ * @param options.upload_id - Object multipart upload ID
+ *
+ * @return {Promise} axios response
+ */
+bucket.listMultipart('/path/to/some_object', {
+  upload_id: '<upload-ID>',
+}).then((response) => {
+  console.log(response.data);
+}).catch((error) => {
+  console.log(error);
+});
+```
+
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/object/multipart/)

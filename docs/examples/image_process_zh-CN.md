@@ -2,7 +2,7 @@
 
 ## 准备工作
 
-在处理图片之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor.md)。 在 QingStor 对象初始化的时候您还应该设置 `responseType`。
+在处理图片之前需要先初始化 Bucket 对象，初始化 Bucket 对象的方法请参考[这里](./initialize_config_and_qingstor_zh-CN.md)。 在 QingStor 对象初始化的时候您还应该设置 `responseType`。
 
 - `json`
 - `text`
@@ -115,6 +115,4 @@ bucket.imageProcess(object_key, { action: 'rotate:a_90' }).then((response) => {
 | response-content-type | `string` | 设置响应头中的 Content-Type 字段。 |
 | response-expires | `string` | 设置响应头中的 Expires 字段。 |
 
-### API 文档
-
-图片处理 API 文档: https://docs.qingcloud.com/qingstor/data_process/image_process
+更多信息，请参考 [API 文档](https://docsv3.qingcloud.com/storage/object-storage/api/object/image_process/)

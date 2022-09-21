@@ -41,4 +41,4 @@ bucket.deleteCORS().then(({ status }) => {
 });
 ```
 
-For more information, please refer to our [API documentation](https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html)
+For more information, please refer to our [API documentation](https://docsv3.qingcloud.com/storage/object-storage/api/bucket/cors/delete_cors/)
