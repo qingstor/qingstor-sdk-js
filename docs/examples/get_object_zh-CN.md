@@ -17,7 +17,13 @@ const config = new Config({
   access_key_id: 'YOUR-ACCESS-KEY-ID',
   secret_access_key: 'YOUR-SECRET-ACCESS-KEY',
   getAxiosConfig: function(operation) {
-    return { responseType: 'arraybuffer' };
+    return {
+      // 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'，默认 json
+      responseType: 'arraybuffer',
+      // 用于解码响应的编码，默认 utf8
+      // Note: Ignored for `responseType` of 'stream' or client-side requests
+      responseEncoding: 'binary',
+    };
   },
 });
 
@@ -41,7 +47,11 @@ import fs from 'fs';
  * @return {Promise} axios response
  */
 bucket.getObject(object_key).then((response) => {
-  fs.writeFile(`./${object_key}`, response.data, { flag: 'wx' }, (error) => {
+  fs.writeFile(`./${object_key}`, response.data, {
+    flag: 'wx',
+    // 编码，默认 utf8
+    encoding: 'binary',
+  }, (error) => {
     console.log(error);
   });
 }).catch((error) => {

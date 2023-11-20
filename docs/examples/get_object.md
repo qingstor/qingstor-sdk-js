@@ -17,7 +17,13 @@ const config = new Config({
   access_key_id: 'YOUR-ACCESS-KEY-ID',
   secret_access_key: 'YOUR-SECRET-ACCESS-KEY',
   getAxiosConfig: function(operation) {
-    return { responseType: 'arraybuffer' };
+    return {
+      // The data type response can be 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream', default 'json'
+      responseType: 'arraybuffer',
+      // indicates encoding to use for decoding responses, default 'utf8'
+      // Note: Ignored for `responseType` of 'stream' or client-side requests
+      responseEncoding: 'binary',
+    };
   },
 });
 
@@ -41,7 +47,11 @@ import fs from 'fs';
  * @return {Promise} axios response
  */
 bucket.getObject(object_key).then((response) => {
-  fs.writeFile(`./${object_key}`, response.data, { flag: 'wx' }, (error) => {
+  fs.writeFile(`./${object_key}`, response.data, {
+    flag: 'wx',
+    // default utf8
+    encoding: 'binary',
+  }, (error) => {
     console.log(error);
   });
 }).catch((error) => {
