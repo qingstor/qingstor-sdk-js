@@ -99,7 +99,7 @@ bucket.imageProcess(object_key, { action: 'rotate:a_90' }).then((response) => {
 第二个参数是一个 Object，Object 中的 `action` 参数表示对图片的一组操作:
 
 - `action` 的格式为 `operation:k_v[,k_v][|operation:k_v][,k_v]`。
-- `operation` 表示对图片的基本操作，如 [crop](https://docs.qingcloud.com/qingstor/data_process/image_process/crop)、 [rotate](https://docs.qingcloud.com/qingstor/data_process/image_process/rotate)、 [resize](https://docs.qingcloud.com/qingstor/data_process/image_process/resize)、 [watermark](https://docs.qingcloud.com/qingstor/data_process/image_process/watermark)、 [watermark image](https://docs.qingcloud.com/qingstor/data_process/image_process/watermark_image)、 [format](https://docs.qingcloud.com/qingstor/data_process/image_process/format)等。每个 operation 后面可以接多个 key value pair 作为参数。
+- `operation` 表示对图片的基本操作，如 [crop](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/crop)、 [rotate](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/rotate)、 [resize](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/resize)、 [watermark](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/watermark)、 [watermark image](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/watermark_image)、 [format](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/format)等。每个 operation 后面可以接多个 key value pair 作为参数。
 - `k` 为 operation 的 argument key, `v` 为 argument value。
 - 多个 operation 用分隔符 | 连接成为一个 action ，其将会顺序对图片进行操作，类似管道。
 

@@ -144,9 +144,9 @@ getObjectBySegment(object_key, options);
 | If-Modified-Since | `Date` | 如果该对象自从指定时间往后被修改过，则正常下载对象，并返回 200 OK；否则返回 304 NOT MODIFIED。  |
 | If-Unmodified-Since | `Date` | 如果该对象自从指定时间往后没有被修改过，则正常下载对象，并返回 200 OK；否则返回 412 PRECONDITION FAILED。 |
 | Range | `string` | 下载对象的某个字节区间，详情可见：http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35 当附加该请求头时，处理成功后返回的状态码为 206 Partial Content |
-| X-QS-Encryption-Customer-Algorithm | `string` | 源对象的加密算法 。目前支持的加密算法是 AES256。 详情参考[这里](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)。|
-| X-QS-Encryption-Customer-Key | `string` | 源对象的密钥。密钥必须进行 Base64 编码处理，对于AES256的密钥，明文必须具有32字节长度。详情参考[这里](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)。|
-| X-QS-Encryption-Customer-Key-MD5 | `string` | 源对象的密钥的 MD5。密钥 MD5 必须进行 Base64 编码处理。 详情参考[这里](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)。|
+| X-QS-Encryption-Customer-Algorithm | `string` | 源对象的加密算法 。目前支持的加密算法是 AES256。 详情参考[这里](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)。|
+| X-QS-Encryption-Customer-Key | `string` | 源对象的密钥。密钥必须进行 Base64 编码处理，对于AES256的密钥，明文必须具有32字节长度。详情参考[这里](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)。|
+| X-QS-Encryption-Customer-Key-MD5 | `string` | 源对象的密钥的 MD5。密钥 MD5 必须进行 Base64 编码处理。 详情参考[这里](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)。|
 | response-cache-control | `string` | 设置响应头中的 Cache-Control 字段。 |
 | response-content-disposition | `string` | 设置响应头中的 Content-Disposition 字段。若要支持指定浏览器下载的文件名中带中文，需要拼接参数 “?response-content-disposition=” + url_quote(‘attachment; filename=”‘+url_quote(filename) + “"; filename=*utf-8’’” + url_quote(filename))。 |
 | response-content-encoding | `string` | 设置响应头中的 Content-Encoding 字段。 |
@@ -156,4 +156,4 @@ getObjectBySegment(object_key, options);
 
 ### API 文档
 
-下载对象 API 文档: https://docs.qingcloud.com/qingstor/api/object/get
+下载对象 API 文档: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/

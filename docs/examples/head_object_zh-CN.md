@@ -36,9 +36,9 @@ bucket.headObject(object_key).then((response) => {
 | If-None-Match | `string` | 如果对象内容的 ETag 值不同于给定的值，则正常下载对象，并返回 200 OK；否则返回 304 NOT MODIFIED。  |
 | If-Modified-Since | `Date` | 如果该对象自从指定时间往后被修改过，则正常下载对象，并返回 200 OK；否则返回 304 NOT MODIFIED。  |
 | If-Unmodified-Since | `Date` | 如果该对象自从指定时间往后没有被修改过，则正常下载对象，并返回 200 OK；否则返回 412 PRECONDITION FAILED。 |
-| X-QS-Encryption-Customer-Algorithm | `string` | 源对象的加密算法 。目前支持的加密算法是 AES256。 详情参考[这里](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)。|
-| X-QS-Encryption-Customer-Key | `string` | 源对象的密钥。密钥必须进行 Base64 编码处理，对于AES256的密钥，明文必须具有32字节长度。详情参考[这里](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)。|
-| X-QS-Encryption-Customer-Key-MD5 | `string` | 源对象的密钥的 MD5。密钥 MD5 必须进行 Base64 编码处理。 详情参考[这里](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)。|
+| X-QS-Encryption-Customer-Algorithm | `string` | 源对象的加密算法 。目前支持的加密算法是 AES256。 详情参考[这里](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)。|
+| X-QS-Encryption-Customer-Key | `string` | 源对象的密钥。密钥必须进行 Base64 编码处理，对于AES256的密钥，明文必须具有32字节长度。详情参考[这里](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)。|
+| X-QS-Encryption-Customer-Key-MD5 | `string` | 源对象的密钥的 MD5。密钥 MD5 必须进行 Base64 编码处理。 详情参考[这里](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)。|
 
 ### 浏览器环境
 在浏览器中访问 Bucket 子资源时，请为此 Bucker 设置相应的 CORS 规则，否则该请求将被阻止。

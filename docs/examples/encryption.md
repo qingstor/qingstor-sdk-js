@@ -2,7 +2,7 @@
 
 ### Code Snippet
 
-You can encrypt data when uploading. To understand the process of encryption better, visit the link [https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers](https://docs.qingcloud.com/qingstor/api/common/encryption.html#object-storage-encryption-headers) .
+You can encrypt data when uploading. To understand the process of encryption better, visit the link [https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/) .
 
 Encrypt when uploading files. The encryption operation is performed by setting related items in putOptions struct.
 

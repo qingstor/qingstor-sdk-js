@@ -766,98 +766,98 @@ Retrieve the bucket list. [API 文档][126]
 
 [78]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[79]: https://docs.qingcloud.com/qingstor/api/bucket/delete.html
+[79]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete/
 
 [80]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[81]: https://docs.qingcloud.com/qingstor/api/bucket/cname/delete_cname.html
+[81]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/delete_cname/
 
-[82]: https://docs.qingcloud.com/qingstor/api/bucket/cors/delete_cors.html
+[82]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/delete_cors/
 
-[83]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/delete_external_mirror.html
+[83]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/delete_external_mirror/
 
-[84]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/delete_lifecycle.html
+[84]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/delete_lifecycle/
 
-[85]: https://docs.qingcloud.com/qingstor/api/bucket/logging/delete_logging.html
+[85]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/delete_logging/
 
-[86]: https://docs.qingcloud.com/qingstor/api/bucket/notification/delete_notification.html
+[86]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/delete_notification/
 
-[87]: https://docs.qingcloud.com/qingstor/api/bucket/policy/delete_policy.html
+[87]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/delete_policy/
 
-[88]: https://docs.qingcloud.com/qingstor/api/bucket/replication/delete_replication.html
+[88]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/delete_replication/
 
-[89]: https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html
+[89]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/
 
 [90]: https://docsv3.qingcloud.com/storage/object-storage/api/bucket/acl/get_acl/
 
-[91]: https://docs.qingcloud.com/qingstor/api/bucket/cname/get_cname.html
+[91]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/get_cname/
 
-[92]: https://docs.qingcloud.com/qingstor/api/bucket/cors/get_cors.html
+[92]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/get_cors/
 
-[93]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/get_external_mirror.html
+[93]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/get_external_mirror/
 
-[94]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/get_lifecycle.html
+[94]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/get_lifecycle/
 
-[95]: https://docs.qingcloud.com/qingstor/api/bucket/logging/get_logging.html
+[95]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/get_logging/
 
-[96]: https://docs.qingcloud.com/qingstor/api/bucket/notification/get_notification.html
+[96]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/get_notification/
 
-[97]: https://https://docs.qingcloud.com/qingstor/api/bucket/policy/get_policy.html
+[97]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/get_policy/
 
-[98]: https://docs.qingcloud.com/qingstor/api/bucket/replication/get_replication.html
+[98]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/get_replication/
 
-[99]: https://docs.qingcloud.com/qingstor/api/bucket/get_stats.html
+[99]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get_stats/
 
-[100]: https://docs.qingcloud.com/qingstor/api/bucket/head.html
+[100]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/head/
 
-[101]: https://docs.qingcloud.com/qingstor/api/bucket/list_multipart_uploads.html
+[101]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/
 
-[102]: https://docs.qingcloud.com/qingstor/api/bucket/get.html
+[102]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/get/
 
-[103]: https://docs.qingcloud.com/qingstor/api/bucket/put.html
+[103]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/put/
 
-[104]: https://docs.qingcloud.com/qingstor/api/bucket/put_acl.html
+[104]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/acl/put_acl/
 
-[105]: https://docs.qingcloud.com/qingstor/api/bucket/cname/put_cname.html
+[105]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cname/put_cname/
 
-[106]: https://docs.qingcloud.com/qingstor/api/bucket/cors/put_cors.html
+[106]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/cors/put_cors/
 
-[107]: https://docs.qingcloud.com/qingstor/api/bucket/external_mirror/put_external_mirror.html
+[107]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/external_mirror/put_external_mirror/
 
-[108]: https://docs.qingcloud.com/qingstor/api/bucket/lifecycle/put_lifecycle.html
+[108]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/lifecycle/put_lifecycle/
 
-[109]: https://docs.qingcloud.com/qingstor/api/bucket/logging/put_logging.html
+[109]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/logging/put_logging/
 
-[110]: https://docs.qingcloud.com/qingstor/api/bucket/notification/put_notification.html
+[110]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/notification/put_notification/
 
-[111]: https://docs.qingcloud.com/qingstor/api/bucket/policy/put_policy.html
+[111]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/policy/put_policy/
 
-[112]: https://docs.qingcloud.com/qingstor/api/bucket/replication/put_replication.html
+[112]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/replication/put_replication/
 
-[113]: https://docs.qingcloud.com/qingstor/api/object/abort_multipart_upload.html
+[113]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/abort/
 
 [114]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[115]: https://docs.qingcloud.com/qingstor/api/object/append.html
+[115]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/append/
 
-[116]: https://docs.qingcloud.com/qingstor/api/object/complete_multipart_upload.html
+[116]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/complete/
 
-[117]: https://docs.qingcloud.com/qingstor/api/object/delete.html
+[117]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/delete/
 
-[118]: https://docs.qingcloud.com/qingstor/api/object/get.html
+[118]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/get/
 
-[119]: https://docs.qingcloud.com/qingstor/api/object/head.html
+[119]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/head/
 
-[120]: https://docs.qingcloud.com/qingstor/data_process/image_process/index.html
+[120]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/image_process/
 
-[121]: https://docs.qingcloud.com/qingstor/api/object/initiate_multipart_upload.html
+[121]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/initiate/
 
-[122]: https://docs.qingcloud.com/qingstor/api/object/list_multipart.html
+[122]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/list/
 
-[123]: https://docs.qingcloud.com/qingstor/api/object/options.html
+[123]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/options_object/
 
-[124]: https://docs.qingcloud.com/qingstor/api/object/put.html
+[124]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/basic_opt/put/
 
-[125]: https://docs.qingcloud.com/qingstor/api/object/multipart/upload_multipart.html
+[125]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/multipart/upload/
 
-[126]: https://docs.qingcloud.com/qingstor/api/service/get.html
+[126]: https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/
