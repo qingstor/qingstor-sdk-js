@@ -1,6 +1,6 @@
 # QingStor SDK for JavaScript
 [![github-actions](https://github.com/qingstor/qingstor-sdk-js/workflows/Unit%20Test/badge.svg)](https://github.com/qingstor/qingstor-sdk-js/actions?query=branch%3Amaster+workflow%3A%22Unit+Test%22)
-[![api-reference](https://img.shields.io/badge/api-reference-green.svg)](https://docs.qingcloud.com/qingstor)
+[![api-reference](https://img.shields.io/badge/api-reference-green.svg)](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
 [![license](https://img.shields.io/badge/license-apache%20v2-blue.svg)](https://github.com/yunify/qingstor-sdk-js/blob/master/LICENSE)
 
 [![NPM](https://nodei.co/npm/qingstor-sdk.png)](https://nodei.co/npm/qingstor-sdk/)
@@ -310,9 +310,9 @@ QingStor SDK uses [axios] (https://github.com/axios/axios) as http client, and a
 
 ## Reference Documentations
 
-- [QingStor Documentation](https://docs.qingcloud.com/qingstor/index.html)
-- [QingStor Guide](https://docs.qingcloud.com/qingstor/guide/index.html)
-- [QingStor APIs](https://docs.qingcloud.com/qingstor/api/index.html)
+- [QingStor Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/intro/product/)
+- [QingStor Guide](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
+- [QingStor APIs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/)
 
 ## Contributing
 

@@ -111,9 +111,9 @@ The second parameter is a Object, optional properties are as follow:
 | If-Modified-Since | `Date` | Check whether the object has been modified.  |
 | If-Unmodified-Since | `Date` | Check whether the object has not been modified. |
 | Range | `string` | Specified range of the object |
-| X-QS-Encryption-Customer-Algorithm | `string` | Encryption algorithm of the object. Refer to [Encryption Doc](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)|
-| X-QS-Encryption-Customer-Key | `string` | Encryption key of the object. Refer to [Encryption Doc](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)|
-| X-QS-Encryption-Customer-Key-MD5 | `string` | MD5sum of encryption key. Refer to [Encryption Doc](https://docs.qingcloud.com/qingstor/api/common/encryption.html#%E5%8A%A0%E5%AF%86%E8%AF%B7%E6%B1%82%E5%A4%B4)|
+| X-QS-Encryption-Customer-Algorithm | `string` | Encryption algorithm of the object. Refer to [Encryption Doc](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)|
+| X-QS-Encryption-Customer-Key | `string` | Encryption key of the object. Refer to [Encryption Doc](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)|
+| X-QS-Encryption-Customer-Key-MD5 | `string` | MD5sum of encryption key. Refer to [Encryption Doc](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/object/encryption/)|
 | response-cache-control | `string` | Specified the Cache-Control response header. |
 | response-content-disposition | `string` | Specified the Content-Disposition response header. |
 | response-content-encoding | `string` | Specified the Content-Encoding response header. |

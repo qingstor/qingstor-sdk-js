@@ -57,7 +57,7 @@ const options = {
 };
 ```
 
-请注意 DeleteMultipleObjectsInput 中的参数不是都必须设置的，具体可以参考[官方 API 文档](https://docs.qingcloud.com/qingstor/api/bucket/delete_multiple.html)。
+请注意 DeleteMultipleObjectsInput 中的参数不是都必须设置的，具体可以参考[官方 API 文档](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/bucket/basic_opt/delete_multiple/)。
 
 最后调用 deleteMultipleObjects 从存储空间中批量删除指定对象。批量删除一次最多能删除 1000 个对象。
 

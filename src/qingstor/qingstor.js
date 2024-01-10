@@ -27,7 +27,7 @@ class QingStor {
   }
 
   /**
-   * Retrieve the bucket list. [Documentation URL](https://docs.qingcloud.com/qingstor/api/service/get.html)
+   * Retrieve the bucket list. [Documentation URL](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/)
    * @param {Object} options - User input options;
    * @param options.Location - Limits results to buckets that in the location
    * @param options.limit - Results count limit
@@ -43,7 +43,7 @@ class QingStor {
   /**
    * @ignore
    * Build ListBuckets's request
-   * [Documentation URL](https://docs.qingcloud.com/qingstor/api/service/get.html)
+   * [Documentation URL](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/service/get/)
    * @param {Object} options - User input options;
    * @param options.Location - Limits results to buckets that in the location
    * @param options.limit - Results count limit

@@ -327,9 +327,9 @@ QingStor SDK 使用 [axios](https://github.com/axios/axios) 作为 http 客户�
 
 ## 参考文档
 
-- [QingStor Documentation](https://docs.qingcloud.com/qingstor/index.html)
-- [QingStor Guide](https://docs.qingcloud.com/qingstor/guide/index.html)
-- [QingStor APIs](https://docs.qingcloud.com/qingstor/api/index.html)
+- [QingStor Documentation](https://docsv4.qingcloud.com/user_guide/storage/object_storage/intro/product/)
+- [QingStor Guide](https://docsv4.qingcloud.com/user_guide/storage/object_storage/)
+- [QingStor APIs](https://docsv4.qingcloud.com/user_guide/storage/object_storage/api/)
 
 ## Contributing
 
